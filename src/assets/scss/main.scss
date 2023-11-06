@@ -1,0 +1,21 @@
+/***** Setting *****/
+@import "settings/colors";
+@import "settings/fonts";
+
+/****** Generic *******/
+
+@import "generic/normalize";
+
+/****** Layout ******/
+
+@import "layout/layout";
+
+/****** Organisms ******/
+
+@import "organisms/menu";
+@import "organisms/langing_container";
+@import "organisms/carrousel";
+@import "organisms/news";
+@import "organisms/announcements";
+@import "organisms/institution";
+@import "organisms/footer";

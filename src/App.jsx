@@ -1,27 +1,23 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Menu from "./components/Header";
-import Footer from "./components/Footer";
+// import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
 import Landing from "./views/Landing";
 import Header from "./components/Header";
+import Institution from "./views/Institution.jsx";
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Landing />,
-    },
-  ]);
-
   return (
-    <>
-      <div className="layout">
-        <Header />
-        <section className="container">
-          <RouterProvider router={router} />
-        </section>
-        <Footer />
-      </div>
-    </>
+      <>
+        <div className="layout">
+          <Header/>
+          <section className="layout__container">
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/institution" element={<Institution />} />
+              {/*<Route path="*" element={<NotFound />} />*/}
+            </Routes>
+          </section>
+        </div>
+      </>
   );
 }
 

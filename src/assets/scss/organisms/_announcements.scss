@@ -1,0 +1,56 @@
+.announcements {
+  top: 20px;
+  background-color: $background-announcements;
+  border-radius: 5px;
+  width: 100%;
+  position: relative;
+
+  &__title {
+    font-family: $_acme;
+    font-size: 2rem;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  &__announcement {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 30px 40px 30px;
+    justify-content: center;
+
+    &__img {
+      width: 100px;
+      border-radius: 10px;
+    }
+
+    &__text {
+      padding-top: 20px;
+      line-height: 1.5rem;
+      text-align:justify;
+      text-justify:auto;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .announcements{
+    width: 100vw;
+    padding: 0;
+
+    &__title {
+      width: 100vw;
+    }
+
+    &__announcement {
+      width: 100vw;
+      padding: 0;
+
+
+      &__text {
+        width: 100vw;
+        padding: 20px;
+      }
+    }
+  }
+}

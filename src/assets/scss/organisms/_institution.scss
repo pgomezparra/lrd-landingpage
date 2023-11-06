@@ -1,0 +1,122 @@
+@use "../settings/_colors.scss";
+
+.institution {
+    height: calc(100vh - 160px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 15px;
+    grid-template-areas: "institution" "footer";
+
+    &__content {
+        grid-area: institution;
+        padding: 15px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 15px;
+        grid-template-areas:
+                "mission principles"
+                "mission valors"
+                "philosophy motto";
+
+        &__mission {
+            grid-area: mission;
+            border-radius: 5px;
+            background-color: $background-announcements;
+            padding: 30px;
+            text-align: center;
+        }
+
+        &__principles {
+            grid-area: principles;
+            border-radius: 5px;
+            background-color: $background-announcements;
+            padding: 30px;
+            text-align: center;
+        }
+
+        &__valors {
+            grid-area: valors;
+            border-radius: 5px;
+            background-color: $background-announcements;
+            padding: 30px;
+            text-align: center;
+        }
+
+        &__philosophy {
+            grid-area: philosophy;
+            border-radius: 5px;
+            background-color: $background-announcements;
+            padding: 30px;
+            text-align: center;
+        }
+
+        &__motto {
+            grid-area: motto;
+            border-radius: 5px;
+            background-color: $background-announcements;
+            padding: 30px;
+            text-align: center;
+        }
+    }
+
+    &__title {
+        font-family: $_acme;
+        font-size: 1.5rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    &__text {
+        line-height: 1.5rem;
+        text-align:justify;
+        text-justify:auto;
+
+        li::marker {
+            color: $text-institution-list-marker;
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    .institution{
+        width: 100vw;
+        box-sizing: border-box;
+        height: calc(100vh - 110px);
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 100vw;
+        grid-template-areas: "institution" "footer";
+        gap: 0;
+
+        &__content {
+            grid-template-columns: 1fr;
+            padding: 15px 20px;
+            grid-template-rows: auto;
+            grid-template-areas:
+                "mission" "philosophy" "principles" "valors" "motto";
+
+            &__mission {
+                padding: 20px;
+            }
+
+            &__principles {
+                padding: 20px;
+            }
+
+            &__valors {
+                padding: 20px;
+            }
+
+            &__philosophy {
+                padding: 20px;
+            }
+
+            &__motto {
+                padding: 20px;
+            }
+        }
+    }
+}

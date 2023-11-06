@@ -1,0 +1,59 @@
+@use "../settings/_colors.scss";
+
+.landing_container {
+    height: calc(100vh - 160px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 68vw 30vw;
+    grid-template-rows: calc(100vh - 170px) 1fr;
+    gap: 15px;
+    grid-template-areas:
+            "carrousel carrousel"
+            "news announcements"
+            "footer footer";
+
+    &__carrousel {
+        grid-area: carrousel;
+        position: relative;
+        grid-column: 1  / span 2;
+    }
+
+    &__news {
+        grid-area: news;
+        padding: 15px 80px;
+    }
+
+    &__announcements {
+        grid-area: announcements;
+        margin: 15px 20px 0 0;
+    }
+}
+
+@media (max-width: 450px) {
+    .landing_container{
+        width: 100vw;
+        box-sizing: border-box;
+        height: calc(100vh - 110px);
+        grid-template-rows: calc(100vh - 120px) 1fr;
+        grid-template-columns: 100vw;
+        grid-template-areas:
+            "carrousel" "announcements" "news" "footer";
+        gap: 0;
+
+        &__carrousel {
+            width: 100vw;
+        }
+
+        &__news {
+            width: 100vw;
+            padding: 35px 0;
+            margin: 0;
+        }
+
+        &__announcements {
+            width: 100vw;
+            margin: 0;
+        }
+    }
+}
