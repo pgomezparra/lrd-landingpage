@@ -37,7 +37,7 @@
         cursor: pointer;
         margin-right: 5px;
         padding: 10px 20px;
-        border-radius: 10px;
+        border-radius: 5px;
         background-color: $background-button-menu;
         transition: background-color 0.3s ease-in-out;
     }
@@ -48,6 +48,7 @@
 
     ul a li:hover, .menu-active {
         background-color: colors.$hover-button-menu;
+        color: colors.$button-menu-active;
     }
 
     &__modal-overlay {
@@ -110,9 +111,8 @@
         }
 
         &__title {
-            margin-left: 40px;
-            font-size: 2rem;
-            font-family: $font-primary-title;
+            margin-left: 20px;
+            font-size: 1.7rem;
         }
 
         &__list {
@@ -155,7 +155,7 @@
 
         ul  a:hover li, .menu-active {
             background-color: $hover-button-menu;
-            color: $button-menu;
+            color: colors.$button-menu-active;
         }
 
         ul a li {

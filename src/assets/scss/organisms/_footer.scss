@@ -1,7 +1,12 @@
 .footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
 
-  &__phone-information{
+  &__phone-information {
     height: 100px;
+    font-family: $font-news-title;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -17,19 +22,67 @@
     }
   }
 
+  &__address {
+    height: 100px;
+    font-family: $font-news-title;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: $text-footer;
+
+    &__icon {
+      width: 30px;
+    }
+
+    &__text {
+      font-size: 1rem;
+    }
+
+    &__link {
+      text-decoration: none;
+      font-size: 1rem;
+      color: $text-footer;
+    }
+  }
+
+  &__social {
+    height: 100px;
+    font-family: $font-news-title;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: $text-footer;
+
+    &__icons {
+      width: 100%;
+    }
+
+    &__icon {
+      width: 30px;
+    }
+
+    &__text {
+      font-size: 1rem;
+    }
+  }
+
   &__whatsapp {
-    position:fixed;
-    width:60px;
-    height:60px;
-    bottom:70px;
-    right:10px;
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 70px;
+    right: 10px;
     background-color: #1e8d48;
-    color:#FFF;
-    border-radius:50px;
-    text-align:center;
-    font-size:30px;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
     box-shadow: 2px 2px 3px #564e4e;
-    z-index:100;
+    z-index: 100;
 
     &__icon {
       width: 30px;
@@ -39,9 +92,32 @@
 }
 
 @media (max-width: 450px) {
-  .footer{
+  .footer {
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+
+    &__address {
+      height: auto;
+    }
+
+    &__phone-information {
+      height: auto;
+      justify-content: center;
+    }
+
+    &__social {
+      height: auto;
+      justify-items: center;
+
+      &__icons {
+        text-align: center;
+        justify-items: center;
+      }
+    }
+
     &__whatsapp {
-      bottom:30px;
+      bottom: 30px;
 
       &__icon {
         width: 30px;

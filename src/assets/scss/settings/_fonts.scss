@@ -20,12 +20,21 @@
   src: url("@/assets/fonts/AcmeRegular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "MadeTommyRegular";
+  src: url("@/assets/fonts/MadeTommyRegular.otf") format("truetype");
+}
+
 $_best-school: BestSchoolFont, serif;
 $_best-school-outline: BestSchoolOutlineFont, serif;
 $_schoolbell: SchoolbellRegular, serif;
 $_acme: AcmeRegular, serif;
+$_made-tommy-regular: MadeTommyRegular, serif;
 
 // Typography
-$font-primary-title: $_acme;
-$font-menu-mobile: $_acme;
-$font-primary-title-outline: $_best-school-outline;
+$font-primary-title: $_made-tommy-regular;
+$font-menu-mobile: $_made-tommy-regular;
+$font-news-title: $_made-tommy-regular;
+$font-announcements-title: $_made-tommy-regular;
+$font-institution-title: $_made-tommy-regular;
+$font-footer: $_made-tommy-regular;

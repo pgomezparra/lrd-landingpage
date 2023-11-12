@@ -1,7 +1,7 @@
 @use "../settings/_colors.scss";
 
 .institution {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 150px);
     overflow-y: auto;
     box-sizing: border-box;
     display: grid;
@@ -64,7 +64,7 @@
     }
 
     &__title {
-        font-family: $_acme;
+        font-family: $font-institution-title;
         font-size: 1.5rem;
         width: 100%;
         justify-content: center;
@@ -85,7 +85,7 @@
     .institution{
         width: 100vw;
         box-sizing: border-box;
-        height: calc(100vh - 110px);
+        height: calc(100dvh - 100px);
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 100vw;
         grid-template-areas: "institution" "footer";

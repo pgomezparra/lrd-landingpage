@@ -3,19 +3,21 @@ $_magenta: #610e0d;
 $_light-magenta: #905655;
 $_gray: #BACDDB;
 $_black: #000000;
+$_dark-yellow: #ffc510;
 
 // Background
 $background-container-landing: $_gray;
 $background-footer: $_magenta;
-$background-announcements: #ECCDB4;
+$background-announcements: $_dark-yellow;
 
 // Button
-$background-button-menu: $_magenta;
+$background-button-menu: $_dark-yellow;
 $hover-button-menu: $_light-magenta;
 $background-button-menu-mobile: $_white;
 
 // Text
-$button-menu: $_white;
+$button-menu: $_black;
+$button-menu-active: $_white;
 $text-menu-mobile: $_black;
 $button-carrousel: $_white;
 $text-footer: $_white;

@@ -1,12 +1,12 @@
 @use "../settings/_colors.scss";
 
 .landing_container {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 150px);
     overflow-y: auto;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 68vw 30vw;
-    grid-template-rows: calc(100vh - 170px) 1fr;
+    grid-template-rows: calc(100vh - 150px) 1fr;
     gap: 15px;
     grid-template-areas:
             "carrousel carrousel"
@@ -34,8 +34,8 @@
     .landing_container{
         width: 100vw;
         box-sizing: border-box;
-        height: calc(100vh - 110px);
-        grid-template-rows: calc(100vh - 120px) 1fr;
+        height: calc(100dvh - 100px);
+        grid-template-rows: calc(100dvh - 100px) 1fr;
         grid-template-columns: 100vw;
         grid-template-areas:
             "carrousel" "announcements" "news" "footer";

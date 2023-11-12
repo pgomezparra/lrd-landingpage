@@ -27,7 +27,7 @@
 
     &__title {
       grid-area: title;
-      font-family: $_acme;
+      font-family: $font-news-title;
       font-size: 2rem;
       padding-left: 100px;
     }
@@ -79,6 +79,7 @@
       &__text {
         padding: 0 20px;
         width: 100vw;
+        line-height: 1.5rem;
       }
     }
   }
