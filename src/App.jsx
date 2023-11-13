@@ -3,6 +3,7 @@ import { Routes, Route, Outlet, Link } from "react-router-dom";
 import Landing from "./views/Landing";
 import Header from "./components/Header";
 import Institution from "./views/Institution.jsx";
+import News from "./views/News.jsx";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/institution" element={<Institution />} />
+              <Route path="/news" element={<News />} />
               {/*<Route path="*" element={<NotFound />} />*/}
             </Routes>
           </section>

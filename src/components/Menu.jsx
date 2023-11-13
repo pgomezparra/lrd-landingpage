@@ -26,6 +26,7 @@ export default function Menu() {
       <ul className={openMenu ? 'menu__list menu__open-menu' : 'menu__list menu__closed-menu'}>
           <Link  to="/" style={{ textDecoration: 'none' }}><li onClick={() => closeMenu(0)} className={activeMenu === 0 ? 'menu-active' : ''}>Inicio</li></Link>
           <Link  to="/institution" style={{ textDecoration: 'none' }}><li onClick={() => closeMenu(1)} className={activeMenu === 1 ? 'menu-active' : ''}>Institución</li></Link>
+          <Link  to="/news" style={{ textDecoration: 'none' }}><li onClick={() => closeMenu(2)} className={activeMenu === 2 ? 'menu-active' : ''}>Noticias</li></Link>
           <Link  to="https://classroom.google.com/" style={{ textDecoration: 'none' }} target="_blank"><li>Plataforma</li></Link>
           {/*<li onClick={closeMenu}><Link to="/institution" style={{ textDecoration: 'none' }}>Docentes</Link></li>*/}
           {/*<li onClick={closeMenu}><Link to="/institution" style={{ textDecoration: 'none' }}>Estudiantes</Link></li>*/}

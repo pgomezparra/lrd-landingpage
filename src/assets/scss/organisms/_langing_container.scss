@@ -1,59 +1,44 @@
 @use "../settings/_colors.scss";
 
 .landing_container {
-    height: calc(100vh - 150px);
-    overflow-y: auto;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: 68vw 30vw;
-    grid-template-rows: calc(100vh - 150px) 1fr;
-    gap: 15px;
-    grid-template-areas:
-            "carrousel carrousel"
-            "news announcements"
-            "footer footer";
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows: calc(100vh - 150px) 1fr;
+  grid-template-areas:
+            "carrousel"
+            "announcements"
+            "footer";
 
-    &__carrousel {
-        grid-area: carrousel;
-        position: relative;
-        grid-column: 1  / span 2;
-    }
+  &__carrousel {
+    grid-area: carrousel;
+    position: relative;
+  }
 
-    &__news {
-        grid-area: news;
-        padding: 15px 80px;
-    }
-
-    &__announcements {
-        grid-area: announcements;
-        margin: 15px 20px 0 0;
-    }
+  &__announcements {
+    grid-area: announcements;
+  }
 }
 
 @media (max-width: 450px) {
-    .landing_container{
-        width: 100vw;
-        box-sizing: border-box;
-        height: calc(100dvh - 100px);
-        grid-template-rows: calc(100dvh - 100px) 1fr;
-        grid-template-columns: 100vw;
-        grid-template-areas:
-            "carrousel" "announcements" "news" "footer";
-        gap: 0;
+  .landing_container {
+    width: 100vw;
+    box-sizing: border-box;
+    height: calc(100dvh - 100px);
+    grid-template-rows: calc(100dvh - 100px) 1fr;
+    grid-template-columns: 100vw;
+    grid-template-areas:
+            "carrousel" "announcements" "footer";
 
-        &__carrousel {
-            width: 100vw;
-        }
-
-        &__news {
-            width: 100vw;
-            padding: 35px 0;
-            margin: 0;
-        }
-
-        &__announcements {
-            width: 100vw;
-            margin: 0;
-        }
+    &__carrousel {
+      width: 100vw;
     }
+
+    &__announcements {
+      width: 100vw;
+      margin: 0;
+    }
+  }
 }
