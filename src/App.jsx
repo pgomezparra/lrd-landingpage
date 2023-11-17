@@ -4,6 +4,7 @@ import Landing from "./views/Landing";
 import Header from "./components/Header";
 import Institution from "./views/Institution.jsx";
 import News from "./views/News.jsx";
+import Admissions from "./views/Admissions.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path="/institution" element={<Institution />} />
               <Route path="/news" element={<News />} />
+              <Route path="/admissions" element={<Admissions />} />
               {/*<Route path="*" element={<NotFound />} />*/}
             </Routes>
           </section>

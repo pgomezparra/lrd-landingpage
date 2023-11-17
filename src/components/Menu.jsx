@@ -19,6 +19,7 @@ export default function Menu() {
       <ul className={openMenu ? 'menu__list menu__open-menu' : 'menu__list menu__closed-menu'}>
           <Link  to="/" style={{ textDecoration: 'none' }}><li onClick={() => closeMenu()} className={path === '/' ? 'menu-active' : ''}>Inicio</li></Link>
           <Link  to="/institution" style={{ textDecoration: 'none' }}><li onClick={() => closeMenu()} className={path === '/institution' ? 'menu-active' : ''}>Institución</li></Link>
+          <Link  to="/admissions" style={{ textDecoration: 'none' }}><li onClick={() => closeMenu()} className={path === '/admissions' ? 'menu-active' : ''}>Admisiones</li></Link>
           <Link  to="/news" style={{ textDecoration: 'none' }}><li onClick={() => closeMenu()} className={path === '/news' ? 'menu-active' : ''}>Noticias</li></Link>
           <Link  to="https://classroom.google.com/" style={{ textDecoration: 'none' }} target="_blank"><li>Plataforma</li></Link>
           {/*<li onClick={closeMenu}><Link to="/institution" style={{ textDecoration: 'none' }}>Docentes</Link></li>*/}

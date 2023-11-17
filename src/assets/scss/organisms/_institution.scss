@@ -92,7 +92,7 @@
     gap: 0;
 
     &__content {
-      grid-template-rows: auto repeat(4, calc((100vh - 100px) / 2));
+      grid-template-rows: auto repeat(4, calc((100dvh - 100px) / 2));
       grid-template-areas:
                 "mission"  "principles" "valors" "philosophy"  "motto";
 
