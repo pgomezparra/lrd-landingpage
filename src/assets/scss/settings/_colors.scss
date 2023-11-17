@@ -4,11 +4,15 @@ $_light-magenta: #905655;
 $_gray: #BACDDB;
 $_black: #000000;
 $_dark-yellow: #ffc510;
+$_light-yellow: #ffdd8c;
+$_orange: #ff8031;
 
 // Background
 $background-container-landing: $_gray;
 $background-footer: $_magenta;
 $background-announcements: $_dark-yellow;
+$background-announcements-light-yellow: $_light-yellow;
+$background-announcements-orange: $_orange;
 $background-announcement-bar: $_black;
 $background-announcement-date: $_magenta;
 

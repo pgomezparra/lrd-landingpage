@@ -7,69 +7,64 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-  gap: 15px;
   grid-template-areas: "institution" "footer";
 
   &__content {
     grid-area: institution;
-    padding: 15px 40px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, calc((100vh - 150px) / 2));
     grid-template-areas:
-                "mission principles"
-                "mission valors"
-                "philosophy motto";
+                "mission" "principles" "valors" "philosophy" "motto";
 
     &__mission {
       grid-area: mission;
-      border-radius: 20px;
       background-color: $background-announcements;
-      padding: 30px;
-      text-align: center;
+      padding: 0 20%;
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      box-shadow: 5px 5px 10px #bebebe,
-      -5px -5px 10px #ffffff;
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
     }
 
     &__principles {
       grid-area: principles;
-      border-radius: 5px;
-      padding: 30px;
+      background-color: colors.$background-announcements-orange;
+      padding: 0 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: center;
-      box-shadow: 5px 5px 10px #bebebe,
-      -5px -5px 10px #ffffff;
     }
 
     &__valors {
       grid-area: valors;
-      border-radius: 5px;
-      padding: 30px;
+      background-color: $background-announcements-light-yellow;
+      padding: 0 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: center;
-      box-shadow: 5px 5px 10px #bebebe,
-      -5px -5px 10px #ffffff;
     }
 
     &__philosophy {
       grid-area: philosophy;
-      border-radius: 5px;
-      padding: 30px;
+      background-color: $background-announcements;
+      padding: 0 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: center;
-      box-shadow: 5px 5px 10px #bebebe,
-      -5px -5px 10px #ffffff;
     }
 
     &__motto {
       grid-area: motto;
-      border-radius: 5px;
-      padding: 30px;
+      background-color: colors.$background-announcements-orange;
+      padding: 0 20%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: center;
-      box-shadow: 5px 5px 10px #bebebe,
-      -5px -5px 10px #ffffff;
     }
   }
 
@@ -93,35 +88,33 @@
     box-sizing: border-box;
     height: calc(100dvh - 100px);
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 100vw;
     grid-template-areas: "institution" "footer";
     gap: 0;
 
     &__content {
-      grid-template-columns: 1fr;
-      padding: 15px 20px;
-      grid-template-rows: auto;
+      grid-template-rows: auto repeat(4, calc((100vh - 100px) / 2));
       grid-template-areas:
-                "mission" "philosophy" "principles" "valors" "motto";
+                "mission"  "principles" "valors" "philosophy"  "motto";
 
       &__mission {
-        padding: 20px;
+        height: 500px;
+        padding: 30px;
       }
 
       &__principles {
-        padding: 20px;
+        padding: 30px;
       }
 
       &__valors {
-        padding: 20px;
+        padding: 30px;
       }
 
       &__philosophy {
-        padding: 20px;
+        padding: 30px;
       }
 
       &__motto {
-        padding: 20px;
+        padding: 30px;
       }
     }
   }
