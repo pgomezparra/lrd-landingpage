@@ -1,5 +1,4 @@
 .announcements {
-  border-radius: 5px;
   width: 100%;
   box-sizing: border-box;
 
@@ -15,7 +14,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 80vw;
 
-    margin: 10px 10vw;
+    margin: 10px 10vw 0 10vw;
 
     &__announcement {
       box-sizing: border-box;
@@ -28,6 +27,7 @@
       align-items: flex-start;
       box-shadow: 5px 5px 10px #bebebe,
       -5px -5px 10px #ffffff;
+      //background-color: #ffdd8c;
       position: relative;
 
       &__img {
@@ -73,7 +73,8 @@
         width: 20vw;
         background-color: $background-announcement-bar;
         height: 3vw;
-        opacity: .6;
+        backdrop-filter: blur(2px);
+        opacity: .5;
       }
 
       &__text {

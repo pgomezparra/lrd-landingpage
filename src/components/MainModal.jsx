@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import modalImage from "@/assets/img/modal_info.jpg"
 import closeCircle from "@/assets/img/close-circle.svg"
+import {useLocation} from "react-router-dom";
 
 export default function MainModal(props) {
     const { isOpen, onClose, children } = props;
 
-    return isOpen ? (
+    const location = useLocation();
+    const path = location.pathname
+
+    return isOpen && path === '/' ? (
         <div className="menu__modal-overlay">
             <div className="menu__modal">
                 <img src={closeCircle} className="menu__close-button" onClick={onClose} />
