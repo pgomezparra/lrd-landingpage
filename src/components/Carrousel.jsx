@@ -1,6 +1,6 @@
-import imageOne from "@/assets/img/carrousel/1.png";
-import imageTwo from "@/assets/img/carrousel/2.png";
-import imageThree from "@/assets/img/carrousel/3.jpg";
+import imageOne from "@/assets/img/carrousel/1.webp";
+import imageTwo from "@/assets/img/carrousel/2.webp";
+import imageThree from "@/assets/img/carrousel/3.webp";
 import { useEffect, useState } from "react";
 
 export default function Carrousel() {

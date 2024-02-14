@@ -27,7 +27,7 @@
     width: 100vw;
     box-sizing: border-box;
     height: calc(100dvh - 100px);
-    grid-template-rows: calc(100dvh - 100px) 1fr;
+    grid-template-rows: calc(100dvh - 65dvh) 1fr;
     grid-template-columns: 100vw;
     grid-template-areas:
             "carrousel" "announcements" "footer";
