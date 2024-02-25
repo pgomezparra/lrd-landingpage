@@ -1,10 +1,10 @@
 import imageOne from "@/assets/img/carrousel/1.webp";
 import imageTwo from "@/assets/img/carrousel/2.webp";
-import imageThree from "@/assets/img/carrousel/3.webp";
+//import imageThree from "@/assets/img/carrousel/3.webp";
 import { useEffect, useState } from "react";
 
 export default function Carrousel() {
-  const images = [imageThree, imageOne, imageTwo];
+  const images = [imageOne, imageTwo];
   const [actualImage, setActualImage] = useState(0);
 
   useEffect(() => {
