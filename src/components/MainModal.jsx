@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import modalImage from "@/assets/img/modal.webp";
+import modalImage from "@/assets/img/activities.webp";
 import closeCircle from "@/assets/img/close-circle.svg";
 import { useLocation } from "react-router-dom";
 

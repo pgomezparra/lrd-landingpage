@@ -1,21 +1,39 @@
 import imageOne from "@/assets/img/announcements/1.jpg";
 import imageTwo from "@/assets/img/announcements/2.webp";
-import imageThree from "@/assets/img/announcements/3.webp";
+import scheduleImg from "@/assets/img/announcements/schedule.webp";
+import activitiesImg from "@/assets/img/announcements/activities.webp";
 import imageFour from "@/assets/img/announcements/4.jpg";
 
 export const ANNOUNCEMENTS = [
   {
-    image: imageThree,
+    image: activitiesImg,
+    date: "25\nFeb",
+    title: "¡Prepárate para un año lleno de emoción!",
+    links: [
+      {
+        label: "Descarga el Cronograma",
+        route:
+          "https://drive.google.com/file/d/1EgzVW2qa9oaF4LwAtypmZ6APCekB9fMD/view?usp=sharing",
+      },
+    ],
+    announcement:
+      "¡Querida comunidad educativa!\n\n" +
+      "Estamos emocionados de dar inicio a un nuevo año lleno de aprendizaje, crecimiento y momentos inolvidables.\n\nPara asegurarte de no perderte ninguna de las emocionantes actividades que hemos planeado, te invitamos a descargar nuestro Cronograma de Actividades del Año Escolar 2024",
+  },
+  {
+    image: scheduleImg,
     date: "14\nFeb",
     title: "Descarga tu horario de clases y ve preparado",
     links: [
       {
         label: "Horario Primaria",
-        route: "https://drive.google.com/file/d/14gmXG-fx7u0oSUbMLkro8Q4DNLQkY0DC/view?usp=drivesdk",
+        route:
+          "https://drive.google.com/file/d/14gmXG-fx7u0oSUbMLkro8Q4DNLQkY0DC/view?usp=drivesdk",
       },
       {
         label: "Horario Bachillerato",
-        route: "https://drive.google.com/file/d/1yYB-mw3tMUwXxdsaT9ucQclBJe_YBkP8/view?usp=drivesdk",
+        route:
+          "https://drive.google.com/file/d/1yYB-mw3tMUwXxdsaT9ucQclBJe_YBkP8/view?usp=drivesdk",
       },
     ],
     announcement:
