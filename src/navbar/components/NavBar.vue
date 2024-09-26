@@ -29,9 +29,9 @@
       <div class="m-menu-mobile__container">
         <nav class="m-menu-mobile__container__items">
           <div class="m-menu-icon">
-            <a href="https://www.instagram.com/colegioliceoreydavid/" target="_blank">
+            <a @click="toggleMenu" href="https://www.instagram.com/colegioliceoreydavid/" target="_blank">
               <img src="@/assets/img/general/instagram.svg" alt="Instagram" /></a>
-            <a href="https://www.facebook.com/liceo.rey" target="_blank">
+            <a @click="toggleMenu" href="https://www.facebook.com/liceo.rey" target="_blank">
               <img src="@/assets/img/general/facebook.svg" alt="Instagram" /></a>
           </div>
           <div
