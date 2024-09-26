@@ -1,5 +1,5 @@
 <template>
-  <main class="l-container">
+  <main id="container" class="l-container">
     <Navbar />
     <RouterView />
     <whatsapp />

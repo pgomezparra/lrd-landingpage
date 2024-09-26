@@ -24,4 +24,8 @@ const router = createRouter({
   ]
 })
 
+router.afterEach(() => {
+  document.getElementById('container').scrollTop = 0
+})
+
 export default router
