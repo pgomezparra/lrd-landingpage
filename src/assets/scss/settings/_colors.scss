@@ -1,33 +1,27 @@
 $_white: #ffffff;
 $_magenta: #610e0d;
 $_light-magenta: #905655;
-$_gray: #BACDDB;
+$_gray: #f3f3f3;
+$_light-gray: #ddd;
+$_dark-gray: #555;
 $_black: #000000;
-$_dark-yellow: #ffc510;
-$_light-yellow: #ffdd8c;
-$_orange: #ff8031;
+$_dark-green: #1e8d48;
 
 // Background
-$background-container-landing: $_gray;
+$background-levels: $_gray;
 $background-footer: $_magenta;
-$background-announcements: $_dark-yellow;
-$background-announcements-light-yellow: $_light-yellow;
-$background-announcements-orange: $_orange;
-$background-announcement-bar: $_black;
-$background-announcement-date: $_magenta;
+$background-whatsapp: $_dark-green;
 
 // Button
-$background-button-menu: $_dark-yellow;
 $hover-button-menu: $_light-magenta;
-$background-button-menu-mobile: $_white;
 
 // Text
-$button-menu: $_black;
-$button-menu-active: $_white;
-$text-menu-mobile: $_black;
-$button-carrousel: $_white;
-$text-footer: $_white;
-$text-announcement-title: $_white;
+$menu-label: $_magenta;
+$primary-color: $_magenta;
+$secondary-color: $_white;
+$level-card-description: $_dark-gray;
+$admissions-card-note: $_dark-gray;
 
 // Border
-$border-menu-mobile: $_magenta;
+$admissions-card-border: $_light-gray;
+$border-menu-active: $_magenta;

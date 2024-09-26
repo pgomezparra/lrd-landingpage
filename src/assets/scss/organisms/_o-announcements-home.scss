@@ -1,0 +1,29 @@
+@use '@/assets/scss/settings/colors';
+
+.o-announcements-home {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: colors.$secondary-color;
+  height: 35rem;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: colors.$primary-color;
+    margin: 0;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  &__slider {
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .o-announcements-home {
+    padding: 1rem;
+  }
+}

@@ -1,22 +1,33 @@
 /***** Setting *****/
-@import "settings/colors";
-@import "settings/fonts";
+@import 'settings/colors';
+// @import 'settings/fonts';
 
 /****** Generic *******/
 
-@import "generic/normalize";
+@import 'generic/normalize';
 
 /****** Layout ******/
 
-@import "layout/layout";
+@import 'layout/l-container';
+@import 'layout/l-home';
+@import 'layout/l-admissions';
+@import 'layout/l-gallery';
 
 /****** Organisms ******/
+@import 'organisms/o-header-home';
+@import 'organisms/o-info-home';
+@import 'organisms/o-announcements-home';
+@import 'organisms/o-levels-home';
+@import 'organisms/o-footer';
+@import 'organisms/o-admissions-card';
+@import 'organisms/o-gallery-colum';
 
-@import "organisms/menu";
-@import "organisms/langing_container";
-@import "organisms/carrousel";
-@import "organisms/news";
-@import "organisms/announcements";
-@import "organisms/institution";
-@import "organisms/footer";
-@import "organisms/admissions";
+/****** Molecules ******/
+@import 'molecules/m-menu';
+@import 'molecules/m-logo';
+@import 'molecules/m-announcements-slider';
+@import 'molecules/m-level-card';
+@import 'molecules/m-modal-info';
+
+/****** Atoms ******/
+@import 'atoms/a-button';

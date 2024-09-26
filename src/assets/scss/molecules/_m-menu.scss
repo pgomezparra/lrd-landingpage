@@ -1,0 +1,160 @@
+@use '@/assets/scss/settings/colors';
+
+.m-menu {
+  height: 100%;
+  margin-right: 1rem;
+
+  &__items {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &__item {
+      font-size: 1.25rem;
+      color: colors.$menu-label;
+      cursor: pointer;
+
+      &--active {
+        border-bottom: 2px solid colors.$border-menu-active;
+      }
+    }
+  }
+}
+
+.m-menu-toggle {
+  display: none;
+}
+
+.m-menu-mobile {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
+
+  clip-path: inset(0 0 0 100%);
+
+  &__container {
+    position: absolute;
+    right: 0;
+    height: 100vh;
+    background-color: colors.$secondary-color;
+    width: 15rem;
+    box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+
+    &__items {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+}
+
+.m-menu-mobile.is-closing {
+  animation: wipe-out-right 0.5s cubic-bezier(.25, 1, .30, 1) forwards;
+}
+
+.m-menu-mobile.is-opening {
+  animation: wipe-in-right 0.5s cubic-bezier(.25, 1, .30, 1) forwards;
+}
+
+@keyframes wipe-in-right {
+  from {
+    clip-path: inset(0 0 0 100%); /* Se oculta desde la izquierda */
+  }
+  to {
+    clip-path: inset(0 0 0 0); /* Se muestra completamente */
+  }
+}
+
+@keyframes wipe-out-right {
+  from {
+    clip-path: inset(0 0 0 0); /* Empieza visible */
+  }
+  to {
+    clip-path: inset(0 0 0 100%); /* Se oculta hacia la izquierda */
+  }
+}
+
+.m-menu-item {
+  color: colors.$menu-label;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: colors.$primary-color;
+    color: colors.$secondary-color;
+  }
+
+  &.active {
+    background-color: colors.$primary-color;
+    color: colors.$secondary-color;
+  }
+}
+
+.m-menu-icon a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .m-menu {
+    display: none;
+  }
+
+  .m-menu-toggle {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #610e0d;
+    border: 1px solid #610e0d;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+
+    &:hover {
+      background-color: #610e0d;
+      color: white;
+    }
+  }
+
+  .m-menu-mobile {
+    &__items {
+      gap: 0.5rem;
+    }
+  }
+
+  .m-menu-item {
+    height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .m-menu-icon {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
