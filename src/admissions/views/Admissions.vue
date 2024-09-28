@@ -6,7 +6,7 @@
 
         <section class="l-admissions__container__section">
           <div class="o-admissions-card">
-            <h2 class="o-admissions-card__title">Requisitos de Inscripción</h2>
+            <h2 class="o-admissions-card__title">Requisitos de inscripción</h2>
             <div class="o-admissions-card__content">
               <p class="o-admissions-card__subtitle">Requisitos para todos los estudiantes:</p>
               <ul class="o-admissions-card__list">
@@ -40,39 +40,41 @@
 
         <section class="l-admissions__container__section">
           <div class="o-admissions-card">
-            <h2 class="o-admissions-card__title">Costos por Nivel Educativo</h2>
+            <h2 class="o-admissions-card__title">Costos por nivel educativo</h2>
             <div class="o-admissions-card__content">
-              <table class="table">
-                <thead>
-                <tr>
-                  <th>Nivel</th>
-                  <th>Matrícula</th>
-                  <th>Pensión mensual</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>Preescolar</td>
-                  <td>$260.000</td>
-                  <td>$115.000</td>
-                </tr>
-                <tr>
-                  <td>Primaria</td>
-                  <td>$260.000</td>
-                  <td>$115.000</td>
-                </tr>
-                <tr>
-                  <td>6º a 9º</td>
-                  <td>$290.000</td>
-                  <td>$130.000</td>
-                </tr>
-                <tr>
-                  <td>10º a 11º</td>
-                  <td>$300.000</td>
-                  <td>$135.000</td>
-                </tr>
-                </tbody>
-              </table>
+              <div class="o-admissions-card__content__table-wrapper">
+                <table class="o-admissions-card__content__table-wrapper__table">
+                  <thead>
+                  <tr>
+                    <th>Nivel</th>
+                    <th>Matrícula</th>
+                    <th>Pensión mensual</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>Preescolar</td>
+                    <td>$260.000</td>
+                    <td>$115.000</td>
+                  </tr>
+                  <tr>
+                    <td>Primaria</td>
+                    <td>$260.000</td>
+                    <td>$115.000</td>
+                  </tr>
+                  <tr>
+                    <td>6º a 9º</td>
+                    <td>$290.000</td>
+                    <td>$130.000</td>
+                  </tr>
+                  <tr>
+                    <td>10º a 11º</td>
+                    <td>$300.000</td>
+                    <td>$135.000</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
               <p class="o-admissions-card__subtitle">Incluye:</p>
               <ul class="o-admissions-card__list">
                 <li>Matrícula</li>
@@ -91,7 +93,7 @@
 
         <section class="l-admissions__container__section">
           <div class="o-admissions-card">
-            <h2 class="o-admissions-card__title">Información Adicional</h2>
+            <h2 class="o-admissions-card__title">Información adicional</h2>
             <div class="o-admissions-card__content">
               <p>Para más detalles sobre el proceso de inscripción o para agendar una visita a nuestras instalaciones,
                 por favor contacte a nuestra oficina de admisiones:</p>
@@ -115,62 +117,3 @@
 
 import Footer from '@/general/components/Footer.vue'
 </script>
-
-
-<style scoped>
-
-.card {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1.5rem;
-}
-
-.card-title {
-  font-size: 1.75rem;
-  color: #621410;
-  margin-bottom: 1rem;
-}
-
-.card-content {
-  font-size: 1rem;
-}
-
-.list {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
-
-  li {
-    word-break: break-word;
-  }
-}
-
-.note {
-  font-size: 0.875rem;
-  color: #777;
-}
-
-/* Estilos para la tabla */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1rem;
-}
-
-.table th,
-.table td {
-  border: 1px solid #ddd;
-  padding: 0.75rem;
-  text-align: left;
-}
-
-.table th {
-  background-color: #f7f7f7;
-}
-
-.note {
-  font-size: 0.875rem;
-  color: #777;
-}
-</style>

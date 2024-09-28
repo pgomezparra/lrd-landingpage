@@ -3,7 +3,7 @@
 .o-footer {
   background-color: colors.$primary-color;
   color: colors.$secondary-color;
-  padding: 1rem 1.5rem;
+  padding: 0.25rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,6 +42,7 @@
 
     &__text {
       margin: 0.5rem;
+      text-align: center;
     }
 
     &__nav {
