@@ -13,9 +13,6 @@
                 <li>Formulario de inscripción</li>
                 <li>Registro civil de nacimiento</li>
                 <li>Fotocopia de Tarjeta de Identidad (si aplica)</li>
-                <li>Certificado médico</li>
-                <li>Carné de vacunas</li>
-                <li>Carné de vacunación al día (para preescolar y primaria)</li>
                 <li>Certificado laboral de los padres o acudientes</li>
                 <li>Copia del observador del alumno (para primaria y bachillerato)</li>
               </ul>
