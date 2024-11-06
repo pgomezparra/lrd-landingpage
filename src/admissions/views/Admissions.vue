@@ -10,7 +10,7 @@
             <div class="o-admissions-card__content">
               <p class="o-admissions-card__subtitle">Requisitos para todos los estudiantes:</p>
               <ul class="o-admissions-card__list">
-                <li>Formulario de inscripción</li>
+                <li>Formulario de inscripción <b>($10.000 para nuevos y $4.000 para antiguos)</b></li>
                 <li>Registro civil de nacimiento</li>
                 <li>Fotocopia de Tarjeta de Identidad (si aplica)</li>
                 <li>Certificado laboral de los padres o acudientes</li>
