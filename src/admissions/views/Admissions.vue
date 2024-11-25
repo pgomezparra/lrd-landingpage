@@ -13,7 +13,7 @@
                 <li>Formulario de inscripción <b>($10.000 para nuevos y $4.000 para antiguos)</b></li>
                 <li>Registro civil de nacimiento</li>
                 <li>Fotocopia de Tarjeta de Identidad (si aplica)</li>
-                <li>Certificado laboral de los padres o acudientes</li>
+                <li>Fotocopia de la cédula de los padres o acudientes</li>
                 <li>Copia del observador del alumno (para primaria y bachillerato)</li>
               </ul>
               <p class="o-admissions-card__subtitle">Requisitos adicionales para estudiantes nuevos:</p>
