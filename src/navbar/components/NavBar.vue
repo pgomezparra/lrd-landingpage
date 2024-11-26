@@ -61,7 +61,8 @@ const isFirstLoad = ref(true)
 const menuItems = [
   { label: 'Inicio', href: '/', name: 'home' },
   { label: 'Admisiones', href: '/admissions', name: 'admissions' },
-  { label: 'Historia', href: '/gallery', name: 'gallery' }
+  { label: 'Historia', href: '/gallery', name: 'gallery' },
+  { label: 'Pqr', href: '/pqr', name: 'pqr' }
 ]
 
 const changeMenu = (menu, route) => {

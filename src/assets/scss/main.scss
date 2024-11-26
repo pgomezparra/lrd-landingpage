@@ -12,6 +12,7 @@
 @import 'layout/l-home';
 @import 'layout/l-admissions';
 @import 'layout/l-gallery';
+@import 'layout/l-pqr';
 
 /****** Organisms ******/
 @import 'organisms/o-header-home';
@@ -21,6 +22,7 @@
 @import 'organisms/o-footer';
 @import 'organisms/o-admissions-card';
 @import 'organisms/o-gallery-colum';
+@import "organisms/o-pqr-form";
 
 /****** Molecules ******/
 @import 'molecules/m-menu';

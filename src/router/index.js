@@ -20,6 +20,11 @@ const router = createRouter({
       path: '/gallery',
       name: 'gallery',
       component: Gallery
+    },
+    {
+      path: '/pqr',
+      name: 'pqr',
+      component: () => import('@/pqr/context/views/Pqr.vue')
     }
   ]
 })
