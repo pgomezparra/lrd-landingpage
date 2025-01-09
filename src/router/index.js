@@ -25,6 +25,11 @@ const router = createRouter({
       path: '/pqr',
       name: 'pqr',
       component: () => import('@/pqr/context/views/Pqr.vue')
+    },
+    {
+      path: '/school-supply-lists',
+      name: 'school-supply-lists',
+      component: () => import('@/home/components/announcements/SupplyLists.vue')
     }
   ]
 })
