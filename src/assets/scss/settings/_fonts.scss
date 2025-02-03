@@ -1,0 +1,34 @@
+$font-names: (
+        "InterBlack",
+        "InterBold",
+        "InterExtraBold",
+        "InterExtraLight",
+        "InterMedium",
+        "InterLight",
+        "InterRegular",
+        "InterSemiBold",
+        "InterThin"
+);
+
+@each $font in $font-names {
+  @font-face {
+    font-family: #{$font};
+    src: url("@/assets/fonts/#{$font}.ttf") format("truetype")
+  }
+}
+
+/*********** Variables of Typography ********/
+$inter-regular: "InterRegular", sans-serif;
+$inter-bold: "InterBold", sans-serif;
+$inter-light: "InterLight", sans-serif;
+$inter-medium: "InterMedium", sans-serif;
+$inter-thin: "InterThin", sans-serif;
+$inter-semi: "InterSemiBold", sans-serif;
+
+/******** Primary Source Assignment *******/
+$font-primary: $inter-medium;
+$font-primary-regular: $inter-regular;
+$font-primary-light: $inter-light;
+$font-title: $inter-semi;
+$font-thin: $inter-thin;
+$font-bold: $inter-bold;

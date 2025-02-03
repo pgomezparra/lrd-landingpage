@@ -6,15 +6,25 @@ $_light-gray: #ddd;
 $_dark-gray: #555;
 $_black: #000000;
 $_dark-green: #1e8d48;
+$light-green: #52ff33;
+$red:#ff3333;
+$color-blue: #056cd8;
 
 // Background
 $background-levels: $_gray;
 $background-footer: $_magenta;
 $background-whatsapp: $_dark-green;
 $table-header-background: #f7f7f7;
+$bg-container: #EDEFF2;
+$bg-main: #FCFCFCB2;
+$hover-color: rgba(0, 0, 0, 0.03);
+
 
 // Button
-$hover-button-menu: $_light-magenta;
+$hover-button-menu:  #90565566;
+$disabled: $_light-gray;
+$btn-blue: #006DDA;
+
 
 // Text
 $menu-label: $_magenta;
@@ -23,8 +33,17 @@ $secondary-color: $_white;
 $level-card-description: $_dark-gray;
 $admissions-card-note: $_dark-gray;
 $pqr-span: $_dark-gray;
+$text-title: rgba(40, 45, 51, 1);
+$text-light: rgba(122, 137, 153, 1);
+$text-main: #282D33;
 
 // Border
 $admissions-card-border: $_light-gray;
 $border-menu-active: $_magenta;
 $border-pqr-form: $_dark-gray;
+$border: rgba(217, 217, 217, 1);
+
+//Shadows
+$shadow-box: rgba(241, 244, 247, 1);
+$shadow-modal:rgba(0, 0, 0, 0.2);
+$shadow-card: rgba(0, 0, 0, 0.15);

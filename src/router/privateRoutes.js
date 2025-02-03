@@ -9,6 +9,11 @@ export const privateRoutes = [
     beforeEnter: createAuthGuard(),
     children: [
       {
+        path: 'home',
+        name: 'home',
+        component: () => import('@/admin/views/Home.vue')
+      },
+      {
         path: 'dashboard',
         name: 'dashboard',
         component: () => import('@/admin/views/Dashboard.vue')
