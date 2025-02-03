@@ -1,36 +1,33 @@
 <template>
-  <div>
-    <h1>Hola Students</h1>
-    <select v-model="preferenceStore.selectedGrade" @change="handleGradeChange">
-      <option
-        v-for="grade in preferenceStore.grades"
-        :key="grade.getId()"
-        :value="grade.getId()">
-        {{ grade.getGrade() }}
-      </option>
-    </select>
-    <table>
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>Documento</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Acciones</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(student, index) in studentStore.students" :key="index">
-        <td>{{ index + 1 }}</td>
-        <td>{{ student.getDocumentType() }} {{ student.getDocument() }}</td>
-        <td>{{ student.getName() }}</td>
-        <td>{{ student.getSurname() }}</td>
-        <td>
-          <button @click="editStudent(student)">Editar</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="l-standard">
+    <p class="l-standard-title">Listado de Estudiantes por Grado</p>
+    <div class="l-standard-option">
+      <p>Selecciona el grado a consultar:</p>
+      <select class="select-standard" v-model="preferenceStore.selectedGrade" @change="handleGradeChange">
+        <option disabled value="">Seleccione un grado</option>
+        <option
+          v-for="grade in preferenceStore.grades"
+          :key="grade.getId()"
+          :value="grade.getId()">
+          {{ grade.getGrade() }}
+        </option>
+      </select>
+    </div>
+
+    <div class="l-standard-container-card">
+      <div class="cards" v-for="(student, index) in studentStore.students" :key="index">
+        <div>
+          <img src="@/assets/img/general/person.svg" alt="person">
+        </div>
+          <p>{{ student.getDocumentType() }} {{ student.getDocument() }}</p>
+         <div class="cards__name">
+           <p>{{ student.getName() }}</p>
+           <p>{{ student.getSurname() }}</p>
+         </div>
+          <button class="button-edit" @click="editStudent(student)">Editar</button>
+      </div>
+
+    </div>
   </div>
   <edit-student-modal />
 </template>

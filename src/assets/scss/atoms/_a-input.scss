@@ -1,0 +1,10 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+
+.input-standard {
+  border: 0.063rem solid colors.$border;
+  border-radius: 1rem;
+  font-family: fonts.$font-primary;
+  font-size: 1rem;
+  padding: 0 1rem;
+}

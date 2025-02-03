@@ -1,0 +1,30 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+
+.confirm-modal {
+  display: flex;
+  background-color: colors.$shadow-modal;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+
+  &.vfm-fade-enter-active,
+  &.vfm-fade-leave-active {
+    transition: opacity 0.3s;
+  }
+
+  &.vfm-fade-enter-from,
+  &.vfm-fade-leave-to {
+    opacity: 0;
+  }
+}
+
+.confirm-modal-content {
+  background: colors.$secondary-color;
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 31.25rem;
+  box-shadow: 0 0.75rem 1.25rem colors.$shadow-modal;
+  text-align: center;
+}

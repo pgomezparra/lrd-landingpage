@@ -34,6 +34,8 @@ export default class Payment {
     return this.#date
   }
 
+
+
   setDate(date) {
     this.#date = date
 

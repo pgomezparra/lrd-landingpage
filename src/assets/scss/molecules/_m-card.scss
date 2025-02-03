@@ -1,0 +1,27 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+
+.cards {
+  border: 0.063rem solid colors.$bg-container;
+  border-radius: 1rem;
+  display: grid;
+  height: fit-content;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto auto auto;
+  row-gap: 0.5rem;
+  place-items: center;
+  padding: 1rem;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0.5rem 0.25rem colors.$shadow-card;
+    border: 0.063rem solid colors.$bg-container;
+    transform: scale(1.03);
+  }
+
+  &__name {
+    color: colors.$text-title;
+    font-family: fonts.$font-primary;
+    text-align: center;
+  }
+}

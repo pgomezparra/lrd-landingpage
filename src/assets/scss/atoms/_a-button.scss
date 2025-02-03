@@ -1,4 +1,5 @@
 @use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
 
 .a-button {
   padding: 0.5rem 1rem;
@@ -53,6 +54,74 @@
   &__icon {
     width: 1.8rem;
     height: 1.8rem;
+  }
+}
+
+.button-edit {
+  background: colors.$btn-blue;
+  border: none;
+  border-radius: 1rem;
+  color: colors.$secondary-color;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.button-payment {
+  align-items: center;
+  background:  colors.$btn-blue;
+  border:none;
+  border-radius: 2rem;
+  color: colors.$secondary-color;
+  cursor: pointer;
+  column-gap: 0.25rem;
+  display: grid;
+  grid-template-columns:auto 1fr;
+  font-size: 1rem;
+  padding: 0.5rem;
+
+  &-img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(933%) hue-rotate(152deg) brightness(109%) contrast(101%);
+  }
+}
+
+.button-logout {
+  display: grid;
+  align-items: center;
+  background: colors.$secondary-color;
+  border: 0.063rem solid colors.$primary-color;
+  border-radius: 2rem;
+  color: colors.$primary-color;
+  cursor: pointer;
+  column-gap: 0.25rem;
+  font-family: fonts.$font-primary;
+  grid-template-columns:auto 1fr;
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: fit-content;
+  &:hover {
+    background: colors.$primary-color;
+    border: none;
+    color: colors.$secondary-color;
+  }
+}
+
+.button-payment-circle {
+  background: colors.$secondary-color;
+  border: 0.063rem solid colors.$border;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+
+  &:hover {
+    box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
+    -moz-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
+    -webkit-box-shadow: 0  0.125rem 0.313rem 0 colors.$shadow-box;
+  }
+
+  &-img{
+    height: 1.25rem;
+    width: 1.25rem;
   }
 }
 

@@ -1,0 +1,48 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+
+.select-standard {
+  appearance: none;
+  background: colors.$secondary-color;
+  border: 0.063rem solid colors.$admissions-card-border;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-family: fonts.$font-primary;
+  padding: 1rem;
+  text-align: center;
+  width: 6.5rem;
+
+  &:hover {
+    box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-card;
+    -moz-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-card;
+    -webkit-box-shadow: 0  0.125rem 0.313rem 0 colors.$shadow-card;
+  }
+}
+
+.select-payment {
+  appearance: none;
+  background: colors.$btn-blue;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-family: fonts.$font-primary;
+  padding: 1rem;
+  text-align: center;
+  width: 6.5rem;
+
+  &:hover {
+    box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
+    -moz-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
+    -webkit-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
+  }
+}
+
+
+
+
+.select-standard option {
+  cursor: pointer;
+  padding: 0.5rem;
+  color: colors.$text-title;
+  font-size: 1rem;
+}
