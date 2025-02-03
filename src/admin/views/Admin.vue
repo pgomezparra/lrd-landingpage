@@ -1,52 +1,63 @@
 <template>
   <div class="app-layout">
     <!-- Menú lateral -->
-    <aside class="sidebar">
+    <div class="sidebar">
       <!-- Información del usuario -->
-      <div class="user-info">
-        <img :src="user?.picture" alt="User Avatar" class="user-avatar" />
-        <div class="user-details">
-          <h2>{{ loggedUser?.getName() }}</h2>
-          <p>{{ loggedUser?.getEmail() }}</p>
+      <div class="sidebar-user-info">
+        <img :src="user?.picture" alt="User Avatar" class="sidebar-user-info__img" />
+        <div class="sidebar-user-info__user-details">
+          <p>{{ loggedUser?.getName() }}</p>
+          <p class="sidebar-user-info__user-details-email">{{ loggedUser?.getEmail() }}</p>
         </div>
       </div>
-
-      <select v-model="preferenceStore.selectedYear" @change="handleChangeYear">
-        <option v-for="year in preferenceStore.years" :key="year" :value="year">
-          {{ year }}
-        </option>
-      </select>
-
+      <div class="sidebar-year">
+        <select class="select-standard" v-model="preferenceStore.selectedYear" @change="handleChangeYear">
+          <option v-for="year in preferenceStore.years" :key="year" :value="year">
+            {{ year }}
+          </option>
+        </select>
+      </div>
       <!-- Opciones del menú -->
-      <nav class="menu-items">
-        <ul>
-          <li @click="redirectToDashBoard" class="menu-item">Dashboard</li>
-          <li @click="redirectToPayments" class="menu-item">Pagos</li>
-
-          <!-- Menú con submenús -->
-          <li class="menu-item">
-            <div @click="toggleSubMenu('content')" class="menu-title">
-              Contenido
-              <span :class="{ rotated: openSubMenus.content }">▼</span>
+      <div class="sidebar-menu-items">
+        <div  class="sidebar-menu-items-container" @click="redirectToHome">
+          <img class="sidebar-menu-items__img" src="@/assets/img/general/home.svg" alt="home"  />
+          <p>Inicio</p>
+        </div>
+        <div  class="sidebar-menu-items-container" @click="redirectToDashBoard">
+          <img  class="sidebar-menu-items__img" src="@/assets/img/general/dashboard.svg" alt="Dashboard" />
+          <p>Dashboard</p>
+        </div>
+        <div class="sidebar-menu-items-container" @click="redirectToPayments">
+          <img  class="sidebar-menu-items__img" src="@/assets/img/general/payment.svg" alt="payment">
+          <p>Pagos</p>
+        </div>
+        <div   @click="toggleSubMenu('content')">
+          <div class="sidebar-menu-items-container-new">
+            <img  class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">
+            Contenido
+            <span :class="{ rotated: openSubMenus.content }">▼</span>
+          </div>
+            <div  v-if="openSubMenus.content">
+              <p @click="redirectToNews" class="submenu-item">Noticias</p>
+              <p @click="redirectToAnnouncements" class="submenu-item">Anuncios</p>
             </div>
-            <ul v-if="openSubMenus.content" class="submenu">
-              <li @click="redirectToNews" class="submenu-item">Noticias</li>
-              <li @click="redirectToAnnouncements" class="submenu-item">Anuncios</li>
-            </ul>
-          </li>
-
-          <li @click="redirectToStudents" class="menu-item">Estudiantes</li>
-        </ul>
-      </nav>
+        </div>
+        <div  class="sidebar-menu-items-container"  @click="redirectToStudents">
+          <img  class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="student" />
+          <p class="menu-item">Estudiantes</p>
+        </div>
+      
+      </div>
 
       <!-- Botón de salir -->
-      <div class="logout">
-        <a @click="closeSession" href="#">
-          <span>Salir</span>
-          <img class="logout-icon" src="@/assets/img/general/logout.svg" alt="Logout Icon" />
-        </a>
+      <div class="sidebar-logout">
+        <button  @click="closeSession" class="button-logout">
+          Cerrar sesión
+          <img  class="sidebar-logout__icon" src="@/assets/img/general/logout.png" alt="Logout Icon" />
+        </button>
+
       </div>
-    </aside>
+    </div>
 
     <!-- Contenedor dinámico -->
     <main class="content">
@@ -87,10 +98,14 @@ const closeSession = () => {
     }
   })
 }
-
+const redirectToHome = () => {
+  router.push('/admin/home')
+}
 const redirectToDashBoard = () => {
   router.push('/admin/dashboard')
 }
+
+
 const redirectToPayments = () => {
   router.push('/admin/payments')
 }
@@ -139,129 +154,3 @@ onMounted(async () => {
   }
 })
 </script>
-
-<style scoped>
-/* Estilos generales */
-.app-layout {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-}
-
-/* Menú lateral */
-.sidebar {
-  width: 250px;
-  background-color: #2c3e50; /* Color del fondo del menú */
-  color: #ecf0f1; /* Color del texto */
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Asegura que logout esté abajo */
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.user-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-.user-details h2 {
-  font-size: 16px;
-  margin: 5px 0;
-}
-
-.user-details p {
-  font-size: 14px;
-  margin: 0;
-  color: #bdc3c7;
-  text-align: center;
-}
-
-/* Opciones del menú */
-.menu-items ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.menu-item {
-  cursor: pointer;
-  font-size: 18px;
-  padding: 10px;
-  width: 100%;
-  text-align: left;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.menu-item:hover {
-  background-color: #34495e;
-}
-
-.menu-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.submenu {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0 15px;
-}
-
-.submenu-item {
-  cursor: pointer;
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.submenu-item:first-child {
-  margin-top: 1rem;
-}
-
-.submenu-item:hover {
-  background-color: #34495e;
-}
-
-.rotated {
-  transform: rotate(180deg);
-}
-
-/* Botón de salir */
-.logout {
-  text-align: center;
-  margin-top: auto; /* Posiciona al final del menú */
-}
-
-.logout a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ecf0f1;
-  text-decoration: none;
-  gap: 10px;
-}
-
-.logout a:hover {
-  color: #bdc3c7;
-}
-
-.logout-icon {
-  width: 1rem;
-}
-</style>

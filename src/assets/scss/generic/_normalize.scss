@@ -1,7 +1,37 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+html {
+  color: colors.$text-main;
+  font-family: fonts.$font-primary;
+  font-size: 1rem;
+  min-width: 22.5rem;
+  overflow-x: auto;
+}
+
+
 body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+
+  button:disabled {
+    background-color: colors.$disabled;
+    cursor: not-allowed;
+  }
+}
+p, ul, a {
+  margin: 0;
+  padding: 0;
+}
+
+
+br {
+  display: none;
+}
+
+div {
+  margin: 0;
+  padding: 0;
 }

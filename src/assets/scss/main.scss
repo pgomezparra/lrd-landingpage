@@ -1,6 +1,6 @@
 /***** Setting *****/
 @import 'settings/colors';
-// @import 'settings/fonts';
+@import 'settings/fonts';
 
 /****** Generic *******/
 
@@ -15,6 +15,9 @@
 @import 'layout/l-pqr';
 @import 'layout/l-supply-lists';
 @import 'layout/l-institutional';
+@import "layout/l-standard";
+@import "layout/l-sidebar";
+@import "layout/l-home-portal";
 
 /****** Organisms ******/
 @import 'organisms/o-header-home';
@@ -32,6 +35,10 @@
 @import 'molecules/m-announcements-slider';
 @import 'molecules/m-level-card';
 @import 'molecules/m-modal-info';
+@import 'molecules/m-card';
 
 /****** Atoms ******/
 @import 'atoms/a-button';
+@import "atoms/a-select";
+@import "atoms/a-modal-standard";
+@import "atoms/a-input";
