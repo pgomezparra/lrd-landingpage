@@ -27,7 +27,7 @@ const closeModal = () => {
 
 // Optional: Automatically show the modal when the page loads
 onMounted(() => {
-  isModalOpen.value = true
+  isModalOpen.value = false
   //
   //   const duration = 2 * 1000
   //   const animationEnd = Date.now() + duration
