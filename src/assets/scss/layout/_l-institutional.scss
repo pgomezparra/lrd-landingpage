@@ -1,0 +1,57 @@
+@use '@/assets/scss/settings/colors';
+
+.l-institutional {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    &__title {
+      font-size: 2rem;
+      color: colors.$primary-color;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    &__tabs {
+      display: flex;
+      justify-content: start;
+      margin-bottom: 2rem;
+      gap: 0.5rem;
+
+      &__tab {
+        all: unset;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        background-color: colors.$hover-button-menu;
+        color: colors.$secondary-color;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background-color: colors.$primary-color;
+          color: colors.$secondary-color;
+        }
+
+        &--active {
+          background-color: colors.$primary-color;
+          color: colors.$secondary-color;
+        }
+      }
+    }
+
+    &__section {
+      margin-bottom: 2rem;
+
+      iframe {
+        height: 70vh;
+        border: none;
+      }
+    }
+  }
+}

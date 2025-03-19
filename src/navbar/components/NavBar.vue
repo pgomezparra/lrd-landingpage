@@ -62,7 +62,8 @@ const menuItems = [
   { label: 'Inicio', href: '/', name: 'home' },
   { label: 'Admisiones', href: '/admissions', name: 'admissions' },
   { label: 'Historia', href: '/gallery', name: 'gallery' },
-  { label: 'Pqr', href: '/pqr', name: 'pqr' }
+  { label: 'Pqr', href: '/pqr', name: 'pqr' },
+  { label: 'Institucional', href: '/institutional', name: 'institutional' }
 ]
 
 const changeMenu = (menu, route) => {
