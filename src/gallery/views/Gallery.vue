@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="l-gallery">
     <p class="l-gallery__title">Nuestra Historia</p>
     <main>
@@ -9,7 +10,8 @@
               <img src="@/assets/img/gallery/1.webp" alt="" title="" height=""
                    width="" />
             </div>
-            <figcaption class="column__item-caption"><span>Cyber Blue</span> <span>2011</span></figcaption>
+            <figcaption class="column__item-caption"><span>El pastor Pedro Gómez y su esposa Gladys Parra recibieron el llamado de Dios de abrir un jardín infantil</span>
+            </figcaption>
           </figure>
           <figure class="column__item">
             <div class="column__item-imgwrap">
@@ -181,10 +183,13 @@
       <Footer />
     </main>
   </div>
+  <whatsapp />
 </template>
 
 <script setup>
 import Footer from '@/general/components/Footer.vue'
+import Navbar from '@/navbar/components/NavBar.vue'
+import Whatsapp from '@/general/components/Whatsapp.vue'
 
 </script>
 

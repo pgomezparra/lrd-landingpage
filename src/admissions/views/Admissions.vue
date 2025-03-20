@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="l-admissions">
     <main>
       <div class="l-admissions__container">
@@ -108,9 +109,12 @@
     </main>
     <Footer />
   </div>
+  <whatsapp />
 </template>
 
 <script setup>
 
 import Footer from '@/general/components/Footer.vue'
+import Navbar from '@/navbar/components/NavBar.vue'
+import Whatsapp from '@/general/components/Whatsapp.vue'
 </script>

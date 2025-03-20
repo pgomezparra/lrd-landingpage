@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="l-institutional">
     <main>
       <div class="l-institutional__container">
@@ -23,11 +24,14 @@
     </main>
     <Footer />
   </div>
+  <whatsapp />
 </template>
 
 <script setup>
 import Footer from '@/general/components/Footer.vue'
 import { ref } from 'vue'
+import Navbar from '@/navbar/components/NavBar.vue'
+import Whatsapp from '@/general/components/Whatsapp.vue'
 
 const pdfs = ref([
   { title: 'Cronograma Escolar', url: 'https://drive.google.com/file/d/18R8svTACgVbP3UfB8TbA95CPDXgOKjhI/preview' }

@@ -15,6 +15,8 @@
           src="@/assets/img/general/instagram.svg" alt="Instagram" /></a></li>
         <li class="m-menu-icon"><a href="https://www.facebook.com/liceo.rey" target="_blank"><img
           src="@/assets/img/general/facebook.svg" alt="Instagram" /></a></li>
+        <li class="m-menu-icon"><a @click="redirectToLogin" href="#" target=""><img
+          src="@/assets/img/general/login.svg" alt="login" /></a></li>
       </ul>
     </div>
 
@@ -49,6 +51,7 @@
 </template>
 
 <script setup>
+import { useAuth0 } from '@auth0/auth0-vue'
 import { useNavbarStore } from '@/navbar/store/navbarStore.js'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
@@ -57,6 +60,7 @@ const navbarStore = useNavbarStore()
 const router = useRouter()
 const isMenuOpen = ref(false)
 const isFirstLoad = ref(true)
+const auth0 = useAuth0()
 
 const menuItems = [
   { label: 'Inicio', href: '/', name: 'home' },
@@ -77,6 +81,10 @@ const changeMenu = (menu, route) => {
 const toggleMenu = () => {
   isFirstLoad.value = false
   isMenuOpen.value = !isMenuOpen.value
+}
+
+const redirectToLogin = () => {
+  router.push('/admin/dashboard')
 }
 </script>
 

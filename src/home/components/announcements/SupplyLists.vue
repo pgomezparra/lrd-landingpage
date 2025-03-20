@@ -1,4 +1,5 @@
 <template>
+  <NavBar />
   <div class="l-supply-lists">
     <p class="l-supply-lists__title">Listas de útiles 2025</p>
     <main>
@@ -53,10 +54,13 @@
       <Footer />
     </main>
   </div>
+  <whatsapp />
 </template>
 
 <script setup>
 import Footer from '@/general/components/Footer.vue'
+import NavBar from '@/navbar/components/NavBar.vue'
+import Whatsapp from '@/general/components/Whatsapp.vue'
 
 </script>
 

@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="l-pqr">
     <main>
       <div class="l-pqr__container">
@@ -21,12 +22,15 @@
     </main>
     <Footer />
   </div>
+  <whatsapp />
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import Footer from '@/general/components/Footer.vue'
 import { usePqrStore } from '@/pqr/context/store/pqrStore.js'
+import Navbar from '@/navbar/components/NavBar.vue'
+import Whatsapp from '@/general/components/Whatsapp.vue'
 
 const pqrStore = usePqrStore()
 
