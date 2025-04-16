@@ -1,7 +1,7 @@
 /**
  * Determina la url de conexion al dispatch
  */
-export default function(localPort) {
+export default function(localPort, pqr) {
   let location = document.location
 
   const hostname = location.hostname
@@ -13,10 +13,9 @@ export default function(localPort) {
    */
 
   if (hostname === 'localhost') {
-    return `http://localhost:${localPort}`
+    return `https://admin-lrd-development.vercel.app`
+    // return `http://localhost:${localPort}`
   }
-
-  //  se utiliza desde docker, sea en pruebas de aceptacion o en produccion
 
   let proto = 'http:'
   if (location.protocol === 'https:') {
@@ -29,5 +28,5 @@ export default function(localPort) {
   }
 
   // return `${proto}//${hostname}${port}`
-  return `${proto}//pqr-lrd.vercel.app${port}`
+  return pqr ? `${proto}//pqr-lrd.vercel.app${port}` : `${proto}//admin-lrd-development.vercel.app${port}`
 }

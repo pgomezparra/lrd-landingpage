@@ -2,14 +2,14 @@
   <main id="container" class="l-container">
     <RouterView />
   </main>
+  <ModalsContainer />
 </template>
 
 <script setup>
-import Whatsapp from '@/general/components/Whatsapp.vue'
 import { onMounted } from 'vue'
 import { useNavbarStore } from '@/navbar/store/navbarStore.js'
 import { useRoute, useRouter } from 'vue-router'
-import InfoModal from '@/general/components/InfoModal.vue'
+import { ModalsContainer } from 'vue-final-modal'
 
 const router = useRouter()
 const route = useRoute()

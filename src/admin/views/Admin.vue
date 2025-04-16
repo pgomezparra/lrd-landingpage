@@ -6,10 +6,16 @@
       <div class="user-info">
         <img :src="user?.picture" alt="User Avatar" class="user-avatar" />
         <div class="user-details">
-          <h2>{{ user?.name }}</h2>
-          <p>{{ user?.email }}</p>
+          <h2>{{ loggedUser?.getName() }}</h2>
+          <p>{{ loggedUser?.getEmail() }}</p>
         </div>
       </div>
+
+      <select v-model="preferenceStore.selectedYear" @change="handleChangeYear">
+        <option v-for="year in preferenceStore.years" :key="year" :value="year">
+          {{ year }}
+        </option>
+      </select>
 
       <!-- Opciones del menú -->
       <nav class="menu-items">
@@ -50,12 +56,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useAuth0 } from '@auth0/auth0-vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/admin/general/context/store/userStore.js'
+import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 
 const { logout, user } = useAuth0()
 const router = useRouter()
+const userStore = useUserStore()
+const preferenceStore = usePreferenceStore()
+const auth0 = useAuth0()
+
+const loggedUser = ref(null)
 
 // Controla los submenús abiertos
 const openSubMenus = ref({
@@ -90,6 +103,41 @@ const redirectToAnnouncements = () => {
 const redirectToStudents = () => {
   router.push('/admin/students')
 }
+
+async function validateUser() {
+  try {
+    const status = await userStore.validateUser()
+    if (status !== 200) {
+      await auth0.loginWithRedirect()
+    }
+
+    loggedUser.value = userStore.user
+  } catch (error) {
+    console.error(`error: ${error}`)
+  }
+}
+
+async function getYears() {
+  const status = await preferenceStore.getYears()
+  if (status !== 200) {
+    await auth0.loginWithRedirect()
+  }
+}
+
+const handleChangeYear = (event) => {
+  preferenceStore.setSelectedYear(parseInt(event.target.value))
+}
+
+onMounted(async () => {
+  if (auth0.isAuthenticated) {
+    const token = await auth0.getAccessTokenSilently()
+    userStore.setToken(token)
+    await validateUser()
+    await getYears()
+    await preferenceStore.getGrades()
+    await preferenceStore.getMonths()
+  }
+})
 </script>
 
 <style scoped>

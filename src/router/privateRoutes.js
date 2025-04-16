@@ -1,4 +1,3 @@
-import { validateRegisteredUser } from '@/router/middleware/guards.js'
 import { createAuthGuard } from '@auth0/auth0-vue'
 
 
@@ -7,7 +6,7 @@ export const privateRoutes = [
     path: '/admin',
     name: 'admin',
     component: () => import('@/admin/views/Admin.vue'),
-    beforeEnter: [createAuthGuard(), validateRegisteredUser],
+    beforeEnter: createAuthGuard(),
     children: [
       {
         path: 'dashboard',
