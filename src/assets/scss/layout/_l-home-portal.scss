@@ -2,13 +2,6 @@
 @use '@/assets/scss/settings/fonts';
 
 .home-portal {
-  &-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
-  }
-
   background: colors.$secondary-color;
   border-radius: 5rem;
   box-shadow: 0 0.125rem 0.25rem 0 colors.$shadow-card;
@@ -19,6 +12,13 @@
   grid-template-columns: auto 1fr;
   place-items: center;
   padding: 2rem;
+
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+  }
 
   &__title {
     font-size: 5rem;

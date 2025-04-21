@@ -10,8 +10,8 @@ export const privateRoutes = [
     children: [
       {
         path: 'home',
-        name: 'home',
-        component: () => import('@/admin/views/Home.vue')
+        name: 'home-portal',
+        component: () => import('@/admin/views/HomePortal.vue')
       },
       {
         path: 'dashboard',
