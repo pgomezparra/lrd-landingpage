@@ -1,9 +1,10 @@
 <template>
   <Navbar />
   <div class="l-pqr">
+    <h1 class="l-pqr__container__title">Peticiones, Quejas, Reclamos y Sugerencias</h1>
     <main>
       <div class="l-pqr__container">
-        <h1 class="l-pqr__container__title">Peticiones, Quejas, Reclamos y Sugerencias</h1>
+
         <section class="o-pqr-form">
           <span>Nombre completo</span>
           <input v-model="form.name" type="text" placeholder="Ingrese su nombre completo" />

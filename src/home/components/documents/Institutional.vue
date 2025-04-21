@@ -1,9 +1,9 @@
 <template>
   <Navbar />
   <div class="l-institutional">
+    <p class="l-institutional__container__title">Documentos Institucionales</p>
     <main>
       <div class="l-institutional__container">
-        <p class="l-institutional__container__title">Documentos Institucionales</p>
         <div class="l-institutional__container__tabs">
           <button
             v-for="(pdf, index) in pdfs"
