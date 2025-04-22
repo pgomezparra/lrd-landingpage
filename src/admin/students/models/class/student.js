@@ -6,6 +6,11 @@ export default class Student {
   #surname = ''
   #age = 0
   #active = false
+  #registration = 0
+  #pension = 0
+  #gradeId = 0
+  #grade = ''
+  #year = 0
 
   static fromJSONResponse(json) {
     return new Student()
@@ -16,6 +21,11 @@ export default class Student {
       .setSurname(json.surname)
       .setAge(json.age)
       .setActive(json.active)
+      .setRegistration(json.registration)
+      .setPension(json.pension)
+      .setGradeId(json.grade_id)
+      .setGrade(json.grade)
+      .setYear(json.year)
   }
 
   getId() {
@@ -84,6 +94,56 @@ export default class Student {
 
   setActive(active) {
     this.#active = active
+
+    return this
+  }
+
+  getRegistration() {
+    return this.#registration
+  }
+
+  setRegistration(registration) {
+    this.#registration = registration
+
+    return this
+  }
+
+  getPension() {
+    return this.#pension
+  }
+
+  setPension(pension) {
+    this.#pension = pension
+
+    return this
+  }
+
+  getGradeId() {
+    return this.#gradeId
+  }
+
+  setGradeId(gradeId) {
+    this.#gradeId = gradeId
+
+    return this
+  }
+
+  getGrade() {
+    return this.#grade
+  }
+
+  setGrade(grade) {
+    this.#grade = grade
+
+    return this
+  }
+
+  getYear() {
+    return this.#year
+  }
+
+  setYear(year) {
+    this.#year = year
 
     return this
   }

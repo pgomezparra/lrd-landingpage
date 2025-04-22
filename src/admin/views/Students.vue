@@ -19,12 +19,12 @@
         <div>
           <img src="@/assets/img/general/person.svg" alt="person">
         </div>
-          <p>{{ student.getDocumentType() }} {{ student.getDocument() }}</p>
-         <div class="cards__name">
-           <p>{{ student.getName() }}</p>
-           <p>{{ student.getSurname() }}</p>
-         </div>
-          <button class="button-edit" @click="editStudent(student)">Editar</button>
+        <p>{{ student.getDocumentType() }} {{ student.getDocument() }}</p>
+        <div class="cards__name">
+          <p>{{ student.getName() }}</p>
+          <p>{{ student.getSurname() }}</p>
+        </div>
+        <button class="button-edit" @click="editStudent(student)">Editar</button>
       </div>
 
     </div>
@@ -52,6 +52,7 @@ async function refreshData() {
 }
 
 const editStudent = (student) => {
+  studentStore.setSelectedStudent(student)
   vfm.open('editStudentModal')
 }
 

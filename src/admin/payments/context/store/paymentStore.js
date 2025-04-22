@@ -10,14 +10,23 @@ const paymentUc = new PaymentUc(paymentRepository)
 const preferenceStore = usePreferenceStore()
 
 export const usePaymentStore = defineStore('payments', {
-  state: () => ({}),
+  state: () => ({
+    selectedPayment: null
+  }),
   actions: {
+    setSelectedPayment(payment) {
+      if (payment === null) {
+        this.selectedPayment = null
+        return
+      }
+      this.selectedPayment = markRaw(payment)
+    },
     async searchPayments(studentId) {
       try {
         let year = preferenceStore.selectedYear ? preferenceStore.selectedYear : new Date().getFullYear()
         const response = await paymentUc.searchPayments(studentId, year)
 
-        return markRaw(response.payments)
+        return { payments: markRaw(response.payments), consolidatedPayments: markRaw(response.consolidatedPayments) }
       } catch (error) {
         console.error(`error: ${error}`)
       }

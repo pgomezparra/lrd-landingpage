@@ -11,9 +11,13 @@ const preferenceStore = usePreferenceStore()
 
 export const useStudentStore = defineStore('students', {
   state: () => ({
-    students: []
+    students: [],
+    selectedStudent: null
   }),
   actions: {
+    setSelectedStudent(student) {
+      this.selectedStudent = markRaw(student)
+    },
     async searchStudents(active) {
       try {
         let year = preferenceStore.selectedYear ? preferenceStore.selectedYear : new Date().getFullYear()

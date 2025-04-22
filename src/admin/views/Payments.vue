@@ -20,7 +20,6 @@
         v-model="studentName"
         placeholder="Buscar estudiante"
       />
-
       <datalist id="students">
         <option
           v-for="student in students"
@@ -30,6 +29,31 @@
       </datalist>
     </div>
     <div v-if="student" class="l-standard-container-payments">
+      <div v-if="consolidatedPayments.length > 0">
+        <div>Resumen de pagos</div>
+        <div>
+          <span>Matrícula: $ {{ consolidatedPayments[0].getValueFormatted() }}</span>
+          <span>Saldo: $ {{ consolidatedPayments[0].getBalanceFormatted() }}</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr;">
+          <div>
+            <div v-for="payment in consolidatedPayments.slice(1,6)" :key="payment.getMonthId()"
+                 style="display: flex; flex-direction: column; align-items: center;">
+              <span>{{ payment.getMonth() }}</span>
+              <span>Pagado: $ {{ payment.getValueFormatted() }}</span>
+              <span>Saldo: $ {{ payment.getBalanceFormatted() }}</span>
+            </div>
+          </div>
+          <div>
+            <div v-for="payment in consolidatedPayments.slice(6)" :key="payment.getMonthId()"
+                 style="display: flex; flex-direction: column; align-items: center;">
+              <span>{{ payment.getMonth() }}</span>
+              <span>Pagado: $ {{ payment.getValueFormatted() }}</span>
+              <span>Saldo: $ {{ payment.getBalanceFormatted() }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="l-standard-container-payments__title-payment">
         <p class="l-standard-container-payments__title">Historial de pagos</p>
         <button class="button-payment">
@@ -38,7 +62,7 @@
         </button>
       </div>
       <div class="l-standard-container-payments__table">
-        <div  class="l-standard-container-payments__table-thead">
+        <div class="l-standard-container-payments__table-thead">
           <p>Fecha</p>
           <p>Descripción</p>
           <p> Mes</p>
@@ -51,14 +75,14 @@
           class="l-standard-container-payments__table-tbody"
           v-for="payment in payments" :key="payment.getId()"
         >
-          <p>{{ formatDate(payment.getDate())}}</p>
+          <p>{{ formatDate(payment.getDate()) }}</p>
           <p>{{ payment.getDescription() }}</p>
           <p>{{ payment.isPension() ? payment.getMonth() : '' }}</p>
           <p>${{ payment.getValueFormatted() }}</p>
           <p>{{ payment.getPaymentType() }}</p>
           <p>{{ payment.getPaymentMethod() }}</p>
           <p class="l-standard-container-payments__table-tbody-icon">
-            <button class="button-payment-circle">
+            <button class="button-payment-circle" @click="editPayment(payment)">
               <img src="@/assets/img/general/edit.svg" alt="edit">
             </button>
             <button class="button-payment-circle">
@@ -69,7 +93,7 @@
       </div>
     </div>
   </div>
-
+  <edit-payment-modal />
 </template>
 
 <script setup>
@@ -78,12 +102,16 @@ import { ref, watch } from 'vue'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { formatDate } from '@/shared/utils.js'
+import { useVfm } from 'vue-final-modal'
+import EditPaymentModal from '@/admin/payments/context/components/modals/EditPaymentModal.vue'
 
 const grade = ref(0)
 const student = ref(0)
 const studentName = ref('')
 const students = ref([])
 const payments = ref([])
+const consolidatedPayments = ref([])
+const vfm = useVfm()
 
 const preferenceStore = usePreferenceStore()
 const studentsStore = useStudentStore()
@@ -110,11 +138,17 @@ async function getStudents() {
   }
 }
 
+const editPayment = (payment) => {
+  paymentsStore.setSelectedPayment(payment)
+  vfm.open('editPaymentModal')
+}
+
 watch(grade, (newGrade) => {
   getStudents()
 })
 
 watch(() => preferenceStore.selectedYear, (newYear) => {
+  if (!preferenceStore.selectedGrade) return
   getStudents()
   clearData()
 })
@@ -123,7 +157,10 @@ watch(studentName, async (newVal) => {
   const match = students.value.find(s => `${s.getName()} ${s.getSurname()}` === newVal)
   if (match) {
     student.value = match.getId()
-    payments.value = await paymentsStore.searchPayments(match.getId())
+    studentsStore.setSelectedStudent(match)
+    const response = await paymentsStore.searchPayments(match.getId())
+    payments.value = response.payments
+    consolidatedPayments.value = response.consolidatedPayments
   }
 })
 

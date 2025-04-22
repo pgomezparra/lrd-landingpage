@@ -7,6 +7,9 @@ export default class Payment {
   #paymentType = ''
   #excluded = false
   #paymentMethod = ''
+  #paymentTypeId = 0
+  #monthId = 0
+  #paymentMethodId = 0
 
   static fromJSONResponse(json) {
     return new Payment()
@@ -18,6 +21,9 @@ export default class Payment {
       .setPaymentType(json.payment_type)
       .setExcluded(json.excluded)
       .setPaymentMethod(json.payment_method)
+      .setPaymentTypeId(json.payment_type_id)
+      .setMonthId(json.month_id)
+      .setPaymentMethodId(json.payment_method_id)
   }
 
   getId() {
@@ -33,7 +39,6 @@ export default class Payment {
   getDate() {
     return this.#date
   }
-
 
 
   setDate(date) {
@@ -106,6 +111,36 @@ export default class Payment {
 
   setPaymentMethod(paymentMethod) {
     this.#paymentMethod = paymentMethod
+
+    return this
+  }
+
+  getPaymentTypeId() {
+    return this.#paymentTypeId
+  }
+
+  setPaymentTypeId(paymentTypeId) {
+    this.#paymentTypeId = paymentTypeId
+
+    return this
+  }
+
+  getMonthId() {
+    return this.#monthId
+  }
+
+  setMonthId(monthId) {
+    this.#monthId = monthId
+
+    return this
+  }
+
+  getPaymentMethodId() {
+    return this.#paymentMethodId
+  }
+
+  setPaymentMethodId(paymentMethodId) {
+    this.#paymentMethodId = paymentMethodId
 
     return this
   }
