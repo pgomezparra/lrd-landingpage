@@ -19,6 +19,7 @@
         list="students"
         v-model="studentName"
         placeholder="Buscar estudiante"
+        ref="studentNameInput"
       />
       <datalist id="students">
         <option
@@ -56,7 +57,7 @@
       </div>
       <div class="l-standard-container-payments__title-payment">
         <p class="l-standard-container-payments__title">Historial de pagos</p>
-        <button class="button-payment">
+        <button class="button-payment" @click="addPayment">
           <img class="button-payment-img" src="@/assets/img/general/payments.svg" alt="payment">
           Generar pago
         </button>
@@ -94,16 +95,18 @@
     </div>
   </div>
   <edit-payment-modal />
+  <create-payment-modal :consolidated-payments="consolidatedPayments" />
 </template>
 
 <script setup>
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
-import { ref, watch } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { formatDate } from '@/shared/utils.js'
 import { useVfm } from 'vue-final-modal'
 import EditPaymentModal from '@/admin/payments/context/components/modals/EditPaymentModal.vue'
+import CreatePaymentModal from '@/admin/payments/context/components/modals/CreatePaymentModal.vue'
 
 const grade = ref(0)
 const student = ref(0)
@@ -111,6 +114,7 @@ const studentName = ref('')
 const students = ref([])
 const payments = ref([])
 const consolidatedPayments = ref([])
+const studentNameInput = ref(null)
 const vfm = useVfm()
 
 const preferenceStore = usePreferenceStore()
@@ -120,6 +124,9 @@ const paymentsStore = usePaymentStore()
 const changeGrade = (event) => {
   preferenceStore.setSelectedGrade(parseInt(event.target.value))
   clearData()
+  nextTick(() => {
+    studentNameInput.value?.focus()
+  })
 }
 
 const clearData = () => {
@@ -141,6 +148,10 @@ async function getStudents() {
 const editPayment = (payment) => {
   paymentsStore.setSelectedPayment(payment)
   vfm.open('editPaymentModal')
+}
+
+const addPayment = () => {
+  vfm.open('createPaymentModal')
 }
 
 watch(grade, (newGrade) => {
