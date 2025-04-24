@@ -19,4 +19,10 @@ export default class PreferenceRepository {
 
     return customAxios.get(url)
   }
+
+  async getPaymentValues(gradeId, year) {
+    let url = `${myUrl(3000)}/api/v1/payment-values?gradeId=${gradeId}&year=${year}`
+
+    return customAxios.get(url)
+  }
 }

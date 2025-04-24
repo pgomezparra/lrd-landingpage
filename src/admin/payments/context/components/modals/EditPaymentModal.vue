@@ -17,11 +17,15 @@
       <div>
         <div>
           <p>Fecha</p>
-          <input
-            :value="payment.date"
-            type="date"
-            placeholder="Fecha"
-          >
+          <Datepicker
+            v-model="payment.date"
+            :autoApply="true"
+            :enable-time-picker="false"
+            :format="'yyyy-MM-dd'"
+            locale="es"
+            :maxDate="new Date()"
+            :clearable="false"
+          />
         </div>
         <div>
           <p>Tipo de pago</p>
@@ -89,6 +93,7 @@ import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { reactive } from 'vue'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+import Datepicker from '@vuepic/vue-datepicker'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
@@ -108,7 +113,7 @@ const payment = reactive({
 })
 
 const onOpened = () => {
-  payment.date = paymentStore.selectedPayment.getDate()
+  payment.date = new Date(paymentStore.selectedPayment.getDate()).toLocaleDateString('es-ES')
   payment.description = paymentStore.selectedPayment.getDescription()
   payment.month_id = paymentStore.selectedPayment.getMonthId()
   payment.value = paymentStore.selectedPayment.getValue()

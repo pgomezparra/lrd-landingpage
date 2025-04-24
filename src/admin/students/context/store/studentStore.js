@@ -30,6 +30,13 @@ export const useStudentStore = defineStore('students', {
       } catch (error) {
         console.error(`error: ${error}`)
       }
+    },
+    async searchByDocument(document) {
+      try {
+        return await studentUc.searchByDocument(document)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
     }
   }
 })

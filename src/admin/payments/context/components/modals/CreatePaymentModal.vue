@@ -18,11 +18,15 @@
       <div>
         <div>
           <p>Fecha</p>
-          <input
-            :value="payment.date"
-            type="date"
-            placeholder="Fecha"
-          >
+          <Datepicker
+            v-model="payment.date"
+            :autoApply="true"
+            :enable-time-picker="false"
+            :format="'yyyy-MM-dd'"
+            locale="es"
+            :maxDate="new Date()"
+            :clearable="false"
+          />
         </div>
         <div>
           <p>Tipo de pago</p>
@@ -75,7 +79,7 @@
         </div>
         <div>
           <p>Saldo</p>
-          <p>$ {{ balance }}</p>
+          <p>$ {{ balance < 0 ? 0 : balance }}</p>
         </div>
       </div>
       <button class="button-edit" @click="closeModal">
@@ -94,6 +98,8 @@ import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+import Datepicker from '@vuepic/vue-datepicker'
+import { notifications } from '@/shared/notifications.js'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
@@ -180,6 +186,7 @@ const clearData = () => {
 
 const registerPayment = async () => {
   console.log(payment)
+  notifications.notify('Pago registrado', 'success')
 }
 
 const onClosed = () => {

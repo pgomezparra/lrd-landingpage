@@ -7,6 +7,11 @@ function formatDate(date) {
   }).format(parsedDate)
 }
 
+function onlyNumbers(str) {
+  return str.replace(/\D/g, '')
+}
+
 export {
   formatDate,
+  onlyNumbers
 }

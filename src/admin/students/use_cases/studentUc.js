@@ -22,4 +22,20 @@ export default class StudentUc {
       }
     }
   }
+
+  async searchByDocument(document) {
+    try {
+      const response = await this.#studentRepository.searchByDocument(document)
+      const students = response.data.map(student => Student.fromJSONResponse(student))
+
+      return { status: response.status, students: students }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, students: [] }
+      } else {
+        return { status: 500, students: [] }
+      }
+    }
+  }
 }

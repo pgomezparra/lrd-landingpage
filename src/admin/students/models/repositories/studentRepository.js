@@ -7,4 +7,10 @@ export default class StudentRepository {
 
     return customAxios.get(url)
   }
+
+  async searchByDocument(document) {
+    let url = `${myUrl(3000)}/api/v1/students?document=${document}`
+
+    return customAxios.get(url)
+  }
 }

@@ -21,9 +21,10 @@ export const usePaymentStore = defineStore('payments', {
       }
       this.selectedPayment = markRaw(payment)
     },
-    async searchPayments(studentId) {
+    async searchPayments(studentId, yearSearch = null) {
       try {
         let year = preferenceStore.selectedYear ? preferenceStore.selectedYear : new Date().getFullYear()
+        if (yearSearch) year = yearSearch
         const response = await paymentUc.searchPayments(studentId, year)
 
         return { payments: markRaw(response.payments), consolidatedPayments: markRaw(response.consolidatedPayments) }

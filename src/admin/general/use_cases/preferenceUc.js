@@ -1,5 +1,6 @@
 import Grade from '@/admin/general/models/class/grade.js'
 import Month from '@/admin/general/models/class/month.js'
+import PaymentValue from '@/admin/general/models/class/paymentValue.js'
 
 export default class PreferenceUc {
   #preferenceRepository = null
@@ -53,6 +54,23 @@ export default class PreferenceUc {
         return { status: 500, months: [] }
       }
     }
+  }
 
+  async getPaymentValues(gradeId, year) {
+    try {
+      const response = await this.#preferenceRepository.getPaymentValues(gradeId, year)
+
+      return {
+        status: response.status,
+        paymentValues: response.data.map(paymentValue => PaymentValue.fromJSONResponse(paymentValue))
+      }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, paymentValues: [] }
+      } else {
+        return { status: 500, paymentValues: [] }
+      }
+    }
   }
 }

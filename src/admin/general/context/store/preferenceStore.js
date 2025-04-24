@@ -41,10 +41,6 @@ export const usePreferenceStore = defineStore('preference', {
         const response = await preferenceUc.getGrades()
         this.grades = markRaw(response.grades)
 
-        if (this.grades.length > 0) {
-          this.selectedGrade = this.grades[0].getId()
-        }
-
         return response.status
       } catch (error) {
         console.error(`error: ${error}`)
@@ -55,11 +51,16 @@ export const usePreferenceStore = defineStore('preference', {
         const response = await preferenceUc.getMonths()
         this.months = markRaw(response.months)
 
-        if (this.months.length > 0) {
-          this.selectedMonth = this.months[0].getId()
-        }
-
         return response.status
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async getPaymentValues(gradeId, year) {
+      try {
+        const response = await preferenceUc.getPaymentValues(gradeId, year)
+
+        return markRaw(response.paymentValues)
       } catch (error) {
         console.error(`error: ${error}`)
       }

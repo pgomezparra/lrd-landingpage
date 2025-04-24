@@ -12,6 +12,7 @@
           {{ grade.getGrade() }}
         </option>
       </select>
+      <button class="button-standard" @click="addStudent">Agregar estudiante</button>
     </div>
 
     <div class="l-standard-container-card">
@@ -30,6 +31,7 @@
     </div>
   </div>
   <edit-student-modal />
+  <create-student-modal />
 </template>
 
 <script setup>
@@ -38,6 +40,7 @@ import { usePreferenceStore } from '@/admin/general/context/store/preferenceStor
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { useVfm } from 'vue-final-modal'
 import EditStudentModal from '@/admin/students/context/components/modals/EditStudentModal.vue'
+import CreateStudentModal from '@/admin/students/context/components/modals/CreateStudentModal.vue'
 
 const preferenceStore = usePreferenceStore()
 const studentStore = useStudentStore()
@@ -56,13 +59,17 @@ const editStudent = (student) => {
   vfm.open('editStudentModal')
 }
 
+const addStudent = () => {
+  vfm.open('createStudentModal')
+}
+
 watch(
   () => ({
     grade: preferenceStore.selectedGrade,
     year: preferenceStore.selectedYear
   }),
   async (newVal) => {
-    if (newVal.grade || newVal.year) {
+    if (newVal.grade && newVal.year) {
       await refreshData()
     }
   }

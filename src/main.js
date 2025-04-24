@@ -4,17 +4,23 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createAuth0 } from '@auth0/auth0-vue'
 import { createVfm } from 'vue-final-modal'
+import VueDatePicker from '@vuepic/vue-datepicker'
+import VueSweetalert2 from 'vue-sweetalert2'
 
 import App from './App.vue'
 import router from './router/index.js'
 
 import 'vue-final-modal/style.css'
+import '@vuepic/vue-datepicker/dist/main.css'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 
 const app = createApp(App)
 
 const vfm = createVfm()
 
+
+app.component('VueDatePicker', VueDatePicker)
 app
   .use(createPinia())
   .use(router)
@@ -32,5 +38,6 @@ app
     })
   )
   .use(vfm)
+  .use(VueSweetalert2)
 
 app.mount('#app')
