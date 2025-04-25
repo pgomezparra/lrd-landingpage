@@ -76,7 +76,7 @@
           class="l-standard-container-payments__table-tbody"
           v-for="payment in payments" :key="payment.getId()"
         >
-          <p>{{ formatDate(payment.getDate()) }}</p>
+          <p>{{ payment.getDateStr() }}</p>
           <p>{{ payment.getDescription() }}</p>
           <p>{{ payment.isPension() ? payment.getMonth() : '' }}</p>
           <p>${{ payment.getValueFormatted() }}</p>
@@ -103,7 +103,6 @@ import { usePreferenceStore } from '@/admin/general/context/store/preferenceStor
 import { nextTick, ref, watch } from 'vue'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
-import { formatDate } from '@/shared/utils.js'
 import { useVfm } from 'vue-final-modal'
 import EditPaymentModal from '@/admin/payments/context/components/modals/EditPaymentModal.vue'
 import CreatePaymentModal from '@/admin/payments/context/components/modals/CreatePaymentModal.vue'

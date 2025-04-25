@@ -1,3 +1,5 @@
+import { format } from '@formkit/tempo'
+
 export default class Payment {
   #id = 0
   #date = ''
@@ -36,10 +38,13 @@ export default class Payment {
     return this
   }
 
+  getDateStr() {
+    return format(this.#date, 'DD MMM YYYY', 'es-CO')
+  }
+
   getDate() {
     return this.#date
   }
-
 
   setDate(date) {
     this.#date = date

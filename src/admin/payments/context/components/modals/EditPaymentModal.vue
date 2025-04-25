@@ -91,6 +91,7 @@
 import { useVfm, VueFinalModal } from 'vue-final-modal'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { reactive } from 'vue'
+import { parse } from '@formkit/tempo'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import Datepicker from '@vuepic/vue-datepicker'
@@ -101,7 +102,7 @@ const paymentStore = usePaymentStore()
 const preferencesStore = usePreferenceStore()
 
 const payment = reactive({
-  date: '',
+  date: new Date(),
   description: '',
   month_id: 0,
   value: 0,
@@ -113,7 +114,7 @@ const payment = reactive({
 })
 
 const onOpened = () => {
-  payment.date = new Date(paymentStore.selectedPayment.getDate()).toLocaleDateString('es-ES')
+  payment.date = parse(paymentStore.selectedPayment.getDate(), 'YYYY-MM-DD')
   payment.description = paymentStore.selectedPayment.getDescription()
   payment.month_id = paymentStore.selectedPayment.getMonthId()
   payment.value = paymentStore.selectedPayment.getValue()
@@ -126,7 +127,7 @@ const onOpened = () => {
 
 const onClosed = () => {
   paymentStore.setSelectedPayment(null)
-  payment.date = ''
+  payment.date = new Date()
   payment.description = ''
   payment.month_id = 0
   payment.value = 0
