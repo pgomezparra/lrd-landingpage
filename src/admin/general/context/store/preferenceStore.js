@@ -11,7 +11,7 @@ export const usePreferenceStore = defineStore('preference', {
     years: [],
     selectedYear: null,
     grades: [],
-    selectedGrade: null,
+    selectedGrade: 0,
     months: [],
     selectedMonth: null
   }),

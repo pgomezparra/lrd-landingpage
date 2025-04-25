@@ -38,4 +38,55 @@ export default class StudentUc {
       }
     }
   }
+
+  async registerStudent(student) {
+    try {
+      const response = await this.#studentRepository.registerStudent(this.processStudent(student))
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status }
+      } else {
+        return { status: 500 }
+      }
+    }
+  }
+
+  async updateStudent(student) {
+    try {
+      const data = this.processStudent(student)
+      data.id = student.id
+      const response = await this.#studentRepository.updateStudent(data)
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status }
+      } else {
+        return { status: 500 }
+      }
+    }
+  }
+
+  processStudent(student) {
+    return {
+      document_type: parseInt(student.documentType),
+      document: student.document,
+      name: student.name,
+      surname: student.surname,
+      age: parseInt(student.age),
+      active: student.active,
+      grade_id: student.grade,
+      year: student.year,
+      registration: student.registration,
+      pension: student.pension,
+      email: student.email,
+      parent_document_type: parseInt(student.parentDocumentTypeId),
+      parent_document: student.parentDocument,
+      parent_name: student.parentName
+    }
+  }
 }

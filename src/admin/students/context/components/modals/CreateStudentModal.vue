@@ -36,10 +36,9 @@
         <div>
           <p>Nombres</p>
           <input
-            :value="student.name"
+            v-model="student.name"
             type="text"
             placeholder="Nombres"
-            ref="nameInput"
           >
         </div>
         <div>
@@ -51,9 +50,17 @@
           >
         </div>
         <div>
+          <p>Edad</p>
+          <input
+            v-model="student.age"
+            type="text"
+            placeholder="Edad"
+          >
+        </div>
+        <div>
           <p>Grado</p>
           <select class="select-standard" v-model="student.grade">
-            <option disabled value="">Seleccione un grado</option>
+            <option disabled value="0">Seleccione un grado</option>
             <option
               v-for="grade in preferenceStore.grades"
               :key="grade.getId()"
@@ -78,15 +85,47 @@
             v-model="student.pension"
           >
         </div>
-
+        <div>
+          <p>Correo</p>
+          <input
+            type="text"
+            placeholder="Correo"
+            v-model="student.email"
+          >
+        </div>
+        <div>
+          <p>Tipo de documento acudiente</p>
+          <select class="select-standard" v-model="student.parentDocumentTypeId">
+            <option disabled value="">Seleccione un tipo de documento</option>
+            <option value="1">Registro Civil</option>
+            <option value="2">Tarjeta de Identidad</option>
+            <option value="3">Cédula de Ciudadanía</option>
+          </select>
+        </div>
+        <div>
+          <p>Documento acudiente</p>
+          <input
+            v-model="student.parentDocument"
+            type="text"
+            placeholder="Documento acudiente"
+          >
+        </div>
+        <div>
+          <p>Nombre acudiente</p>
+          <input
+            v-model="student.parentName"
+            type="text"
+            placeholder="Nombre acudiente"
+          >
+        </div>
       </div>
       <button class="button-edit" @click="closeModal">
-        Confirm
+        Cancelar
       </button>
-
+      <button class="button-edit" @click="registerStudent">
+        Guardar
+      </button>
     </div>
-
-
   </VueFinalModal>
 </template>
 
@@ -109,17 +148,24 @@ const documentTypeInput = ref(null)
 const student = reactive({
   name: '',
   surname: '',
-  documentType: '',
+  documentType: 0,
   document: '',
-  birthDate: '',
-  grade: '',
-  registration: '',
-  pension: ''
+  age: '',
+  grade: 0,
+  registration: 0,
+  pension: 0,
+  email: '',
+  active: true,
+  year: preferenceStore.selectedYear,
+  parentDocumentTypeId: 0,
+  parentDocument: '',
+  parentName: ''
 })
 
 watch(
   () => student.grade,
   async (newValue) => {
+    if (!newValue) return
     await getPaymentValues()
   }
 )
@@ -134,7 +180,7 @@ watch(
 
 const beforeOpen = async () => {
   clearInputs()
-  if (preferenceStore.selectedGrade) {
+  if (preferenceStore.selectedGrade !== 0) {
     student.grade = preferenceStore.selectedGrade.getId()
     const paymentValues = await preferenceStore.getPaymentValues(student.grade, preferenceStore.selectedYear)
     if (paymentValues.length > 0) {
@@ -161,6 +207,8 @@ const getPaymentValues = async () => {
 
 const validateDocument = async () => {
   try {
+    if (!student.document) return
+
     const response = await studentStore.searchByDocument(student.document)
     if (response.status === 200) {
       const students = response.students
@@ -181,6 +229,10 @@ const validateDocument = async () => {
 
       student.name = students[0].getName()
       student.surname = students[0].getSurname()
+      if (students[0].getEmail()) student.email = students[0].getEmail()
+      if (students[0].getParentDocumentTypeId()) student.parentDocumentTypeId = students[0].getParentDocumentTypeId()
+      if (students[0].getParentDocument()) student.parentDocument = students[0].getParentDocument()
+      if (students[0].getParentName()) student.parentName = students[0].getParentName()
 
       if (students[0].isActive()) await validateDebts(students[0].getId(), year)
     } else {
@@ -196,7 +248,7 @@ const validateDebts = async (studentId, year) => {
   try {
     const response = await paymentStore.searchPayments(studentId, year)
     if (response.consolidatedPayments[response.consolidatedPayments.length - 1].getBalance() > 0) {
-      notifications.notify(`El alumno tiene deudas pendientes en el año ${year}`, 'warning')
+      notifications.notify(`El estudiante tiene deudas pendientes en el año ${year}`, 'warning')
       closeModal()
       return
     }
@@ -205,15 +257,97 @@ const validateDebts = async (studentId, year) => {
   }
 }
 
+const registerStudent = async () => {
+  if (!validateData()) return
+
+  try {
+    const response = await studentStore.registerStudent(student)
+    if (response.status === 201) {
+      notifications.notify('El estudiante se ha registrado correctamente', 'success')
+      closeModal()
+      preferenceStore.setSelectedGrade(parseInt(student.grade))
+    } else {
+      notifications.notify('No se pudo registrar el estudiante', 'error')
+    }
+  } catch (error) {
+    console.error(`error: ${error}`)
+  }
+}
+
+const validateData = () => {
+  if (student.documentType === 0) {
+    notifications.notify('Debe seleccionar el tipo de documento del estudiante', 'error')
+    return false
+  }
+
+  if (student.document === '') {
+    notifications.notify('El documento del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.name === '') {
+    notifications.notify('El nombre del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.surname === '') {
+    notifications.notify('El apellido del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.age === '') {
+    notifications.notify('La edad del estudiante no puede estar vacía', 'error')
+    return false
+  }
+
+  if (student.grade === 0) {
+    notifications.notify('Debe seleccionar el grado del estudiante', 'error')
+    return false
+  }
+
+  if (student.registration === '0' || student.registration === '') {
+    notifications.notify('Debe ingresar el valor de matrícula del estudiante', 'error')
+    return false
+  }
+
+  if (student.pension === '0' || student.pension === '') {
+    notifications.notify('Debe ingresar el valor de pensión del estudiante', 'error')
+    return false
+  }
+
+  if (student.parentDocumentTypeId === 0) {
+    notifications.notify('Debe seleccionar el tipo de documento del acudiente del estudiante', 'error')
+    return false
+  }
+
+  if (student.parentDocument === '') {
+    notifications.notify('El documento del acudiente del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.parentName === '') {
+    notifications.notify('El nombre del acudiente del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  return true
+}
+
 const clearInputs = () => {
   student.name = ''
   student.surname = ''
-  student.documentType = ''
+  student.documentType = 0
   student.document = ''
-  student.birthDate = ''
-  student.grade = ''
-  student.registration = ''
-  student.pension = ''
+  student.age = ''
+  student.grade = 0
+  student.registration = 0
+  student.pension = 0
+  student.email = ''
+  student.year = preferenceStore.selectedYear
+  student.active = true
+  student.parentDocumentTypeId = 0
+  student.parentDocument = ''
+  student.parentName = ''
 }
 
 const closeModal = () => {

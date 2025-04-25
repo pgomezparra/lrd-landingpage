@@ -13,4 +13,16 @@ export default class StudentRepository {
 
     return customAxios.get(url)
   }
+
+  async registerStudent(student) {
+    let url = `${myUrl(3000)}/api/v1/students`
+
+    return customAxios.post(url, student)
+  }
+
+  async updateStudent(student) {
+    let url = `${myUrl(3000)}/api/v1/students/${student.id}`
+
+    return customAxios.patch(url, student)
+  }
 }

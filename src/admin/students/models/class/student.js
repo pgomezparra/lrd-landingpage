@@ -1,5 +1,6 @@
 export default class Student {
   #id = 0
+  #documentTypeId = 0
   #documentType = ''
   #document = ''
   #name = ''
@@ -11,10 +12,15 @@ export default class Student {
   #gradeId = 0
   #grade = ''
   #year = 0
+  #email = ''
+  #parentDocumentTypeId = 0
+  #parentDocument = ''
+  #parentName = ''
 
   static fromJSONResponse(json) {
     return new Student()
       .setId(json.id)
+      .setDocumentTypeId(json.document_type_id)
       .setDocumentType(json.document_type)
       .setDocument(json.document)
       .setName(json.name)
@@ -26,6 +32,10 @@ export default class Student {
       .setGradeId(json.grade_id)
       .setGrade(json.grade)
       .setYear(json.year)
+      .setEmail(json.email)
+      .setParentDocumentTypeId(json.parent_document_type_id)
+      .setParentDocument(json.parent_document)
+      .setParentName(json.parent_name)
   }
 
   getId() {
@@ -34,6 +44,16 @@ export default class Student {
 
   setId(id) {
     this.#id = id
+
+    return this
+  }
+
+  getDocumentTypeId() {
+    return this.#documentTypeId
+  }
+
+  setDocumentTypeId(documentTypeId) {
+    this.#documentTypeId = documentTypeId
 
     return this
   }
@@ -144,6 +164,46 @@ export default class Student {
 
   setYear(year) {
     this.#year = year
+
+    return this
+  }
+
+  getEmail() {
+    return this.#email
+  }
+
+  setEmail(email) {
+    this.#email = email
+
+    return this
+  }
+
+  getParentDocumentTypeId() {
+    return this.#parentDocumentTypeId
+  }
+
+  setParentDocumentTypeId(parentDocumentTypeId) {
+    this.#parentDocumentTypeId = parentDocumentTypeId
+
+    return this
+  }
+
+  getParentDocument() {
+    return this.#parentDocument
+  }
+
+  setParentDocument(parentDocument) {
+    this.#parentDocument = parentDocument
+
+    return this
+  }
+
+  getParentName() {
+    return this.#parentName
+  }
+
+  setParentName(parentName) {
+    this.#parentName = parentName
 
     return this
   }

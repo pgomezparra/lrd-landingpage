@@ -159,7 +159,7 @@ watch(grade, (newGrade) => {
 })
 
 watch(() => preferenceStore.selectedYear, (newYear) => {
-  if (!preferenceStore.selectedGrade) return
+  if (preferenceStore.selectedGrade === 0) return
   getStudents()
   clearData()
 })

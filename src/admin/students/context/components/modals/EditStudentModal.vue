@@ -7,29 +7,13 @@
     content-transition="vfm-fade"
     :click-to-close="false"
     :esc-to-close="false"
-    @opened="onOpened"
+    @beforeOpen="beforeOpen"
   >
     <div>
       <div>
         <p>Editar usuario</p>
       </div>
       <div>
-        <div>
-          <p>Nombre</p>
-          <input
-            :value="student.name"
-            type="text"
-            placeholder="Nombre"
-          >
-        </div>
-        <div>
-          <p>Apellido</p>
-          <input
-            v-model="student.surname"
-            type="text"
-            placeholder="Apellido"
-          >
-        </div>
         <div>
           <p>Tipo de documento</p>
           <select class="select-standard" v-model="student.documentType">
@@ -48,35 +32,105 @@
           >
         </div>
         <div>
-          <p>Grado</p>
+          <p>Nombres</p>
           <input
+            v-model="student.name"
             type="text"
             placeholder="Nombre"
           >
         </div>
         <div>
+          <p>Apellidos</p>
+          <input
+            v-model="student.surname"
+            type="text"
+            placeholder="Apellido"
+          >
+        </div>
+        <div>
+          <p>Edad</p>
+          <input
+            v-model="student.age"
+            type="text"
+            placeholder="Edad"
+          >
+        </div>
+        <div>
+          <p>Grado</p>
+          <select class="select-standard" v-model="student.grade">
+            <option disabled value="0">Seleccione un grado</option>
+            <option
+              v-for="grade in preferenceStore.grades"
+              :key="grade.getId()"
+              :value="grade.getId()">
+              {{ grade.getGrade() }}
+            </option>
+          </select>
+        </div>
+        <div>
           <p>Valor de matrícula</p>
           <input
             type="text"
-            placeholder="Nombre"
+            placeholder="Matrícula"
+            v-model="student.registration"
           >
         </div>
         <div>
           <p>Valor de pensión</p>
           <input
             type="text"
-            placeholder="Nombre"
+            placeholder="Pensión"
+            v-model="student.pension"
           >
         </div>
-
+        <div>
+          <p>Estado</p>
+          <select class="select-standard" v-model="student.active">
+            <option value="true">Activo</option>
+            <option value="false">Inactivo</option>
+          </select>
+        </div>
+        <div>
+          <p>Correo</p>
+          <input
+            type="text"
+            placeholder="Correo"
+            v-model="student.email"
+          >
+        </div>
+        <div>
+          <p>Tipo de documento acudiente</p>
+          <select class="select-standard" v-model="student.parentDocumentTypeId">
+            <option disabled value="0">Tipo de documento</option>
+            <option value="1">Registro Civil</option>
+            <option value="2">Tarjeta de Identidad</option>
+            <option value="3">Cédula de Ciudadanía</option>
+          </select>
+        </div>
+        <div>
+          <p>Documento acudiente</p>
+          <input
+            v-model="student.parentDocument"
+            type="text"
+            placeholder="Documento acudiente"
+          >
+        </div>
+        <div>
+          <p>Nombre acudiente</p>
+          <input
+            v-model="student.parentName"
+            type="text"
+            placeholder="Nombre acudiente"
+          >
+        </div>
       </div>
       <button class="button-edit" @click="closeModal">
-        Confirm
+        Cancelar
       </button>
-
+      <button class="button-edit" @click="updateStudent">
+        Actualizar
+      </button>
     </div>
-
-
   </VueFinalModal>
 </template>
 
@@ -84,29 +138,83 @@
 import { useVfm, VueFinalModal } from 'vue-final-modal'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { reactive } from 'vue'
+import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+import { notifications } from '@/shared/notifications.js'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
+const preferenceStore = usePreferenceStore()
 
 const student = reactive({
-  name: '',
-  surname: '',
+  id: 0,
   documentType: '',
   document: '',
-  birthDate: '',
-  grade: '',
-  registration: '',
-  pension: ''
+  name: '',
+  surname: '',
+  age: '',
+  grade: 0,
+  registration: 0,
+  pension: 0,
+  email: '',
+  active: false,
+  year: preferenceStore.selectedYear,
+  parentDocumentTypeId: 0,
+  parentDocument: '',
+  parentName: ''
 })
 
-const onOpened = () => {
-  console.log('onOpened', studentStore.selectedStudent)
+const beforeOpen = () => {
+  clearInputs()
+  if (!studentStore.selectedStudent) return
+  student.id = studentStore.selectedStudent.getId()
+  student.documentType = studentStore.selectedStudent.getDocumentTypeId()
+  student.document = studentStore.selectedStudent.getDocument()
   student.name = studentStore.selectedStudent.getName()
   student.surname = studentStore.selectedStudent.getSurname()
-  student.documentType = studentStore.selectedStudent.getDocumentType()
-  student.document = studentStore.selectedStudent.getDocument()
-  // student.registration = studentStore.selectedStudent.getRegistration()
-  // student.pension = studentStore.selectedStudent.getPension()
+  student.age = studentStore.selectedStudent.getAge()
+  student.grade = studentStore.selectedStudent.getGradeId()
+  student.registration = studentStore.selectedStudent.getRegistration()
+  student.pension = studentStore.selectedStudent.getPension()
+  if (studentStore.selectedStudent.getEmail()) student.email = studentStore.selectedStudent.getEmail()
+  student.active = studentStore.selectedStudent.isActive()
+  student.year = studentStore.selectedStudent.getYear()
+  if (studentStore.selectedStudent.getParentDocumentTypeId()) student.parentDocumentTypeId = studentStore.selectedStudent.getParentDocumentTypeId()
+  if (studentStore.selectedStudent.getParentDocument()) student.parentDocument = studentStore.selectedStudent.getParentDocument()
+  if (studentStore.selectedStudent.getParentName()) student.parentName = studentStore.selectedStudent.getParentName()
+}
+
+const updateStudent = async () => {
+  try {
+    const response = await studentStore.updateStudent(student)
+    if (response.status === 200) {
+      notifications.notify('El estudiante se ha actualizado correctamente', 'success')
+      closeModal()
+      preferenceStore.setSelectedGrade(0)
+      preferenceStore.setSelectedGrade(parseInt(student.grade))
+    } else {
+      notifications.notify('No se pudo actualizar el estudiante', 'error')
+    }
+  } catch (error) {
+    console.error(`error: ${error}`)
+  }
+}
+
+const clearInputs = () => {
+  student.id = 0
+  student.name = ''
+  student.surname = ''
+  student.documentType = 0
+  student.document = ''
+  student.age = ''
+  student.grade = 0
+  student.registration = 0
+  student.pension = 0
+  student.email = ''
+  student.year = preferenceStore.selectedYear
+  student.active = true
+  student.parentDocumentTypeId = 0
+  student.parentDocument = ''
+  student.parentName = ''
 }
 
 const closeModal = () => {

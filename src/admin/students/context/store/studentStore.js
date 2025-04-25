@@ -16,7 +16,14 @@ export const useStudentStore = defineStore('students', {
   }),
   actions: {
     setSelectedStudent(student) {
+      if (!student) {
+        this.selectedStudent = null
+        return
+      }
       this.selectedStudent = markRaw(student)
+    },
+    setStudents(students) {
+      this.students = markRaw(students)
     },
     async searchStudents(active) {
       try {
@@ -34,6 +41,20 @@ export const useStudentStore = defineStore('students', {
     async searchByDocument(document) {
       try {
         return await studentUc.searchByDocument(document)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async registerStudent(student) {
+      try {
+        return await studentUc.registerStudent(student)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async updateStudent(student) {
+      try {
+        return await studentUc.updateStudent(student)
       } catch (error) {
         console.error(`error: ${error}`)
       }

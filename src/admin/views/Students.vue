@@ -4,7 +4,7 @@
     <div class="l-standard-option">
       <p>Selecciona el grado a consultar:</p>
       <select class="select-standard" v-model="preferenceStore.selectedGrade" @change="handleGradeChange">
-        <option disabled value="">Seleccione un grado</option>
+        <option disabled value="0">Grado</option>
         <option
           v-for="grade in preferenceStore.grades"
           :key="grade.getId()"
@@ -16,7 +16,7 @@
     </div>
 
     <div class="l-standard-container-card">
-      <div class="cards" v-for="(student, index) in studentStore.students" :key="index">
+      <div class="cards" v-for="(student, index) in studentStore.students" :key="index" @click="editStudent(student)">
         <div>
           <img src="@/assets/img/general/person.svg" alt="person">
         </div>
@@ -25,7 +25,6 @@
           <p>{{ student.getName() }}</p>
           <p>{{ student.getSurname() }}</p>
         </div>
-        <button class="button-edit" @click="editStudent(student)">Editar</button>
       </div>
 
     </div>
@@ -69,15 +68,19 @@ watch(
     year: preferenceStore.selectedYear
   }),
   async (newVal) => {
-    if (newVal.grade && newVal.year) {
+    if (newVal.grade === 0) {
+      studentStore.setSelectedStudent(null)
+      studentStore.setStudents([])
+    }
+    if (newVal.grade && newVal.year && newVal.grade !== 0) {
       await refreshData()
     }
   }
 )
 
 onMounted(async () => {
-  if (preferenceStore.selectedGrade) {
-    await refreshData()
-  }
+  preferenceStore.setSelectedGrade(0)
+  studentStore.setSelectedStudent(null)
+  studentStore.setStudents([])
 })
 </script>
