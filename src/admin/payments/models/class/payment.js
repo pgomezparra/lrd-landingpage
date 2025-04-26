@@ -12,6 +12,7 @@ export default class Payment {
   #paymentTypeId = 0
   #monthId = 0
   #paymentMethodId = 0
+  #transferCode = ''
 
   static fromJSONResponse(json) {
     return new Payment()
@@ -26,6 +27,7 @@ export default class Payment {
       .setPaymentTypeId(json.payment_type_id)
       .setMonthId(json.month_id)
       .setPaymentMethodId(json.payment_method_id)
+      .setTransferCode(json.transfer_code)
   }
 
   getId() {
@@ -110,6 +112,10 @@ export default class Payment {
     return this
   }
 
+  isTransfer() {
+    return this.#paymentMethod === 'Transferencia'
+  }
+
   getPaymentMethod() {
     return this.#paymentMethod
   }
@@ -146,6 +152,16 @@ export default class Payment {
 
   setPaymentMethodId(paymentMethodId) {
     this.#paymentMethodId = paymentMethodId
+
+    return this
+  }
+
+  getTransferCode() {
+    return this.#transferCode
+  }
+
+  setTransferCode(transferCode) {
+    this.#transferCode = transferCode
 
     return this
   }

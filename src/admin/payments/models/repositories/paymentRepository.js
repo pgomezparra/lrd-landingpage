@@ -7,4 +7,16 @@ export default class PaymentRepository {
 
     return customAxios.get(url)
   }
+
+  async createPayment(payment) {
+    let url = `${myUrl(3000)}/api/v1/payments`
+
+    return customAxios.post(url, payment)
+  }
+
+  async updatePayment(payment) {
+    let url = `${myUrl(3000)}/api/v1/payments/${payment.id}`
+
+    return customAxios.patch(url, payment)
+  }
 }

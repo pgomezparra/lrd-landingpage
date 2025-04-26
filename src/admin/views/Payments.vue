@@ -81,7 +81,8 @@
           <p>{{ payment.isPension() ? payment.getMonth() : '' }}</p>
           <p>${{ payment.getValueFormatted() }}</p>
           <p>{{ payment.getPaymentType() }}</p>
-          <p>{{ payment.getPaymentMethod() }}</p>
+          <p>{{ payment.getPaymentMethod() }}<span v-if="payment.isTransfer()"> ({{ payment.getTransferCode() }})</span>
+          </p>
           <p class="l-standard-container-payments__table-tbody-icon">
             <button class="button-payment-circle" @click="editPayment(payment)">
               <img src="@/assets/img/general/edit.svg" alt="edit">
@@ -94,8 +95,8 @@
       </div>
     </div>
   </div>
-  <edit-payment-modal />
-  <create-payment-modal :consolidated-payments="consolidatedPayments" />
+  <edit-payment-modal @refresh="refreshData" />
+  <create-payment-modal :consolidated-payments="consolidatedPayments" @refresh="refreshData" />
 </template>
 
 <script setup>
@@ -173,5 +174,15 @@ watch(studentName, async (newVal) => {
     consolidatedPayments.value = response.consolidatedPayments
   }
 })
+
+const refreshData = async () => {
+  try {
+    const response = await paymentsStore.searchPayments(studentsStore.selectedStudent.getId())
+    payments.value = response.payments
+    consolidatedPayments.value = response.consolidatedPayments
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 </script>

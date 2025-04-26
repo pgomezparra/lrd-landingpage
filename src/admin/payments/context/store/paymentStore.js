@@ -31,6 +31,20 @@ export const usePaymentStore = defineStore('payments', {
       } catch (error) {
         console.error(`error: ${error}`)
       }
+    },
+    async createPayment(payment) {
+      try {
+        return await paymentUc.createPayment(payment)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async updatePayment(payment) {
+      try {
+        return await paymentUc.updatePayment(payment)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
     }
   }
 })

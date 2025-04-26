@@ -54,14 +54,23 @@
         <div>
           <p>Método de pago</p>
           <select :disabled="payment.excluded" v-model="payment.payment_method_id">
-            <option value="1">Efectivo</option>
-            <option value="2">Transferencia</option>
+            <option :value="1">Efectivo</option>
+            <option :value="2">Transferencia</option>
           </select>
+        </div>
+        <div v-if="payment.payment_method_id === 2">
+          <p>Código de transferencia</p>
+          <input
+            v-model="payment.transfer_code"
+            type="text"
+            placeholder="Código de transferencia"
+            ref="transferCode"
+          >
         </div>
         <div>
           <p>Descripción</p>
           <input
-            :value="payment.description"
+            v-model="payment.description"
             type="text"
             placeholder="Descripción"
             ref="description"
@@ -113,6 +122,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['refresh'])
+
 const balance = computed(() => {
   if (payment.excluded) return 0
   if (payment.value.toString().length < 4) return toPay.value.toLocaleString('es-CO')
@@ -120,16 +131,18 @@ const balance = computed(() => {
 })
 
 const description = ref(null)
+const transferCode = ref(null)
 const toPay = ref(0)
 
 const payment = reactive({
-  date: '',
+  date: new Date(),
   description: '',
   month_id: 0,
   value: 0,
   payment_type_id: 0,
   excluded: false,
   payment_method_id: 0,
+  transfer_code: '',
   year: 0,
   student_id: 0
 })
@@ -137,16 +150,23 @@ const payment = reactive({
 watch(
   () => [payment.excluded, payment.payment_method_id],
   ([newExcluded, newMethodId], [oldExcluded, oldMethodId]) => {
+    if (newExcluded) {
+      payment.payment_method_id = 1
+      payment.transfer_code = ''
+    }
+    if (newMethodId === 1) {
+      payment.transfer_code = ''
+    }
 
     nextTick(() => {
-      description.value?.focus()
+      newMethodId === 2 ? transferCode.value?.focus() : description.value?.focus()
     })
   }
 )
 
 const beforeOpen = () => {
   clearData()
-  payment.date = new Date().toISOString().split('T')[0]
+  payment.date = new Date()
   payment.student_id = studentStore.selectedStudent.getId()
   payment.year = preferencesStore.selectedYear
   payment.payment_method_id = 1
@@ -172,7 +192,7 @@ const onOpened = () => {
 }
 
 const clearData = () => {
-  payment.date = ''
+  payment.date = new Date()
   payment.description = ''
   payment.month_id = 0
   payment.value = 0
@@ -185,8 +205,61 @@ const clearData = () => {
 }
 
 const registerPayment = async () => {
-  console.log(payment)
-  notifications.notify('Pago registrado', 'success')
+  if (!validateData()) return
+
+  try {
+    const response = await paymentStore.createPayment(payment)
+    if (response.status === 201) {
+      notifications.notify('El pago se ha registrado correctamente', 'success')
+      closeModal()
+      emit('refresh')
+    } else if (response.status === 409) {
+      notifications.notify(response.message, 'error')
+    } else {
+      notifications.notify('No se pudo registrar el pago', 'error')
+    }
+  } catch (error) {
+    console.error(`error: ${error}`)
+  }
+}
+
+const validateData = () => {
+  if (payment.date === '') {
+    notifications.notify('Debe ingresar la fecha del pago', 'error')
+    return false
+  }
+
+  if (payment.description === '') {
+    notifications.notify('Debe ingresar la descripción del pago', 'error')
+    return false
+  }
+
+  if ((payment.value === '0' || payment.value === '' || payment.value === 0) && !payment.excluded) {
+    notifications.notify('Debe ingresar el valor del pago', 'error')
+    return false
+  }
+
+  if (parseInt(payment.value) > parseInt(toPay.value)) {
+    notifications.notify('El valor del pago no puede ser mayor al saldo', 'error')
+    return false
+  }
+
+  if (payment.payment_type_id === 0) {
+    notifications.notify('Debe seleccionar el tipo de pago', 'error')
+    return false
+  }
+
+  if (payment.payment_type_id === 2 && payment.month_id === 0) {
+    notifications.notify('Debe seleccionar el mes del pago', 'error')
+    return false
+  }
+
+  if (payment.payment_method_id === 2 && payment.transfer_code === '') {
+    notifications.notify('Debe ingresar el código de transferencia', 'error')
+    return false
+  }
+
+  return true
 }
 
 const onClosed = () => {

@@ -52,10 +52,19 @@
         </div>
         <div>
           <p>Método de pago</p>
-          <select v-model="payment.payment_method_id">
-            <option value="1">Efectivo</option>
-            <option value="2">Transferencia</option>
+          <select :disabled="payment.excluded" v-model="payment.payment_method_id">
+            <option :value="1">Efectivo</option>
+            <option :value="2">Transferencia</option>
           </select>
+        </div>
+        <div v-if="payment.payment_method_id === 2">
+          <p>Código de transferencia</p>
+          <input
+            v-model="payment.transfer_code"
+            type="text"
+            placeholder="Código de transferencia"
+            ref="transferCode"
+          >
         </div>
         <div>
           <p>Descripción</p>
@@ -63,11 +72,13 @@
             :value="payment.description"
             type="text"
             placeholder="Nombre"
+            ref="description"
           >
         </div>
         <div>
           <p>Valor</p>
           <input
+            :disabled="payment.excluded"
             v-model="payment.value"
             type="text"
             placeholder="Apellido"
@@ -77,7 +88,7 @@
       <button class="button-edit" @click="closeModal">
         Cancelar
       </button>
-      <button class="button-edit" @click="closeModal">
+      <button class="button-edit" @click="updatePayment">
         Actualizar
       </button>
 
@@ -90,18 +101,23 @@
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
-import { reactive } from 'vue'
+import { nextTick, reactive, ref, watch } from 'vue'
 import { parse } from '@formkit/tempo'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import Datepicker from '@vuepic/vue-datepicker'
+import { notifications } from '@/shared/notifications.js'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
 const paymentStore = usePaymentStore()
 const preferencesStore = usePreferenceStore()
 
+const transferCode = ref(null)
+const description = ref(null)
+
 const payment = reactive({
+  id: 0,
   date: new Date(),
   description: '',
   month_id: 0,
@@ -110,10 +126,77 @@ const payment = reactive({
   excluded: false,
   payment_method_id: 0,
   year: 0,
-  student_id: 0
+  student_id: 0,
+  transfer_code: ''
 })
 
+const emit = defineEmits(['refresh'])
+
+watch(
+  () => [payment.excluded, payment.payment_method_id],
+  ([newExcluded, newMethodId], [oldExcluded, oldMethodId]) => {
+    if (newExcluded) {
+      payment.payment_method_id = 1
+    }
+
+    nextTick(() => {
+      newMethodId === 2 ? transferCode.value?.focus() : description.value?.focus()
+    })
+  }
+)
+
+const updatePayment = async () => {
+  if (!validateData()) return
+
+  if (payment.payment_method_id !== 2) payment.transfer_code = ''
+  if (payment.excluded) {
+    payment.transfer_code = ''
+    payment.value = 0
+  }
+
+  try {
+    const response = await paymentStore.updatePayment(payment)
+    if (response.status === 200) {
+      notifications.notify('El pago se ha actualizado correctamente', 'success')
+      closeModal()
+      emit('refresh')
+    } else if (response.status === 409) {
+      notifications.notify(response.message, 'error')
+    } else {
+      notifications.notify('No se pudo actualizar el pago', 'error')
+    }
+  } catch (error) {
+    console.error(`error: ${error}`)
+  }
+}
+
+const validateData = () => {
+  if (payment.date === '') {
+    notifications.notify('Debe ingresar la fecha del pago', 'error')
+    return false
+  }
+
+  if (payment.description === '') {
+    notifications.notify('Debe ingresar la descripción del pago', 'error')
+    return false
+  }
+
+  if ((payment.value === '0' || payment.value === '' || payment.value === 0) && !payment.excluded) {
+    notifications.notify('Debe ingresar el valor del pago', 'error')
+    return false
+  }
+
+  if (payment.payment_method_id === 2 && payment.transfer_code === '') {
+    notifications.notify('Debe ingresar el código de transferencia', 'error')
+    return false
+  }
+
+  return true
+}
+
 const onOpened = () => {
+  if (!paymentStore.selectedPayment) return
+  payment.id = paymentStore.selectedPayment.getId()
   payment.date = parse(paymentStore.selectedPayment.getDate(), 'YYYY-MM-DD')
   payment.description = paymentStore.selectedPayment.getDescription()
   payment.month_id = paymentStore.selectedPayment.getMonthId()
@@ -121,12 +204,14 @@ const onOpened = () => {
   payment.payment_type_id = paymentStore.selectedPayment.getPaymentTypeId()
   payment.excluded = paymentStore.selectedPayment.isExcluded()
   payment.payment_method_id = paymentStore.selectedPayment.getPaymentMethodId()
+  if (paymentStore.selectedPayment.getTransferCode() !== '') payment.transfer_code = paymentStore.selectedPayment.getTransferCode()
   payment.year = studentStore.selectedStudent.getYear()
   payment.student_id = studentStore.selectedStudent.getId()
 }
 
 const onClosed = () => {
   paymentStore.setSelectedPayment(null)
+  payment.id = 0
   payment.date = new Date()
   payment.description = ''
   payment.month_id = 0
