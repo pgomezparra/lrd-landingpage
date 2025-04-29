@@ -16,7 +16,8 @@
     </div>
 
     <div class="l-standard-container-card">
-      <div class="cards" v-for="(student, index) in studentStore.students" :key="index" @click="editStudent(student)">
+      <div class="cards" v-for="(student, index) in studentStore.students" :key="index"
+           @click="studentDetails(student)">
         <div>
           <img src="@/assets/img/general/person.svg" alt="person">
         </div>
@@ -31,6 +32,7 @@
   </div>
   <edit-student-modal />
   <create-student-modal />
+  <details-student-modal />
 </template>
 
 <script setup>
@@ -40,6 +42,7 @@ import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { useVfm } from 'vue-final-modal'
 import EditStudentModal from '@/admin/students/context/components/modals/EditStudentModal.vue'
 import CreateStudentModal from '@/admin/students/context/components/modals/CreateStudentModal.vue'
+import DetailsStudentModal from '@/admin/students/context/components/modals/DetailsStudentModal.vue'
 
 const preferenceStore = usePreferenceStore()
 const studentStore = useStudentStore()
@@ -53,9 +56,9 @@ async function refreshData() {
   await studentStore.searchStudents(true)
 }
 
-const editStudent = (student) => {
+const studentDetails = (student) => {
   studentStore.setSelectedStudent(student)
-  vfm.open('editStudentModal')
+  vfm.open('detailsStudentModal')
 }
 
 const addStudent = () => {

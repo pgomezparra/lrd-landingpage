@@ -81,7 +81,8 @@
           <p>{{ payment.isPension() ? payment.getMonth() : '' }}</p>
           <p>${{ payment.getValueFormatted() }}</p>
           <p>{{ payment.getPaymentType() }}</p>
-          <p>{{ payment.getPaymentMethod() }}<span v-if="payment.isTransfer()"> ({{ payment.getTransferCode() }})</span>
+          <p>{{ payment.getPaymentMethod() }}<span
+            v-if="payment.isTransfer() && payment.getTransferCode()"> ({{ payment.getTransferCode() }})</span>
           </p>
           <p class="l-standard-container-payments__table-tbody-icon">
             <button class="button-payment-circle" @click="editPayment(payment)">

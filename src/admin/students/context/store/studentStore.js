@@ -3,6 +3,7 @@ import { markRaw } from 'vue'
 import StudentRepository from '@/admin/students/models/repositories/studentRepository.js'
 import StudentUc from '@/admin/students/use_cases/studentUc.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+import { notifications } from '@/shared/notifications.js'
 
 const studentRepository = new StudentRepository()
 const studentUc = new StudentUc(studentRepository)
@@ -55,6 +56,18 @@ export const useStudentStore = defineStore('students', {
     async updateStudent(student) {
       try {
         return await studentUc.updateStudent(student)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async promoteStudent(student) {
+      try {
+        const response = await studentUc.promoteStudent(student)
+        if (response.status !== 200) {
+          notifications.notify(response.message, 'error')
+        }
+
+        return response
       } catch (error) {
         console.error(`error: ${error}`)
       }

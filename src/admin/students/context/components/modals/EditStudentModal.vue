@@ -11,7 +11,7 @@
   >
     <div>
       <div>
-        <p>Editar usuario</p>
+        <p>Editar estudiante</p>
       </div>
       <div>
         <div>
@@ -219,6 +219,7 @@ const clearInputs = () => {
 
 const closeModal = () => {
   vfm.close('editStudentModal')
+  vfm.open('detailsStudentModal')
 }
 
 </script>

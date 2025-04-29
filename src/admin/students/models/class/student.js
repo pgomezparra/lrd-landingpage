@@ -14,6 +14,7 @@ export default class Student {
   #year = 0
   #email = ''
   #parentDocumentTypeId = 0
+  #parentDocumentType = ''
   #parentDocument = ''
   #parentName = ''
 
@@ -34,6 +35,7 @@ export default class Student {
       .setYear(json.year)
       .setEmail(json.email)
       .setParentDocumentTypeId(json.parent_document_type_id)
+      .setParentDocumentType(json.parent_document_type)
       .setParentDocument(json.parent_document)
       .setParentName(json.parent_name)
   }
@@ -122,6 +124,10 @@ export default class Student {
     return this.#registration
   }
 
+  getRegistrationStr() {
+    return this.#registration.toLocaleString('es-CO')
+  }
+
   setRegistration(registration) {
     this.#registration = registration
 
@@ -130,6 +136,10 @@ export default class Student {
 
   getPension() {
     return this.#pension
+  }
+
+  getPensionStr() {
+    return this.#pension.toLocaleString('es-CO')
   }
 
   setPension(pension) {
@@ -184,6 +194,16 @@ export default class Student {
 
   setParentDocumentTypeId(parentDocumentTypeId) {
     this.#parentDocumentTypeId = parentDocumentTypeId
+
+    return this
+  }
+
+  getParentDocumentType() {
+    return this.#parentDocumentType
+  }
+
+  setParentDocumentType(parentDocumentType) {
+    this.#parentDocumentType = parentDocumentType
 
     return this
   }

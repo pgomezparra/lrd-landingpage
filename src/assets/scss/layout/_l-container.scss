@@ -5,10 +5,10 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
+
 .app-layout {
-  background-image: url("@/assets/img/background/background.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: #ffffff;
+  background-image: url("@/assets/img/background/circuit-board.svg");
   background-position: center;
   display: flex;
   height: 100dvh;

@@ -186,6 +186,12 @@ const beforeOpen = () => {
 }
 
 const onOpened = () => {
+  if (props.consolidatedPayments[props.consolidatedPayments.length - 1].getBalance() === 0) {
+    closeModal()
+    notifications.notify('El estudiante no tiene saldo pendiente', 'error')
+    return
+  }
+
   nextTick(() => {
     description.value?.focus()
   })

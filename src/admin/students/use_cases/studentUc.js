@@ -71,6 +71,21 @@ export default class StudentUc {
     }
   }
 
+  async promoteStudent(student) {
+    try {
+      const response = await this.#studentRepository.promoteStudent(student)
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, message: error.response.data.message }
+      } else {
+        return { status: 500 }
+      }
+    }
+  }
+
   processStudent(student) {
     return {
       document_type: parseInt(student.documentType),

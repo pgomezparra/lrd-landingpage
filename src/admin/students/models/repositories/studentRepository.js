@@ -25,4 +25,10 @@ export default class StudentRepository {
 
     return customAxios.patch(url, student)
   }
+
+  async promoteStudent(student) {
+    let url = `${myUrl(3000)}/api/v1/students/${student.getId()}/promote/${student.getYear()}`
+
+    return customAxios.post(url)
+  }
 }
