@@ -61,7 +61,41 @@
         <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="student" />
         <p class="menu-item">Estudiantes</p>
       </div>
-
+      <div
+        class="sidebar-menu-items-container"
+        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'employees' }"
+        @click="redirectTo('/admin/employees')"
+      >
+        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="employee" />
+        <p class="menu-item">Empleados</p>
+      </div>
+      <div
+        class="sidebar-menu-items-container"
+        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'movements' }"
+        @click="redirectTo('/admin/movements')"
+      >
+        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="movement" />
+        <p class="menu-item">Movimientos</p>
+      </div>
+      <div @click="toggleSubMenu('reports')">
+        <div class="sidebar-menu-items-container-new">
+          <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">
+          Reportes
+          <span :class="{ rotated: preferenceStore.selectedMenu === 'reports' }">▼</span>
+        </div>
+        <div v-if="preferenceStore.selectedMenu === 'reports'">
+          <p @click="redirectTo('/admin/debts', 'content')" class="submenu-item">Deudores</p>
+          <p @click="redirectTo('/admin/cash-flow', 'content')" class="submenu-item">Caja</p>
+        </div>
+      </div>
+      <div
+        class="sidebar-menu-items-container"
+        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'settings' }"
+        @click="redirectTo('/admin/settings')"
+      >
+        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="settings" />
+        <p class="menu-item">Configuraciones</p>
+      </div>
     </div>
 
     <!-- Botón de salir -->
@@ -90,15 +124,9 @@ const auth0 = useAuth0()
 
 const loggedUser = ref(null)
 
-// Controla los submenús abiertos
-const openSubMenus = ref({
-  content: false // Submenú para "Contenido"
-})
-
 // Función para alternar la visibilidad de los submenús
 const toggleSubMenu = (menuName) => {
   preferenceStore.setSelectedMenu(menuName)
-  openSubMenus.value[menuName] = !openSubMenus.value[menuName]
 }
 
 const closeSession = () => {

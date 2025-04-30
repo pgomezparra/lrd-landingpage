@@ -37,12 +37,32 @@ export const privateRoutes = [
         path: 'students',
         name: 'students',
         component: () => import('@/admin/views/Students.vue')
+      },
+      {
+        path: 'employees',
+        name: 'employees',
+        component: () => import('@/admin/views/Employees.vue')
+      },
+      {
+        path: 'movements',
+        name: 'movements',
+        component: () => import('@/admin/views/Movements.vue')
+      },
+      {
+        path: 'settings',
+        name: 'admin-settings',
+        component: () => import('@/admin/views/Settings.vue')
+      },
+      {
+        path: 'debts',
+        name: 'debts',
+        component: () => import('@/admin/views/Debts.vue')
+      },
+      {
+        path: 'cash-flow',
+        name: 'cash-flow',
+        component: () => import('@/admin/views/CashFlow.vue')
       }
-      // {
-      //   path: 'settings',
-      //   name: 'admin-settings',
-      //   component: () => import('@/views/admin/Settings.vue')
-      // }
     ]
   }
 ]
