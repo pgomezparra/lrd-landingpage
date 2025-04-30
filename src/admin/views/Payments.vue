@@ -21,6 +21,7 @@
         placeholder="Buscar estudiante"
         ref="studentNameInput"
       />
+      <button class="button-standard" @click="clearPayments">Limpiar</button>
       <datalist id="students">
         <option
           v-for="student in students"
@@ -88,7 +89,7 @@
             <button class="button-payment-circle" @click="editPayment(payment)">
               <img src="@/assets/img/general/edit.svg" alt="edit">
             </button>
-            <button class="button-payment-circle">
+            <button class="button-payment-circle" @click="printPayment(payment)">
               <img class="button-payment-circle-img" src="@/assets/img/general/printer.svg" alt="printer">
             </button>
           </p>
@@ -98,6 +99,11 @@
   </div>
   <edit-payment-modal @refresh="refreshData" />
   <create-payment-modal :consolidated-payments="consolidatedPayments" @refresh="refreshData" />
+  <payment-support
+    v-if="showSupport"
+    :consolidated-payments="consolidatedPayments"
+    @closePaymentSupport="closeSupport"
+  />
 </template>
 
 <script setup>
@@ -108,6 +114,7 @@ import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { useVfm } from 'vue-final-modal'
 import EditPaymentModal from '@/admin/payments/context/components/modals/EditPaymentModal.vue'
 import CreatePaymentModal from '@/admin/payments/context/components/modals/CreatePaymentModal.vue'
+import PaymentSupport from '@/admin/payments/context/components/PaymentSupport.vue'
 
 const grade = ref(0)
 const student = ref(0)
@@ -116,11 +123,38 @@ const students = ref([])
 const payments = ref([])
 const consolidatedPayments = ref([])
 const studentNameInput = ref(null)
+const showSupport = ref(false)
 const vfm = useVfm()
 
 const preferenceStore = usePreferenceStore()
 const studentsStore = useStudentStore()
 const paymentsStore = usePaymentStore()
+
+
+watch(grade, (newGrade) => {
+  getStudents()
+})
+
+watch(() => preferenceStore.selectedYear, (newYear) => {
+  if (preferenceStore.selectedGrade === 0) return
+  getStudents()
+  clearData()
+})
+
+watch(studentName, async (newVal) => {
+  if (newVal === '') {
+    clearPayments()
+    return
+  }
+  const match = students.value.find(s => `${s.getName()} ${s.getSurname()}` === newVal)
+  if (match) {
+    student.value = match.getId()
+    studentsStore.setSelectedStudent(match)
+    const response = await paymentsStore.searchPayments(match.getId())
+    payments.value = response.payments
+    consolidatedPayments.value = response.consolidatedPayments
+  }
+})
 
 const changeGrade = (event) => {
   preferenceStore.setSelectedGrade(parseInt(event.target.value))
@@ -135,6 +169,25 @@ const clearData = () => {
   student.value = 0
   students.value = []
   payments.value = []
+}
+
+const clearPayments = () => {
+  payments.value = []
+  studentName.value = ''
+  student.value = 0
+  nextTick(() => {
+    studentNameInput.value?.focus()
+  })
+}
+
+const printPayment = async (payment) => {
+  paymentsStore.setSelectedPayment(payment)
+  showSupport.value = true
+}
+
+const closeSupport = () => {
+  showSupport.value = false
+  paymentsStore.setSelectedPayment(null)
 }
 
 async function getStudents() {
@@ -154,27 +207,6 @@ const editPayment = (payment) => {
 const addPayment = () => {
   vfm.open('createPaymentModal')
 }
-
-watch(grade, (newGrade) => {
-  getStudents()
-})
-
-watch(() => preferenceStore.selectedYear, (newYear) => {
-  if (preferenceStore.selectedGrade === 0) return
-  getStudents()
-  clearData()
-})
-
-watch(studentName, async (newVal) => {
-  const match = students.value.find(s => `${s.getName()} ${s.getSurname()}` === newVal)
-  if (match) {
-    student.value = match.getId()
-    studentsStore.setSelectedStudent(match)
-    const response = await paymentsStore.searchPayments(match.getId())
-    payments.value = response.payments
-    consolidatedPayments.value = response.consolidatedPayments
-  }
-})
 
 const refreshData = async () => {
   try {

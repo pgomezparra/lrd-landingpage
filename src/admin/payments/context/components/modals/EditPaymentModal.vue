@@ -69,9 +69,9 @@
         <div>
           <p>Descripción</p>
           <input
-            :value="payment.description"
+            v-model="payment.description"
             type="text"
-            placeholder="Nombre"
+            placeholder="Descripción"
             ref="description"
           >
         </div>
@@ -204,7 +204,7 @@ const onOpened = () => {
   payment.payment_type_id = paymentStore.selectedPayment.getPaymentTypeId()
   payment.excluded = paymentStore.selectedPayment.isExcluded()
   payment.payment_method_id = paymentStore.selectedPayment.getPaymentMethodId()
-  if (paymentStore.selectedPayment.getTransferCode() !== '') payment.transfer_code = paymentStore.selectedPayment.getTransferCode()
+  if (paymentStore.selectedPayment.getTransferCode()) payment.transfer_code = paymentStore.selectedPayment.getTransferCode()
   payment.year = studentStore.selectedStudent.getYear()
   payment.student_id = studentStore.selectedStudent.getId()
 }
