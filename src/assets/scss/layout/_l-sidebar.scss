@@ -6,7 +6,7 @@
   background: colors.$secondary-color;
   box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
   -moz-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-  -webkit-box-shadow: 0  0.125rem 0.125rem 0 colors.$shadow-card;
+  -webkit-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto 1fr auto;
@@ -20,11 +20,13 @@
     grid-template-rows: auto;
     row-gap: 1rem;
     place-items: center;
+
     &__img {
       border-radius: 50%;
       height: 7rem;
       width: 7rem;
     }
+
     &__user-details {
       color: colors.$text-title;
       font-family: fonts.$font-title;
@@ -57,7 +59,7 @@
     height: 100%;
     overflow: auto;
     row-gap: 1rem;
-    padding:0 1rem;
+    padding: 0 1rem;
 
     &-container {
       cursor: pointer;
@@ -67,9 +69,17 @@
       padding: 0.5rem 0;
       align-items: center;
 
+      &-selected {
+        border-radius: 0.25rem;
+        border-left: 0.125rem solid colors.$primary-color;
+        padding-left: 0.25rem;
+        background: colors.$hover-button-menu;
+        color: colors.$primary-color;
+      }
+
       &:hover {
         border-radius: 0.25rem;
-        border-left: 0.125rem solid colors.$primary-color ;
+        border-left: 0.125rem solid colors.$primary-color;
         padding-left: 0.25rem;
         background: colors.$hover-button-menu;
         color: colors.$primary-color;
@@ -86,7 +96,7 @@
 
       &:hover {
         border-radius: 0.25rem;
-        border-left: 0.125rem solid colors.$primary-color ;
+        border-left: 0.125rem solid colors.$primary-color;
         padding-left: 0.25rem;
         background: colors.$hover-button-menu;
         color: colors.$primary-color;

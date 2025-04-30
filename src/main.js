@@ -32,8 +32,8 @@ app
         redirect_uri: window.location.origin,
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
         scope: 'openid profile email'
-      }
-      // cacheLocation: 'localstorage',
+      },
+      cacheLocation: 'localstorage'
       // useRefreshTokens: true
     })
   )

@@ -84,7 +84,7 @@ const toggleMenu = () => {
 }
 
 const redirectToLogin = () => {
-  router.push('/admin/dashboard')
+  router.push('/admin/home')
 }
 </script>
 
