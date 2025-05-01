@@ -84,6 +84,9 @@
             placeholder="Apellido"
           >
         </div>
+        <div>
+          <p>Autor: <span>{{ payment.author }}</span></p>
+        </div>
       </div>
       <button class="button-edit" @click="closeModal">
         Cancelar
@@ -127,7 +130,8 @@ const payment = reactive({
   payment_method_id: 0,
   year: 0,
   student_id: 0,
-  transfer_code: ''
+  transfer_code: '',
+  author: ''
 })
 
 const emit = defineEmits(['refresh'])
@@ -207,6 +211,7 @@ const onOpened = () => {
   if (paymentStore.selectedPayment.getTransferCode()) payment.transfer_code = paymentStore.selectedPayment.getTransferCode()
   payment.year = studentStore.selectedStudent.getYear()
   payment.student_id = studentStore.selectedStudent.getId()
+  payment.author = paymentStore.selectedPayment.getAuthor()
 }
 
 const onClosed = () => {
@@ -221,6 +226,8 @@ const onClosed = () => {
   payment.payment_method_id = 0
   payment.year = 0
   payment.student_id = 0
+  payment.transfer_code = ''
+  payment.author = ''
 }
 
 const closeModal = () => {

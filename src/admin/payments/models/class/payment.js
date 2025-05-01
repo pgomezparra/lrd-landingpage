@@ -13,6 +13,7 @@ export default class Payment {
   #monthId = 0
   #paymentMethodId = 0
   #transferCode = ''
+  #author = ''
 
   static fromJSONResponse(json) {
     return new Payment()
@@ -28,6 +29,7 @@ export default class Payment {
       .setMonthId(json.month_id)
       .setPaymentMethodId(json.payment_method_id)
       .setTransferCode(json.transfer_code)
+      .setAuthor(json.author)
   }
 
   getId() {
@@ -162,6 +164,16 @@ export default class Payment {
 
   setTransferCode(transferCode) {
     this.#transferCode = transferCode
+
+    return this
+  }
+
+  getAuthor() {
+    return this.#author
+  }
+
+  setAuthor(author) {
+    this.#author = author
 
     return this
   }

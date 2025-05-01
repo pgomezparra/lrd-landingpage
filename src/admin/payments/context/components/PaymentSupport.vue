@@ -33,7 +33,11 @@
           </div>
 
           <div class="signature">
-            <hr />
+            <p style="text-align: center; margin-bottom: 0; padding-bottom: 0">
+              {{ paymentsStore.selectedPayment.getAuthor() !== 'Automático' ? paymentsStore.selectedPayment.getAuthor() : ''
+              }}
+            </p>
+            <hr style="margin-top: 0.125rem" />
             <p style="text-align: center">Firma y Sello</p>
           </div>
         </div>
@@ -71,7 +75,7 @@
 </template>
 
 <script setup>
-import { onMounted, onBeforeUnmount } from 'vue'
+import { onMounted } from 'vue'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 
