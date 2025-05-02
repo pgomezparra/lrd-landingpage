@@ -56,18 +56,14 @@ export default class MovementUc {
     }
   }
 
-  processMovement(payment) {
+  processMovement(movement) {
     return {
-      date: format(payment.date, 'YYYY-MM-DD'),
-      description: payment.description,
-      month_id: payment.month_id,
-      value: parseInt(payment.value),
-      payment_type_id: payment.payment_type_id,
-      excluded: payment.excluded,
-      payment_method_id: payment.payment_method_id,
-      year: payment.year,
-      student_id: payment.student_id,
-      transfer_code: payment.transfer_code
+      date: format(movement.date, 'YYYY-MM-DD'),
+      description: movement.description,
+      value: parseInt(movement.value),
+      movement_type_id: movement.movement_type_id,
+      movement_method_id: movement.movement_method_id,
+      year: movement.year
     }
   }
 }

@@ -68,8 +68,8 @@
 
 .button-payment {
   align-items: center;
-  background:  colors.$btn-blue;
-  border:none;
+  background: colors.$btn-blue;
+  border: none;
   border-radius: 2rem;
   color: colors.$secondary-color;
   cursor: pointer;
@@ -98,10 +98,15 @@
   font-size: 1rem;
   padding: 0.5rem;
   width: fit-content;
+
   &:hover {
     background: colors.$primary-color;
     border: none;
     color: colors.$secondary-color;
+
+    img {
+      filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(933%) hue-rotate(152deg) brightness(109%) contrast(101%);
+    }
   }
 }
 
@@ -116,10 +121,10 @@
   &:hover {
     box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
     -moz-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
-    -webkit-box-shadow: 0  0.125rem 0.313rem 0 colors.$shadow-box;
+    -webkit-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
   }
 
-  &-img{
+  &-img {
     height: 1.25rem;
     width: 1.25rem;
   }

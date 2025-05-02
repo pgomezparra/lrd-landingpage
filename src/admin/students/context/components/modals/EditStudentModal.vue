@@ -10,126 +10,109 @@
     @beforeOpen="beforeOpen"
   >
     <div>
-      <div>
-        <p>Editar estudiante</p>
-      </div>
-      <div>
-        <div>
+      <p class="modal-title">Editar estudiante</p>
+
+      <div class="modal-body">
+        <div class="form-group">
           <p>Tipo de documento</p>
-          <select class="select-standard" v-model="student.documentType">
+          <select v-model="student.documentType">
             <option disabled value="">Seleccione un tipo de documento</option>
             <option value="1">Registro Civil</option>
             <option value="2">Tarjeta de Identidad</option>
             <option value="3">Cédula de Ciudadanía</option>
           </select>
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Documento</p>
-          <input
-            v-model="student.document"
-            type="text"
-            placeholder="Documento"
-          >
+          <input v-model="student.document" type="text" placeholder="Documento" />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Nombres</p>
-          <input
-            v-model="student.name"
-            type="text"
-            placeholder="Nombre"
-          >
+          <input v-model="student.name" type="text" placeholder="Nombre" />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Apellidos</p>
-          <input
-            v-model="student.surname"
-            type="text"
-            placeholder="Apellido"
-          >
+          <input v-model="student.surname" type="text" placeholder="Apellido" />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Edad</p>
-          <input
-            v-model="student.age"
-            type="text"
-            placeholder="Edad"
-          >
+          <input v-model="student.age" type="text" placeholder="Edad" />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Grado</p>
-          <select class="select-standard" v-model="student.grade">
+          <select v-model="student.grade">
             <option disabled value="0">Seleccione un grado</option>
             <option
               v-for="grade in preferenceStore.grades"
               :key="grade.getId()"
-              :value="grade.getId()">
+              :value="grade.getId()"
+            >
               {{ grade.getGrade() }}
             </option>
           </select>
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Valor de matrícula</p>
-          <input
-            type="text"
-            placeholder="Matrícula"
-            v-model="student.registration"
-          >
+          <input type="text" placeholder="Matrícula" v-model="student.registration" />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Valor de pensión</p>
-          <input
-            type="text"
-            placeholder="Pensión"
-            v-model="student.pension"
-          >
+          <input type="text" placeholder="Pensión" v-model="student.pension" />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Estado</p>
-          <select class="select-standard" v-model="student.active">
+          <select v-model="student.active">
             <option value="true">Activo</option>
             <option value="false">Inactivo</option>
           </select>
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Correo</p>
-          <input
-            type="text"
-            placeholder="Correo"
-            v-model="student.email"
-          >
+          <input type="text" placeholder="Correo" v-model="student.email" />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Tipo de documento acudiente</p>
-          <select class="select-standard" v-model="student.parentDocumentTypeId">
+          <select v-model="student.parentDocumentTypeId">
             <option disabled value="0">Tipo de documento</option>
             <option value="1">Registro Civil</option>
             <option value="2">Tarjeta de Identidad</option>
             <option value="3">Cédula de Ciudadanía</option>
           </select>
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Documento acudiente</p>
           <input
             v-model="student.parentDocument"
             type="text"
             placeholder="Documento acudiente"
-          >
+          />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Nombre acudiente</p>
           <input
             v-model="student.parentName"
             type="text"
             placeholder="Nombre acudiente"
-          >
+          />
         </div>
       </div>
-      <button class="button-edit" @click="closeModal">
-        Cancelar
-      </button>
-      <button class="button-edit" @click="updateStudent">
-        Actualizar
-      </button>
+
+      <div class="modal-actions">
+        <button class="button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-edit" @click="updateStudent">Actualizar</button>
+      </div>
     </div>
   </VueFinalModal>
 </template>
@@ -219,7 +202,78 @@ const clearInputs = () => {
 
 const closeModal = () => {
   vfm.close('editStudentModal')
-  vfm.open('detailsStudentModal')
 }
 
 </script>
+
+<style scoped>
+.modal-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 50dvh;
+  overflow-y: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group p {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.button-edit {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-edit:first-child {
+  background-color: #6c757d;
+  color: white;
+}
+
+.button-edit:last-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-edit:hover {
+  opacity: 0.9;
+}
+</style>

@@ -73,7 +73,7 @@ export default class Movement {
   }
 
   isIngress() {
-    return this.#movementType === 'Entrada'
+    return this.#movementType === 'Ingreso'
   }
 
   getMovementType() {

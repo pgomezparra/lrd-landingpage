@@ -12,32 +12,33 @@
     @closed="onClosed"
   >
     <div>
-      <div>
-        <p>Registrar pago</p>
-      </div>
-      <div>
-        <div>
+      <p class="modal-title">Registrar pago</p>
+
+      <div class="modal-body">
+        <div class="form-group">
           <p>Fecha</p>
           <Datepicker
             v-model="payment.date"
             :autoApply="true"
             :enable-time-picker="false"
-            :format="'yyyy-MM-dd'"
+            format="yyyy-MM-dd"
             locale="es"
             :maxDate="new Date()"
             :clearable="false"
           />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Tipo de pago</p>
-          <select disabled v-model="payment.payment_type_id">
+          <select v-model="payment.payment_type_id" disabled>
             <option value="1">Matrícula</option>
             <option value="2">Pensión</option>
           </select>
         </div>
-        <div v-if="payment.payment_type_id === 2">
+
+        <div v-if="payment.payment_type_id === 2" class="form-group">
           <p>Mes</p>
-          <select disabled v-model="payment.month_id">
+          <select v-model="payment.month_id" disabled>
             <option
               v-for="month in preferencesStore.months"
               :key="month.getId()"
@@ -47,36 +48,45 @@
             </option>
           </select>
         </div>
-        <div v-if="payment.payment_type_id === 2">
+
+        <div v-if="payment.payment_type_id === 2" class="form-group switch-group">
           <p>No paga</p>
-          <input type="checkbox" v-model="payment.excluded">
+          <label class="switch">
+            <input type="checkbox" v-model="payment.excluded" />
+            <span class="slider"></span>
+          </label>
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Método de pago</p>
           <select :disabled="payment.excluded" v-model="payment.payment_method_id">
             <option :value="1">Efectivo</option>
             <option :value="2">Transferencia</option>
           </select>
         </div>
-        <div v-if="payment.payment_method_id === 2">
+
+        <div v-if="payment.payment_method_id === 2" class="form-group">
           <p>Código de transferencia</p>
           <input
             v-model="payment.transfer_code"
             type="text"
             placeholder="Código de transferencia"
             ref="transferCode"
-          >
+          />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Descripción</p>
-          <input
+          <textarea
             v-model="payment.description"
-            type="text"
             placeholder="Descripción"
+            rows="2"
+            style="resize: none; overflow: auto"
             ref="description"
-          >
+          ></textarea>
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Valor</p>
           <input
             :disabled="payment.excluded"
@@ -84,19 +94,19 @@
             type="text"
             maxlength="10"
             placeholder="Valor"
-          >
+          />
         </div>
-        <div>
+
+        <div class="form-group">
           <p>Saldo</p>
           <p>$ {{ balance < 0 ? 0 : balance }}</p>
         </div>
       </div>
-      <button class="button-edit" @click="closeModal">
-        Cancelar
-      </button>
-      <button class="button-edit" @click="registerPayment">
-        Registrar
-      </button>
+
+      <div class="modal-actions">
+        <button class="button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-edit" @click="registerPayment">Registrar</button>
+      </div>
     </div>
   </VueFinalModal>
 </template>
@@ -277,3 +287,129 @@ const closeModal = () => {
 }
 
 </script>
+
+<style scoped>
+.modal-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 60dvh;
+  overflow-y: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group p {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.button-edit {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-edit:first-child {
+  background-color: #6c757d;
+  color: white;
+}
+
+.button-edit:last-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-edit:hover {
+  opacity: 0.9;
+}
+
+/* Switch styling */
+.switch-group {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+}
+
+input:checked + .slider::before {
+  transform: translateX(18px);
+}
+</style>

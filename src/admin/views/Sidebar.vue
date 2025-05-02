@@ -42,17 +42,25 @@
         <img class="sidebar-menu-items__img" src="@/assets/img/general/payment.svg" alt="payment">
         <p>Pagos</p>
       </div>
-      <div @click="toggleSubMenu('content')">
-        <div class="sidebar-menu-items-container-new">
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">
-          Contenido
-          <span :class="{ rotated: preferenceStore.selectedMenu === 'content' }">▼</span>
-        </div>
-        <div v-if="preferenceStore.selectedMenu === 'content'">
-          <p @click="redirectTo('/admin/news', 'content')" class="submenu-item">Noticias</p>
-          <p @click="redirectTo('/admin/announcements', 'content')" class="submenu-item">Anuncios</p>
-        </div>
-      </div>
+      <!--      <div @click="toggleSubMenu('content')">-->
+      <!--        <div class="sidebar-menu-items-container-new">-->
+      <!--          <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">-->
+      <!--          Contenido-->
+      <!--          <span :class="{ rotated: preferenceStore.selectedMenu === 'content' }">▼</span>-->
+      <!--        </div>-->
+      <!--        <div v-if="preferenceStore.selectedMenu === 'content'">-->
+      <!--          <p-->
+      <!--            @click="redirectTo('/admin/news', 'content')"-->
+      <!--            class="submenu-item"-->
+      <!--            :class="{ 'submenu-item&#45;&#45;active': preferenceStore.selectedSubMenu === 'news' }"-->
+      <!--          >Noticias</p>-->
+      <!--          <p-->
+      <!--            @click="redirectTo('/admin/announcements', 'content')"-->
+      <!--            class="submenu-item"-->
+      <!--            :class="{ 'submenu-item&#45;&#45;active': preferenceStore.selectedSubMenu === 'announcements' }"-->
+      <!--          >Anuncios</p>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <div
         class="sidebar-menu-items-container"
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'students' }"
@@ -61,14 +69,14 @@
         <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="student" />
         <p class="menu-item">Estudiantes</p>
       </div>
-      <div
-        class="sidebar-menu-items-container"
-        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'employees' }"
-        @click="redirectTo('/admin/employees')"
-      >
-        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="employee" />
-        <p class="menu-item">Empleados</p>
-      </div>
+      <!--      <div-->
+      <!--        class="sidebar-menu-items-container"-->
+      <!--        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'employees' }"-->
+      <!--        @click="redirectTo('/admin/employees')"-->
+      <!--      >-->
+      <!--        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="employee" />-->
+      <!--        <p class="menu-item">Empleados</p>-->
+      <!--      </div>-->
       <div
         class="sidebar-menu-items-container"
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'movements' }"
@@ -84,18 +92,26 @@
           <span :class="{ rotated: preferenceStore.selectedMenu === 'reports' }">▼</span>
         </div>
         <div v-if="preferenceStore.selectedMenu === 'reports'">
-          <p @click="redirectTo('/admin/debts', 'content')" class="submenu-item">Deudores</p>
-          <p @click="redirectTo('/admin/cash-flow', 'content')" class="submenu-item">Caja</p>
+          <p
+            @click="redirectTo('/admin/debts', 'content')"
+            class="submenu-item"
+            :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'debts' }"
+          >Deudores</p>
+          <p
+            @click="redirectTo('/admin/cash-flow', 'content')"
+            class="submenu-item"
+            :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'cash-flow' }"
+          >Caja</p>
         </div>
       </div>
-      <div
-        class="sidebar-menu-items-container"
-        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'settings' }"
-        @click="redirectTo('/admin/settings')"
-      >
-        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="settings" />
-        <p class="menu-item">Configuraciones</p>
-      </div>
+      <!--      <div-->
+      <!--        class="sidebar-menu-items-container"-->
+      <!--        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'settings' }"-->
+      <!--        @click="redirectTo('/admin/settings')"-->
+      <!--      >-->
+      <!--        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="settings" />-->
+      <!--        <p class="menu-item">Configuraciones</p>-->
+      <!--      </div>-->
     </div>
 
     <!-- Botón de salir -->
@@ -191,3 +207,28 @@ onMounted(async () => {
   }
 })
 </script>
+
+<style scoped>
+.submenu-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.2s, color 0.2s;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+
+.submenu-item:not(.submenu-item--active):hover {
+  background-color: #f0f0f0;
+}
+
+.submenu-item--active {
+  background-color: #610e0d;
+  color: white;
+  font-weight: bold;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+</style>

@@ -87,3 +87,16 @@ onMounted(async () => {
   studentStore.setStudents([])
 })
 </script>
+
+<style scoped>
+.button-standard {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+</style>

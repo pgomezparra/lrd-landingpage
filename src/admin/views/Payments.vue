@@ -31,28 +31,24 @@
       </datalist>
     </div>
     <div v-if="student" class="l-standard-container-payments">
-      <div v-if="consolidatedPayments.length > 0">
-        <div>Resumen de pagos</div>
-        <div>
-          <span>Matrícula: $ {{ consolidatedPayments[0].getValueFormatted() }}</span>
-          <span>Saldo: $ {{ consolidatedPayments[0].getBalanceFormatted() }}</span>
+      <div v-if="consolidatedPayments.length > 0" class="payments-summary">
+        <h2>Resumen de pagos</h2>
+
+        <div class="payment-card main-payment">
+          <h3>Matrícula</h3>
+          <p>Pagado: $ {{ consolidatedPayments[0].getValueFormatted() }}</p>
+          <p>Saldo: $ {{ consolidatedPayments[0].getBalanceFormatted() }}</p>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr;">
-          <div>
-            <div v-for="payment in consolidatedPayments.slice(1,6)" :key="payment.getMonthId()"
-                 style="display: flex; flex-direction: column; align-items: center;">
-              <span>{{ payment.getMonth() }}</span>
-              <span>Pagado: $ {{ payment.getValueFormatted() }}</span>
-              <span>Saldo: $ {{ payment.getBalanceFormatted() }}</span>
-            </div>
-          </div>
-          <div>
-            <div v-for="payment in consolidatedPayments.slice(6)" :key="payment.getMonthId()"
-                 style="display: flex; flex-direction: column; align-items: center;">
-              <span>{{ payment.getMonth() }}</span>
-              <span>Pagado: $ {{ payment.getValueFormatted() }}</span>
-              <span>Saldo: $ {{ payment.getBalanceFormatted() }}</span>
-            </div>
+
+        <div class="payments-grid compact">
+          <div
+            class="payment-card"
+            v-for="payment in consolidatedPayments.slice(1)"
+            :key="payment.getMonthId()"
+          >
+            <strong>{{ payment.getMonth() }}</strong>
+            <span>$ {{ payment.getValueFormatted() }}</span>
+            <span>Saldo: $ {{ payment.getBalanceFormatted() }}</span>
           </div>
         </div>
       </div>
@@ -219,3 +215,81 @@ const refreshData = async () => {
 }
 
 </script>
+
+<style scoped>
+.button-standard {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button-standard:hover {
+  background-color: #0056b3;
+}
+
+.button-standard:active {
+  transform: scale(0.97);
+}
+
+.payments-summary {
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.payments-summary h2 {
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.payments-grid.compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.payment-card {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.payment-card strong {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.payment-card span {
+  color: #555;
+  font-size: 0.8rem;
+}
+
+.main-payment {
+  background-color: #f0f9ff;
+  border-color: #b6e0fe;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.main-payment h3 {
+  margin: 0;
+}
+</style>

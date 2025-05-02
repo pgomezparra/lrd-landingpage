@@ -11,7 +11,7 @@ export const useMovementStore = defineStore('movements', {
     selectedMovement: null
   }),
   actions: {
-    setSelectedPayment(movement) {
+    setSelectedMovement(movement) {
       if (movement === null) {
         this.selectedMovement = null
         return
