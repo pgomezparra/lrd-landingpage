@@ -15,26 +15,28 @@
       <p class="modal-title">Registrar pago</p>
 
       <div class="modal-body">
-        <div class="form-group">
-          <p>Fecha</p>
-          <Datepicker
-            v-model="payment.date"
-            :autoApply="true"
-            :enable-time-picker="false"
-            format="yyyy-MM-dd"
-            locale="es"
-            :maxDate="new Date()"
-            :clearable="false"
-          />
+        <div>
+          <div class="form-group">
+            <p>Fecha</p>
+            <Datepicker
+              v-model="payment.date"
+              :autoApply="true"
+              :enable-time-picker="false"
+              format="yyyy-MM-dd"
+              locale="es"
+              :maxDate="new Date()"
+              :clearable="false"
+            />
+          </div>
+          <div class="form-group">
+            <p>Tipo de pago</p>
+            <select v-model="payment.payment_type_id" disabled>
+              <option value="1">Matrícula</option>
+              <option value="2">Pensión</option>
+            </select>
+          </div>
         </div>
 
-        <div class="form-group">
-          <p>Tipo de pago</p>
-          <select v-model="payment.payment_type_id" disabled>
-            <option value="1">Matrícula</option>
-            <option value="2">Pensión</option>
-          </select>
-        </div>
 
         <div v-if="payment.payment_type_id === 2" class="form-group">
           <p>Mes</p>
@@ -288,128 +290,3 @@ const closeModal = () => {
 
 </script>
 
-<style scoped>
-.modal-title {
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  height: 60dvh;
-  overflow-y: auto;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group p {
-  margin: 0 0 0.3rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 0.5rem;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: border-color 0.2s;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.8rem;
-  margin-top: 1.5rem;
-}
-
-.button-edit {
-  padding: 0.5rem 1rem;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.button-edit:first-child {
-  background-color: #6c757d;
-  color: white;
-}
-
-.button-edit:last-child {
-  background-color: #007bff;
-  color: white;
-}
-
-.button-edit:hover {
-  opacity: 0.9;
-}
-
-/* Switch styling */
-.switch-group {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 42px;
-  height: 24px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  background-color: #ccc;
-  border-radius: 34px;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: 0.4s;
-}
-
-.slider::before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: #007bff;
-}
-
-input:checked + .slider::before {
-  transform: translateX(18px);
-}
-</style>
