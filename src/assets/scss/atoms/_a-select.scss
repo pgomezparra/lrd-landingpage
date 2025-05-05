@@ -58,4 +58,23 @@
   padding: 0.5rem;
   color: colors.$text-title;
   font-size: 1rem;
+
+
+}
+.select-methods {
+  appearance: none;
+  background: colors.$secondary-color;
+  border: 0.063rem solid colors.$admissions-card-border;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-family: fonts.$font-primary;
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
+
+  &:hover {
+    box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-card;
+    -moz-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-card;
+    -webkit-box-shadow: 0  0.125rem 0.313rem 0 colors.$shadow-card;
+  }
 }

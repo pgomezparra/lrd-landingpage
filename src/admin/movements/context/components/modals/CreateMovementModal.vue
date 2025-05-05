@@ -15,35 +15,48 @@
       <p class="modal-title">Registrar movimiento</p>
 
       <div class="modal-body">
-        <div class="form-group">
-          <p>Fecha</p>
-          <Datepicker
-            v-model="movement.date"
-            :autoApply="true"
-            :enable-time-picker="false"
-            :format="'yyyy-MM-dd'"
-            locale="es"
-            :maxDate="new Date()"
-            :clearable="false"
-          />
+        <div class="container-form-edit">
+          <div class="form-group">
+            <p>Fecha</p>
+            <Datepicker
+              v-model="movement.date"
+              :autoApply="true"
+              :enable-time-picker="false"
+              :format="'yyyy-MM-dd'"
+              locale="es"
+              :maxDate="new Date()"
+              :clearable="false"
+            />
+          </div>
+          <div class="form-group">
+            <p>Tipo de movimiento</p>
+            <select class="select-document" v-model="movement.movement_type_id">
+              <option :value="1">Ingreso</option>
+              <option :value="2">Salida</option>
+            </select>
+          </div>
+        </div>
+        <div class="container-form-edit">
+          <div class="form-group">
+            <p>Método de pago</p>
+            <select class="select-document" v-model="movement.movement_method_id">
+              <option :value="1">Efectivo</option>
+              <option :value="2">Transferencia</option>
+              <option :value="3">Cuenta Bancaria</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <p>Valor</p>
+            <input
+              v-model="movement.value"
+              type="text"
+              maxlength="10"
+              placeholder="Valor"
+            >
+          </div>
         </div>
 
-        <div class="form-group">
-          <p>Tipo de movimiento</p>
-          <select v-model="movement.movement_type_id">
-            <option :value="1">Ingreso</option>
-            <option :value="2">Salida</option>
-          </select>
-        </div>
 
-        <div class="form-group">
-          <p>Método de pago</p>
-          <select v-model="movement.movement_method_id">
-            <option :value="1">Efectivo</option>
-            <option :value="2">Transferencia</option>
-            <option :value="3">Cuenta Bancaria</option>
-          </select>
-        </div>
 
         <div class="form-group">
           <p>Descripción</p>
@@ -56,15 +69,6 @@
           ></textarea>
         </div>
 
-        <div class="form-group">
-          <p>Valor</p>
-          <input
-            v-model="movement.value"
-            type="text"
-            maxlength="10"
-            placeholder="Valor"
-          >
-        </div>
       </div>
 
       <div class="modal-actions">
@@ -185,81 +189,3 @@ const closeModal = () => {
 
 </script>
 
-<style scoped>
-.modal-title {
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group p {
-  margin: 0 0 0.3rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 0.5rem;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: border-color 0.2s;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-.textarea-auto {
-  resize: none;
-  overflow: auto;
-  min-height: 2.5rem;
-  line-height: 1.4;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.8rem;
-  margin-top: 1.5rem;
-}
-
-.button-edit {
-  padding: 0.5rem 1rem;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.button-edit:first-child {
-  background-color: #6c757d;
-  color: white;
-}
-
-.button-edit:last-child {
-  background-color: #007bff;
-  color: white;
-}
-
-.button-edit:hover {
-  opacity: 0.9;
-}
-</style>
