@@ -1,12 +1,12 @@
 <template>
-  <div class="movements-container">
+  <div class="l-standard">
     <div class="header-movements">
       <h2>
         Listado de movimientos
-        <span class="total">({{ movements.length }})</span>
+        <span class="container-total">{{ movements.length }}</span>
       </h2>
       <div class="controls">
-        <select v-model="selectedMonth">
+        <select class="select-standard" v-model="selectedMonth">
           <option
             v-for="month in preferencesStore.months"
             :key="month.getId()"
@@ -15,7 +15,7 @@
             {{ month.getMonth() }}
           </option>
         </select>
-        <button class="btn" @click="addMovement">Registrar movimiento</button>
+        <button class="button-edit" @click="addMovement">Registrar movimiento</button>
       </div>
     </div>
     <div v-if="movements.length > 0" class="movements-list">
@@ -90,116 +90,3 @@ onMounted(() => {
   if (preferencesStore.months.length > 0) selectedMonth.value = new Date().getMonth() + 1
 })
 </script>
-
-<style scoped>
-.movements-container {
-  width: 50rem;
-  padding: 1.5rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  height: 90dvh;
-}
-
-.header-movements {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.header-movements h2 {
-  font-size: 1.4rem;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-.total {
-  font-weight: normal;
-  color: #555;
-  margin-left: 0.5rem;
-}
-
-.controls {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-select {
-  padding: 0.3rem 0.5rem;
-  font-size: 0.9rem;
-  width: 60%;
-}
-
-.btn {
-  background-color: #0066cc;
-  color: white;
-  border: none;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.9rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: #004c99;
-}
-
-.movements-list {
-  height: 80dvh;
-  width: 100%;
-  overflow-y: scroll;
-}
-
-.movement-card {
-  border: 1px solid #ddd;
-  padding: 0.8rem;
-  border-radius: 6px;
-  margin-bottom: 0.8rem;
-  background-color: #fafafa;
-  cursor: pointer;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
-}
-
-.date {
-  color: #555;
-}
-
-.amount {
-  font-weight: bold;
-  color: #222;
-}
-
-.type {
-  font-size: 0.85rem;
-  font-weight: bold;
-  margin-bottom: 0.3rem;
-}
-
-.salida {
-  color: #c0392b;
-}
-
-.entrada {
-  color: #27ae60;
-}
-
-.description {
-  font-size: 0.95rem;
-  margin-bottom: 0.2rem;
-}
-
-.origin {
-  font-size: 0.8rem;
-  color: #888;
-}
-</style>
