@@ -82,7 +82,7 @@
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'movements' }"
         @click="redirectTo('/admin/movements')"
       >
-        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="movement" />
+        <img class="sidebar-menu-items__img" src="@/assets/img/general/moviment.svg" alt="movement" />
         <p class="menu-item">Movimientos</p>
       </div>
       <div @click="toggleSubMenu('reports')">

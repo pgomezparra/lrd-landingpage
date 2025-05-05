@@ -1,9 +1,9 @@
 @use '@/assets/scss/settings/colors';
 
 .button-standard {
-  padding: 0.5rem 1rem;
+  padding:  1rem;
   background: $btn-blue;
-  color: #fff;
+  color: colors.$secondary-color;
   border-radius: 2rem;
   border: none;
   font-size: 1rem;
@@ -17,6 +17,7 @@
 
 .button-standard:active {
   transform: scale(0.97);
+  padding:  1rem;
 }
 
 .payments-summary {
@@ -42,7 +43,7 @@
 
 .payment-card {
   background-color:$secondary-color;
-  border: 0.063rem solid$border;
+  border: 0.063rem solid $border;
   border-radius: 1rem;
   padding: 0.5rem;
   text-align: center;
