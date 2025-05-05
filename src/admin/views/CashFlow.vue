@@ -4,39 +4,55 @@
 
     <div class="fecha-selector">
       <label for="fecha">Fecha:</label>
-      <input type="date" id="fecha" v-model="selectedDate" />
+      <Datepicker
+        v-model="date"
+        :autoApply="true"
+        :enable-time-picker="false"
+        :format="'yyyy-MM-dd'"
+        locale="es"
+        :maxDate="new Date()"
+        :clearable="false"
+      />
     </div>
 
     <div class="resumen-container">
-      <div class="resumen-item ingresos">Ingresos: <span>$ {{ ingresos }}</span></div>
-      <div class="resumen-item salidas">Salidas: <span>$ {{ salidas }}</span></div>
-      <div class="resumen-item efectivo">Efectivo: <span>$ {{ efectivo }}</span></div>
-      <div class="resumen-item transferencia">Transferencia: <span>$ {{ transferencia }}</span></div>
-      <div class="resumen-item saldo">Saldo: <span>$ {{ saldo }}</span></div>
+      <div class="resumen-item ingresos">Ingresos: <span>$ {{ consolidated.inflows }}</span></div>
+      <div class="resumen-item salidas">Salidas: <span>$ {{ consolidated.outflows }}</span></div>
+      <div
+        class="resumen-item"
+        :class="parseInt(consolidated.balance) > 0 ? 'saldo-positivo' : 'saldo-negativo'"
+      >Saldo: <span>$ {{ consolidated.balance }}</span></div>
+      <div class="resumen-item efectivo">Efectivo: <span>$ {{ consolidated.cash }}</span></div>
+      <div class="resumen-item transferencia">Transferencia: <span>$ {{ consolidated.transfer }}</span></div>
     </div>
 
     <h3 class="subtitulo">Movimientos del Día</h3>
     <div class="cards-container">
-      <div class="movimiento-card" v-for="mov in movimientos" :key="mov.id">
-        <!-- Línea 1: Fecha y valor con método -->
+      <div class="movimiento-card" v-for="movement in movements" :key="movement.getId()">
         <div class="card-header">
-          <div class="fecha">{{ mov.fecha }}</div>
+          <div class="fecha">{{ movement.getDateStr() }}</div>
           <div class="valor-metodo">
-      <span :class="mov.motivo === 'Ingreso' ? 'positivo' : 'negativo'">
-        ${{ mov.valor.toLocaleString() }}
-      </span>
-            <span class="metodo">({{ mov.metodo }})</span>
+            <span :class="movement.getMovementType() === 'Ingreso' ? 'positivo' : 'negativo'">
+              ${{ movement.getValueStr() }}
+            </span>
+            <span class="metodo">({{ movement.getMovementMethod() }})</span>
           </div>
         </div>
 
-        <!-- Línea 2: Descripción -->
         <div class="descripcion">
-          {{ mov.concepto }}
+          {{ movement.getDescription() }}{{ movement.getStudent() ? ` (${movement.getStudent()})` : '' }}
         </div>
 
-        <!-- Línea 3: Mes (si tiene) -->
-        <div v-if="mov.mes" class="mes-destacado">
-          Mes: {{ mov.mes }}
+        <div v-if="movement.getMonth()" class="mes-destacado">
+          Mes: {{ movement.getMonth() }}
+        </div>
+      </div>
+      <div v-if="movements.length === 0" class="movimiento-card vacio">
+        <div class="card-header">
+          <div class="fecha">Sin movimientos</div>
+        </div>
+        <div class="descripcion">
+          No se han registrado movimientos en este día.
         </div>
       </div>
     </div>
@@ -44,51 +60,54 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
+import Datepicker from '@vuepic/vue-datepicker'
+import { useReportStore } from '@/admin/reports/context/store/reportStore.js'
+import { format } from '@formkit/tempo'
+import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 
-const selectedDate = ref('2025-04-11')
-const ingresos = '7.524.500'
-const salidas = '28.800'
-const saldo = '7.495.700'
-const efectivo = '5.402.500'
-const transferencia = '2.030.000'
+const reportStore = useReportStore()
+const preferenceStore = usePreferenceStore()
 
-const movimientos = [
-  { fecha: '2025-04-11', motivo: 'Ingreso', concepto: 'ICFES', mes: '', valor: '89.000', metodo: 'Efectivo' },
-  { fecha: '2025-04-11', motivo: 'Ingreso', concepto: 'UNA CARPETA', mes: '', valor: '3.000', metodo: 'Efectivo' },
-  {
-    fecha: '2025-04-11',
-    motivo: 'Salida',
-    concepto: 'LONCHERA PROFESORES',
-    mes: '',
-    valor: '28.800',
-    metodo: 'Efectivo'
-  },
-  {
-    fecha: '2025-04-11',
-    motivo: 'Pensión',
-    concepto: 'PENSIÓN ABRIL (MIGUEL...)',
-    mes: 'ABRIL',
-    valor: '135.000',
-    metodo: 'Efectivo'
-  },
-  {
-    fecha: '2025-04-11',
-    motivo: 'Pensión',
-    concepto: 'PENSIÓN ABRIL (EMILY...)',
-    mes: 'ABRIL',
-    valor: '115.000',
-    metodo: 'Efectivo'
-  },
-  {
-    fecha: '2025-04-11',
-    motivo: 'Pensión',
-    concepto: 'ABONO TRANSFERENCIA (IHAN...)',
-    mes: 'ABRIL',
-    valor: '110.000',
-    metodo: 'Transferencia'
+const date = ref(null)
+const movements = ref([])
+const consolidated = reactive({
+  inflows: 0,
+  outflows: 0,
+  balance: 0,
+  cash: 0,
+  transfer: 0
+})
+
+watch(date, () => {
+  loadReport()
+})
+
+watch(preferenceStore.selectedYear, () => {
+  loadReport()
+})
+
+const loadReport = async () => {
+  try {
+    const response = await reportStore.dailyCash(format(date.value, 'YYYY-MM-DD'), format(date.value, 'YYYY-MM-DD'))
+
+    consolidated.inflows = response.consolidated.getInflowsStr()
+    consolidated.outflows = response.consolidated.getOutflowsStr()
+    consolidated.balance = response.consolidated.getBalanceStr()
+    consolidated.cash = response.consolidated.getCashStr()
+    consolidated.transfer = response.consolidated.getTransferStr()
+
+    movements.value = response.movements
+  } catch (error) {
+    console.error(`error: ${error}`)
   }
-]
+}
+
+onMounted(async () => {
+  if (!preferenceStore.selectedYear) return
+  date.value = new Date()
+  await loadReport()
+})
 </script>
 
 <style scoped>
@@ -104,14 +123,14 @@ const movimientos = [
 .title {
   text-align: center;
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin: 0 auto 0.5rem;
 }
 
 .fecha-selector {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .resumen-container {
@@ -119,7 +138,7 @@ const movimientos = [
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .resumen-item {
@@ -137,20 +156,22 @@ const movimientos = [
 }
 
 .ingresos span,
-.efectivo span {
+.efectivo span,
+.saldo-positivo span {
   color: green;
 }
 
-.salidas span {
+.salidas span,
+.saldo-negativo span {
   color: red;
 }
 
-.transferencia span,
-.saldo span {
+.transferencia span {
   color: blue;
 }
 
 .subtitulo {
+  margin-top: 0;
   font-size: 1.5rem;
   margin-bottom: 1rem;
   text-align: center;
@@ -160,8 +181,14 @@ const movimientos = [
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 40dvh;
+  height: 50dvh;
   overflow-y: scroll;
+}
+
+.movimiento-card.vacio {
+  text-align: center;
+  opacity: 0.6;
+  font-style: italic;
 }
 
 .movimiento-card {
@@ -190,14 +217,8 @@ const movimientos = [
 .valor-metodo {
   text-align: right;
   display: flex;
-  flex-direction: column;
   align-items: flex-end;
   gap: 0.1rem;
-}
-
-.valor {
-  font-weight: bold;
-  font-size: 1rem;
 }
 
 .positivo {
