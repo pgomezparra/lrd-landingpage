@@ -13,60 +13,70 @@
   >
     <div>
       <p class="modal-title">Registrar pago</p>
-
       <div class="modal-body">
         <div>
-          <div class="form-group">
-            <p>Fecha</p>
-            <Datepicker
-              v-model="payment.date"
-              :autoApply="true"
-              :enable-time-picker="false"
-              format="yyyy-MM-dd"
-              locale="es"
-              :maxDate="new Date()"
-              :clearable="false"
-            />
+          <div class="container-form-edit">
+            <div class="form-group">
+              <p>Fecha</p>
+              <Datepicker
+                v-model="payment.date"
+                :autoApply="true"
+                :enable-time-picker="false"
+                format="yyyy-MM-dd"
+                locale="es"
+                :maxDate="new Date()"
+                :clearable="false"
+              />
+            </div>
+            <div class="form-group">
+              <p>Tipo de pago</p>
+              <select class="select-methods" v-model="payment.payment_type_id" disabled>
+                <option value="1">Matrícula</option>
+                <option value="2">Pensión</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <p>Tipo de pago</p>
-            <select v-model="payment.payment_type_id" disabled>
-              <option value="1">Matrícula</option>
-              <option value="2">Pensión</option>
+        </div>
+        <div class="container-form-edit">
+          <div v-if="payment.payment_type_id === 2" class="form-group">
+            <p>Mes</p>
+            <select class="select-methods" v-model="payment.month_id" disabled>
+              <option
+                v-for="month in preferencesStore.months"
+                :key="month.getId()"
+                :value="month.getId()"
+              >
+                {{ month.getMonth() }}
+              </option>
             </select>
           </div>
+          <div v-if="payment.payment_type_id === 2" class="form-group switch-group">
+            <p>No paga</p>
+            <label class="switch">
+              <input type="checkbox" v-model="payment.excluded" />
+              <span class="slider"></span>
+            </label>
+          </div>
         </div>
-
-
-        <div v-if="payment.payment_type_id === 2" class="form-group">
-          <p>Mes</p>
-          <select v-model="payment.month_id" disabled>
-            <option
-              v-for="month in preferencesStore.months"
-              :key="month.getId()"
-              :value="month.getId()"
-            >
-              {{ month.getMonth() }}
-            </option>
-          </select>
+        <div class="container-form-edit">
+          <div class="form-group">
+            <p>Método de pago</p>
+            <select class="select-methods" :disabled="payment.excluded" v-model="payment.payment_method_id">
+              <option :value="1">Efectivo</option>
+              <option :value="2">Transferencia</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <p>Valor</p>
+            <input
+              :disabled="payment.excluded"
+              v-model="payment.value"
+              type="text"
+              maxlength="10"
+              placeholder="Valor"
+            />
+          </div>
         </div>
-
-        <div v-if="payment.payment_type_id === 2" class="form-group switch-group">
-          <p>No paga</p>
-          <label class="switch">
-            <input type="checkbox" v-model="payment.excluded" />
-            <span class="slider"></span>
-          </label>
-        </div>
-
-        <div class="form-group">
-          <p>Método de pago</p>
-          <select :disabled="payment.excluded" v-model="payment.payment_method_id">
-            <option :value="1">Efectivo</option>
-            <option :value="2">Transferencia</option>
-          </select>
-        </div>
-
         <div v-if="payment.payment_method_id === 2" class="form-group">
           <p>Código de transferencia</p>
           <input
@@ -76,7 +86,6 @@
             ref="transferCode"
           />
         </div>
-
         <div class="form-group">
           <p>Descripción</p>
           <textarea
@@ -87,24 +96,11 @@
             ref="description"
           ></textarea>
         </div>
-
-        <div class="form-group">
-          <p>Valor</p>
-          <input
-            :disabled="payment.excluded"
-            v-model="payment.value"
-            type="text"
-            maxlength="10"
-            placeholder="Valor"
-          />
-        </div>
-
         <div class="form-group">
           <p>Saldo</p>
           <p>$ {{ balance < 0 ? 0 : balance }}</p>
         </div>
       </div>
-
       <div class="modal-actions">
         <button class="button-edit" @click="closeModal">Cancelar</button>
         <button class="button-edit" @click="registerPayment">Registrar</button>
