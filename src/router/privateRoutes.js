@@ -56,7 +56,7 @@ export const privateRoutes = [
       {
         path: 'debts',
         name: 'debts',
-        component: () => import('@/admin/views/Debts.vue')
+        component: () => import('@/admin/views/Debtors.vue')
       },
       {
         path: 'cash-flow',

@@ -60,7 +60,7 @@
                 <td> $ {{ consolidatedPayments[0].getValueFormatted() }}</td>
                 <td> $ {{ consolidatedPayments[0].getBalanceFormatted() }}</td>
               </tr>
-              <tr v-for="consolidatedPayment in consolidatedPayments" :key="consolidatedPayment.getMonthId()">
+              <tr v-for="consolidatedPayment in consolidatedPayments.slice(1)" :key="consolidatedPayment.getMonthId()">
                 <td>{{ consolidatedPayment.getMonth() }}</td>
                 <td>$ {{ consolidatedPayment.getValueFormatted() }}</td>
                 <td>$ {{ consolidatedPayment.getBalanceFormatted() }}</td>

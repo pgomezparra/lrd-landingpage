@@ -7,4 +7,10 @@ export default class ReportRepository {
 
     return customAxios.get(url)
   }
+
+  async getDebtors(year, month, gradeId, paymentType) {
+    let url = `${myUrl(3000)}/api/v1/debtors?year=${year}&month=${month}&gradeId=${gradeId}&paymentType=${paymentType}`
+
+    return customAxios.get(url)
+  }
 }
