@@ -29,7 +29,7 @@
           </div>
           <div class="form-group">
             <p>Tipo de pago</p>
-            <select class="select-standard" v-model="movement.movement_type_id">
+            <select class="select-methods" v-model="movement.movement_type_id">
               <option :value="1">Ingreso</option>
               <option :value="2">Salida</option>
             </select>

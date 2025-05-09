@@ -39,7 +39,7 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Método de pago</p>
-            <select class="select-document" v-model="movement.movement_method_id">
+            <select  class="select-methods" v-model="movement.movement_method_id">
               <option :value="1">Efectivo</option>
               <option :value="2">Transferencia</option>
               <option :value="3">Cuenta Bancaria</option>
@@ -56,13 +56,11 @@
           </div>
         </div>
 
-
-
         <div class="form-group">
           <p>Descripción</p>
           <textarea
             v-model="movement.description"
-            class="textarea-auto"
+            class="textAreaPayment"
             placeholder="Descripción"
             rows="2"
             ref="description"

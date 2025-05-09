@@ -110,7 +110,7 @@
             <p>Tipo de documento</p>
             <select
               v-model="student.parentDocumentTypeId"
-              class="select-document"
+              class="select-methods"
             >
               <option disabled value="">Seleccione un tipo de documento</option>
               <option value="1">Registro Civil</option>

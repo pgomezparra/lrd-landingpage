@@ -15,7 +15,7 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select class="select-document" v-model="student.documentType">
+            <select class="select-methods"v-model="student.documentType">
               <option disabled value="">Seleccione un tipo de documento</option>
               <option value="1">Registro Civil</option>
               <option value="2">Tarjeta de Identidad</option>
@@ -74,7 +74,7 @@
             </select>
           </div>
         </div>
-        <div class="container-form-edit">
+
           <div class="form-group">
             <p>Valor de matrícula</p>
             <input
@@ -93,7 +93,6 @@
               maxlength="10"
             />
           </div>
-        </div>
         <div class="form-group">
           <p>Estado</p>
           <select class="select-document" v-model="student.active">
@@ -112,8 +111,8 @@
         </div>
         <div class="container-form-edit">
           <div class="form-group">
-            <p>Tipo de documento acudiente</p>
-            <select class="select-document" v-model="student.parentDocumentTypeId">
+            <p>Tipo de documento</p>
+            <select class="select-methods" v-model="student.parentDocumentTypeId">
               <option disabled value="0">Tipo de documento</option>
               <option value="1">Registro Civil</option>
               <option value="2">Tarjeta de Identidad</option>
