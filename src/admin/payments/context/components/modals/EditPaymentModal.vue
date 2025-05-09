@@ -28,10 +28,30 @@
           </div>
           <div class="form-group">
             <p>Tipo de pago</p>
-            <select disabled v-model="payment.payment_type_id">
+            <select class="select-methods"  disabled v-model="payment.payment_type_id">
               <option value="1">Matrícula</option>
               <option value="2">Pensión</option>
             </select>
+          </div>
+        </div>
+
+        <div class="container-form-edit">
+          <div class="form-group">
+            <p>Método de pago</p>
+            <select class="select-methods" :disabled="payment.excluded" v-model="payment.payment_method_id">
+              <option :value="1">Efectivo</option>
+              <option :value="2">Transferencia</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <p>Valor</p>
+            <input
+              :disabled="payment.excluded"
+              v-model="payment.value"
+              type="text"
+              maxlength="10"
+              placeholder="Valor"
+            />
           </div>
         </div>
         <div v-if="paymentStore.selectedPayment.isPension()" class="form-group">
@@ -54,13 +74,6 @@
           </label>
         </div>
 
-        <div class="form-group">
-          <p>Método de pago</p>
-          <select :disabled="payment.excluded" v-model="payment.payment_method_id">
-            <option :value="1">Efectivo</option>
-            <option :value="2">Transferencia</option>
-          </select>
-        </div>
 
         <div v-if="payment.payment_method_id === 2" class="form-group">
           <p>Código de transferencia</p>
@@ -71,28 +84,18 @@
             ref="transferCode"
           />
         </div>
-
         <div class="form-group">
           <p>Descripción</p>
           <textarea
             v-model="payment.description"
             placeholder="Descripción"
             rows="2"
-            style="resize: vertical; overflow: auto"
+            class="textAreaPayment"
             ref="description"
           ></textarea>
         </div>
 
-        <div class="form-group">
-          <p>Valor</p>
-          <input
-            :disabled="payment.excluded"
-            v-model="payment.value"
-            type="text"
-            maxlength="10"
-            placeholder="Valor"
-          />
-        </div>
+
 
         <div class="form-group">
           <p>Autor: <span>{{ payment.author }}</span></p>

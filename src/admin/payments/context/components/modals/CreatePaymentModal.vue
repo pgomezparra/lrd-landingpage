@@ -92,7 +92,7 @@
             v-model="payment.description"
             placeholder="Descripción"
             rows="2"
-            style="resize: none; overflow: auto"
+            class="textAreaPayment"
             ref="description"
           ></textarea>
         </div>

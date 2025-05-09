@@ -16,7 +16,7 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select class="select-document" v-model="student.documentType" ref="documentTypeInput">
+            <select class="select-methods" v-model="student.documentType" ref="documentTypeInput">
               <option disabled value="">Seleccione un tipo de documento</option>
               <option value="1">Registro Civil</option>
               <option value="2">Tarjeta de Identidad</option>
@@ -33,8 +33,7 @@
             >
           </div>
         </div>
-        <div class="container-form-edit">
-          <div class="form-group">
+        <div class="form-group">
             <p>Nombres</p>
             <input
               v-model="student.name"
@@ -52,7 +51,6 @@
               maxlength="25"
             />
           </div>
-        </div>
         <div class="container-form-edit">
           <div class="form-group">
             <p>Edad</p>
@@ -65,7 +63,7 @@
           </div>
           <div class="form-group">
             <p>Grado</p>
-            <select class="select-document" v-model="student.grade">
+            <select class="select-methods" v-model="student.grade">
               <option disabled value="0">Seleccione un grado</option>
               <option
                 v-for="grade in preferenceStore.grades"
@@ -77,7 +75,6 @@
             </select>
           </div>
         </div>
-        <div class="container-form-edit">
           <div class="form-group">
             <p>Valor de matrícula</p>
             <input
@@ -97,7 +94,6 @@
               maxlength="10"
             />
           </div>
-        </div>
         <div>
           <div class="form-group">
             <p>Correo</p>
@@ -111,7 +107,7 @@
         </div>
         <div class="container-form-edit">
           <div class="form-group">
-            <p>Tipo de documento acudiente</p>
+            <p>Tipo de documento</p>
             <select
               v-model="student.parentDocumentTypeId"
               class="select-document"

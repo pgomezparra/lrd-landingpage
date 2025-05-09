@@ -55,7 +55,7 @@
           <p>Descripción</p>
           <textarea
             v-model="movement.description"
-            class="textarea-auto"
+            class="textAreaPayment"
             placeholder="Descripción"
             rows="2"
             ref="description"
