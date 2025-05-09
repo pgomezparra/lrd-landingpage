@@ -60,7 +60,7 @@
 .ingresos span,
 .efectivo span,
 .saldo-positivo span {
-  color: $light-green;
+  color: $_dark-green;
 }
 
 .salidas span,
@@ -87,15 +87,19 @@
 }
 
 .movimiento-card {
-  border: 1px solid $border;
-  border-radius: 6px;
+  border: 0.063rem solid $border;
+  border-radius: 1rem;
   padding: 0.7rem 1rem;
-  background-color: #ffffff;
+  background-color: colors.$secondary-color;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   font-size: 0.9rem;
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+
+  &:hover {
+    background:$hover-movements;
+  }
 }
 
 .card-header {
@@ -117,7 +121,7 @@
 }
 
 .positivo {
-  color: $light-green;
+  color: $_dark-green;
 }
 
 .negativo {
@@ -138,7 +142,7 @@
 .mes-destacado {
   background-color: #f3f4f6;
   padding: 0.3rem 0.6rem;
-  border-radius: 4px;
+  border-radius: 1rem;
   font-size: 0.85rem;
   color: #374151;
   font-weight: 500;
