@@ -88,6 +88,10 @@
             <button class="button-payment-circle" @click="printPayment(payment)">
               <img class="button-payment-circle-img" src="@/assets/img/general/printer.svg" alt="printer">
             </button>
+            <button class="button-payment-circle"
+                    @click="sendSupportPayment(payment)">
+              <img class="button-payment-circle-img" src="@/assets/img/general/send-mail.svg" alt="mail">
+            </button>
           </p>
         </div>
       </div>
@@ -100,6 +104,7 @@
     :consolidated-payments="consolidatedPayments"
     @closePaymentSupport="closeSupport"
   />
+  <add-email-modal @sendEmail="sendSupportPayment" />
 </template>
 
 <script setup>
@@ -111,6 +116,7 @@ import { useVfm } from 'vue-final-modal'
 import EditPaymentModal from '@/admin/payments/context/components/modals/EditPaymentModal.vue'
 import CreatePaymentModal from '@/admin/payments/context/components/modals/CreatePaymentModal.vue'
 import PaymentSupport from '@/admin/payments/context/components/PaymentSupport.vue'
+import AddEmailModal from '@/admin/payments/context/components/modals/AddEmailModal.vue'
 
 const grade = ref(0)
 const student = ref(0)
@@ -211,6 +217,22 @@ const refreshData = async () => {
     consolidatedPayments.value = response.consolidatedPayments
   } catch (error) {
     console.error(error)
+  }
+}
+
+const sendSupportPayment = async (payment) => {
+  if (payment) paymentsStore.setSelectedPayment(payment)
+  if (!studentsStore.selectedStudent.hasEmail()) {
+    await vfm.open('addEmailModal')
+    return
+  }
+
+  try {
+    await paymentsStore.sendSupportPayment(studentsStore.selectedStudent, consolidatedPayments.value)
+  } catch (error) {
+    console.error(error)
+  } finally {
+    paymentsStore.setSelectedPayment(null)
   }
 }
 </script>

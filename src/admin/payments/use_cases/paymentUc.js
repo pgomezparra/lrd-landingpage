@@ -58,6 +58,21 @@ export default class PaymentUc {
     }
   }
 
+  async sendSupportPayment(student, payment, consolidated) {
+    try {
+      const response = await this.#paymentRepository.sendSupportPayment(this.processSupportPayment(student, payment, consolidated))
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, message: error.response.data?.message }
+      } else {
+        return { status: 500 }
+      }
+    }
+  }
+
   processPayment(payment) {
     return {
       date: format(payment.date, 'YYYY-MM-DD'),
@@ -70,6 +85,36 @@ export default class PaymentUc {
       year: payment.year,
       student_id: payment.student_id,
       transfer_code: payment.transfer_code
+    }
+  }
+
+  processSupportPayment(student, payment, consolidated) {
+    const payments = []
+    for (let i = 1; i < consolidated.length; i++) {
+      payments.push({
+        month: consolidated[i].getMonth(),
+        value: consolidated[i].getValue(),
+        balance: consolidated[i].getBalance()
+      })
+    }
+
+    return {
+      id: payment.getId(),
+      name: student.getName(),
+      surname: student.getSurname(),
+      grade: student.getGrade(),
+      type: payment.getPaymentType(),
+      month: payment.isPension() ? payment.getMonth() : '',
+      description: payment.getDescription(),
+      date: payment.getDate(),
+      method: payment.getPaymentMethod(),
+      transfer_code: payment.getTransferCode() ?? '',
+      value: payment.getValue(),
+      author: payment.getAuthor() ?? 'Automático',
+      registration_value: consolidated[0].getValue(),
+      registration_balance: consolidated[0].getBalance(),
+      destination: student.getEmail(),
+      payments: payments
     }
   }
 }

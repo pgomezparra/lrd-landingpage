@@ -28,7 +28,7 @@
           </div>
           <div class="form-group">
             <p>Tipo de pago</p>
-            <select class="select-methods"  disabled v-model="payment.payment_type_id">
+            <select class="select-methods" disabled v-model="payment.payment_type_id">
               <option value="1">Matrícula</option>
               <option value="2">Pensión</option>
             </select>
@@ -94,7 +94,6 @@
             ref="description"
           ></textarea>
         </div>
-
 
 
         <div class="form-group">
@@ -220,7 +219,7 @@ const onOpened = () => {
   if (paymentStore.selectedPayment.getTransferCode()) payment.transfer_code = paymentStore.selectedPayment.getTransferCode()
   payment.year = studentStore.selectedStudent.getYear()
   payment.student_id = studentStore.selectedStudent.getId()
-  payment.author = paymentStore.selectedPayment.getAuthor()
+  payment.author = paymentStore.selectedPayment.getAuthor() ?? 'Automático'
 }
 
 const onClosed = () => {

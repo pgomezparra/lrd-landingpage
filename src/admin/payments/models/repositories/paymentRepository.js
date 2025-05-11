@@ -19,4 +19,10 @@ export default class PaymentRepository {
 
     return customAxios.patch(url, payment)
   }
+
+  async sendSupportPayment(data) {
+    let url = `${myUrl(3000)}/api/v1/payment/send`
+
+    return customAxios.post(url, data)
+  }
 }

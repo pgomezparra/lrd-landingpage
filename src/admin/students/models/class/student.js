@@ -182,6 +182,10 @@ export default class Student {
     return this.#email
   }
 
+  hasEmail() {
+    return this.#email && this.#email !== ''
+  }
+
   setEmail(email) {
     this.#email = email
 
