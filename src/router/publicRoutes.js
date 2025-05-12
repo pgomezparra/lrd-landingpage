@@ -28,5 +28,15 @@ export const publicRoutes = [
     path: '/institutional',
     name: 'institutional',
     component: () => import('@/home/components/documents/Institutional.vue')
+  },
+  {
+    path: '/user-not-found',
+    name: 'user-not-found',
+    component: () => import('@/admin/views/UserNotFound.vue')
+  },
+  {
+    path: '/without-years',
+    name: 'without-years',
+    component: () => import('@/admin/views/WithoutYears.vue')
   }
 ]

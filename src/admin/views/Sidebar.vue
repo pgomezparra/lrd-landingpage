@@ -140,7 +140,6 @@ const auth0 = useAuth0()
 
 const loggedUser = ref(null)
 
-// Función para alternar la visibilidad de los submenús
 const toggleSubMenu = (menuName) => {
   preferenceStore.setSelectedMenu(menuName)
 }
@@ -172,7 +171,7 @@ async function validateUser() {
   try {
     const status = await userStore.validateUser()
     if (status !== 200) {
-      await auth0.loginWithRedirect()
+      await router.push('/user-not-found')
     } else {
       loggedUser.value = userStore.user
     }
@@ -185,7 +184,7 @@ async function validateUser() {
 async function getYears() {
   const status = await preferenceStore.getYears()
   if (status !== 200) {
-    await auth0.loginWithRedirect()
+    await router.push('/without-years')
   }
   return status === 200
 }
@@ -204,7 +203,7 @@ onMounted(async () => {
 
     const validYears = await getYears()
     if (!validYears) return
-    
+
     await preferenceStore.getGrades()
     await preferenceStore.getMonths()
 
