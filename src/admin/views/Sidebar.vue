@@ -173,9 +173,10 @@ async function validateUser() {
     const status = await userStore.validateUser()
     if (status !== 200) {
       await auth0.loginWithRedirect()
+    } else {
+      loggedUser.value = userStore.user
     }
-
-    loggedUser.value = userStore.user
+    return status === 200
   } catch (error) {
     console.error(`error: ${error}`)
   }
@@ -186,6 +187,7 @@ async function getYears() {
   if (status !== 200) {
     await auth0.loginWithRedirect()
   }
+  return status === 200
 }
 
 const handleChangeYear = (event) => {
@@ -196,8 +198,13 @@ onMounted(async () => {
   if (auth0.isAuthenticated) {
     const token = await auth0.getAccessTokenSilently()
     userStore.setToken(token)
-    await validateUser()
-    await getYears()
+
+    const valid = await validateUser()
+    if (!valid) return
+
+    const validYears = await getYears()
+    if (!validYears) return
+    
     await preferenceStore.getGrades()
     await preferenceStore.getMonths()
 
