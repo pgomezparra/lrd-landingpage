@@ -3,6 +3,7 @@ export default class User {
   #name = ''
   #email = ''
   #active = false
+  #roles = []
 
   static fromJSONResponse(json) {
     return new User()
@@ -10,6 +11,7 @@ export default class User {
       .setName(json.name)
       .setEmail(json.email)
       .setActive(json.active)
+      .setRoles(json.roles)
   }
 
   getId() {
@@ -48,6 +50,20 @@ export default class User {
 
   setActive(active) {
     this.#active = active
+
+    return this
+  }
+
+  getRoles() {
+    return this.#roles
+  }
+
+  hasRole(roles) {
+    return this.#roles.some(role => roles.includes(role))
+  }
+
+  setRoles(roles) {
+    this.#roles = roles
 
     return this
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-layout">
+  <div class="app-layout" v-if="auth0.isAuthenticated">
     <!-- Menú lateral -->
     <sidebar />
 
@@ -12,5 +12,21 @@
 
 <script setup>
 import Sidebar from '@/admin/views/Sidebar.vue'
+import { useAuth0 } from '@auth0/auth0-vue'
+import { onMounted } from 'vue'
+
+const auth0 = useAuth0()
+
+onMounted(async () => {
+  try {
+    const isAuthenticated = await auth0.isAuthenticated
+    if (!isAuthenticated) {
+      await auth0.loginWithRedirect()
+    }
+  } catch (error) {
+    console.error('Error de autenticación:', error)
+    await auth0.loginWithRedirect()
+  }
+})
 
 </script>

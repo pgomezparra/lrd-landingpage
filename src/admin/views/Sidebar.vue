@@ -17,7 +17,7 @@
       </select>
     </div>
     <!-- Opciones del menú -->
-    <div class="sidebar-menu-items">
+    <div v-if="userStore.user && preferenceStore.selectedYear" class="sidebar-menu-items">
       <div
         class="sidebar-menu-items-container"
         @click="redirectTo('/admin/home')"
@@ -27,6 +27,7 @@
         <p>Inicio</p>
       </div>
       <div
+        v-if="isValidMenu(['admin'])"
         class="sidebar-menu-items-container"
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'dashboard' }"
         @click="redirectTo('/admin/dashboard')"
@@ -35,6 +36,7 @@
         <p>Dashboard</p>
       </div>
       <div
+        v-if="isValidMenu(['admin', 'secretary'])"
         class="sidebar-menu-items-container"
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'payments' }"
         @click="redirectTo('/admin/payments')"
@@ -62,6 +64,7 @@
       <!--        </div>-->
       <!--      </div>-->
       <div
+        v-if="isValidMenu(['admin', 'secretary'])"
         class="sidebar-menu-items-container"
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'students' }"
         @click="redirectTo('/admin/students')"
@@ -78,6 +81,7 @@
       <!--        <p class="menu-item">Empleados</p>-->
       <!--      </div>-->
       <div
+        v-if="isValidMenu(['admin', 'secretary'])"
         class="sidebar-menu-items-container"
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'movements' }"
         @click="redirectTo('/admin/movements')"
@@ -85,7 +89,10 @@
         <img class="sidebar-menu-items__img" src="@/assets/img/general/moviment.svg" alt="movement" />
         <p class="menu-item">Movimientos</p>
       </div>
-      <div @click="toggleSubMenu('reports')">
+      <div
+        v-if="isValidMenu(['admin', 'secretary'])"
+        @click="toggleSubMenu('reports')"
+      >
         <div class="sidebar-menu-items-container-new">
           <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">
           Reportes
@@ -93,11 +100,13 @@
         </div>
         <div v-if="preferenceStore.selectedMenu === 'reports'">
           <p
+            v-if="isValidMenu(['admin'])"
             @click="redirectTo('/admin/debts', 'content')"
             class="submenu-item"
             :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'debts' }"
           >Deudores</p>
           <p
+            v-if="isValidMenu(['admin', 'secretary'])"
             @click="redirectTo('/admin/cash-flow', 'content')"
             class="submenu-item"
             :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'cash-flow' }"
@@ -140,6 +149,10 @@ const auth0 = useAuth0()
 
 const loggedUser = ref(null)
 
+const isValidMenu = (roles) => {
+  return userStore.user.hasRole(roles)
+}
+
 const toggleSubMenu = (menuName) => {
   preferenceStore.setSelectedMenu(menuName)
 }
@@ -165,7 +178,6 @@ const redirectTo = (path, menu) => {
     preferenceStore.setSelectedSubMenu('')
   }
 }
-
 
 async function validateUser() {
   try {
@@ -194,7 +206,13 @@ const handleChangeYear = (event) => {
 }
 
 onMounted(async () => {
-  if (auth0.isAuthenticated) {
+  try {
+    const isAuthenticated = await auth0.isAuthenticated
+    if (!isAuthenticated) {
+      await auth0.loginWithRedirect()
+      return
+    }
+
     const token = await auth0.getAccessTokenSilently()
     userStore.setToken(token)
 
@@ -207,9 +225,18 @@ onMounted(async () => {
     await preferenceStore.getGrades()
     await preferenceStore.getMonths()
 
-    if (preferenceStore.getSelectedMenu()) preferenceStore.setSelectedMenu(preferenceStore.getSelectedMenu())
-    else preferenceStore.setSelectedMenu('home')
-    if (preferenceStore.getSelectedSubMenu()) preferenceStore.setSelectedSubMenu(preferenceStore.getSelectedSubMenu())
+    if (preferenceStore.getSelectedMenu()) {
+      preferenceStore.setSelectedMenu(preferenceStore.getSelectedMenu())
+    } else {
+      preferenceStore.setSelectedMenu('home')
+    }
+
+    if (preferenceStore.getSelectedSubMenu()) {
+      preferenceStore.setSelectedSubMenu(preferenceStore.getSelectedSubMenu())
+    }
+  } catch (error) {
+    console.error('Error de autenticación:', error)
+    await auth0.loginWithRedirect()
   }
 })
 </script>
