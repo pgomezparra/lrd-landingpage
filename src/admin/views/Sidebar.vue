@@ -86,7 +86,7 @@
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'movements' }"
         @click="redirectTo('/admin/movements')"
       >
-        <img class="sidebar-menu-items__img" src="@/assets/img/general/moviment.svg" alt="movement" />
+        <img class="sidebar-menu-items__img" src="../../assets/img/general/movements.svg" alt="movement" />
         <p class="menu-item">Movimientos</p>
       </div>
       <div
@@ -94,7 +94,7 @@
         @click="toggleSubMenu('reports')"
       >
         <div class="sidebar-menu-items-container-new">
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">
+          <img class="sidebar-menu-items__img" src="@/assets/img/general/reports.svg" alt="c">
           Reportes
           <span :class="{ rotated: preferenceStore.selectedMenu === 'reports' }">▼</span>
         </div>
@@ -113,6 +113,15 @@
           >Caja</p>
         </div>
       </div>
+      <!--      <div-->
+      <!--        v-if="isValidMenu(['admin', 'coordinator'])"-->
+      <!--        class="sidebar-menu-items-container"-->
+      <!--        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'pqrs' }"-->
+      <!--        @click="redirectTo('/admin/pqrs')"-->
+      <!--      >-->
+      <!--        <img class="sidebar-menu-items__img" src="@/assets/img/general/pqrs.svg" alt="pqrs" />-->
+      <!--        <p class="menu-item">PQRS</p>-->
+      <!--      </div>-->
       <!--      <div-->
       <!--        class="sidebar-menu-items-container"-->
       <!--        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'settings' }"-->

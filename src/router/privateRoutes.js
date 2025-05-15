@@ -62,6 +62,11 @@ export const privateRoutes = [
         path: 'cash-flow',
         name: 'cash-flow',
         component: () => import('@/admin/views/CashFlow.vue')
+      },
+      {
+        path: 'pqrs',
+        name: 'pqrs',
+        component: () => import('@/admin/views/Pqrs.vue')
       }
     ]
   }

@@ -3,14 +3,27 @@
     <p class="l-standard-title">Listado de Estudiantes por Grado</p>
     <div class="l-standard-option">
       <p>Selecciona el grado a consultar:</p>
-      <select class="select-standard" v-model="preferenceStore.selectedGrade" @change="handleGradeChange">
-        <option disabled value="0">Grado</option>
+      <select
+        class="select-standard"
+        v-model="preferenceStore.selectedGrade"
+        @change="handleGradeChange"
+        :disabled="statusFilter === 'inactive'"
+      >
+        <option disabled :value="0">Grado</option>
         <option
           v-for="grade in preferenceStore.grades"
           :key="grade.getId()"
           :value="grade.getId()">
           {{ grade.getGrade() }}
         </option>
+      </select>
+      <select
+        class="select-standard"
+        v-model="statusFilter"
+        @change="changeStatusFilter"
+      >
+        <option value="active">Activos</option>
+        <option value="inactive">Inactivos</option>
       </select>
       <button class="button-standard" @click="addStudent">Agregar estudiante</button>
     </div>
@@ -36,7 +49,7 @@
 </template>
 
 <script setup>
-import { onMounted, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { useVfm } from 'vue-final-modal'
@@ -48,12 +61,22 @@ const preferenceStore = usePreferenceStore()
 const studentStore = useStudentStore()
 const vfm = useVfm()
 
+const statusFilter = ref('active')
+
 const handleGradeChange = async (event) => {
   preferenceStore.setSelectedGrade(parseInt(event.target.value))
 }
 
+const changeStatusFilter = async (event) => {
+  studentStore.setStudents([])
+  if (event.target.value === 'inactive') {
+    preferenceStore.setSelectedGrade(0)
+    await refreshData()
+  }
+}
+
 async function refreshData() {
-  await studentStore.searchStudents(true)
+  await studentStore.searchStudents(statusFilter.value === 'active')
 }
 
 const studentDetails = (student) => {
