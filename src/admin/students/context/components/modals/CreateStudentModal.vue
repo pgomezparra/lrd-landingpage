@@ -34,23 +34,23 @@
           </div>
         </div>
         <div class="form-group">
-            <p>Nombres</p>
-            <input
-              v-model="student.name"
-              type="text"
-              placeholder="Nombres"
-              maxlength="25"
-            />
-          </div>
-          <div class="form-group">
-            <p>Apellidos</p>
-            <input
-              v-model="student.surname"
-              type="text"
-              placeholder="Apellidos"
-              maxlength="25"
-            />
-          </div>
+          <p>Nombres</p>
+          <input
+            v-model="student.name"
+            type="text"
+            placeholder="Nombres"
+            maxlength="25"
+          />
+        </div>
+        <div class="form-group">
+          <p>Apellidos</p>
+          <input
+            v-model="student.surname"
+            type="text"
+            placeholder="Apellidos"
+            maxlength="25"
+          />
+        </div>
         <div class="container-form-edit">
           <div class="form-group">
             <p>Edad</p>
@@ -75,25 +75,25 @@
             </select>
           </div>
         </div>
-          <div class="form-group">
-            <p>Valor de matrícula</p>
-            <input
-              type="text"
-              placeholder="Matrícula"
-              v-model="student.registration"
-              maxlength="10"
-            />
-          </div>
+        <div class="form-group">
+          <p>Valor de matrícula</p>
+          <input
+            type="text"
+            placeholder="Matrícula"
+            v-model="student.registration"
+            maxlength="10"
+          />
+        </div>
 
-          <div class="form-group">
-            <p>Valor de pensión</p>
-            <input
-              type="text"
-              placeholder="Pensión"
-              v-model="student.pension"
-              maxlength="10"
-            />
-          </div>
+        <div class="form-group">
+          <p>Valor de pensión</p>
+          <input
+            type="text"
+            placeholder="Pensión"
+            v-model="student.pension"
+            maxlength="10"
+          />
+        </div>
         <div>
           <div class="form-group">
             <p>Correo</p>
@@ -158,6 +158,8 @@ const vfm = useVfm()
 const studentStore = useStudentStore()
 const preferenceStore = usePreferenceStore()
 const paymentStore = usePaymentStore()
+
+const emit = defineEmits(['refresh'])
 
 const documentTypeInput = ref(null)
 
@@ -281,7 +283,8 @@ const registerStudent = async () => {
     if (response.status === 201) {
       notifications.notify('El estudiante se ha registrado correctamente', 'success')
       closeModal()
-      preferenceStore.setSelectedGrade(parseInt(student.grade))
+      if (preferenceStore.selectedGrade === 0 || preferenceStore.selectedGrade !== parseInt(student.grade)) preferenceStore.setSelectedGrade(parseInt(student.grade))
+      else emit('refresh')
     } else {
       notifications.notify('No se pudo registrar el estudiante', 'error')
     }

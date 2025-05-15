@@ -15,7 +15,7 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select class="select-methods"v-model="student.documentType">
+            <select class="select-methods" v-model="student.documentType">
               <option disabled value="">Seleccione un tipo de documento</option>
               <option value="1">Registro Civil</option>
               <option value="2">Tarjeta de Identidad</option>
@@ -75,29 +75,29 @@
           </div>
         </div>
 
-          <div class="form-group">
-            <p>Valor de matrícula</p>
-            <input
-              type="text"
-              placeholder="Matrícula"
-              v-model="student.registration"
-              maxlength="10"
-            />
-          </div>
-          <div class="form-group">
-            <p>Valor de pensión</p>
-            <input
-              type="text"
-              placeholder="Pensión"
-              v-model="student.pension"
-              maxlength="10"
-            />
-          </div>
+        <div class="form-group">
+          <p>Valor de matrícula</p>
+          <input
+            type="text"
+            placeholder="Matrícula"
+            v-model="student.registration"
+            maxlength="10"
+          />
+        </div>
+        <div class="form-group">
+          <p>Valor de pensión</p>
+          <input
+            type="text"
+            placeholder="Pensión"
+            v-model="student.pension"
+            maxlength="10"
+          />
+        </div>
         <div class="form-group">
           <p>Estado</p>
           <select class="select-document" v-model="student.active">
-            <option value="true">Activo</option>
-            <option value="false">Inactivo</option>
+            <option :value="true">Activo</option>
+            <option :value="false">Inactivo</option>
           </select>
         </div>
         <div class="form-group">
@@ -159,6 +159,8 @@ const vfm = useVfm()
 const studentStore = useStudentStore()
 const preferenceStore = usePreferenceStore()
 
+const emit = defineEmits(['changeActive', 'refresh'])
+
 const student = reactive({
   id: 0,
   documentType: '',
@@ -203,8 +205,12 @@ const updateStudent = async () => {
     if (response.status === 200) {
       notifications.notify('El estudiante se ha actualizado correctamente', 'success')
       closeModal()
-      preferenceStore.setSelectedGrade(0)
-      preferenceStore.setSelectedGrade(parseInt(student.grade))
+      if (preferenceStore.selectedGrade === 0 && student.active) {
+        emit('changeActive')
+        preferenceStore.setSelectedGrade(parseInt(student.grade))
+      } else {
+        emit('refresh')
+      }
     } else {
       notifications.notify('No se pudo actualizar el estudiante', 'error')
     }

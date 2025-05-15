@@ -38,13 +38,14 @@
         <div class="cards__name">
           <p>{{ student.getName() }}</p>
           <p>{{ student.getSurname() }}</p>
+          <p v-if="statusFilter === 'inactive'">{{ student.getGrade() }}</p>
         </div>
       </div>
 
     </div>
   </div>
-  <edit-student-modal />
-  <create-student-modal />
+  <edit-student-modal @changeActive="statusFilter = 'active'" @refresh="refreshData" />
+  <create-student-modal @refresh="refreshData" />
   <details-student-modal />
 </template>
 
