@@ -28,5 +28,5 @@ export default function(localPort, pqr) {
   }
 
   // return `${proto}//${hostname}${port}`
-  return pqr ? `${proto}//pqr-lrd.vercel.app${port}` : `${proto}//admin-lrd.vercel.app${port}`
+  return pqr ? `${proto}//pqr-lrd.vercel.app${port}` : `${proto}//admin-lrd-development.vercel.app${port}`
 }
