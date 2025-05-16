@@ -39,7 +39,7 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Método de pago</p>
-            <select  class="select-methods" v-model="movement.movement_method_id">
+            <select class="select-methods" v-model="movement.movement_method_id">
               <option :value="1">Efectivo</option>
               <option :value="2">Transferencia</option>
               <option :value="3">Cuenta Bancaria</option>
@@ -52,10 +52,11 @@
               type="text"
               maxlength="10"
               placeholder="Valor"
+              ref="inputValue"
+              @keyup.enter="focusOnDescription"
             >
           </div>
         </div>
-
         <div class="form-group">
           <p>Descripción</p>
           <textarea
@@ -66,9 +67,7 @@
             ref="description"
           ></textarea>
         </div>
-
       </div>
-
       <div class="modal-actions">
         <button class="button-edit" @click="closeModal">Cancelar</button>
         <button class="button-edit" @click="registerMovement">Registrar</button>
@@ -92,11 +91,12 @@ const preferencesStore = usePreferenceStore()
 const emit = defineEmits(['refresh'])
 
 const description = ref(null)
+const inputValue = ref(null)
 
 const movement = reactive({
   date: new Date(),
   description: '',
-  value: 0,
+  value: '',
   movement_type_id: 0,
   movement_method_id: 0,
   year: 0
@@ -106,10 +106,14 @@ watch(
   () => [movement.movement_method_id, movement.movement_type_id],
   ([newMethodId, newTypeId], [oldMethodId, oldTypeId]) => {
     nextTick(() => {
-      description.value?.focus()
+      inputValue.value?.focus()
     })
   }
 )
+
+const focusOnDescription = () => {
+  description.value?.focus()
+}
 
 const beforeOpen = () => {
   clearData()
@@ -121,14 +125,14 @@ const beforeOpen = () => {
 
 const onOpened = () => {
   nextTick(() => {
-    description.value?.focus()
+    inputValue.value?.focus()
   })
 }
 
 const clearData = () => {
   movement.date = new Date()
   movement.description = ''
-  movement.value = 0
+  movement.value = ''
   movement.movement_type_id = 0
   movement.movement_method_id = 0
   movement.year = 0
@@ -137,6 +141,7 @@ const clearData = () => {
 const registerMovement = async () => {
   if (!validateData()) return
 
+  preferencesStore.setLoading(true)
   try {
     const response = await movementStore.createMovement(movement)
     if (response.status === 201) {
@@ -150,6 +155,8 @@ const registerMovement = async () => {
     }
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferencesStore.setLoading(false)
   }
 }
 

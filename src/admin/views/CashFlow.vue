@@ -1,4 +1,5 @@
 <template>
+  <loading-overlay />
   <div class="consulta-container">
     <h2 class="title">Consulta Diaria</h2>
 
@@ -65,6 +66,7 @@ import Datepicker from '@vuepic/vue-datepicker'
 import { useReportStore } from '@/admin/reports/context/store/reportStore.js'
 import { format } from '@formkit/tempo'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+import LoadingOverlay from '@/admin/views/LoadingOverlay.vue'
 
 const reportStore = useReportStore()
 const preferenceStore = usePreferenceStore()
@@ -91,6 +93,7 @@ watch(
 )
 
 const loadReport = async () => {
+  preferenceStore.setLoading(true)
   try {
     const response = await reportStore.dailyCash(format(date.value, 'YYYY-MM-DD'), format(date.value, 'YYYY-MM-DD'))
 
@@ -103,6 +106,8 @@ const loadReport = async () => {
     movements.value = response.movements
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
   }
 }
 

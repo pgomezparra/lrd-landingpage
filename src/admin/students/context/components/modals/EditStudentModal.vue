@@ -200,6 +200,7 @@ const beforeOpen = () => {
 }
 
 const updateStudent = async () => {
+  preferenceStore.setLoading(true)
   try {
     const response = await studentStore.updateStudent(student)
     if (response.status === 200) {
@@ -216,6 +217,8 @@ const updateStudent = async () => {
     }
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
   }
 }
 

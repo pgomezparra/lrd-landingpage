@@ -66,25 +66,15 @@
               <option :value="2">Transferencia</option>
             </select>
           </div>
-          <div class="form-group">
-            <p>Valor</p>
+          <div v-if="payment.payment_method_id === 2" class="form-group">
+            <p>Código de transferencia</p>
             <input
-              :disabled="payment.excluded"
-              v-model="payment.value"
+              v-model="payment.transfer_code"
               type="text"
-              maxlength="10"
-              placeholder="Valor"
+              placeholder="Código de transferencia"
+              ref="transferCode"
             />
           </div>
-        </div>
-        <div v-if="payment.payment_method_id === 2" class="form-group">
-          <p>Código de transferencia</p>
-          <input
-            v-model="payment.transfer_code"
-            type="text"
-            placeholder="Código de transferencia"
-            ref="transferCode"
-          />
         </div>
         <div class="form-group">
           <p>Descripción</p>
@@ -97,8 +87,14 @@
           ></textarea>
         </div>
         <div class="form-group">
-          <p>Saldo</p>
-          <p>$ {{ balance < 0 ? 0 : balance }}</p>
+          <p>Valor (Saldo: $ {{ balance < 0 ? 0 : balance }})</p>
+          <input
+            :disabled="payment.excluded"
+            v-model="payment.value"
+            type="text"
+            maxlength="10"
+            placeholder="Valor"
+          />
         </div>
       </div>
       <div class="modal-actions">
@@ -221,6 +217,7 @@ const clearData = () => {
 const registerPayment = async () => {
   if (!validateData()) return
 
+  preferencesStore.setLoading(true)
   try {
     const response = await paymentStore.createPayment(payment)
     if (response.status === 201) {
@@ -234,6 +231,8 @@ const registerPayment = async () => {
     }
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferencesStore.setLoading(false)
   }
 }
 

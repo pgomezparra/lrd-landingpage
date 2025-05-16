@@ -15,7 +15,8 @@ export const usePreferenceStore = defineStore('preference', {
     months: [],
     selectedMonth: null,
     selectedMenu: '',
-    selectedSubMenu: ''
+    selectedSubMenu: '',
+    loading: false
   }),
   actions: {
     setSelectedYear(year) {
@@ -37,6 +38,9 @@ export const usePreferenceStore = defineStore('preference', {
     setSelectedSubMenu(subMenu) {
       this.selectedSubMenu = subMenu
       localStorage.setItem('selectedSubMenu', subMenu)
+    },
+    setLoading(loading) {
+      this.loading = loading
     },
     async getYears() {
       try {

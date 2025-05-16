@@ -1,4 +1,5 @@
 <template>
+  <loading-overlay />
   <div class="l-standard">
     <div class="l-standard-title">
       <p>Pagos por Estudiante</p>
@@ -117,6 +118,7 @@ import EditPaymentModal from '@/admin/payments/context/components/modals/EditPay
 import CreatePaymentModal from '@/admin/payments/context/components/modals/CreatePaymentModal.vue'
 import PaymentSupport from '@/admin/payments/context/components/PaymentSupport.vue'
 import AddEmailModal from '@/admin/payments/context/components/modals/AddEmailModal.vue'
+import LoadingOverlay from '@/admin/views/LoadingOverlay.vue'
 
 const grade = ref(0)
 const student = ref(0)
@@ -193,11 +195,14 @@ const closeSupport = () => {
 }
 
 async function getStudents() {
+  preferenceStore.setLoading(true)
   try {
     const response = await studentsStore.searchStudents(true)
     students.value = response.students
   } catch (error) {
     console.error(error)
+  } finally {
+    preferenceStore.setLoading(false)
   }
 }
 
@@ -211,12 +216,15 @@ const addPayment = () => {
 }
 
 const refreshData = async () => {
+  preferenceStore.setLoading(true)
   try {
     const response = await paymentsStore.searchPayments(studentsStore.selectedStudent.getId())
     payments.value = response.payments
     consolidatedPayments.value = response.consolidatedPayments
   } catch (error) {
     console.error(error)
+  } finally {
+    preferenceStore.setLoading(false)
   }
 }
 
@@ -227,12 +235,14 @@ const sendSupportPayment = async (payment) => {
     return
   }
 
+  preferenceStore.setLoading(true)
   try {
     await paymentsStore.sendSupportPayment(studentsStore.selectedStudent, consolidatedPayments.value)
   } catch (error) {
     console.error(error)
   } finally {
     paymentsStore.setSelectedPayment(null)
+    preferenceStore.setLoading(false)
   }
 }
 </script>

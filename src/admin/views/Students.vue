@@ -1,6 +1,12 @@
 <template>
+  <loading-overlay />
   <div class="l-standard">
-    <p class="l-standard-title">Listado de Estudiantes por Grado</p>
+    <div class="l-standard-title">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span>Listado de estudiantes</span><span class="container-total">{{ studentStore.students.length }}</span>
+      </div>
+      <p class="l-standard-title__text">Gestiona los estudiantes registrados en el sistema</p>
+    </div>
     <div class="l-standard-option">
       <p>Selecciona el grado a consultar:</p>
       <select
@@ -57,6 +63,7 @@ import { useVfm } from 'vue-final-modal'
 import EditStudentModal from '@/admin/students/context/components/modals/EditStudentModal.vue'
 import CreateStudentModal from '@/admin/students/context/components/modals/CreateStudentModal.vue'
 import DetailsStudentModal from '@/admin/students/context/components/modals/DetailsStudentModal.vue'
+import LoadingOverlay from '@/admin/views/LoadingOverlay.vue'
 
 const preferenceStore = usePreferenceStore()
 const studentStore = useStudentStore()
@@ -77,7 +84,14 @@ const changeStatusFilter = async (event) => {
 }
 
 async function refreshData() {
-  await studentStore.searchStudents(statusFilter.value === 'active')
+  preferenceStore.setLoading(true)
+  try {
+    await studentStore.searchStudents(statusFilter.value === 'active')
+  } catch (error) {
+    console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
+  }
 }
 
 const studentDetails = (student) => {

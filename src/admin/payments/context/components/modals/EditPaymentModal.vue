@@ -36,6 +36,27 @@
         </div>
 
         <div class="container-form-edit">
+          <div v-if="paymentStore.selectedPayment.isPension()" class="form-group">
+            <p>Mes</p>
+            <select class="select-methods" disabled v-model="payment.month_id">
+              <option
+                v-for="month in preferencesStore.months"
+                :key="month.getId()"
+                :value="month.getId()"
+              >
+                {{ month.getMonth() }}
+              </option>
+            </select>
+          </div>
+          <div v-if="paymentStore.selectedPayment.isPension()" class="form-group switch-group">
+            <p>No paga</p>
+            <label class="switch">
+              <input type="checkbox" v-model="payment.excluded" />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="container-form-edit">
           <div class="form-group">
             <p>Método de pago</p>
             <select class="select-methods" :disabled="payment.excluded" v-model="payment.payment_method_id">
@@ -43,46 +64,15 @@
               <option :value="2">Transferencia</option>
             </select>
           </div>
-          <div class="form-group">
-            <p>Valor</p>
+          <div v-if="payment.payment_method_id === 2" class="form-group">
+            <p>Código de transferencia</p>
             <input
-              :disabled="payment.excluded"
-              v-model="payment.value"
+              v-model="payment.transfer_code"
               type="text"
-              maxlength="10"
-              placeholder="Valor"
+              placeholder="Código de transferencia"
+              ref="transferCode"
             />
           </div>
-        </div>
-        <div v-if="paymentStore.selectedPayment.isPension()" class="form-group">
-          <p>Mes</p>
-          <select disabled v-model="payment.month_id">
-            <option
-              v-for="month in preferencesStore.months"
-              :key="month.getId()"
-              :value="month.getId()"
-            >
-              {{ month.getMonth() }}
-            </option>
-          </select>
-        </div>
-        <div v-if="paymentStore.selectedPayment.isPension()" class="form-group switch-group">
-          <p>No paga</p>
-          <label class="switch">
-            <input type="checkbox" v-model="payment.excluded" />
-            <span class="slider"></span>
-          </label>
-        </div>
-
-
-        <div v-if="payment.payment_method_id === 2" class="form-group">
-          <p>Código de transferencia</p>
-          <input
-            v-model="payment.transfer_code"
-            type="text"
-            placeholder="Código de transferencia"
-            ref="transferCode"
-          />
         </div>
         <div class="form-group">
           <p>Descripción</p>
@@ -94,8 +84,16 @@
             ref="description"
           ></textarea>
         </div>
-
-
+        <div class="form-group">
+          <p>Valor</p>
+          <input
+            :disabled="payment.excluded"
+            v-model="payment.value"
+            type="text"
+            maxlength="10"
+            placeholder="Valor"
+          />
+        </div>
         <div class="form-group">
           <p>Autor: <span>{{ payment.author }}</span></p>
         </div>
@@ -166,6 +164,7 @@ const updatePayment = async () => {
     payment.value = 0
   }
 
+  preferencesStore.setLoading(true)
   try {
     const response = await paymentStore.updatePayment(payment)
     if (response.status === 200) {
@@ -179,6 +178,8 @@ const updatePayment = async () => {
     }
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferencesStore.setLoading(false)
   }
 }
 

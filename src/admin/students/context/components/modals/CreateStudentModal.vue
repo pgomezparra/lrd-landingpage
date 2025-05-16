@@ -278,6 +278,7 @@ const validateDebts = async (studentId, year) => {
 const registerStudent = async () => {
   if (!validateData()) return
 
+  preferenceStore.setLoading(true)
   try {
     const response = await studentStore.registerStudent(student)
     if (response.status === 201) {
@@ -290,6 +291,8 @@ const registerStudent = async () => {
     }
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
   }
 }
 

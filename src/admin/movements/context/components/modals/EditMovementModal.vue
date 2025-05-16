@@ -7,7 +7,8 @@
     content-transition="vfm-fade"
     :click-to-close="false"
     :esc-to-close="false"
-    @beforeOpen="onOpened"
+    @beforeOpen="beforeOpened"
+    @opened="onOpened"
     @closed="onClosed"
   >
     <div>
@@ -46,7 +47,13 @@
           </div>
           <div class="form-group">
             <p>Valor</p>
-            <input v-model="movement.value" type="text" placeholder="Valor" />
+            <input
+              v-model="movement.value"
+              type="text"
+              placeholder="Valor"
+              ref="inputValue"
+              @keyup.enter="focusOnDescription"
+            />
           </div>
         </div>
 
@@ -85,11 +92,14 @@ import { parse } from '@formkit/tempo'
 import Datepicker from '@vuepic/vue-datepicker'
 import { notifications } from '@/shared/notifications.js'
 import { useMovementStore } from '@/admin/movements/context/store/movementStore.js'
+import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 
 const vfm = useVfm()
 const movementStore = useMovementStore()
+const preferenceStore = usePreferenceStore()
 
 const description = ref(null)
+const inputValue = ref(null)
 
 const movement = reactive({
   id: 0,
@@ -113,9 +123,14 @@ watch(
   }
 )
 
+const focusOnDescription = () => {
+  description.value?.focus()
+}
+
 const updatePayment = async () => {
   if (!validateData()) return
 
+  preferenceStore.setLoading(true)
   try {
     const response = await movementStore.updateMovement(movement)
     if (response.status === 200) {
@@ -129,6 +144,8 @@ const updatePayment = async () => {
     }
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
   }
 }
 
@@ -152,6 +169,10 @@ const validateData = () => {
 }
 
 const onOpened = () => {
+  inputValue.value?.focus()
+}
+
+const beforeOpened = () => {
   if (!movementStore.selectedMovement) return
   movement.id = movementStore.selectedMovement.getId()
   movement.date = parse(movementStore.selectedMovement.getDate(), 'YYYY-MM-DD')

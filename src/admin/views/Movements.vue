@@ -1,10 +1,13 @@
 <template>
+  <loading-overlay />
   <div class="l-standard">
+    <div class="l-standard-title">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span>Listado de movimientos</span><span class="container-total">{{ movements.length }}</span>
+      </div>
+      <p class="l-standard-title__text">Selecciona el mes a consultar</p>
+    </div>
     <div class="header-movements">
-      <h2>
-        Listado de movimientos
-        <span class="container-total">{{ movements.length }}</span>
-      </h2>
       <div class="controls">
         <select class="select-standard" v-model="selectedMonth">
           <option
@@ -44,6 +47,7 @@ import { useMovementStore } from '@/admin/movements/context/store/movementStore.
 import CreateMovementModal from '@/admin/movements/context/components/modals/CreateMovementModal.vue'
 import EditMovementModal from '@/admin/movements/context/components/modals/EditMovementModal.vue'
 import { useVfm } from 'vue-final-modal'
+import LoadingOverlay from '@/admin/views/LoadingOverlay.vue'
 
 const preferencesStore = usePreferenceStore()
 const movementsStore = useMovementStore()
@@ -66,6 +70,7 @@ watch(() => preferencesStore.selectedYear, (newMovement) => {
 })
 
 const searchMovements = async () => {
+  preferencesStore.setLoading(true)
   try {
     const baseDate = date(`${preferencesStore.selectedYear}-${selectedMonth.value.toString().padStart(2, '0')}-01`)
     const initMont = monthStart(baseDate)
@@ -74,6 +79,8 @@ const searchMovements = async () => {
     movements.value = await movementsStore.searchMovements(format(initMont, 'YYYY-MM-DD'), format(endMonth, 'YYYY-MM-DD'))
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferencesStore.setLoading(false)
   }
 }
 
