@@ -8,7 +8,7 @@
           <button
             v-for="(pdf, index) in pdfs"
             :key="index"
-            @click="selectedPdf = pdf.url"
+            @click="changePdf(pdf.url)"
             :class="['l-institutional__container__tabs__tab', { 'l-institutional__container__tabs__tab--active': selectedPdf === pdf.url }]"
           >
             {{ pdf.title }}
@@ -16,7 +16,7 @@
         </div>
         <section class="l-institutional__container__section">
           <iframe
-            src="https://drive.google.com/file/d/18R8svTACgVbP3UfB8TbA95CPDXgOKjhI/preview"
+            :src="selectedPdf"
             width="100%"
           ></iframe>
         </section>
@@ -34,10 +34,16 @@ import Navbar from '@/navbar/components/NavBar.vue'
 import Whatsapp from '@/general/components/Whatsapp.vue'
 
 const pdfs = ref([
-  { title: 'Cronograma Escolar', url: 'https://drive.google.com/file/d/18R8svTACgVbP3UfB8TbA95CPDXgOKjhI/preview' }
-  // { title: 'Reglamento', url: 'https://drive.google.com/file/d/1B2C3D4E5F6G7H8I9J0K/preview' },
-  // { title: 'Lista de Útiles', url: 'https://drive.google.com/file/d/2A3B4C5D6E7F8G9H0I1J/preview' }
+  {
+    title: 'Cronograma Escolar',
+    url: '/pdfs/Cronograma.pdf'
+  },
+  { title: 'Resolución', url: '/pdfs/Resolucion.pdf' }
 ])
+
+const changePdf = (url) => {
+  selectedPdf.value = url
+}
 
 const selectedPdf = ref(pdfs.value[0].url)
 </script>
