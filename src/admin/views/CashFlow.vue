@@ -1,7 +1,9 @@
 <template>
   <loading-overlay />
-  <div class="consulta-container">
-    <h2 class="title">Consulta Diaria</h2>
+  <div class="l-standard">
+    <div class="l-standard-title">
+      <p>Consulta Diaria</p>
+    </div>
 
     <div class="fecha-selector">
       <label for="fecha">Fecha:</label>
@@ -27,8 +29,8 @@
       <div class="resumen-item transferencia">Transferencia: <span>$ {{ consolidated.transfer }}</span></div>
     </div>
 
-    <h3 class="subtitulo">Movimientos del Día</h3>
-    <div class="cards-container">
+    <h3 class="subtitulo">Movimientos del Día ({{ movements.length }})</h3>
+    <div class="cards-container-cash-flow">
       <div class="movimiento-card" v-for="movement in movements" :key="movement.getId()">
         <div class="card-header">
           <div class="fecha">{{ movement.getDateStr() }}</div>
@@ -116,3 +118,17 @@ onMounted(async () => {
   await loadReport()
 })
 </script>
+
+<style scoped>
+.subtitulo {
+  margin: 0;
+}
+
+.cards-container-cash-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 45dvh;
+  overflow-y: scroll;
+}
+</style>
