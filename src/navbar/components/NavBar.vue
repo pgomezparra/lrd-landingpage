@@ -35,6 +35,8 @@
               <img src="@/assets/img/general/instagram.svg" alt="Instagram" /></a>
             <a @click="toggleMenu" href="https://www.facebook.com/liceo.rey" target="_blank">
               <img src="@/assets/img/general/facebook.svg" alt="Instagram" /></a>
+            <a @click="redirectToLogin" href="#" target="">
+              <img src="@/assets/img/general/login.svg" alt="login" /></a>
           </div>
           <div
             v-for="item in menuItems"
