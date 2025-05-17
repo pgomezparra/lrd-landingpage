@@ -133,8 +133,22 @@
   }
 }
 
+.button-standard {
+  padding: 0.5rem 1rem;
+  background: colors.$btn-blue ;
+  color: colors.$secondary-color;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 @media screen and (max-width: 768px) {
   .a-button-whatsapp {
     right: 0.5rem;
+  }
+
+  .button-standard {
+    font-size: 0.8rem;
   }
 }

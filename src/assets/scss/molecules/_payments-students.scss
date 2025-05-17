@@ -26,6 +26,9 @@
   border-radius: 2rem;
   font-size: 0.85rem;
 }
+.text-mobil{
+  display: none;
+}
 
 .payments-summary h2 {
   font-size: 1.2rem;
@@ -75,6 +78,7 @@
   margin: 0;
 }
 
+
 @media(max-width: 31.125rem) {
   .payments-summary {
     display: grid;
@@ -91,6 +95,13 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
     gap: 0.5rem;
+  }
+  .text-desktop{
+    display: none;
+  }
+  .text-mobil{
+    display: block;
+    font-size: 0.85rem;
   }
 }
 @media(max-width: 28.125rem) {

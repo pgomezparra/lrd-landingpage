@@ -2,13 +2,14 @@
   <loading-overlay />
   <div class="l-standard">
     <div class="l-standard-title">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
         <span>Listado de estudiantes</span><span class="container-total">{{ studentStore.students.length }}</span>
       </div>
       <p class="l-standard-title__text">Gestiona los estudiantes registrados en el sistema</p>
     </div>
     <div class="l-standard-option">
-      <p>Selecciona el grado a consultar:</p>
+      <p class="text-desktop">Selecciona el grado a consultar:</p>
+      <p class="text-mobil">Grado a consultar:</p>
       <select
         class="select-standard"
         v-model="preferenceStore.selectedGrade"
@@ -125,16 +126,3 @@ onMounted(async () => {
   studentStore.setStudents([])
 })
 </script>
-
-<style scoped>
-.button-standard {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-</style>
