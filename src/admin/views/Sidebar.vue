@@ -73,7 +73,7 @@
         <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="students" />
         <p class="menu-item">Estudiantes</p>
       </div>
- <!--      <div-->
+      <!--      <div-->
       <!--        class="sidebar-menu-items-container"-->
       <!--        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'employees' }"-->
       <!--        @click="redirectTo('/admin/employees')"-->
@@ -120,8 +120,8 @@
         >
           Caja
         </p>
-      </div>     
-       <!--      <div-->
+      </div>
+      <!--      <div-->
       <!--        v-if="isValidMenu(['admin', 'coordinator'])"-->
       <!--        class="sidebar-menu-items-container"-->
       <!--        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'pqrs' }"-->
@@ -139,7 +139,7 @@
       <!--        <p class="menu-item">Configuraciones</p>-->
       <!--      </div>-->
     </div>
-    
+
     <div class="sidebar-logout">
       <button @click="closeSession" class="button-logout">
         Cerrar sesión
@@ -176,6 +176,7 @@ const closeSession = () => {
 
 const redirectTo = (path, menu) => {
   router.push(path)
+  isSidebarOpen.value = false
   const selected = path.replace('/admin/', '')
   if (menu) {
     preferenceStore.setSelectedMenu(menu)
@@ -223,7 +224,7 @@ onMounted(async () => {
 
   await preferenceStore.getGrades()
   await preferenceStore.getMonths()
-  
+
   preferenceStore.setSelectedMenu(preferenceStore.getSelectedMenu() || 'home')
   preferenceStore.setSelectedSubMenu(preferenceStore.getSelectedSubMenu() || '')
 })
