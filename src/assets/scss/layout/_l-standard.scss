@@ -76,7 +76,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
-    height: 74dvh;
+    height: 72dvh;
     padding: 1rem;
     row-gap: 1rem;
     overflow: auto;
@@ -86,7 +86,7 @@
       display: grid;
       grid-template-columns: 1fr auto;
       column-gap: 1rem;
-      padding: 1rem;
+      padding: 0 1rem;
     }
 
     &__title {

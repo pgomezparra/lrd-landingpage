@@ -15,21 +15,30 @@
           {{ grade.getGrade() }}
         </option>
       </select>
-      <input
-        class="input-standard"
-        list="students"
-        v-model="studentName"
-        placeholder="Buscar estudiante"
-        ref="studentNameInput"
-      />
-      <button class="button-standard" @click="clearPayments">Limpiar</button>
-      <datalist id="students">
-        <option
-          v-for="student in students"
-          :key="student.getId()"
-          :value="`${student.getName()} ${student.getSurname()}`"
+      <div style="position: relative;">
+        <input
+          class="input-standard"
+          style="width: 90%; height: 2.5rem;"
+          v-model="studentName"
+          placeholder="Buscar estudiante"
+          ref="studentNameInput"
+          @focus="showDropdown = true"
+          @blur="hideDropdown"
         />
-      </datalist>
+        <ul
+          v-if="showDropdown && filteredStudents.length"
+          class="autocomplete-dropdown"
+        >
+          <li
+            v-for="student in filteredStudents"
+            :key="student.getId()"
+            @click="selectStudent(student)"
+          >
+            {{ student.getName() }} {{ student.getSurname() }}
+          </li>
+        </ul>
+      </div>
+      <button class="button-standard" @click="clearPayments">Limpiar</button>
     </div>
     <div v-if="student" class="l-standard-container-payments">
       <div v-if="consolidatedPayments.length > 0" class="payments-summary">
@@ -110,7 +119,7 @@
 
 <script setup>
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
-import { nextTick, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { useVfm } from 'vue-final-modal'
@@ -128,6 +137,9 @@ const payments = ref([])
 const consolidatedPayments = ref([])
 const studentNameInput = ref(null)
 const showSupport = ref(false)
+const showDropdown = ref(false)
+
+
 const vfm = useVfm()
 
 const preferenceStore = usePreferenceStore()
@@ -145,20 +157,36 @@ watch(() => preferenceStore.selectedYear, (newYear) => {
   clearData()
 })
 
-watch(studentName, async (newVal) => {
-  if (newVal === '') {
-    clearPayments()
-    return
-  }
-  const match = students.value.find(s => `${s.getName()} ${s.getSurname()}` === newVal)
-  if (match) {
-    student.value = match.getId()
-    studentsStore.setSelectedStudent(match)
-    const response = await paymentsStore.searchPayments(match.getId())
+const selectStudent = async (selectedStudent) => {
+  studentName.value = `${selectedStudent.getName()} ${selectedStudent.getSurname()}`
+  student.value = selectedStudent.getId()
+  studentsStore.setSelectedStudent(selectedStudent)
+
+  preferenceStore.setLoading(true)
+  try {
+    const response = await paymentsStore.searchPayments(selectedStudent.getId())
     payments.value = response.payments
     consolidatedPayments.value = response.consolidatedPayments
+  } catch (error) {
+    console.error(error)
+  } finally {
+    preferenceStore.setLoading(false)
   }
-})
+}
+
+const hideDropdown = () => {
+  setTimeout(() => {
+    showDropdown.value = false
+  }, 200)
+}
+
+const filteredStudents = computed(() =>
+  studentName.value
+    ? students.value.filter(s =>
+      `${s.getName()} ${s.getSurname()}`.toLowerCase().includes(studentName.value.toLowerCase())
+    )
+    : []
+)
 
 const changeGrade = (event) => {
   preferenceStore.setSelectedGrade(parseInt(event.target.value))
@@ -246,3 +274,28 @@ const sendSupportPayment = async (payment) => {
   }
 }
 </script>
+
+<style scoped>
+.autocomplete-dropdown {
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  top: 3rem;
+}
+
+.autocomplete-dropdown li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.autocomplete-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+</style>

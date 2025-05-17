@@ -1,7 +1,7 @@
 @use '@/assets/scss/settings/colors';
 
 .button-standard {
-  padding:  1rem;
+  padding: 1rem;
   background: $btn-blue;
   color: colors.$secondary-color;
   border-radius: 2rem;
@@ -12,18 +12,18 @@
 }
 
 .button-standard:hover {
-  background-color:$color-blue;
+  background-color: $color-blue;
 }
 
 .button-standard:active {
   transform: scale(0.97);
-  padding:  1rem;
+  padding: 1rem;
 }
 
 .payments-summary {
-  padding: 1rem;
+  padding: 0 1rem;
   background-color: $secondary-color;
-  border-radius:2rem;
+  border-radius: 2rem;
   font-size: 0.85rem;
 }
 
@@ -31,7 +31,7 @@
   font-size: 1.2rem;
   margin-top: 0;
   margin-bottom: 0.5rem;
-  color:$pqr-span;
+  color: $pqr-span;
 }
 
 .payments-grid.compact {
@@ -42,7 +42,7 @@
 }
 
 .payment-card {
-  background-color:$secondary-color;
+  background-color: $secondary-color;
   border: 0.063rem solid $border;
   border-radius: 1rem;
   padding: 0.5rem;
@@ -55,7 +55,7 @@
 .payment-card strong {
   font-weight: 600;
   font-size: 0.9rem;
-  color:$text-main;
+  color: $text-main;
 }
 
 .payment-card span {
@@ -65,7 +65,7 @@
 
 .main-payment {
   background-color: $bg-resume;
-  border-color:$border-resume;
+  border-color: $border-resume;
   font-size: 0.8rem;
   display: flex;
   flex-direction: column;
