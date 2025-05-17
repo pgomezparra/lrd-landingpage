@@ -81,6 +81,7 @@
 
 @media(max-width: 31.125rem) {
   .payments-summary {
+    align-items: center;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
@@ -88,7 +89,7 @@
     row-gap: 0.5rem;
     border-radius: 1rem;
     font-size: 0.80rem;
-    width: 23rem;
+    width: 25rem;
   }
 
   .payments-grid.compact {
@@ -106,6 +107,6 @@
 }
 @media(max-width: 28.125rem) {
   .payments-summary {
-    width: 20rem;
+    width: 21rem;
   }
 }
