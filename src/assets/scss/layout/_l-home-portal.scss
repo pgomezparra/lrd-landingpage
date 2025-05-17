@@ -37,9 +37,28 @@
     text-align: center;
   }
 
-
   &-logo {
     height: 15rem;
     width: 15rem;
+  }
+}
+
+@media(max-width: 31.125rem) {
+  .home-portal {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border-radius: 5rem;
+    box-shadow: 0 0.125rem 0.25rem 0 colors.$shadow-card;
+    -moz-box-shadow: 0 0.125rem 0.25rem 0 colors.$shadow-card;
+    -webkit-box-shadow: 0  0.125rem 0.25rem 0 colors.$shadow-card;
+    height: fit-content;
+    grid-template-columns: 1fr;
+    place-items: center;
+    padding: 2rem;
+    &__title {
+      font-size: 2rem;
+      font-family: fonts.$font-title;
+      text-align: center;
+    }
   }
 }

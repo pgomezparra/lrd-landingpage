@@ -54,6 +54,9 @@
 }
 
 @media(max-width: 31.125rem) {
+  .dashboard-graph {
+    height: 20rem;
+  }
   .dashboard-cards {
     display: grid;
     gap: 1rem;

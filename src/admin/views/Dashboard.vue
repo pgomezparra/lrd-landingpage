@@ -78,6 +78,7 @@ const chartData = ref({
 
 const barOptions = {
   responsive: true,
+  maintainAspectRatio: false,
   interaction: {
     mode: 'index',
     intersect: false

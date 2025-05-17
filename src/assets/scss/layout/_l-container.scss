@@ -4,10 +4,11 @@
 .l-container {
   display: grid;
   grid-template-rows: auto 1fr auto;
+  height: 100dvh;
 }
 
 .app-layout {
-  background-color: #ffffff;
+  background-color: colors.$secondary-color ;
   background-image: url("@/assets/img/background/circuit-board.svg");
   background-position: center;
   display: flex;
