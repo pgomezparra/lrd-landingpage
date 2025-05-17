@@ -93,3 +93,8 @@
     gap: 0.5rem;
   }
 }
+@media(max-width: 28.125rem) {
+  .payments-summary {
+    width: 20rem;
+  }
+}

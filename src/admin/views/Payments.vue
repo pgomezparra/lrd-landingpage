@@ -42,6 +42,44 @@
       </div>
       <button class="button-standard" @click="clearPayments">Limpiar</button>
     </div>
+    <div class="l-standard-option-payment-mobil">
+      <div class="l-standard-option-payment-mobil__container">
+        <select class="select-standard" v-model="grade" @change="changeGrade">
+          <option disabled value="0">Grado</option>
+          <option
+            v-for="grade in preferenceStore.grades"
+            :key="grade.getId()"
+            :value="grade.getId()">
+            {{ grade.getGrade() }}
+          </option>
+        </select>
+        <button class="button-standard" @click="clearPayments">Limpiar</button>
+      </div>
+      <div class="l-standard-option-payment__input-student">
+        <input
+          class="input-standard"
+          style="width: 90%; height: 2.5rem;"
+          v-model="studentName"
+          placeholder="Buscar estudiante"
+          ref="studentNameInput"
+          @focus="showDropdown = true"
+          @blur="hideDropdown"
+        />
+        <ul
+          v-if="showDropdown && filteredStudents.length"
+          class="autocomplete-dropdown"
+        >
+          <li
+            v-for="student in filteredStudents"
+            :key="student.getId()"
+            @click="selectStudent(student)"
+          >
+            {{ student.getName() }} {{ student.getSurname() }}
+          </li>
+        </ul>
+      </div>
+
+    </div>
     <div v-if="student" class="l-standard-container-payments">
       <div v-if="consolidatedPayments.length > 0" class="payments-summary">
         <h2>Resumen de pagos</h2>
