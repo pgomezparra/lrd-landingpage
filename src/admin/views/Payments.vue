@@ -187,9 +187,9 @@ const studentsStore = useStudentStore()
 const paymentsStore = usePaymentStore()
 
 
-watch(grade, (newGrade) => {
-  getStudents()
-})
+// watch(grade, (newGrade) => {
+//   getStudents()
+// })
 
 watch(() => preferenceStore.selectedYear, (newYear) => {
   if (preferenceStore.selectedGrade === 0) return
@@ -231,9 +231,7 @@ const filteredStudents = computed(() =>
 const changeGrade = (event) => {
   preferenceStore.setSelectedGrade(parseInt(event.target.value))
   clearData()
-  nextTick(() => {
-    studentNameInput.value?.focus()
-  })
+  getStudents()
 }
 
 const clearData = () => {
@@ -267,6 +265,10 @@ async function getStudents() {
   try {
     const response = await studentsStore.searchStudents(true)
     students.value = response.students
+
+    await nextTick(() => {
+      studentNameInput.value?.focus()
+    })
   } catch (error) {
     console.error(error)
   } finally {
