@@ -8,10 +8,15 @@
   -moz-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
   -webkit-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
   display: grid;
+  height: 97dvh;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto 1fr auto;
   row-gap: 1rem;
   padding: 1rem;
+  overflow-y: auto;
+  position: relative;
+  transition: none;
+  z-index: 1200;
   width: 17rem;
 
   &-user-info {
@@ -23,28 +28,35 @@
 
     &__img {
       border-radius: 50%;
-      height: 4rem;
-      width: 4rem;
+      height: 3rem;
+      width: 3rem;
     }
 
     &__user-details {
       color: colors.$text-title;
       font-family: fonts.$font-title;
       text-align: center;
-
       &-email {
         color: colors.$text-light;
         font-family: fonts.$font-primary;
         font-size: 0.90rem;
       }
     }
-
   }
 
   &-year {
     display: grid;
     place-items: center;
+
+    .select-standard {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius:0.5rem;
+      border: 0.063rem solid colors.$border;
+      font-size: 1rem;
+    }
   }
+
 
   &-menu-items {
     align-content: start;
@@ -109,6 +121,24 @@
     }
   }
 
+
+  .submenu-item {
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: colors.$hover-button-menu;
+      color: colors.$primary-color;
+    }
+
+    &--active {
+      background-color: colors.$hover-button-menu;
+      color: colors.$primary-color;
+    }
+  }
+
   &-logout {
     display: grid;
     grid-template-columns: 1fr;
@@ -116,3 +146,70 @@
     place-items: center;
   }
 }
+
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 0.5rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1300;
+}
+
+
+@media (min-width: 48.063rem) {
+  .hamburger {
+    display: none;
+  }
+
+  .sidebar {
+    position: relative;
+    left: 0;
+    transition: none;
+    width: 17rem;
+  }
+}
+
+
+@media (max-width:48rem) {
+  .hamburger {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -18.125rem;
+    width: 15.625rem;
+    height: 97dvh;
+    box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
+    -moz-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
+    -webkit-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
+    transition: left 0.3s ease;
+    background-color: colors.$secondary-color;
+    overflow-y: auto;
+    z-index: 1200;
+
+    &.sidebar--open {
+      left: 0;
+    }
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
+    -moz-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
+    -webkit-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
+    z-index: 1199;
+  }
+
+  .sidebar-logout {
+    position: relative;
+    bottom: auto;
+  }
+}
+
