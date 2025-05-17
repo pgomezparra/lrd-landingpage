@@ -3,7 +3,9 @@
   <div class="l-standard">
     <div class="l-standard-title">
       <p>Pagos por Estudiante</p>
-      <p class="l-standard-title__text">Selecciona el grado y digita el nombre del estudiante a revisar el pago</p>
+      <p class="l-standard-title__text">
+        Selecciona el grado y digita el nombre del estudiante a revisar el pago
+      </p>
     </div>
     <div class="l-standard-option-payment">
       <select class="select-standard" v-model="grade" @change="changeGrade">
@@ -15,7 +17,7 @@
           {{ grade.getGrade() }}
         </option>
       </select>
-      <div style="position: relative;">
+      <div class="l-standard-option-payment__input-student">
         <input
           class="input-standard"
           style="width: 90%; height: 2.5rem;"

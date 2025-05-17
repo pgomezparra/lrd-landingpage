@@ -51,6 +51,12 @@
     column-gap: 1rem;
     display: grid;
     grid-template-columns: auto 1fr auto;
+
+    &__input-student {
+      display: grid;
+      position: relative;
+      place-items: center;
+    }
   }
 
   &-container-card {
@@ -118,7 +124,6 @@
         column-gap: 1rem;
         display: grid;
         max-height: 60dvh;
-        overflow-y: auto;
         grid-template-columns: repeat(7, 1fr);
         padding: 0.5rem;
 
@@ -136,3 +141,59 @@
     }
   }
 }
+
+@media(max-width: 31.125rem) {
+  .content {
+    padding: 1rem;
+    width: 100%;
+  }
+  .l-standard {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    height: 100dvh;
+    row-gap: 1rem;
+    padding: 0;
+    width: 100%;
+
+    &-title {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      row-gap: 1rem;
+      text-align: center;
+      font-family: fonts.$font-title;
+      font-size: clamp(1rem, 0.9049rem + 0.4348vw, 1.5rem);
+      width: 100%;
+
+      &__text {
+        color: colors.$text-light;
+        font-family: fonts.$font-primary-regular;
+        font-size: clamp(0.75rem, 0.9049rem + 0.4348vw, 1rem);
+      }
+    }
+    &-option-payment {
+      display: grid;
+      align-self: start;;
+      grid-template-columns: auto auto auto;
+      justify-content: center;
+      column-gap: 0.5rem;
+    }
+    &-container-payments {
+      &__title-payment{
+        width: 22rem;
+      }
+   }
+  &__title-payment {
+      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 1rem;
+      padding: 0 1rem;
+    }
+  }
+}
+

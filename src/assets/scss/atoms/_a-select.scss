@@ -36,7 +36,6 @@
     -webkit-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
   }
 }
-
 .select-document {
   appearance: none;
   background: colors.$secondary-color;
@@ -51,7 +50,6 @@
     -webkit-box-shadow: 0  0.125rem 0.313rem 0 colors.$shadow-card;
   }
 }
-
 
 .select-standard option {
   cursor: pointer;
@@ -76,5 +74,20 @@
     box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-card;
     -moz-box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-card;
     -webkit-box-shadow: 0  0.125rem 0.313rem 0 colors.$shadow-card;
+  }
+}
+
+@media (max-width:31.25rem ) {
+  .select-standard {
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: fonts.$font-primary;
+    padding: 0.5rem;
+    text-align: center;
+    width: 6rem;
+
+    &:hover {
+      box-shadow:none;
+    }
   }
 }

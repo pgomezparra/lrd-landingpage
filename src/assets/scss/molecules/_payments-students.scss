@@ -29,8 +29,6 @@
 
 .payments-summary h2 {
   font-size: 1.2rem;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
   color: $pqr-span;
 }
 
@@ -75,4 +73,23 @@
 
 .main-payment h3 {
   margin: 0;
+}
+
+@media(max-width: 31.125rem) {
+  .payments-summary {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    padding: 0;
+    row-gap: 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.80rem;
+    width: 23rem;
+  }
+
+  .payments-grid.compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: 0.5rem;
+  }
 }
