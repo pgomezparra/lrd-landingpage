@@ -172,8 +172,8 @@
   .filters {
     align-items: center;
     display: grid;
-    grid-template-columns: 1fr ;
-    grid-template-rows:repeat(3, auto);
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:repeat(2, auto);
     gap: 1rem;
     place-items: center;
   }

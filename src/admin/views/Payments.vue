@@ -186,11 +186,6 @@ const preferenceStore = usePreferenceStore()
 const studentsStore = useStudentStore()
 const paymentsStore = usePaymentStore()
 
-
-// watch(grade, (newGrade) => {
-//   getStudents()
-// })
-
 watch(() => preferenceStore.selectedYear, (newYear) => {
   if (preferenceStore.selectedGrade === 0) return
   getStudents()

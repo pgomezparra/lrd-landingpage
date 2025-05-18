@@ -1,6 +1,10 @@
 <template>
-  <div class="consulta-container">
-    <h2 class="title">Lista de deudores ({{ debtors.length }})</h2>
+  <div class="l-standard">
+    <div class="l-standard-title">
+      <div>
+        <span>Lista de deudores</span><span class="container-total">{{ debtors.length }}</span>
+      </div>
+    </div>
 
     <div class="filters">
       <div class="filter">
@@ -13,7 +17,7 @@
       </div>
       <div class="filter" v-if="debtType === 2">
         <span>Mes</span>
-        <select class="select-methods" v-model="debtMonth">
+        <select class="select-standard" v-model="debtMonth">
           <option :value="0">Mes</option>
           <option
             v-for="month in preferenceStore.months"
@@ -25,7 +29,7 @@
       </div>
       <div class="filter">
         <span>Grado</span>
-        <select class="select-document" v-model="debtGrade">
+        <select class="select-standard" v-model="debtGrade">
           <option :value="0">Todos</option>
           <option
             v-for="grade in preferenceStore.grades"
