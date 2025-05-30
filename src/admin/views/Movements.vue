@@ -2,7 +2,7 @@
   <loading-overlay />
   <div class="l-standard">
     <div class="l-standard-title">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
         <span>Listado de movimientos</span><span class="container-total">{{ movements.length }}</span>
       </div>
       <p class="l-standard-title__text">Selecciona el mes a consultar</p>

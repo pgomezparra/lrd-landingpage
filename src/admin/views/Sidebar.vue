@@ -27,7 +27,7 @@
       </div>
 
       <div
-        v-if="isValidMenu(['admin'])"
+        v-if="isValidMenu(['admin', 'general_secretary'])"
         class="sidebar-menu-items-container"
         :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'dashboard' }"
         @click="redirectTo('/admin/dashboard', 'dashboard')"
@@ -45,25 +45,25 @@
         <img class="sidebar-menu-items__img" src="@/assets/img/general/payment.svg" alt="payments" />
         <p class="menu-item">Pagos</p>
       </div>
-      <!--      <div @click="toggleSubMenu('content')">-->
-      <!--        <div class="sidebar-menu-items-container-new">-->
-      <!--          <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">-->
-      <!--          Contenido-->
-      <!--          <span :class="{ rotated: preferenceStore.selectedMenu === 'content' }">▼</span>-->
-      <!--        </div>-->
-      <!--        <div v-if="preferenceStore.selectedMenu === 'content'">-->
-      <!--          <p-->
-      <!--            @click="redirectTo('/admin/news', 'content')"-->
-      <!--            class="submenu-item"-->
-      <!--            :class="{ 'submenu-item&#45;&#45;active': preferenceStore.selectedSubMenu === 'news' }"-->
-      <!--          >Noticias</p>-->
-      <!--          <p-->
-      <!--            @click="redirectTo('/admin/announcements', 'content')"-->
-      <!--            class="submenu-item"-->
-      <!--            :class="{ 'submenu-item&#45;&#45;active': preferenceStore.selectedSubMenu === 'announcements' }"-->
-      <!--          >Anuncios</p>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <div @click="toggleSubMenu('content')">
+        <div class="sidebar-menu-items-container-new">
+          <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">
+          Contenido
+          <span :class="{ rotated: preferenceStore.selectedMenu === 'content' }">▼</span>
+        </div>
+        <div v-if="preferenceStore.selectedMenu === 'content'">
+          <p
+            @click="redirectTo('/admin/news', 'content')"
+            class="submenu-item"
+            :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'news' }"
+          >Noticias</p>
+          <!--          <p-->
+          <!--            @click="redirectTo('/admin/announcements', 'content')"-->
+          <!--            class="submenu-item"-->
+          <!--            :class="{ 'submenu-item&#45;&#45;active': preferenceStore.selectedSubMenu === 'announcements' }"-->
+          <!--          >Anuncios</p>-->
+        </div>
+      </div>
       <div
         v-if="isValidMenu(['admin', 'secretary'])"
         class="sidebar-menu-items-container"
@@ -104,7 +104,7 @@
 
       <div v-if="preferenceStore.selectedMenu === 'reports'">
         <p
-          v-if="isValidMenu(['admin'])"
+          v-if="isValidMenu(['admin', 'general_secretary'])"
           class="submenu-item"
           :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'debts' }"
           @click="redirectTo('/admin/debts', 'content')"

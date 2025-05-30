@@ -17,6 +17,7 @@
     "axios": "^1.7.8",
     "canvas-confetti": "^1.9.3",
     "chart.js": "^4.4.9",
+    "element-plus": "^2.9.10",
     "node-sass": "^9.0.0",
     "pinia": "^2.1.7",
     "sass-loader": "^16.0.1",

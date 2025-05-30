@@ -8,10 +8,10 @@ export default class MovementRepository {
     return customAxios.get(url)
   }
 
-  async createMovement(payment) {
+  async createMovement(movement) {
     let url = `${myUrl(3000)}/api/v1/movements`
 
-    return customAxios.post(url, payment)
+    return customAxios.post(url, movement)
   }
 
   async updateMovement(movement) {
