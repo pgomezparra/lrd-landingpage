@@ -47,7 +47,10 @@
         <img class="sidebar-menu-items__img" src="@/assets/img/general/payment.svg" alt="payments" />
         <p class="menu-item">Pagos</p>
       </div>
-      <div @click="toggleSubMenu('content')">
+      <div
+        v-if="isValidMenu(['admin', 'content_manager'])"
+        @click="toggleSubMenu('content')"
+      >
         <div class="sidebar-menu-items-container-new">
           <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">
           Contenido
