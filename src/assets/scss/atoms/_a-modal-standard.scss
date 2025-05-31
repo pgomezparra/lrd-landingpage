@@ -27,12 +27,16 @@
   width: 35rem;
 }
 
-.confirm-modal-content {
+.public-modal-content {
   background: colors.$secondary-color;
   padding: 1rem;
   border-radius: 1rem;
   max-width: 28rem;
   box-shadow: 0 0.75rem 1.25rem colors.$shadow-modal;
+}
+
+.confirm-modal-content {
+  @extend .public-modal-content;
   margin-left: 17rem;
 }
 

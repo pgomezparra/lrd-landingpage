@@ -2,7 +2,7 @@
   <VueFinalModal
     modal-id="newDetailModal"
     class="confirm-modal"
-    content-class="confirm-modal-content"
+    content-class="public-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
     :click-to-close="true"
