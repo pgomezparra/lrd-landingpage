@@ -7,9 +7,9 @@ export default class ActivityUc {
     this.#activityRepository = activityRepository
   }
 
-  async searchActivities(filters, orders, page) {
+  async searchActivities(filters, orders, page, limit) {
     try {
-      const response = await this.#activityRepository.searchActivities(filters, orders, page)
+      const response = await this.#activityRepository.searchActivities(filters, orders, page, limit)
       const activities = response.data?.activities?.map(activity => Activity.fromJSONResponse(activity))
 
       return { status: response.status, activities: activities, total: response.data?.total }

@@ -1,5 +1,7 @@
 <template>
-  <button class="hamburger" @click="isSidebarOpen = !isSidebarOpen">☰</button>
+  <button class="hamburger" @click="isSidebarOpen = !isSidebarOpen">
+    <img src="@/assets/img/general/hamburguer.svg" alt="hamburguer" />
+  </button>
   <div class="sidebar" :class="{ 'sidebar--open': isSidebarOpen }">
 
     <div class="sidebar-user-info">

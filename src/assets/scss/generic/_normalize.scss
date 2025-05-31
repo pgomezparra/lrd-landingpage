@@ -1,11 +1,11 @@
 @use '@/assets/scss/settings/colors';
 @use '@/assets/scss/settings/fonts';
+
 html {
   color: colors.$text-main;
   font-family: fonts.$font-primary;
   font-size: 1rem;
   min-width: 22.5rem;
-  overflow-x: auto;
 }
 
 
@@ -21,6 +21,7 @@ body {
     cursor: not-allowed;
   }
 }
+
 p, ul, a {
   margin: 0;
   padding: 0;

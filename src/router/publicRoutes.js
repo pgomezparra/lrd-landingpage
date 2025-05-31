@@ -15,6 +15,11 @@ export const publicRoutes = [
     component: () => import('@/gallery/views/Gallery.vue')
   },
   {
+    path: '/news',
+    name: 'public-news',
+    component: () => import('@/institutional/views/News.vue')
+  },
+  {
     path: '/pqr',
     name: 'pqr',
     component: () => import('@/pqr/context/views/Pqr.vue')

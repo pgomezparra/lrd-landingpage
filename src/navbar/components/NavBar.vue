@@ -22,7 +22,7 @@
 
     <!-- Mobile Menu Button -->
     <div class="m-menu-toggle" @click="toggleMenu">
-      <span class="menu-icon">&#9776;</span>
+      <span class="menu-icon"><img src="@/assets/img/general/hamburguer.svg" alt="menu" /></span>
     </div>
 
     <!-- Mobile Menu -->
@@ -67,7 +67,8 @@ const auth0 = useAuth0()
 const menuItems = [
   { label: 'Inicio', href: '/', name: 'home' },
   { label: 'Admisiones', href: '/admissions', name: 'admissions' },
-  { label: 'Historia', href: '/gallery', name: 'gallery' },
+  // { label: 'Historia', href: '/gallery', name: 'gallery' },
+  { label: 'Noticias', href: '/news', name: 'public-news' },
   { label: 'Pqr', href: '/pqr', name: 'pqr' },
   { label: 'Institucional', href: '/institutional', name: 'institutional' }
 ]
@@ -95,5 +96,8 @@ const redirectToLogin = () => {
 
 .menu-icon {
   font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

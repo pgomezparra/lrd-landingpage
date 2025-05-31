@@ -1,16 +1,15 @@
 import myUrl from '@/shared/myUrl.js'
 import { customAxios } from '@/shared/axios.js'
-import { ACTIVITIES_PER_PAGE } from '@/admin/shared/constants.js'
 
 export default class ActivityRepository {
-  async searchActivities(filters, orders, page) {
+  async searchActivities(filters, orders, page, limit) {
     let url = `${myUrl(3000)}/api/v1/activities`
 
     const data = {
       filters: filters,
       orders: orders,
-      limit: ACTIVITIES_PER_PAGE,
-      offset: ACTIVITIES_PER_PAGE * (page - 1)
+      limit: limit,
+      offset: limit * (page - 1)
     }
 
     url += `?criteria=${JSON.stringify(data).replace(/#/g, '%23')}`

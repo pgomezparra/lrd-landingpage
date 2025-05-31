@@ -36,6 +36,7 @@
       color: colors.$text-title;
       font-family: fonts.$font-title;
       text-align: center;
+
       &-email {
         color: colors.$text-light;
         font-family: fonts.$font-primary;
@@ -51,7 +52,7 @@
     .select-standard {
       width: 100%;
       padding: 0.5rem;
-      border-radius:0.5rem;
+      border-radius: 0.5rem;
       border: 0.063rem solid colors.$border;
       font-size: 1rem;
     }
@@ -174,7 +175,7 @@
 }
 
 
-@media (max-width:48rem) {
+@media (max-width: 48rem) {
   .hamburger {
     display: block;
   }
@@ -200,7 +201,10 @@
 
   .sidebar-overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
     -moz-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
     -webkit-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;

@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { markRaw } from 'vue'
 import ActivityRepository from '@/admin/content/activities/models/repositories/activityRepository.js'
 import ActivityUc from '@/admin/content/activities/use_cases/activityUc.js'
+import { ACTIVITIES_PER_PAGE } from '@/admin/shared/constants.js'
+import { NEWS_PER_PAGE } from '@/shared/constants.js'
 
 const activityRepository = new ActivityRepository()
 const activityUc = new ActivityUc(activityRepository)
@@ -35,12 +37,19 @@ export const useActivityStore = defineStore('activities', {
     },
     async searchActivities() {
       try {
-        const response = await activityUc.searchActivities([], this.orders, this.page)
+        const response = await activityUc.searchActivities([], this.orders, this.page, ACTIVITIES_PER_PAGE)
 
         this.setActivities(response.activities)
         this.setTotal(response.total)
 
         return response.status === 200
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async getPublicActivities(page) {
+      try {
+        return await activityUc.searchActivities([], this.orders, page, NEWS_PER_PAGE)
       } catch (error) {
         console.error(`error: ${error}`)
       }
