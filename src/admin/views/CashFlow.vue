@@ -46,8 +46,13 @@
           {{ movement.getDescription() }}{{ movement.getStudent() ? ` (${movement.getStudent()})` : '' }}
         </div>
 
-        <div v-if="movement.getMonth()" class="mes-destacado">
-          Mes: {{ movement.getMonth() }}
+        <div style="display: flex; gap: 0.5rem;">
+          <div v-if="movement.getMonth()" class="mes-destacado">
+            Mes: {{ movement.getMonth() }}
+          </div>
+          <div v-if="movement.getGrade()" class="mes-destacado">
+            Grado: {{ movement.getGrade() }}
+          </div>
         </div>
       </div>
       <div v-if="movements.length === 0" class="movimiento-card vacio">

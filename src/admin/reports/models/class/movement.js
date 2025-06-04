@@ -10,6 +10,7 @@ export default class Movement {
   #author = ''
   #student = ''
   #month = ''
+  #grade = ''
 
   static fromJSONResponse(json) {
     return new Movement()
@@ -22,6 +23,7 @@ export default class Movement {
       .setAuthor(json.author)
       .setStudent(json.student)
       .setMonth(json.month)
+      .setGrade(json.grade)
   }
 
   getId() {
@@ -118,6 +120,16 @@ export default class Movement {
 
   setMonth(month) {
     this.#month = month
+
+    return this
+  }
+
+  getGrade() {
+    return this.#grade
+  }
+
+  setGrade(grade) {
+    this.#grade = grade
 
     return this
   }
