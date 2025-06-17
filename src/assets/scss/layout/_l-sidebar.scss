@@ -23,7 +23,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    row-gap: 1rem;
+    row-gap: 0.5rem;
     place-items: center;
 
     &__img {
@@ -71,7 +71,7 @@
     grid-template-rows: auto;
     height: 100%;
     overflow: auto;
-    row-gap: 1rem;
+    row-gap: 0.125rem;
     padding: 0 1rem;
 
     &-container {

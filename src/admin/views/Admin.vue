@@ -19,7 +19,7 @@ const auth0 = useAuth0()
 
 onMounted(async () => {
   try {
-    const isAuthenticated = await auth0.isAuthenticated
+    const isAuthenticated = auth0.isAuthenticated.value
     if (!isAuthenticated) {
       await auth0.loginWithRedirect()
     }

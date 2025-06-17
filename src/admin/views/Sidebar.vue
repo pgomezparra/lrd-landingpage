@@ -8,7 +8,7 @@
       <img :src="user?.picture" alt="User Avatar" class="sidebar-user-info__img" />
       <div class="sidebar-user-info__user-details">
         <p>{{ loggedUser?.getName() }}</p>
-        <p class="sidebar-user-info__user-details-email">{{ loggedUser?.getEmail() }}</p>
+        <p class="sidebar-user-info__user-details-email">{{ loggedUser?.getEmailShort() }}</p>
       </div>
     </div>
 
@@ -49,25 +49,25 @@
       </div>
       <div
         v-if="isValidMenu(['admin', 'content_manager'])"
+        class="sidebar-menu-items-container-new"
+        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'content' }"
         @click="toggleSubMenu('content')"
       >
-        <div class="sidebar-menu-items-container-new">
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="c">
-          Contenido
-          <span :class="{ rotated: preferenceStore.selectedMenu === 'content' }">▼</span>
-        </div>
-        <div v-if="preferenceStore.selectedMenu === 'content'">
-          <p
-            @click="redirectTo('/admin/news', 'content')"
-            class="submenu-item"
-            :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'news' }"
-          >Noticias</p>
-          <!--          <p-->
-          <!--            @click="redirectTo('/admin/announcements', 'content')"-->
-          <!--            class="submenu-item"-->
-          <!--            :class="{ 'submenu-item&#45;&#45;active': preferenceStore.selectedSubMenu === 'announcements' }"-->
-          <!--          >Anuncios</p>-->
-        </div>
+        <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="content">
+        <p class="menu-item">Contenido</p>
+        <span :class="{ rotated: preferenceStore.selectedMenu === 'content' }">▼</span>
+      </div>
+      <div v-if="preferenceStore.selectedMenu === 'content'">
+        <p
+          @click="redirectTo('/admin/news', 'content')"
+          class="submenu-item"
+          :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'news' }"
+        >Noticias</p>
+        <!--          <p-->
+        <!--            @click="redirectTo('/admin/announcements', 'content')"-->
+        <!--            class="submenu-item"-->
+        <!--            :class="{ 'submenu-item&#45;&#45;active': preferenceStore.selectedSubMenu === 'announcements' }"-->
+        <!--          >Anuncios</p>-->
       </div>
       <div
         v-if="isValidMenu(['admin', 'secretary'])"
@@ -112,7 +112,7 @@
           v-if="isValidMenu(['admin', 'general_secretary'])"
           class="submenu-item"
           :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'debts' }"
-          @click="redirectTo('/admin/debts', 'content')"
+          @click="redirectTo('/admin/debts', 'reports')"
         >
           Deudores
         </p>
@@ -121,7 +121,7 @@
           v-if="isValidMenu(['admin', 'secretary'])"
           class="submenu-item"
           :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'cash-flow' }"
-          @click="redirectTo('/admin/cash-flow', 'content')"
+          @click="redirectTo('/admin/cash-flow', 'reports')"
         >
           Caja
         </p>

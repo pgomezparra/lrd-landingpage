@@ -38,6 +38,10 @@ export default class User {
     return this.#email
   }
 
+  getEmailShort() {
+    return this.#email.split('@')[0]
+  }
+
   setEmail(email) {
     this.#email = email
 
