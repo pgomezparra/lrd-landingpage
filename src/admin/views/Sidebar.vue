@@ -224,11 +224,18 @@ onMounted(async () => {
   const token = await getAccessTokenSilently()
   userStore.setToken(token)
 
-  if (!(await validateUser())) return
-  if (!(await getYears())) return
+  preferenceStore.setLoading(true)
+  try {
+    if (!(await validateUser())) return
+    if (!(await getYears())) return
 
-  await preferenceStore.getGrades()
-  await preferenceStore.getMonths()
+    await preferenceStore.getGrades()
+    await preferenceStore.getMonths()
+  } catch (error) {
+    console.error(error)
+  } finally {
+    preferenceStore.setLoading(false)
+  }
 
   preferenceStore.setSelectedMenu(preferenceStore.getSelectedMenu() || 'home')
   preferenceStore.setSelectedSubMenu(preferenceStore.getSelectedSubMenu() || '')

@@ -1,5 +1,4 @@
 <template>
-  <loading-overlay />
   <div class="l-standard">
     <div class="l-standard-title">
       <div>

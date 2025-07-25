@@ -1,5 +1,4 @@
 <template>
-  <loading-overlay />
   <div class="l-standard">
     <div class="l-standard-title">
       <p>Pagos por Estudiante</p>
@@ -119,31 +118,33 @@
           <p>Método</p>
           <p>Acciones</p>
         </div>
-        <div
-          class="l-standard-container-payments__table-tbody"
-          v-for="payment in payments" :key="payment.getId()"
-        >
-          <p>{{ payment.getDateStr() }}</p>
-          <p>{{ payment.getDescription() }}</p>
-          <p>{{ payment.isPension() ? payment.getMonth() : '' }}</p>
-          <p>${{ payment.getValueFormatted() }}</p>
-          <p>{{ payment.getPaymentType() }}</p>
-          <p>{{ payment.getPaymentMethod() }}<span
-            v-if="payment.isTransfer() && payment.getTransferCode()"> ({{ payment.getTransferCode() }})</span>
-          </p>
-          <p class="l-standard-container-payments__table-tbody-icon">
-            <button class="button-payment-circle" @click="editPayment(payment)">
-              <img src="@/assets/img/general/edit.svg" alt="edit">
-            </button>
-            <button class="button-payment-circle" @click="printPayment(payment)">
-              <img class="button-payment-circle-img" src="@/assets/img/general/printer.svg" alt="printer">
-            </button>
-            <button class="button-payment-circle"
-                    @click="sendSupportPayment(payment)">
-              <img class="button-payment-circle-img" src="@/assets/img/general/send-mail.svg" alt="mail">
-            </button>
-          </p>
-        </div>
+        <template v-for="payment in payments" :key="payment.getId()">
+          <div
+            class="l-standard-container-payments__table-tbody"
+            v-if="!payment.isExcluded()"
+          >
+            <p>{{ payment.getDateStr() }}</p>
+            <p>{{ payment.getDescription() }}</p>
+            <p>{{ payment.isPension() ? payment.getMonth() : '' }}</p>
+            <p>${{ payment.getValueFormatted() }}</p>
+            <p>{{ payment.getPaymentType() }}</p>
+            <p>{{ payment.getPaymentMethod() }}<span
+              v-if="payment.isTransfer() && payment.getTransferCode()"> ({{ payment.getTransferCode() }})</span>
+            </p>
+            <p class="l-standard-container-payments__table-tbody-icon">
+              <button class="button-payment-circle" @click="editPayment(payment)">
+                <img src="@/assets/img/general/edit.svg" alt="edit">
+              </button>
+              <button class="button-payment-circle" @click="printPayment(payment)">
+                <img class="button-payment-circle-img" src="@/assets/img/general/printer.svg" alt="printer">
+              </button>
+              <button class="button-payment-circle"
+                      @click="sendSupportPayment(payment)">
+                <img class="button-payment-circle-img" src="@/assets/img/general/send-mail.svg" alt="mail">
+              </button>
+            </p>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -167,7 +168,6 @@ import EditPaymentModal from '@/admin/payments/context/components/modals/EditPay
 import CreatePaymentModal from '@/admin/payments/context/components/modals/CreatePaymentModal.vue'
 import PaymentSupport from '@/admin/payments/context/components/PaymentSupport.vue'
 import AddEmailModal from '@/admin/payments/context/components/modals/AddEmailModal.vue'
-import LoadingOverlay from '@/admin/views/LoadingOverlay.vue'
 
 const grade = ref(0)
 const student = ref(0)
