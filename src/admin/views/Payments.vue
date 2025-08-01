@@ -16,6 +16,14 @@
           {{ grade.getGrade() }}
         </option>
       </select>
+      <select
+        class="select-standard"
+        v-model="active"
+        @change="changeState"
+      >
+        <option value="active">Activos</option>
+        <option value="inactive">Inactivos</option>
+      </select>
       <div class="l-standard-option-payment__input-student">
         <input
           class="input-standard"
@@ -170,6 +178,7 @@ import PaymentSupport from '@/admin/payments/context/components/PaymentSupport.v
 import AddEmailModal from '@/admin/payments/context/components/modals/AddEmailModal.vue'
 
 const grade = ref(0)
+const active = ref('active')
 const student = ref(0)
 const studentName = ref('')
 const students = ref([])
@@ -229,6 +238,13 @@ const changeGrade = (event) => {
   getStudents()
 }
 
+const changeState = (event) => {
+  if (preferenceStore.selectedGrade === 0) return
+
+  clearData()
+  getStudents()
+}
+
 const clearData = () => {
   studentName.value = ''
   student.value = 0
@@ -258,7 +274,7 @@ const closeSupport = () => {
 async function getStudents() {
   preferenceStore.setLoading(true)
   try {
-    const response = await studentsStore.searchStudents(true)
+    const response = await studentsStore.searchStudents(active.value === 'active')
     students.value = response.students
 
     await nextTick(() => {
