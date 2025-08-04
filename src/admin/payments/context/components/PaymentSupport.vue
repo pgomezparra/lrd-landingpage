@@ -57,13 +57,13 @@
               <tbody>
               <tr>
                 <td>Matrícula</td>
-                <td> $ {{ consolidatedPayments[0].getValueFormatted() }}</td>
-                <td> $ {{ consolidatedPayments[0].getBalanceFormatted() }}</td>
+                <td> $ {{ formatCurrencyNumber(consolidatedPayments[0].value) }}</td>
+                <td> $ {{ formatCurrencyNumber(consolidatedPayments[0].balance) }}</td>
               </tr>
-              <tr v-for="consolidatedPayment in consolidatedPayments.slice(1)" :key="consolidatedPayment.getMonthId()">
-                <td>{{ consolidatedPayment.getMonth() }}</td>
-                <td>$ {{ consolidatedPayment.getValueFormatted() }}</td>
-                <td>$ {{ consolidatedPayment.getBalanceFormatted() }}</td>
+              <tr v-for="consolidatedPayment in consolidatedPayments.slice(1)" :key="consolidatedPayment.month_id">
+                <td>{{ consolidatedPayment.month }}</td>
+                <td>$ {{ formatCurrencyNumber(consolidatedPayment.value) }}</td>
+                <td>$ {{ formatCurrencyNumber(consolidatedPayment.balance) }}</td>
               </tr>
               </tbody>
             </table>
@@ -78,6 +78,7 @@
 import { onMounted } from 'vue'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
+import { formatCurrencyNumber } from '@/shared/utils.js'
 
 defineProps({
   consolidatedPayments: {

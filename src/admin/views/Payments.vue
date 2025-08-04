@@ -160,7 +160,7 @@
   <create-payment-modal :consolidated-payments="consolidatedPayments" @refresh="refreshData" />
   <payment-support
     v-if="showSupport"
-    :consolidated-payments="consolidatedPayments"
+    :consolidated-payments="filteredConsolidatedPayments"
     @closePaymentSupport="closeSupport"
   />
   <add-email-modal @sendEmail="sendSupportPayment" />
@@ -176,6 +176,7 @@ import EditPaymentModal from '@/admin/payments/context/components/modals/EditPay
 import CreatePaymentModal from '@/admin/payments/context/components/modals/CreatePaymentModal.vue'
 import PaymentSupport from '@/admin/payments/context/components/PaymentSupport.vue'
 import AddEmailModal from '@/admin/payments/context/components/modals/AddEmailModal.vue'
+import { getFilteredConsolidated } from '@/admin/shared/utils.js'
 
 const grade = ref(0)
 const active = ref('active')
@@ -184,6 +185,7 @@ const studentName = ref('')
 const students = ref([])
 const payments = ref([])
 const consolidatedPayments = ref([])
+const filteredConsolidatedPayments = ref([])
 const studentNameInput = ref(null)
 const showSupport = ref(false)
 const showDropdown = ref(false)
@@ -250,10 +252,14 @@ const clearData = () => {
   student.value = 0
   students.value = []
   payments.value = []
+  consolidatedPayments.value = []
+  filteredConsolidatedPayments.value = []
 }
 
 const clearPayments = () => {
   payments.value = []
+  consolidatedPayments.value = []
+  filteredConsolidatedPayments.value = []
   studentName.value = ''
   student.value = 0
   nextTick(() => {
@@ -262,11 +268,13 @@ const clearPayments = () => {
 }
 
 const printPayment = async (payment) => {
+  filteredConsolidatedPayments.value = getFilteredConsolidated(studentsStore.selectedStudent, payment, payments.value)
   paymentsStore.setSelectedPayment(payment)
   showSupport.value = true
 }
 
 const closeSupport = () => {
+  filteredConsolidatedPayments.value = []
   showSupport.value = false
   paymentsStore.setSelectedPayment(null)
 }
@@ -318,10 +326,12 @@ const sendSupportPayment = async (payment) => {
 
   preferenceStore.setLoading(true)
   try {
-    await paymentsStore.sendSupportPayment(studentsStore.selectedStudent, consolidatedPayments.value)
+    filteredConsolidatedPayments.value = getFilteredConsolidated(studentsStore.selectedStudent, payment, payments.value)
+    await paymentsStore.sendSupportPayment(studentsStore.selectedStudent, filteredConsolidatedPayments.value)
   } catch (error) {
     console.error(error)
   } finally {
+    filteredConsolidatedPayments.value = []
     paymentsStore.setSelectedPayment(null)
     preferenceStore.setLoading(false)
   }

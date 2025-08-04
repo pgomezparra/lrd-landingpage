@@ -92,9 +92,9 @@ export default class PaymentUc {
     const payments = []
     for (let i = 1; i < consolidated.length; i++) {
       payments.push({
-        month: consolidated[i].getMonth(),
-        value: consolidated[i].getValue(),
-        balance: consolidated[i].getBalance()
+        month: consolidated[i].month,
+        value: consolidated[i].value,
+        balance: consolidated[i].balance
       })
     }
 
@@ -111,8 +111,8 @@ export default class PaymentUc {
       transfer_code: payment.getTransferCode() ?? '',
       value: payment.getValue(),
       author: payment.getAuthor() ?? 'Automático',
-      registration_value: consolidated[0].getValue(),
-      registration_balance: consolidated[0].getBalance(),
+      registration_value: consolidated[0].value,
+      registration_balance: consolidated[0].balance,
       destination: student.getEmail(),
       payments: payments
     }
