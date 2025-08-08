@@ -126,7 +126,7 @@
           <p>Método</p>
           <p>Acciones</p>
         </div>
-        <template v-for="payment in payments" :key="payment.getId()">
+        <template v-for="payment in paymentsReversed" :key="payment.getId()">
           <div
             class="l-standard-container-payments__table-tbody"
             v-if="!payment.isExcluded()"
@@ -189,6 +189,8 @@ const filteredConsolidatedPayments = ref([])
 const studentNameInput = ref(null)
 const showSupport = ref(false)
 const showDropdown = ref(false)
+
+const paymentsReversed = computed(() => [...payments.value].reverse())
 
 
 const vfm = useVfm()

@@ -28,7 +28,9 @@ onMounted(async () => {
     console.error('Error al obtener token:', error)
 
     if (error.error === 'login_required') {
-      await auth0.loginWithRedirect()
+      await auth0.loginWithRedirect({
+        appState: { target: window.location.pathname }
+      })
     }
   }
 })

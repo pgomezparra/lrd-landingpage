@@ -33,7 +33,11 @@ app
         audience: import.meta.env.VITE_AUTH0_AUDIENCE,
         scope: 'openid profile email'
       },
-      cacheLocation: 'localstorage'
+      cacheLocation: 'localstorage',
+      onRedirectCallback: (appState) => {
+        // Si hay un target guardado, navega ahí, si no, ve al home
+        router.push(appState?.target || '/')
+      }
       // useRefreshTokens: true
     })
   )
