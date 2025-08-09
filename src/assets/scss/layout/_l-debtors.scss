@@ -8,7 +8,7 @@
   grid-template-rows: auto;
   gap: 1rem;
   padding: 1.5rem;
-  background-color: $bg-main;
+  background-color: colors.$bg-main;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   height: 90dvh;
@@ -60,16 +60,16 @@
 .ingresos span,
 .efectivo span,
 .saldo-positivo span {
-  color: $_dark-green;
+  color: colors.$dark-green;
 }
 
 .salidas span,
 .saldo-negativo span {
-  color: $red;
+  color: colors.$red;
 }
 
 .transferencia span {
-  color: $color-blue;
+  color: colors.$color-blue;
 }
 
 .cards-container {
@@ -87,7 +87,7 @@
 }
 
 .movimiento-card {
-  border: 0.063rem solid $border;
+  border: 0.063rem solid colors.$border;
   border-radius: 1rem;
   padding: 0.7rem 1rem;
   background-color: colors.$secondary-color;
@@ -98,7 +98,7 @@
   gap: 0.4rem;
 
   &:hover {
-    background: $hover-movements;
+    background: colors.$hover-movements;
   }
 }
 
@@ -121,11 +121,11 @@
 }
 
 .positivo {
-  color: $_dark-green;
+  color: colors.$dark-green;
 }
 
 .negativo {
-  color: $red;
+  color: colors.$red;
 }
 
 .metodo {
@@ -134,7 +134,7 @@
 }
 
 .descripcion {
-  color: $text-main;
+  color: colors.$text-main;
   font-size: 0.95rem;
   font-weight: 500;
 }
@@ -157,7 +157,7 @@
     grid-template-rows: auto;
     gap: 1rem;
     padding: 1.5rem;
-    background-color: $bg-main;
+    background-color: colors.$bg-main;
     border-radius: 1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     height: 90dvh;
@@ -213,16 +213,16 @@
   .ingresos span,
   .efectivo span,
   .saldo-positivo span {
-    color: $_dark-green;
+    color: colors.$dark-green;
   }
 
   .salidas span,
   .saldo-negativo span {
-    color: $red;
+    color: colors.$red;
   }
 
   .transferencia span {
-    color: $color-blue;
+    color: colors.$color-blue;
   }
 
   .cards-container {
@@ -240,7 +240,7 @@
   }
 
   .movimiento-card {
-    border: 0.063rem solid $border;
+    border: 0.063rem solid colors.$border;
     border-radius: 1rem;
     padding: 0.7rem 1rem;
     background-color: colors.$secondary-color;
@@ -252,7 +252,7 @@
     gap: 0.4rem;
 
     &:hover {
-      background: $hover-movements;
+      background: colors.$hover-movements;
     }
   }
 
@@ -275,11 +275,11 @@
   }
 
   .positivo {
-    color: $_dark-green;
+    color: colors.$dark-green;
   }
 
   .negativo {
-    color: $red;
+    color: colors.$red;
   }
 
   .metodo {
@@ -288,7 +288,7 @@
   }
 
   .descripcion {
-    color: $text-main;
+    color: colors.$text-main;
     font-size: 0.95rem;
     font-weight: 500;
   }

@@ -16,7 +16,7 @@
 }
 
 .container-total {
-  background: $primary-color;
+  background: colors.$primary-color;
   font-weight: normal;
   border-radius: 0.5rem;
   color: colors.$secondary-color;
@@ -57,7 +57,7 @@ select {
   &:hover {
     background-color: colors.$hover-movements;
     color: colors.$btn-blue;
-    border-color: $border-movements;
+    border-color: colors.$border-movements;
   }
 }
 

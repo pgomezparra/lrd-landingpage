@@ -1,50 +1,50 @@
 /***** Setting *****/
-@import 'settings/colors';
-@import 'settings/fonts';
+@use 'settings/colors';
+@use 'settings/fonts';
 
 /****** Generic *******/
 
-@import 'generic/normalize';
+@use 'generic/normalize';
 
 /****** Layout ******/
 
-@import 'layout/l-container';
-@import 'layout/l-home';
-@import 'layout/l-admissions';
-@import 'layout/l-gallery';
-@import 'layout/l-pqr';
-@import 'layout/l-supply-lists';
-@import 'layout/l-institutional';
-@import "layout/l-standard";
-@import "layout/l-sidebar";
-@import "layout/l-home-portal";
-@import "layout/l-debtors";
+@use 'layout/l-container';
+@use 'layout/l-home';
+@use 'layout/l-admissions';
+@use 'layout/l-gallery';
+@use 'layout/l-pqr';
+@use 'layout/l-supply-lists';
+@use 'layout/l-institutional';
+@use "layout/l-standard";
+@use "layout/l-sidebar";
+@use "layout/l-home-portal";
+@use "layout/l-debtors";
 
 /****** Organisms ******/
-@import 'organisms/o-header-home';
-@import 'organisms/o-info-home';
-@import 'organisms/o-announcements-home';
-@import 'organisms/o-levels-home';
-@import 'organisms/o-footer';
-@import 'organisms/o-admissions-card';
-@import 'organisms/o-gallery-colum';
-@import "organisms/o-pqr-form";
-@import "organisms/o-list-movement";
-@import "organisms/o-dashboard";
+@use 'organisms/o-header-home';
+@use 'organisms/o-info-home';
+@use 'organisms/o-announcements-home';
+@use 'organisms/o-levels-home';
+@use 'organisms/o-footer';
+@use 'organisms/o-admissions-card';
+@use 'organisms/o-gallery-colum';
+@use "organisms/o-pqr-form";
+@use "organisms/o-list-movement";
+@use "organisms/o-dashboard";
 
 /****** Molecules ******/
-@import 'molecules/m-menu';
-@import 'molecules/m-logo';
-@import 'molecules/m-announcements-slider';
-@import 'molecules/m-level-card';
-@import 'molecules/m-modal-info';
-@import 'molecules/m-card';
-@import "molecules/payments-students";
-@import "molecules/m-modal-edit-payment";
-@import "molecules/modal-register";
+@use 'molecules/m-menu';
+@use 'molecules/m-logo';
+@use 'molecules/m-announcements-slider';
+@use 'molecules/m-level-card';
+@use 'molecules/m-modal-info';
+@use 'molecules/m-card';
+@use "molecules/payments-students";
+@use "molecules/m-modal-edit-payment";
+@use "molecules/modal-register";
 
 /****** Atoms ******/
-@import 'atoms/a-button';
-@import "atoms/a-select";
-@import "atoms/a-modal-standard";
-@import "atoms/a-input";
+@use 'atoms/a-button';
+@use "atoms/a-select";
+@use "atoms/a-modal-standard";
+@use "atoms/a-input";

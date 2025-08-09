@@ -2,7 +2,7 @@
 
 .button-standard {
   padding: 1rem;
-  background: $btn-blue;
+  background: colors.$btn-blue;
   color: colors.$secondary-color;
   border-radius: 2rem;
   border: none;
@@ -12,7 +12,7 @@
 }
 
 .button-standard:hover {
-  background-color: $color-blue;
+  background-color: colors.$color-blue;
 }
 
 .button-standard:active {
@@ -22,17 +22,18 @@
 
 .payments-summary {
   padding: 0 1rem;
-  background-color: $secondary-color;
+  background-color: colors.$secondary-color;
   border-radius: 2rem;
   font-size: 0.85rem;
 }
-.text-mobil{
+
+.text-mobil {
   display: none;
 }
 
 .payments-summary h2 {
   font-size: 1.2rem;
-  color: $pqr-span;
+  color: colors.$pqr-span;
 }
 
 .payments-grid.compact {
@@ -43,8 +44,8 @@
 }
 
 .payment-card {
-  background-color: $secondary-color;
-  border: 0.063rem solid $border;
+  background-color: colors.$secondary-color;
+  border: 0.063rem solid colors.$border;
   border-radius: 1rem;
   padding: 0.5rem;
   text-align: center;
@@ -56,17 +57,17 @@
 .payment-card strong {
   font-weight: 600;
   font-size: 0.9rem;
-  color: $text-main;
+  color: colors.$text-main;
 }
 
 .payment-card span {
-  color: $border-pqr-form;
+  color: colors.$border-pqr-form;
   font-size: 0.8rem;
 }
 
 .main-payment {
-  background-color: $bg-resume;
-  border-color: $border-resume;
+  background-color: colors.$bg-resume;
+  border-color: colors.$border-resume;
   font-size: 0.8rem;
   display: flex;
   flex-direction: column;
@@ -97,14 +98,15 @@
     grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
     gap: 0.5rem;
   }
-  .text-desktop{
+  .text-desktop {
     display: none;
   }
-  .text-mobil{
+  .text-mobil {
     display: block;
     font-size: 0.85rem;
   }
 }
+
 @media(max-width: 28.125rem) {
   .payments-summary {
     width: 21rem;

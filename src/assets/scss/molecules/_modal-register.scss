@@ -1,3 +1,5 @@
+@use '@/assets/scss/settings/colors';
+
 .modal-title {
   font-size: 1.3rem;
   font-weight: bold;
@@ -28,7 +30,7 @@
 .form-group select {
   padding: 0.5rem 2rem;
   font-size: 0.95rem;
-  border: 0.063rerm solid $border;
+  border: 0.063rerm solid colors.$border;
   border-radius: 1rem;
   transition: border-color 0.2s;
 }
@@ -36,7 +38,7 @@
 .form-group input:focus,
 .form-group select:focus {
   outline: none;
-  border-color: $btn-blue;
+  border-color: colors.$btn-blue;
 }
 
 .modal-actions {
@@ -55,13 +57,13 @@
 }
 
 .button-edit:first-child {
-  background-color: $disabled;
-  color: $text-light;
+  background-color: colors.$disabled;
+  color: colors.$text-light;
 }
 
 .button-edit:last-child {
-  background-color:$btn-blue;
-  color: $secondary-color;
+  background-color: colors.$btn-blue;
+  color: colors.$secondary-color;
 }
 
 .button-edit:hover {

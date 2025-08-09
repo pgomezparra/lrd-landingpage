@@ -5,15 +5,15 @@ $_gray: #f3f3f3;
 $_light-gray: #ddd;
 $_dark-gray: #555;
 $_black: #000000;
-$_dark-green: #1e8d48;
+$dark-green: #1e8d48;
 $light-green: #52ff33;
-$red:#ff3333;
+$red: #ff3333;
 $color-blue: #056cd8;
 
 // Background
 $background-levels: $_gray;
 $background-footer: $_magenta;
-$background-whatsapp: $_dark-green;
+$background-whatsapp: $dark-green;
 $table-header-background: #f7f7f7;
 $bg-container: #EDEFF2;
 $bg-main: #FCFCFCB2;
@@ -22,10 +22,10 @@ $hover-color: rgba(0, 0, 0, 0.03);
 
 
 // Button
-$hover-button-menu:  #90565566;
+$hover-button-menu: #90565566;
 $disabled: $_light-gray;
 $btn-blue: #006DDA;
-$hover-movements:  #dbeafe;
+$hover-movements: #dbeafe;
 
 
 // Text
@@ -44,10 +44,10 @@ $admissions-card-border: $_light-gray;
 $border-menu-active: $_magenta;
 $border-pqr-form: $_dark-gray;
 $border: rgba(217, 217, 217, 1);
-$border-resume:#b6e0fe;
+$border-resume: #b6e0fe;
 $border-movements: #a5b4fc;
 
 //Shadows
 $shadow-box: rgba(241, 244, 247, 1);
-$shadow-modal:rgba(0, 0, 0, 0.2);
+$shadow-modal: rgba(0, 0, 0, 0.2);
 $shadow-card: rgba(0, 0, 0, 0.15);
