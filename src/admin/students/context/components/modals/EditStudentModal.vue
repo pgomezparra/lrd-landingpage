@@ -128,14 +128,28 @@
             />
           </div>
         </div>
-
-
         <div class="form-group">
           <p>Nombre acudiente</p>
           <input
             v-model="student.parentName"
             type="text"
             placeholder="Nombre acudiente"
+          />
+        </div>
+        <div class="form-group">
+          <p>Apellido acudiente</p>
+          <input
+            v-model="student.parentSurname"
+            type="text"
+            placeholder="Apellido acudiente"
+          />
+        </div>
+        <div class="form-group">
+          <p>Dirección</p>
+          <input
+            v-model="student.address"
+            type="text"
+            placeholder="Dirección"
           />
         </div>
       </div>
@@ -176,7 +190,9 @@ const student = reactive({
   year: preferenceStore.selectedYear,
   parentDocumentTypeId: 0,
   parentDocument: '',
-  parentName: ''
+  parentName: '',
+  parentSurname: '',
+  address: ''
 })
 
 const beforeOpen = () => {
@@ -197,6 +213,8 @@ const beforeOpen = () => {
   if (studentStore.selectedStudent.getParentDocumentTypeId()) student.parentDocumentTypeId = studentStore.selectedStudent.getParentDocumentTypeId()
   if (studentStore.selectedStudent.getParentDocument()) student.parentDocument = studentStore.selectedStudent.getParentDocument()
   if (studentStore.selectedStudent.getParentName()) student.parentName = studentStore.selectedStudent.getParentName()
+  if (studentStore.selectedStudent.getParentSurname()) student.parentSurname = studentStore.selectedStudent.getParentSurname()
+  if (studentStore.selectedStudent.getAddress()) student.address = studentStore.selectedStudent.getAddress()
 }
 
 const updateStudent = async () => {
@@ -238,6 +256,8 @@ const clearInputs = () => {
   student.parentDocumentTypeId = 0
   student.parentDocument = ''
   student.parentName = ''
+  student.parentSurname = ''
+  student.address = ''
 }
 
 const closeModal = () => {

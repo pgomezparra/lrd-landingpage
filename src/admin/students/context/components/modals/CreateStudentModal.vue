@@ -135,6 +135,22 @@
             placeholder="Nombre acudiente"
           />
         </div>
+        <div class="form-group">
+          <p>Apellido acudiente</p>
+          <input
+            v-model="student.parentSurname"
+            type="text"
+            placeholder="Apellido acudiente"
+          />
+        </div>
+        <div class="form-group">
+          <p>Dirección</p>
+          <input
+            v-model="student.address"
+            type="text"
+            placeholder="Dirección"
+          />
+        </div>
       </div>
 
       <div class="modal-actions">
@@ -177,7 +193,9 @@ const student = reactive({
   year: preferenceStore.selectedYear,
   parentDocumentTypeId: 0,
   parentDocument: '',
-  parentName: ''
+  parentName: '',
+  parentSurname: '',
+  address: ''
 })
 
 watch(
@@ -251,6 +269,8 @@ const validateDocument = async () => {
       if (students[0].getParentDocumentTypeId()) student.parentDocumentTypeId = students[0].getParentDocumentTypeId()
       if (students[0].getParentDocument()) student.parentDocument = students[0].getParentDocument()
       if (students[0].getParentName()) student.parentName = students[0].getParentName()
+      if (students[0].getParentSurname()) student.parentSurname = students[0].getParentSurname()
+      if (students[0].getAddress()) student.address = students[0].getAddress()
 
       if (students[0].isActive()) await validateDebts(students[0].getId(), year)
     } else {
@@ -352,6 +372,16 @@ const validateData = () => {
     return false
   }
 
+  if (student.parentSurname === '') {
+    notifications.notify('El apellido del acudiente del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.address === '') {
+    notifications.notify('La dirección del estudiante no puede estar vacía', 'error')
+    return false
+  }
+
   return true
 }
 
@@ -370,6 +400,8 @@ const clearInputs = () => {
   student.parentDocumentTypeId = 0
   student.parentDocument = ''
   student.parentName = ''
+  student.parentSurname = ''
+  student.address = ''
 }
 
 const closeModal = () => {

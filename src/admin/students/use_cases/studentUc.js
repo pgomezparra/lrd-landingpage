@@ -101,7 +101,9 @@ export default class StudentUc {
       email: student.email,
       parent_document_type: parseInt(student.parentDocumentTypeId),
       parent_document: student.parentDocument,
-      parent_name: student.parentName
+      parent_name: student.parentName,
+      parent_surname: student.parentSurname,
+      address: student.address
     }
   }
 }

@@ -66,6 +66,14 @@
           <p class="label">Nombre acudiente</p>
           <p>{{ studentStore.selectedStudent.getParentName() }}</p>
         </div>
+        <div class="student-modal__item" v-if="studentStore.selectedStudent.getParentSurname()">
+          <p class="label">Apellidos acudiente</p>
+          <p>{{ studentStore.selectedStudent.getParentSurname() }}</p>
+        </div>
+        <div class="student-modal__item" v-if="studentStore.selectedStudent.getAddress()">
+          <p class="label">Dirección</p>
+          <p>{{ studentStore.selectedStudent.getAddress() }}</p>
+        </div>
       </div>
 
       <div class="student-modal__footer">

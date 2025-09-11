@@ -17,6 +17,8 @@ export default class Student {
   #parentDocumentType = ''
   #parentDocument = ''
   #parentName = ''
+  #parentSurname = ''
+  #address = ''
 
   static fromJSONResponse(json) {
     return new Student()
@@ -38,6 +40,8 @@ export default class Student {
       .setParentDocumentType(json.parent_document_type)
       .setParentDocument(json.parent_document)
       .setParentName(json.parent_name)
+      .setParentSurname(json.parent_surname)
+      .setAddress(json.address)
   }
 
   getId() {
@@ -228,6 +232,26 @@ export default class Student {
 
   setParentName(parentName) {
     this.#parentName = parentName
+
+    return this
+  }
+
+  getParentSurname() {
+    return this.#parentSurname
+  }
+
+  setParentSurname(parentSurname) {
+    this.#parentSurname = parentSurname
+
+    return this
+  }
+
+  getAddress() {
+    return this.#address
+  }
+
+  setAddress(address) {
+    this.#address = address
 
     return this
   }
