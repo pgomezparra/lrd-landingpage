@@ -195,7 +195,8 @@ const student = reactive({
   parentDocument: '',
   parentName: '',
   parentSurname: '',
-  address: ''
+  address: '',
+  cloudId: ''
 })
 
 watch(
@@ -271,6 +272,7 @@ const validateDocument = async () => {
       if (students[0].getParentName()) student.parentName = students[0].getParentName()
       if (students[0].getParentSurname()) student.parentSurname = students[0].getParentSurname()
       if (students[0].getAddress()) student.address = students[0].getAddress()
+      if (students[0].getCloudId()) student.cloudId = students[0].getCloudId()
 
       if (students[0].isActive()) await validateDebts(students[0].getId(), year)
     } else {
@@ -402,6 +404,7 @@ const clearInputs = () => {
   student.parentName = ''
   student.parentSurname = ''
   student.address = ''
+  student.cloudId = ''
 }
 
 const closeModal = () => {

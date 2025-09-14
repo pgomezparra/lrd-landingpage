@@ -19,6 +19,7 @@ export default class Student {
   #parentName = ''
   #parentSurname = ''
   #address = ''
+  #cloudId = ''
 
   static fromJSONResponse(json) {
     return new Student()
@@ -42,6 +43,7 @@ export default class Student {
       .setParentName(json.parent_name)
       .setParentSurname(json.parent_surname)
       .setAddress(json.address)
+      .setCloudId(json.cloud_id)
   }
 
   getId() {
@@ -252,6 +254,16 @@ export default class Student {
 
   setAddress(address) {
     this.#address = address
+
+    return this
+  }
+
+  getCloudId() {
+    return this.#cloudId
+  }
+
+  setCloudId(cloudId) {
+    this.#cloudId = cloudId
 
     return this
   }

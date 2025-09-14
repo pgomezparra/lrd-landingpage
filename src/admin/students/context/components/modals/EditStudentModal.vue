@@ -192,7 +192,8 @@ const student = reactive({
   parentDocument: '',
   parentName: '',
   parentSurname: '',
-  address: ''
+  address: '',
+  cloudId: ''
 })
 
 const beforeOpen = () => {
@@ -215,9 +216,12 @@ const beforeOpen = () => {
   if (studentStore.selectedStudent.getParentName()) student.parentName = studentStore.selectedStudent.getParentName()
   if (studentStore.selectedStudent.getParentSurname()) student.parentSurname = studentStore.selectedStudent.getParentSurname()
   if (studentStore.selectedStudent.getAddress()) student.address = studentStore.selectedStudent.getAddress()
+  if (studentStore.selectedStudent.getCloudId()) student.cloudId = studentStore.selectedStudent.getCloudId()
 }
 
 const updateStudent = async () => {
+  if (!validateData()) return
+
   preferenceStore.setLoading(true)
   try {
     const response = await studentStore.updateStudent(student)
@@ -240,6 +244,75 @@ const updateStudent = async () => {
   }
 }
 
+const validateData = () => {
+  if (student.documentType === 0) {
+    notifications.notify('Debe seleccionar el tipo de documento del estudiante', 'error')
+    return false
+  }
+
+  if (student.document === '') {
+    notifications.notify('El documento del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.name === '') {
+    notifications.notify('El nombre del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.surname === '') {
+    notifications.notify('El apellido del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.age === '') {
+    notifications.notify('La edad del estudiante no puede estar vacía', 'error')
+    return false
+  }
+
+  if (student.grade === 0) {
+    notifications.notify('Debe seleccionar el grado del estudiante', 'error')
+    return false
+  }
+
+  if (student.registration === '0' || student.registration === '') {
+    notifications.notify('Debe ingresar el valor de matrícula del estudiante', 'error')
+    return false
+  }
+
+  if (student.pension === '0' || student.pension === '') {
+    notifications.notify('Debe ingresar el valor de pensión del estudiante', 'error')
+    return false
+  }
+
+  if (student.parentDocumentTypeId === 0) {
+    notifications.notify('Debe seleccionar el tipo de documento del acudiente del estudiante', 'error')
+    return false
+  }
+
+  if (student.parentDocument === '') {
+    notifications.notify('El documento del acudiente del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.parentName === '') {
+    notifications.notify('El nombre del acudiente del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.parentSurname === '') {
+    notifications.notify('El apellido del acudiente del estudiante no puede estar vacío', 'error')
+    return false
+  }
+
+  if (student.address === '') {
+    notifications.notify('La dirección del estudiante no puede estar vacía', 'error')
+    return false
+  }
+
+  return true
+}
+
 const clearInputs = () => {
   student.id = 0
   student.name = ''
@@ -258,6 +331,7 @@ const clearInputs = () => {
   student.parentName = ''
   student.parentSurname = ''
   student.address = ''
+  student.cloudId = ''
 }
 
 const closeModal = () => {

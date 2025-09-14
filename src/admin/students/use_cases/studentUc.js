@@ -103,7 +103,8 @@ export default class StudentUc {
       parent_document: student.parentDocument,
       parent_name: student.parentName,
       parent_surname: student.parentSurname,
-      address: student.address
+      address: student.address,
+      cloud_id: student.cloudId
     }
   }
 }
