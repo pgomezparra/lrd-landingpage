@@ -12,7 +12,8 @@ const preferenceStore = usePreferenceStore()
 
 export const usePaymentStore = defineStore('payments', {
   state: () => ({
-    selectedPayment: null
+    selectedPayment: null,
+    externalProducts: []
   }),
   actions: {
     setSelectedPayment(payment) {
@@ -56,6 +57,31 @@ export const usePaymentStore = defineStore('payments', {
         } else {
           notifications.notify(response.message, 'error')
         }
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async getExternalProducts() {
+      try {
+        const response = await paymentUc.getExternalProducts()
+
+        this.externalProducts = markRaw(response.products)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async createElectronicInvoice(invoice) {
+      try {
+        const response = await paymentUc.createElectronicInvoice(invoice)
+        if (response.status === 201) {
+          notifications.notify('Factura electrónica creada', 'success')
+        } else if (response.status === 400) {
+          notifications.notify('Datos inválidos', 'warning')
+        } else {
+          notifications.notify(response.message, 'error')
+        }
+
+        return { status: response.status }
       } catch (error) {
         console.error(`error: ${error}`)
       }

@@ -25,4 +25,16 @@ export default class PaymentRepository {
 
     return customAxios.post(url, data)
   }
+
+  async getExternalProducts() {
+    let url = `${myUrl(3000)}/api/v1/payments/external/products`
+
+    return customAxios.get(url)
+  }
+
+  async createElectronicInvoice(data) {
+    let url = `${myUrl(3000)}/api/v1/payments/electronic-invoice`
+
+    return customAxios.post(url, data)
+  }
 }

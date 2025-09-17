@@ -149,6 +149,24 @@
   width: fit-content;
 }
 
+.bill-chip {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background-color: #fff;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #2563eb;
+    color: #fff;
+  }
+}
+
 @media (max-width: 31.28rem) {
   .consulta-container {
     width: 50rem;
@@ -291,15 +309,5 @@
     color: colors.$text-main;
     font-size: 0.95rem;
     font-weight: 500;
-  }
-
-  .mes-destacado {
-    background-color: #f3f4f6;
-    padding: 0.3rem 0.6rem;
-    border-radius: 1rem;
-    font-size: 0.85rem;
-    color: #374151;
-    font-weight: 500;
-    width: fit-content;
   }
 }

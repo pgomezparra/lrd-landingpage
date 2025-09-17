@@ -150,6 +150,10 @@
                       @click="sendSupportPayment(payment)">
                 <img class="button-payment-circle-img" src="@/assets/img/general/send-mail.svg" alt="mail">
               </button>
+              <button v-if="!payment.getElectronicInvoice()" class="button-payment-circle"
+                      @click="createElectronicInvoice(payment)">
+                <img class="button-payment-circle-img" src="@/assets/img/general/invoice.svg" alt="invoice">
+              </button>
             </p>
           </div>
         </template>
@@ -164,11 +168,12 @@
     @closePaymentSupport="closeSupport"
   />
   <add-email-modal @sendEmail="sendSupportPayment" />
+  <create-electronic-invoice-modal :data="invoiceData" @refresh="refreshData" @clear="clearInvoice" />
 </template>
 
 <script setup>
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
-import { computed, nextTick, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { useVfm } from 'vue-final-modal'
@@ -177,6 +182,8 @@ import CreatePaymentModal from '@/admin/payments/context/components/modals/Creat
 import PaymentSupport from '@/admin/payments/context/components/PaymentSupport.vue'
 import AddEmailModal from '@/admin/payments/context/components/modals/AddEmailModal.vue'
 import { getFilteredConsolidated } from '@/admin/shared/utils.js'
+import { notifications } from '@/shared/notifications.js'
+import CreateElectronicInvoiceModal from '@/admin/payments/context/components/modals/CreateElectronicInvoiceModal.vue'
 
 const grade = ref(0)
 const active = ref('active')
@@ -189,6 +196,12 @@ const filteredConsolidatedPayments = ref([])
 const studentNameInput = ref(null)
 const showSupport = ref(false)
 const showDropdown = ref(false)
+const invoiceData = reactive({
+  identification: '',
+  id: 0,
+  price: 0,
+  observations: ''
+})
 
 const paymentsReversed = computed(() => [...payments.value].reverse())
 
@@ -199,7 +212,8 @@ const preferenceStore = usePreferenceStore()
 const studentsStore = useStudentStore()
 const paymentsStore = usePaymentStore()
 
-watch(() => preferenceStore.selectedYear, (newYear) => {
+watch(() => preferenceStore.selectedYear, async (newYear) => {
+  if (paymentsStore.externalProducts.length === 0) await paymentsStore.getExternalProducts()
   if (preferenceStore.selectedGrade === 0) return
   getStudents()
   clearData()
@@ -302,6 +316,31 @@ const editPayment = (payment) => {
   vfm.open('editPaymentModal')
 }
 
+const createElectronicInvoice = (payment) => {
+  if (!studentsStore.selectedStudent.getCloudId()) {
+    notifications.notify('Debe actualizar la información del estudiante para poder generar una factura electrónica', 'error')
+    return
+  }
+
+  if (payment.getElectronicInvoice()) {
+    notifications.notify('Este pago ya tiene factura electrónica', 'error')
+    return
+  }
+
+  invoiceData.identification = studentsStore.selectedStudent.getParentDocument()
+  invoiceData.id = payment.getId()
+  invoiceData.price = payment.getValue()
+  invoiceData.observations = payment.getDescription()
+  vfm.open('createElectronicInvoiceModal')
+}
+
+const clearInvoice = () => {
+  invoiceData.identification = ''
+  invoiceData.id = 0
+  invoiceData.price = 0
+  invoiceData.observations = ''
+}
+
 const addPayment = () => {
   vfm.open('createPaymentModal')
 }
@@ -338,6 +377,11 @@ const sendSupportPayment = async (payment) => {
     preferenceStore.setLoading(false)
   }
 }
+
+onMounted(async () => {
+  if (!preferenceStore.selectedYear) return
+  if (paymentsStore.externalProducts.length === 0) await paymentsStore.getExternalProducts()
+})
 </script>
 
 <style scoped>

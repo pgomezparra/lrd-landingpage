@@ -11,6 +11,9 @@ export default class Movement {
   #student = ''
   #month = ''
   #grade = ''
+  #parentDocument = ''
+  #electronicInvoice = false
+  #studentCloudId = ''
 
   static fromJSONResponse(json) {
     return new Movement()
@@ -24,6 +27,9 @@ export default class Movement {
       .setStudent(json.student)
       .setMonth(json.month)
       .setGrade(json.grade)
+      .setParentDocument(json.parent_document)
+      .setElectronicInvoice(json.electronic_invoice === 1)
+      .setStudentCloudId(json.student_cloud_id || '')
   }
 
   getId() {
@@ -130,6 +136,36 @@ export default class Movement {
 
   setGrade(grade) {
     this.#grade = grade
+
+    return this
+  }
+
+  getParentDocument() {
+    return this.#parentDocument
+  }
+
+  setParentDocument(parentDocument) {
+    this.#parentDocument = parentDocument
+
+    return this
+  }
+
+  getElectronicInvoice() {
+    return this.#electronicInvoice
+  }
+
+  setElectronicInvoice(electronicInvoice) {
+    this.#electronicInvoice = electronicInvoice
+
+    return this
+  }
+
+  getStudentCloudId() {
+    return this.#studentCloudId
+  }
+
+  setStudentCloudId(studentCloudId) {
+    this.#studentCloudId = studentCloudId
 
     return this
   }

@@ -14,6 +14,7 @@ export default class Payment {
   #paymentMethodId = 0
   #transferCode = ''
   #author = ''
+  #electronicInvoice = false
 
   static fromJSONResponse(json) {
     return new Payment()
@@ -30,6 +31,7 @@ export default class Payment {
       .setPaymentMethodId(json.payment_method_id)
       .setTransferCode(json.transfer_code)
       .setAuthor(json.author)
+      .setElectronicInvoice(json.electronic_invoice === 1)
   }
 
   getId() {
@@ -174,6 +176,16 @@ export default class Payment {
 
   setAuthor(author) {
     this.#author = author
+
+    return this
+  }
+
+  getElectronicInvoice() {
+    return this.#electronicInvoice
+  }
+
+  setElectronicInvoice(electronicInvoice) {
+    this.#electronicInvoice = electronicInvoice
 
     return this
   }

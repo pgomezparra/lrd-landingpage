@@ -1,6 +1,7 @@
 import Payment from '@/admin/payments/models/class/payment.js'
 import ConsolidatedPayment from '@/admin/payments/models/class/consolidatedPayment.js'
 import { format } from '@formkit/tempo'
+import ExternalProduct from '@/admin/payments/models/class/externalProduct.js'
 
 export default class PaymentUc {
   #paymentRepository = null
@@ -61,6 +62,39 @@ export default class PaymentUc {
   async sendSupportPayment(student, payment, consolidated) {
     try {
       const response = await this.#paymentRepository.sendSupportPayment(this.processSupportPayment(student, payment, consolidated))
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, message: error.response.data?.message }
+      } else {
+        return { status: 500 }
+      }
+    }
+  }
+
+  async getExternalProducts() {
+    try {
+      const response = await this.#paymentRepository.getExternalProducts()
+
+      return {
+        status: response.status,
+        products: response.data?.map(product => ExternalProduct.fromJSONResponse(product))
+      }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, products: [] }
+      } else {
+        return { status: 500, products: [] }
+      }
+    }
+  }
+
+  async createElectronicInvoice(invoice) {
+    try {
+      const response = await this.#paymentRepository.createElectronicInvoice(invoice)
 
       return { status: response.status }
     } catch (error) {
