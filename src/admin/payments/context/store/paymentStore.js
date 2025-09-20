@@ -85,6 +85,21 @@ export const usePaymentStore = defineStore('payments', {
       } catch (error) {
         console.error(`error: ${error}`)
       }
+    },
+    async markAsBilled(id) {
+      try {
+        const response = await paymentUc.markAsBilled(id)
+
+        if (response.status === 201) {
+          notifications.notify('Pago marcado como facturado', 'success')
+        } else {
+          notifications.notify(response.message, 'error')
+        }
+
+        return { status: response.status }
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
     }
   }
 })

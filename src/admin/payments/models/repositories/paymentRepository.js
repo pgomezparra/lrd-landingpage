@@ -37,4 +37,10 @@ export default class PaymentRepository {
 
     return customAxios.post(url, data)
   }
+
+  async markAsBilled(id) {
+    let url = `${myUrl(3000)}/api/v1/payments/${id}/billed`
+
+    return customAxios.put(url)
+  }
 }

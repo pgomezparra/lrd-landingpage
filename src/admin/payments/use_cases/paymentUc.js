@@ -107,6 +107,21 @@ export default class PaymentUc {
     }
   }
 
+  async markAsBilled(id) {
+    try {
+      const response = await this.#paymentRepository.markAsBilled(id)
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, message: error.response.data?.message }
+      } else {
+        return { status: 500 }
+      }
+    }
+  }
+
   processPayment(payment) {
     return {
       date: format(payment.date, 'YYYY-MM-DD'),
