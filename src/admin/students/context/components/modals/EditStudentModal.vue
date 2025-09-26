@@ -188,7 +188,7 @@ const student = reactive({
   email: '',
   active: false,
   year: preferenceStore.selectedYear,
-  parentDocumentTypeId: 0,
+  parentDocumentTypeId: 3,
   parentDocument: '',
   parentName: '',
   parentSurname: '',
@@ -310,6 +310,12 @@ const validateData = () => {
     return false
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(student.email)) {
+    notifications.notify('El correo no es válido', 'error')
+    return false
+  }
+
   return true
 }
 
@@ -326,7 +332,7 @@ const clearInputs = () => {
   student.email = ''
   student.year = preferenceStore.selectedYear
   student.active = true
-  student.parentDocumentTypeId = 0
+  student.parentDocumentTypeId = 3
   student.parentDocument = ''
   student.parentName = ''
   student.parentSurname = ''
