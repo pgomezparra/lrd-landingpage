@@ -129,7 +129,6 @@
         <template v-for="payment in paymentsReversed" :key="payment.getId()">
           <div
             class="l-standard-container-payments__table-tbody"
-            v-if="!payment.isExcluded()"
           >
             <p>{{ payment.getDateStr() }}</p>
             <p>{{ payment.getDescription() }}</p>
