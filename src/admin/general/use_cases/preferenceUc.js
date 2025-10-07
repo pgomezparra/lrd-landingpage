@@ -24,6 +24,21 @@ export default class PreferenceUc {
     }
   }
 
+  async saveYear(year) {
+    try {
+      const response = await this.#preferenceRepository.saveYear(year)
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, message: error.response.data.message }
+      } else {
+        return { status: 500, message: 'Error al guardar el año' }
+      }
+    }
+  }
+
   async getGrades() {
     try {
       const response = await this.#preferenceRepository.getGrades()

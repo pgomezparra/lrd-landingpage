@@ -48,6 +48,30 @@
   &-year {
     display: grid;
     place-items: center;
+    grid-template-columns: 1fr auto;
+    column-gap: 0.5rem;
+
+    &__button {
+      background-color: colors.$primary-color;
+      color: colors.$secondary-color;
+      border: none;
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #801312;
+      }
+
+      &:disabled {
+        background-color: colors.$primary-color;
+        color: colors.$secondary-color;
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
 
     .select-standard {
       width: 100%;

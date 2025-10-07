@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import PreferenceRepository from '@/admin/general/models/repositories/preferenceRepository.js'
 import PreferenceUc from '@/admin/general/use_cases/preferenceUc.js'
 import { markRaw } from 'vue'
+import { notifications } from '@/shared/notifications.js'
 
 const preferenceRepository = new PreferenceRepository()
 const preferenceUc = new PreferenceUc(preferenceRepository)
@@ -48,10 +49,30 @@ export const usePreferenceStore = defineStore('preference', {
         this.years = response.years
 
         if (this.years.length > 0) {
-          this.selectedYear = this.years[0]
+          const index = this.years.findIndex(year => year === new Date().getFullYear())
+          if (index > -1) {
+            this.selectedYear = this.years[index]
+          } else {
+            this.selectedYear = this.years[0]
+          }
         }
 
         return response.status
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async saveYear() {
+      try {
+        const response = await preferenceUc.saveYear(this.selectedYear)
+        if (response.status === 201) {
+          notifications.notify('Año creado correctamente', 'success')
+          await this.getYears()
+        } else {
+          notifications.notify(response.message, 'error')
+        }
+
+        return response.status === 201
       } catch (error) {
         console.error(`error: ${error}`)
       }

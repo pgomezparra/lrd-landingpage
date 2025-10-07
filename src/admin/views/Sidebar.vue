@@ -13,9 +13,27 @@
     </div>
 
     <div class="sidebar-year">
-      <select class="select-standard" v-model="preferenceStore.selectedYear" @change="handleChangeYear">
-        <option v-for="year in preferenceStore.years" :key="year" :value="year">{{ year }}</option>
+      <select
+        class="select-standard"
+        v-model="preferenceStore.selectedYear"
+        @change="handleChangeYear"
+      >
+        <option
+          v-for="year in preferenceStore.years"
+          :key="year"
+          :value="year"
+        >
+          {{ year }}
+        </option>
       </select>
+      <button
+        v-if="userStore.user && preferenceStore.selectedYear"
+        :disabled="!isValidMenu(['admin'])"
+        class="sidebar-year__button"
+        @click="handleAddYear"
+      >
+        +
+      </button>
     </div>
 
     <div v-if="userStore.user && preferenceStore.selectedYear" class="sidebar-menu-items">
@@ -171,6 +189,17 @@ const isValidMenu = (roles) => userStore.user.hasRole(roles)
 
 const toggleSubMenu = (menuName) => {
   preferenceStore.setSelectedMenu(menuName)
+}
+
+const handleAddYear = async () => {
+  preferenceStore.setLoading(true)
+  try {
+    await preferenceStore.saveYear()
+  } catch (error) {
+    console.error(error)
+  } finally {
+    preferenceStore.setLoading(false)
+  }
 }
 
 const closeSession = () => {
