@@ -88,4 +88,28 @@ export default class PreferenceUc {
       }
     }
   }
+
+  async savePaymentValues(paymentValues) {
+    try {
+      const data = []
+      paymentValues.forEach(paymentValue => {
+        data.push({
+          grade_id: paymentValue.gradeId,
+          year: paymentValue.year,
+          registration: parseInt(paymentValue.registration),
+          pension: parseInt(paymentValue.pension)
+        })
+      })
+      const response = await this.#preferenceRepository.savePaymentValues(data)
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, message: error.response.data.message }
+      } else {
+        return { status: 500, message: 'Error al guardar los valores de pago' }
+      }
+    }
+  }
 }

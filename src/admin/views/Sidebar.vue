@@ -153,14 +153,26 @@
       <!--        <img class="sidebar-menu-items__img" src="@/assets/img/general/pqrs.svg" alt="pqrs" />-->
       <!--        <p class="menu-item">PQRS</p>-->
       <!--      </div>-->
-      <!--      <div-->
-      <!--        class="sidebar-menu-items-container"-->
-      <!--        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'settings' }"-->
-      <!--        @click="redirectTo('/admin/settings')"-->
-      <!--      >-->
-      <!--        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="settings" />-->
-      <!--        <p class="menu-item">Configuraciones</p>-->
-      <!--      </div>-->
+      <div
+        v-if="isValidMenu(['admin', 'general_secretary'])"
+        class="sidebar-menu-items-container-new"
+        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'settings' }"
+        @click="toggleSubMenu('settings')"
+      >
+        <img class="sidebar-menu-items__img" src="@/assets/img/general/gear.svg" alt="settings" />
+        <p class="menu-item">Ajustes</p>
+        <span :class="{ rotated: preferenceStore.selectedMenu === 'settings' }">▼</span>
+      </div>
+      <div v-if="preferenceStore.selectedMenu === 'settings'">
+        <p
+          v-if="isValidMenu(['admin', 'general_secretary'])"
+          class="submenu-item"
+          :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'payment-values' }"
+          @click="redirectTo('/admin/payment-values', 'settings')"
+        >
+          Tarifas
+        </p>
+      </div>
     </div>
 
     <div class="sidebar-logout">

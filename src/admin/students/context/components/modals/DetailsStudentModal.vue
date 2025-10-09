@@ -104,6 +104,7 @@ const editStudent = () => {
 }
 
 const promoteStudent = async () => {
+  preferenceStore.setLoading(true)
   try {
     const paymentsResponse = await paymentsStore.searchPayments(studentStore.selectedStudent.getId())
     if (paymentsResponse.consolidatedPayments.length === 0) {
@@ -125,6 +126,8 @@ const promoteStudent = async () => {
     }
   } catch (error) {
     console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
   }
 }
 

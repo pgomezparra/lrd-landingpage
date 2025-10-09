@@ -105,6 +105,18 @@ export const usePreferenceStore = defineStore('preference', {
       } catch (error) {
         console.error(`error: ${error}`)
       }
+    },
+    async savePaymentValues(paymentValues) {
+      try {
+        const response = await preferenceUc.savePaymentValues(paymentValues)
+        if (response.status === 200) {
+          notifications.notify('Valores de pago actualizados correctamente', 'success')
+        } else {
+          notifications.notify(response.message, 'error')
+        }
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
     }
   }
 })

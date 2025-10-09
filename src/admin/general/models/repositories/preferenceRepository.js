@@ -35,4 +35,10 @@ export default class PreferenceRepository {
 
     return customAxios.get(url)
   }
+
+  async savePaymentValues(paymentValues) {
+    let url = `${myUrl(3000)}/api/v1/payment-values`
+
+    return customAxios.put(url, paymentValues)
+  }
 }

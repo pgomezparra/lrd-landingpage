@@ -59,6 +59,26 @@
     }
   }
 
+  &-payment-values-buttons {
+    display: flex;
+    justify-content: end;
+
+    &__button {
+      padding: 1rem;
+      background: colors.$primary-color;
+      color: colors.$secondary-color;
+      border-radius: 2rem;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
   &-option-payment-mobil {
     display: none;
   }
@@ -86,6 +106,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
+    align-content: start;
     height: 72dvh;
     padding: 1rem;
     gap: 1rem;

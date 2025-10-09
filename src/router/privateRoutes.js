@@ -49,9 +49,9 @@ export const privateRoutes = [
         component: () => import('@/admin/views/Movements.vue')
       },
       {
-        path: 'settings',
-        name: 'admin-settings',
-        component: () => import('@/admin/views/Settings.vue')
+        path: 'payment-values',
+        name: 'payment-values',
+        component: () => import('@/admin/views/PaymentValues.vue')
       },
       {
         path: 'debts',
