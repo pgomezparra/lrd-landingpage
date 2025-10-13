@@ -63,7 +63,6 @@ import { useVfm } from 'vue-final-modal'
 import EditStudentModal from '@/admin/students/context/components/modals/EditStudentModal.vue'
 import CreateStudentModal from '@/admin/students/context/components/modals/CreateStudentModal.vue'
 import DetailsStudentModal from '@/admin/students/context/components/modals/DetailsStudentModal.vue'
-import LoadingOverlay from '@/admin/views/LoadingOverlay.vue'
 
 const preferenceStore = usePreferenceStore()
 const studentStore = useStudentStore()

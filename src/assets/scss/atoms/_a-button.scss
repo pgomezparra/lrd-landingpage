@@ -58,7 +58,7 @@
 }
 
 .button-edit {
-  background: colors.$btn-blue;
+  background: colors.$btn-primary;
   border: none;
   border-radius: 1rem;
   color: colors.$secondary-color;
@@ -68,7 +68,7 @@
 
 .button-payment {
   align-items: center;
-  background: colors.$btn-blue;
+  background: colors.$btn-primary;
   border: none;
   border-radius: 2rem;
   color: colors.$secondary-color;
@@ -135,7 +135,7 @@
 
 .button-standard {
   padding: 0.5rem 1rem;
-  background: colors.$btn-blue ;
+  background: colors.$btn-primary;
   color: colors.$secondary-color;
   border-radius: 0.5rem;
   border: none;
@@ -143,6 +143,7 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+
 @media screen and (max-width: 768px) {
   .a-button-whatsapp {
     right: 0.5rem;

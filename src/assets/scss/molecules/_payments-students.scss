@@ -2,7 +2,7 @@
 
 .button-standard {
   padding: 1rem;
-  background: colors.$btn-blue;
+  background: colors.$btn-primary;
   color: colors.$secondary-color;
   border-radius: 2rem;
   border: none;
@@ -12,7 +12,7 @@
 }
 
 .button-standard:hover {
-  background-color: colors.$color-blue;
+  background-color: colors.$btn-primary;
 }
 
 .button-standard:active {

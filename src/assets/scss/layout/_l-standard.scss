@@ -17,11 +17,12 @@
   box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
   display: grid;
   grid-auto-columns: 1fr;
-  grid-template-rows: auto auto 1fr;
+  //grid-template-rows: auto auto 1fr;
   height: 90dvh;
   padding: 2rem;
   row-gap: 1rem;
   width: 50rem;
+  align-content: start;
 
   &-title {
     display: grid;

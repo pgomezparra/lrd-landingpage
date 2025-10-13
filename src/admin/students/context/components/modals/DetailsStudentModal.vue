@@ -9,6 +9,11 @@
     :esc-to-close="false"
   >
     <div class="student-modal">
+      <div class="student-modal__close">
+        <div class="close" @click="closeModal">
+          <img src="@/assets/img/general/close.svg" alt="close">
+        </div>
+      </div>
       <div class="student-modal__header">
         <h2>Detalles del estudiante</h2>
       </div>
@@ -77,13 +82,16 @@
       </div>
 
       <div class="student-modal__footer">
-        <button class="student-modal__btn cancel" @click="closeModal">Cancelar</button>
-        <button class="student-modal__btn promote" @click="promoteStudent">Promover</button>
-        <!--        <button class="student-modal__btn peace" @click="editStudent">Paz y Salvo</button>-->
         <button class="student-modal__btn edit" @click="editStudent">Editar</button>
+        <button class="student-modal__btn promote" @click="promoteStudent">Promover</button>
+        <button class="student-modal__btn peace" @click="validateDebt">Paz y Salvo</button>
       </div>
     </div>
   </VueFinalModal>
+  <no-debt-certificate
+    v-if="showCertificate"
+    @closeCertificate="showCertificate = false"
+  />
 </template>
 
 <script setup>
@@ -92,15 +100,40 @@ import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { notifications } from '@/shared/notifications.js'
+import NoDebtCertificate from '@/admin/students/context/components/NoDebtCertificate.vue'
+import { ref } from 'vue'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
 const preferenceStore = usePreferenceStore()
 const paymentsStore = usePaymentStore()
 
+const showCertificate = ref(false)
+
 const editStudent = () => {
   vfm.close('detailsStudentModal')
   vfm.open('editStudentModal')
+}
+
+const validateDebt = async () => {
+  preferenceStore.setLoading(true)
+  try {
+    const paymentsResponse = await paymentsStore.searchPayments(studentStore.selectedStudent.getId())
+    if (paymentsResponse.consolidatedPayments.length === 0) {
+      notifications.notify('No se pudieron consultar los pagos del estudiante', 'error')
+      return
+    }
+    if (paymentsResponse.consolidatedPayments[paymentsResponse.consolidatedPayments.length - 1].getBalance() > 0) {
+      notifications.notify('El estudiante tiene un saldo pendiente', 'error')
+      return
+    }
+
+    showCertificate.value = true
+  } catch (error) {
+    console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
+  }
 }
 
 const promoteStudent = async () => {
@@ -147,6 +180,11 @@ const closeModal = () => {
   font-family: 'Segoe UI', sans-serif;
 }
 
+.student-modal__close {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .student-modal__header {
   text-align: center;
   margin-bottom: 24px;
@@ -163,6 +201,8 @@ const closeModal = () => {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: 24px;
+  max-height: 50dvh;
+  overflow-y: auto;
 }
 
 .student-modal__item {
@@ -200,23 +240,32 @@ const closeModal = () => {
   transition: background-color 0.3s ease;
 }
 
-.student-modal__btn.cancel {
-  background-color: #6c757d;
-  color: white;
+.close {
+  width: 20px;
+  height: 20px;
+  background-color: #e1e1e1;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .student-modal__btn.promote {
-  background-color: #007bff;
+  background-color: #610e0d;
   color: white;
 }
 
 .student-modal__btn.peace {
-  background-color: #007bff;
+  background-color: #610e0d;
   color: white;
 }
 
 .student-modal__btn.edit {
-  background-color: #007bff;
+  background-color: #610e0d;
   color: white;
 }
 </style>

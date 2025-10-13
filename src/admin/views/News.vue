@@ -5,7 +5,7 @@
         <span>Gestión de noticias</span>
       </div>
     </div>
-    <div class="header">
+    <div class="header-news">
       <button class="add-button" @click="addActivity">Agregar nueva</button>
     </div>
     <div class="activities-container">
@@ -107,7 +107,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.header {
+.header-news {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -115,7 +115,7 @@ onMounted(async () => {
 }
 
 .add-button {
-  background-color: #0057d8;
+  background-color: #621410;
   color: white;
   padding: 8px 16px;
   border: none;
