@@ -1,6 +1,7 @@
 import Grade from '@/admin/general/models/class/grade.js'
 import Month from '@/admin/general/models/class/month.js'
 import PaymentValue from '@/admin/general/models/class/paymentValue.js'
+import PublicPreferences from '@/admin/general/models/class/publicPreferences.js'
 
 export default class PreferenceUc {
   #preferenceRepository = null
@@ -109,6 +110,21 @@ export default class PreferenceUc {
         return { status: error.response.status, message: error.response.data.message }
       } else {
         return { status: 500, message: 'Error al guardar los valores de pago' }
+      }
+    }
+  }
+
+  async getPublicPreferences() {
+    try {
+      const response = await this.#preferenceRepository.getPublicPreferences()
+
+      return { status: response.status, publicPreferences: PublicPreferences.fromJSONResponse(response.data) }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, publicPreferences: new PublicPreferences() }
+      } else {
+        return { status: 500, publicPreferences: new PublicPreferences() }
       }
     }
   }

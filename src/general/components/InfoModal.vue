@@ -14,20 +14,31 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import confetti from 'canvas-confetti'
+import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 
-// Modal state
+const preferenceStore = usePreferenceStore()
+
 const isModalOpen = ref(false)
+
+watch(
+  () => preferenceStore.publicPreferences,
+  () => {
+    if (preferenceStore.publicPreferences.getShowInfoModal()) {
+      isModalOpen.value = true
+    }
+  })
 
 // Function to close the modal
 const closeModal = () => {
+  preferenceStore.publicPreferences.setShowInfoModal(false)
   isModalOpen.value = false
 }
 
 // Optional: Automatically show the modal when the page loads
 onMounted(() => {
-  isModalOpen.value = false
+  isModalOpen.value = !!preferenceStore.publicPreferences?.getShowInfoModal()
   //
   //   const duration = 2 * 1000
   //   const animationEnd = Date.now() + duration

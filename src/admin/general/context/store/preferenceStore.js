@@ -17,7 +17,8 @@ export const usePreferenceStore = defineStore('preference', {
     selectedMonth: null,
     selectedMenu: '',
     selectedSubMenu: '',
-    loading: false
+    loading: false,
+    publicPreferences: null
   }),
   actions: {
     setSelectedYear(year) {
@@ -114,6 +115,14 @@ export const usePreferenceStore = defineStore('preference', {
         } else {
           notifications.notify(response.message, 'error')
         }
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async getPublicPreferences() {
+      try {
+        const response = await preferenceUc.getPublicPreferences()
+        this.publicPreferences = markRaw(response.publicPreferences)
       } catch (error) {
         console.error(`error: ${error}`)
       }
