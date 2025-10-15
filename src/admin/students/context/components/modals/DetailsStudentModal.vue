@@ -88,10 +88,10 @@
       </div>
     </div>
   </VueFinalModal>
-  <no-debt-certificate
-    v-if="showCertificate"
-    @closeCertificate="showCertificate = false"
-  />
+  <!--  <no-debt-certificate-->
+  <!--    v-if="showCertificate"-->
+  <!--    @closeCertificate="showCertificate = false"-->
+  <!--  />-->
 </template>
 
 <script setup>
