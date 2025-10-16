@@ -88,10 +88,10 @@
       </div>
     </div>
   </VueFinalModal>
-  <!--  <no-debt-certificate-->
-  <!--    v-if="showCertificate"-->
-  <!--    @closeCertificate="showCertificate = false"-->
-  <!--  />-->
+  <no-debt-certificate
+    v-if="showCertificate"
+    @closeCertificate="showCertificate = false"
+  />
 </template>
 
 <script setup>
@@ -100,7 +100,7 @@ import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { notifications } from '@/shared/notifications.js'
-// import NoDebtCertificate from '@/admin/students/context/components/NoDebtCertificate.vue'
+import NoDebtCertificate from '@/admin/students/context/components/NoDebtCertificate.vue'
 import { ref } from 'vue'
 
 const vfm = useVfm()
