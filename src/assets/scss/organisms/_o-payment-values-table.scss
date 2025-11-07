@@ -53,3 +53,42 @@
     font-size: 0.85rem;
   }
 }
+.darkMode {
+  .o-payment-values-table {
+    thead {
+      background-color: colors.$bg-main-dark;
+    }
+
+    th {
+      color: colors.$secondary-color;
+      border-bottom: 0.125rem solid colors.$border-dark;
+    }
+
+    td {
+      border-bottom: 0.063rem solid colors.$border-dark;
+      color: colors.$secondary-color;
+    }
+
+    tr:hover {
+      background-color: colors.$bg-hover-table-dark;
+    }
+
+    input {
+      border: 1px solid colors.$border-dark;
+    }
+
+    input:focus {
+      border-color: colors.$text-dark-blue;
+      outline: none;
+      box-shadow: none;
+    }
+
+    &__input {
+      background-color: colors.$bg-main-dark;
+      border-bottom: 0.063rem solid colors.$card-border-dark;
+      color: colors.$secondary-color;
+    }
+  }
+
+
+}

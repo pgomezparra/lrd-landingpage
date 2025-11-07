@@ -7,10 +7,19 @@ $_dark-gray: #555;
 $_black: #000000;
 $dark-green: #1e8d48;
 $light-green: #52ff33;
+$green:#4caf50;
 $red: #ff3333;
 $color-blue: #056cd8;
 
 // Background
+
+$background-app: radial-gradient(
+                160% 120% at 25% 15%,
+                rgba(255, 255, 255, 1) 0%,
+                rgba(255, 245, 245, 0.9) 40%,
+                rgba(144, 86, 85, 0.25) 70%,
+                rgba(97, 14, 13, 0.15) 100%
+);
 $background-levels: $_gray;
 $background-footer: $_magenta;
 $background-whatsapp: $dark-green;
@@ -47,8 +56,50 @@ $border-pqr-form: $_dark-gray;
 $border: rgba(217, 217, 217, 1);
 $border-resume: #b6e0fe;
 $border-movements: #a5b4fc;
+$border-standard:$_white;
 
 //Shadows
 $shadow-box: rgba(241, 244, 247, 1);
 $shadow-modal: rgba(0, 0, 0, 0.2);
 $shadow-card: rgba(0, 0, 0, 0.15);
+
+
+//dark
+
+$bg-main-dark:rgba(252, 252, 252, 0.1);
+$card-border-dark: rgba(0, 0, 0, 0.5);
+$bg-container-dark:rgba(20, 20, 35, 0.95);
+$background-dark: radial-gradient(
+                160% 120% at 25% 15%,
+                rgba(5, 5, 10, 0.98) 0%,
+                rgba(10, 10, 25, 0.98) 40%,
+                rgba(20, 15, 40, 0.85) 70%,
+                rgba(30, 25, 50, 0.75) 100%
+),
+rgba(255, 255, 255, 0.05);
+
+$bg-sidebar-dark:linear-gradient(
+                180deg,
+                rgba(10, 10, 20, 0.98) 0%,
+                rgba(20, 15, 35, 0.95) 60%,
+                rgba(25, 20, 40, 0.9) 100%
+);
+$text-dark:rgba(255, 255, 255, 0.9);
+$background-magenta-dark: radial-gradient(
+                160% 120% at 25% 15%,
+                rgba(20, 5, 5, 1) 0%,
+                rgba(40, 10, 15, 0.95) 40%,
+                rgba(60, 15, 20, 0.85) 70%,
+                rgba(90, 20, 25, 0.6) 100%
+);
+$hover-button-menu-dark: #d38b8b55;
+$text-red-dark:rgba(255, 82, 82, 1);
+$border-dark: rgba(252, 252, 252, 0.05);
+$bg-hover-dark:rgba(21, 101, 192, 0.1);
+$bg-hover-table-dark: rgba(0, 109, 218, 0.2);
+$text-dark-blue:#63B3ED;
+$bg-dark:#282D33;
+
+
+
+

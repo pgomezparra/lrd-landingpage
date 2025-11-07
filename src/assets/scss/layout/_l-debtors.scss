@@ -78,6 +78,11 @@
   gap: 1rem;
   height: 65dvh;
   overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .movimiento-card.vacio {
@@ -309,5 +314,79 @@
     color: colors.$text-main;
     font-size: 0.95rem;
     font-weight: 500;
+  }
+}
+.darkMode {
+  .consulta-container {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+  }
+
+  .resumen-item {
+    background: colors.$card-border-dark;
+  }
+
+  .ingresos span,
+  .efectivo span,
+  .saldo-positivo span {
+    color: colors.$dark-green;
+  }
+
+  .salidas span,
+  .saldo-negativo span {
+    color: colors.$text-red-dark;
+  }
+
+  .transferencia span {
+    color: colors.$text-dark-blue;
+  }
+  .movimiento-card {
+    border:none;
+    color: colors.$secondary-color;
+    background-color: colors.$card-border-dark;
+    box-shadow: none;
+    &:hover {
+      background: colors.$bg-hover-dark;
+    }
+  }
+
+  .fecha {
+    color: colors.$text-dark;
+  }
+
+  .negativo {
+    color: colors.$text-red-dark;
+  }
+
+  .metodo {
+    font-size: 0.85rem;
+    color: colors.$text-dark;
+  }
+
+  .descripcion {
+    color: colors.$secondary-color;
+  }
+
+  .mes-destacado {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+  }
+
+  .bill-chip {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background-color: colors.$card-border-dark;
+    color: colors.$text-dark-blue;
+    border: 0.063rem solid colors.$text-dark-blue;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: colors.$text-dark-blue;;
+      color: colors.$secondary-color;
+    }
   }
 }

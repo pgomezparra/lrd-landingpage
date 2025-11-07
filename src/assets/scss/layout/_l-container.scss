@@ -8,11 +8,17 @@
 }
 
 .app-layout {
-  background-color: colors.$secondary-color ;
-  background-image: url("@/assets/img/background/circuit-board.svg");
-  background-position: center;
+  background: colors.$background-app ;
   display: flex;
   height: 100dvh;
   width: 100%;
   overflow: hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+.darkMode {
+  .app-layout  {
+    background: colors.$background-dark;
+    color: colors.$secondary-color;
+  }
 }

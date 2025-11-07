@@ -12,12 +12,11 @@
 
 .l-standard {
   background: colors.$bg-main;
-  border: 0.063rem solid colors.$bg-container;
+  border: 0.125rem solid colors.$border-standard;
   border-radius: 1rem;
   box-shadow: 0 0.125rem 0.313rem 0 colors.$shadow-box;
   display: grid;
   grid-auto-columns: 1fr;
-  //grid-template-rows: auto auto 1fr;
   height: 90dvh;
   padding: 2rem;
   row-gap: 1rem;
@@ -113,6 +112,11 @@
     gap: 1rem;
     overflow-x: hidden;
     overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &__title-payment {
       align-items: center;
@@ -358,3 +362,65 @@
   }
 }
 
+.darkMode {
+  .l-standard {
+    background: colors.$bg-main-dark;
+    border: 0.125rem solid colors.$card-border-dark;
+    box-shadow: none;
+
+    &-title {
+      &__text {
+        color: colors.$text-dark;
+      }
+    }
+    &-payment-values-buttons {
+      &__button {
+        padding: 1rem;
+        background: colors.$primary-color;
+        color: colors.$secondary-color;
+        border-radius: 2rem;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    &-container-payments {
+      border: 0.063rem solid colors.$border-dark;
+
+      &__table {
+        border: 0.063rem solid colors.$border-dark;
+        &-thead {
+          background: colors.$bg-hover-dark;
+          color: colors.$secondary-color;
+        }
+
+        &-tbody {
+          align-items: center;
+          background: colors.$card-border-dark;
+          column-gap: 1rem;
+          display: grid;
+          max-height: 60dvh;
+          grid-template-columns: repeat(7, 1fr);
+          padding: 0.5rem;
+
+          &:hover {
+            background-color: colors.$bg-hover-table-dark;
+            cursor: pointer;
+          }
+
+          &-icon {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            column-gap: 0.063rem;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="createPaymentModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -118,7 +118,7 @@ const vfm = useVfm()
 const studentStore = useStudentStore()
 const paymentStore = usePaymentStore()
 const preferencesStore = usePreferenceStore()
-
+const theme = computed(() => preferencesStore.theme)
 const props = defineProps({
   consolidatedPayments: {
     type: Array,

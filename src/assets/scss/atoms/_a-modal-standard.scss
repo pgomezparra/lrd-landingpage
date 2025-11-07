@@ -17,6 +17,14 @@
   &.vfm-fade-leave-to {
     opacity: 0;
   }
+
+  &__content {
+    background: colors.$secondary-color;
+    padding: 1rem;
+    border-radius: 1rem;
+    max-width: 28rem;
+    box-shadow: 0 0.75rem 1.25rem colors.$shadow-modal;
+  }
 }
 
 .container-modal {
@@ -43,5 +51,38 @@
 @media (max-width: 48rem) {
   .confirm-modal-content {
     margin-left: 0;
+  }
+}
+
+.darkMode {
+  .confirm-modal {
+    &__content {
+      background: colors.$bg-dark;
+      color: colors.$secondary-color;
+      padding: 1rem;
+      border-radius: 1rem;
+      max-width: 28rem;
+      box-shadow: 0 0.75rem 1.25rem colors.$shadow-modal;
+
+    }
+  }
+
+  .public-modal-content {
+    background: colors.$bg-dark;
+    color: colors.$secondary-color;
+    padding: 1rem;
+    border-radius: 1rem;
+    max-width: 28rem;
+    box-shadow: 0 0.75rem 1.25rem colors.$shadow-modal;
+  }
+  .dp__theme_dark {
+    --dp-background-color: #{colors.$card-border-dark};
+    --dp-text-color: #{colors.$secondary-color};
+    --dp-hover-color: #{colors.$text-dark-blue};
+    --dp-primary-color: #{colors.$text-dark-blue};
+    --dp-border-color: #{colors.$shadow-modal};
+    --dp-icon-color: #{colors.$secondary-color};
+    --dp-success-color: #{colors.$text-dark-blue};
+    --dp-hover-text-color: #{colors.$secondary-color};
   }
 }

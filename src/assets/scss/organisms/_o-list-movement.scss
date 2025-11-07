@@ -18,7 +18,7 @@
 .container-total {
   background: colors.$primary-color;
   font-weight: normal;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   color: colors.$secondary-color;
   padding: 0.5rem;
   margin-left: 1rem;
@@ -46,6 +46,11 @@ select {
   height: 72dvh;
   width: 100%;
   overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .movement-card {
@@ -99,4 +104,31 @@ select {
 .origin {
   font-size: 0.8rem;
   color: #888;
+}
+
+.darkMode {
+  .movement-card {
+    background: colors.$card-border-dark ;
+    border: 0.063rem solid colors.$border-dark;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: colors.$bg-hover-dark;
+      color: colors.$text-dark-blue;
+      border-color: colors.$bg-hover-dark;
+    }
+  }
+
+  .origin {
+    color: colors.$text-dark;
+  }
+  .amount {
+    font-weight: bold;
+    color: colors.$secondary-color;
+  }
+  .date {
+    color: colors.$secondary-color;
+  }
 }

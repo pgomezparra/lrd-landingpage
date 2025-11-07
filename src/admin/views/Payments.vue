@@ -140,7 +140,7 @@
             </p>
             <p class="l-standard-container-payments__table-tbody-icon">
               <button class="button-payment-circle" @click="editPayment(payment)">
-                <img src="@/assets/img/general/edit.svg" alt="edit">
+                <img class="button-payment-circle-img" src="@/assets/img/general/edit.svg" alt="edit">
               </button>
               <button class="button-payment-circle" @click="printPayment(payment)">
                 <img class="button-payment-circle-img" src="@/assets/img/general/printer.svg" alt="printer">
@@ -384,26 +384,5 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.autocomplete-dropdown {
-  position: absolute;
-  z-index: 1000;
-  background: white;
-  border: 1px solid #ccc;
-  width: 100%;
-  max-height: 200px;
-  overflow-y: auto;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  top: 3rem;
-}
 
-.autocomplete-dropdown li {
-  padding: 8px;
-  cursor: pointer;
-}
-
-.autocomplete-dropdown li:hover {
-  background-color: #f0f0f0;
-}
 </style>

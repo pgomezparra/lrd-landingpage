@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="createActivityModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -23,7 +23,7 @@
             placeholder="Título"
             ref="title"
             @keyup.enter="focusOnDescription"
-          >
+          />
         </div>
         <div class="form-group">
           <p>Descripción</p>
@@ -52,11 +52,7 @@
           </div>
         </div>
         <div class="preview">
-          <div
-            v-for="(file, index) in activity.images"
-            :key="index"
-            class="img-preview"
-          >
+          <div v-for="(file, index) in activity.images" :key="index" class="img-preview">
             <img :src="file.preview" alt="preview" />
             <button type="button" class="remove-btn" @click="removeImage(index)">×</button>
           </div>
@@ -72,7 +68,7 @@
 
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
-import { nextTick, reactive, ref } from 'vue'
+import { computed, nextTick, reactive, ref } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { notifications } from '@/shared/notifications.js'
 import { useActivityStore } from '@/admin/content/activities/context/store/activityStore.js'
@@ -80,6 +76,7 @@ import { useActivityStore } from '@/admin/content/activities/context/store/activ
 const vfm = useVfm()
 const activityStore = useActivityStore()
 const preferencesStore = usePreferenceStore()
+const theme = computed(() => preferencesStore.theme)
 
 const emit = defineEmits(['refresh'])
 
@@ -93,8 +90,7 @@ const activity = reactive({
   images: []
 })
 
-
-const handleFileChange = event => {
+const handleFileChange = (event) => {
   const files = Array.from(event.target.files)
 
   if (files.length + activity.images.length > 5) {
@@ -102,7 +98,7 @@ const handleFileChange = event => {
     return
   }
 
-  files.forEach(file => {
+  files.forEach((file) => {
     const reader = new FileReader()
     reader.onload = () => {
       activity.images.push({
@@ -116,7 +112,7 @@ const handleFileChange = event => {
   event.target.value = ''
 }
 
-const removeImage = index => {
+const removeImage = (index) => {
   activity.images.splice(index, 1)
 }
 
@@ -186,7 +182,6 @@ const onClosed = () => {
 const closeModal = () => {
   vfm.close('createActivityModal')
 }
-
 </script>
 
 <style scoped>
@@ -248,4 +243,3 @@ const closeModal = () => {
   background-color: #4949e7;
 }
 </style>
-

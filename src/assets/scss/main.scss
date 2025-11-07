@@ -32,6 +32,9 @@
 @use "organisms/o-list-movement";
 @use "organisms/o-dashboard";
 @use "organisms/o-payment-values-table";
+@use "organisms/o-news";
+@use "organisms/o-cash-flow";
+@use "organisms/o-students";
 
 /****** Molecules ******/
 @use 'molecules/m-menu';
@@ -49,3 +52,5 @@
 @use "atoms/a-select";
 @use "atoms/a-modal-standard";
 @use "atoms/a-input";
+@use "atoms/a-autocomplete";
+@use "atoms/a-pagination";

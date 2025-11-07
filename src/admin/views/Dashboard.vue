@@ -36,22 +36,16 @@
 </template>
 
 <script setup>
-import {
-  Chart as ChartJS,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend
-} from 'chart.js'
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js'
 import { Bar } from 'vue-chartjs'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { useDashboardStore } from '@/admin/dashboard/context/store/dashboardStore.js'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend)
 
 const preferenceStore = usePreferenceStore()
+const theme = computed(() => preferenceStore.theme)
 const dashboardStore = useDashboardStore()
 
 const activeStudents = ref(0)
@@ -61,7 +55,20 @@ const totalOutflow = ref(0)
 const totalBalance = ref(0)
 
 const chartData = ref({
-  labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+  labels: [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre'
+  ],
   datasets: [
     {
       label: 'Ingresos',
@@ -89,7 +96,7 @@ const barOptions = {
     },
     tooltip: {
       callbacks: {
-        label: function(context) {
+        label: function (context) {
           const value = context.parsed.y
           return `${context.dataset.label}: $ ${value.toLocaleString('es-CO')}`
         },
@@ -127,7 +134,35 @@ watch(
   () => preferenceStore.selectedYear,
   (newYear) => {
     updateDashboardData()
-  })
+  }
+)
+watch(theme, (newTheme) => {
+  applyThemeToChart(newTheme)
+  chartKey.value++
+})
+const applyThemeToChart = (mode) => {
+  if (mode === 'dark') {
+    chartData.value.datasets[0].backgroundColor = '#4caf50'
+    chartData.value.datasets[1].backgroundColor = '#ef5350'
+    barOptions.plugins.legend.labels = {
+      color: '#e0e0e0'
+    }
+    barOptions.scales = {
+      x: { ticks: { color: '#e0e0e0' }, grid: { color: '#333' } },
+      y: { ticks: { color: '#e0e0e0' }, grid: { color: '#333' } }
+    }
+  } else {
+    chartData.value.datasets[0].backgroundColor = '#2e7d32'
+    chartData.value.datasets[1].backgroundColor = '#a6192e'
+    barOptions.plugins.legend.labels = {
+      color: '#111827'
+    }
+    barOptions.scales = {
+      x: { ticks: { color: '#111827' }, grid: { color: '#ddd' } },
+      y: { ticks: { color: '#111827' }, grid: { color: '#ddd' } }
+    }
+  }
+}
 
 const updateDashboardData = async () => {
   if (!preferenceStore.selectedYear) return
@@ -136,7 +171,20 @@ const updateDashboardData = async () => {
     const response = await dashboardStore.getData()
 
     if (response.success) {
-      chartData.value.labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+      chartData.value.labels = [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre'
+      ]
       chartData.value.datasets[0].data = response.consolidated.getInflows()
       chartData.value.datasets[1].data = response.consolidated.getOutflows()
 
@@ -154,6 +202,7 @@ const updateDashboardData = async () => {
 
 onMounted(async () => {
   await updateDashboardData()
+  applyThemeToChart(theme.value)
 })
-</script>
 
+</script>

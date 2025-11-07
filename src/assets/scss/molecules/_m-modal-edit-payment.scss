@@ -139,3 +139,33 @@ input:checked + .slider {
 input:checked + .slider::before {
   transform: translateX(1rem);
 }
+
+.darkMode {
+  .form-group {
+    background-color: transparent;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: colors.$bg-main-dark;
+    border: 0.063rem solid colors.$border-dark;
+    color: colors.$secondary-color;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: colors.$text-dark-blue;
+  }
+
+  .button-edit:first-child {
+    border: 0.063rem solid colors.$border-dark;
+    background-color: colors.$bg-main-dark;
+    color: colors.$secondary-color;
+
+  }
+  input:checked + .slider {
+    background-color: colors.$text-dark-blue;
+  }
+
+}

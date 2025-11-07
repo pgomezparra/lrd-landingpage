@@ -21,8 +21,8 @@
         <tbody>
         <tr v-for="(value, index) in values" :key="value.gradeId">
           <td>{{ value.grade }}</td>
-          <td><input type="text" inputmode="numeric" v-model="values[index].registration" /></td>
-          <td><input type="text" inputmode="numeric" v-model="values[index].pension" /></td>
+          <td><input class="o-payment-values-table__input" type="text" inputmode="numeric" v-model="values[index].registration" /></td>
+          <td><input class="o-payment-values-table__input" type="text" inputmode="numeric" v-model="values[index].pension" /></td>
         </tr>
         </tbody>
       </table>
