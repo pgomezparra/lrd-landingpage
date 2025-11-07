@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="detailsStudentModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -11,7 +11,7 @@
     <div class="student-modal">
       <div class="student-modal__close">
         <div class="close" @click="closeModal">
-          <img src="@/assets/img/general/close.svg" alt="close">
+          <img src="@/assets/img/general/close.svg" alt="close" />
         </div>
       </div>
       <div class="student-modal__header">
@@ -59,7 +59,10 @@
           <p class="label">Correo</p>
           <p>{{ studentStore.selectedStudent.getEmail() }}</p>
         </div>
-        <div class="student-modal__item" v-if="studentStore.selectedStudent.getParentDocumentType()">
+        <div
+          class="student-modal__item"
+          v-if="studentStore.selectedStudent.getParentDocumentType()"
+        >
           <p class="label">Tipo de documento acudiente</p>
           <p>{{ studentStore.selectedStudent.getParentDocumentType() }}</p>
         </div>
@@ -88,10 +91,7 @@
       </div>
     </div>
   </VueFinalModal>
-  <no-debt-certificate
-    v-if="showCertificate"
-    @closeCertificate="showCertificate = false"
-  />
+  <no-debt-certificate v-if="showCertificate" @closeCertificate="showCertificate = false" />
 </template>
 
 <script setup>
@@ -101,12 +101,13 @@ import { usePreferenceStore } from '@/admin/general/context/store/preferenceStor
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { notifications } from '@/shared/notifications.js'
 import NoDebtCertificate from '@/admin/students/context/components/NoDebtCertificate.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
 const preferenceStore = usePreferenceStore()
 const paymentsStore = usePaymentStore()
+const theme = computed(() => preferenceStore.theme)
 
 const showCertificate = ref(false)
 
@@ -118,12 +119,18 @@ const editStudent = () => {
 const validateDebt = async () => {
   preferenceStore.setLoading(true)
   try {
-    const paymentsResponse = await paymentsStore.searchPayments(studentStore.selectedStudent.getId())
+    const paymentsResponse = await paymentsStore.searchPayments(
+      studentStore.selectedStudent.getId()
+    )
     if (paymentsResponse.consolidatedPayments.length === 0) {
       notifications.notify('No se pudieron consultar los pagos del estudiante', 'error')
       return
     }
-    if (paymentsResponse.consolidatedPayments[paymentsResponse.consolidatedPayments.length - 1].getBalance() > 0) {
+    if (
+      paymentsResponse.consolidatedPayments[
+        paymentsResponse.consolidatedPayments.length - 1
+      ].getBalance() > 0
+    ) {
       notifications.notify('El estudiante tiene un saldo pendiente', 'error')
       return
     }
@@ -139,12 +146,18 @@ const validateDebt = async () => {
 const promoteStudent = async () => {
   preferenceStore.setLoading(true)
   try {
-    const paymentsResponse = await paymentsStore.searchPayments(studentStore.selectedStudent.getId())
+    const paymentsResponse = await paymentsStore.searchPayments(
+      studentStore.selectedStudent.getId()
+    )
     if (paymentsResponse.consolidatedPayments.length === 0) {
       notifications.notify('No se pudieron consultar los pagos del estudiante', 'error')
       return
     }
-    if (paymentsResponse.consolidatedPayments[paymentsResponse.consolidatedPayments.length - 1].getBalance() > 0) {
+    if (
+      paymentsResponse.consolidatedPayments[
+        paymentsResponse.consolidatedPayments.length - 1
+      ].getBalance() > 0
+    ) {
       notifications.notify('El estudiante tiene un saldo pendiente', 'error')
       return
     }
@@ -152,7 +165,9 @@ const promoteStudent = async () => {
     const response = await studentStore.promoteStudent(studentStore.selectedStudent)
     if (response.status === 200) {
       closeModal()
-      const nextGrade = preferenceStore.grades.find(grade => grade.getId() === studentStore.selectedStudent.getGradeId())
+      const nextGrade = preferenceStore.grades.find(
+        (grade) => grade.getId() === studentStore.selectedStudent.getGradeId()
+      )
       preferenceStore.setSelectedYear(studentStore.selectedStudent.getYear() + 1)
       preferenceStore.setSelectedGrade(nextGrade.getNextGradeId())
       studentStore.setSelectedStudent(null)
@@ -167,105 +182,8 @@ const promoteStudent = async () => {
 const closeModal = () => {
   vfm.close('detailsStudentModal')
 }
-
 </script>
 
 <style scoped>
-.student-modal {
-  padding: 24px;
-  max-width: 700px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', sans-serif;
-}
 
-.student-modal__close {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.student-modal__header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.student-modal__header h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.student-modal__content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-  max-height: 50dvh;
-  overflow-y: auto;
-}
-
-.student-modal__item {
-  background-color: #f8f8f8;
-  padding: 12px 16px;
-  border-radius: 8px;
-}
-
-.student-modal__item .label {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 4px;
-}
-
-.student-modal__item p {
-  margin: 0;
-  font-size: 1rem;
-  color: #222;
-}
-
-.student-modal__footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-
-.student-modal__btn {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.close {
-  width: 20px;
-  height: 20px;
-  background-color: #e1e1e1;
-  border-radius: 50%;
-  padding: 0.5rem;
-  cursor: pointer;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.student-modal__btn.promote {
-  background-color: #610e0d;
-  color: white;
-}
-
-.student-modal__btn.peace {
-  background-color: #610e0d;
-  color: white;
-}
-
-.student-modal__btn.edit {
-  background-color: #610e0d;
-  color: white;
-}
 </style>

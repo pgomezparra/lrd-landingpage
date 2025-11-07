@@ -1,5 +1,5 @@
 <template>
-  <main id="container" class="l-container">
+  <main id="container"  :class="['l-container', { darkMode: preferenceStore.theme === 'dark' }]">
     <RouterView />
   </main>
 </template>

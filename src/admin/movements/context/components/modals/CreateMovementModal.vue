@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="createMovementModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -26,6 +26,7 @@
               locale="es"
               :maxDate="new Date()"
               :clearable="false"
+              :class="theme === 'dark' ? 'dp__theme_dark' : ''"
             />
           </div>
           <div class="form-group">
@@ -54,7 +55,7 @@
               placeholder="Valor"
               ref="inputValue"
               @keyup.enter="focusOnDescription"
-            >
+            />
           </div>
         </div>
         <div class="form-group">
@@ -78,7 +79,7 @@
 
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
-import { nextTick, reactive, ref, watch } from 'vue'
+import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import Datepicker from '@vuepic/vue-datepicker'
 import { notifications } from '@/shared/notifications.js'
@@ -87,7 +88,7 @@ import { useMovementStore } from '@/admin/movements/context/store/movementStore.
 const vfm = useVfm()
 const movementStore = useMovementStore()
 const preferencesStore = usePreferenceStore()
-
+const theme = computed(() => preferencesStore.theme)
 const emit = defineEmits(['refresh'])
 
 const description = ref(null)
@@ -191,6 +192,4 @@ const onClosed = () => {
 const closeModal = () => {
   vfm.close('createMovementModal')
 }
-
 </script>
-

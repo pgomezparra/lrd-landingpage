@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="editPaymentModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -59,7 +59,11 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Método de pago</p>
-            <select class="select-methods" :disabled="payment.excluded" v-model="payment.payment_method_id">
+            <select
+              class="select-methods"
+              :disabled="payment.excluded"
+              v-model="payment.payment_method_id"
+            >
               <option :value="1">Efectivo</option>
               <option :value="2">Transferencia</option>
             </select>
@@ -95,7 +99,9 @@
           />
         </div>
         <div class="form-group">
-          <p>Autor: <span>{{ payment.author }}</span></p>
+          <p>
+            Autor: <span>{{ payment.author }}</span>
+          </p>
         </div>
       </div>
 
@@ -110,7 +116,7 @@
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
-import { nextTick, reactive, ref, watch } from 'vue'
+import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { parse } from '@formkit/tempo'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
@@ -121,6 +127,7 @@ const vfm = useVfm()
 const studentStore = useStudentStore()
 const paymentStore = usePaymentStore()
 const preferencesStore = usePreferenceStore()
+const theme = computed(() => preferencesStore.theme)
 
 const transferCode = ref(null)
 const description = ref(null)
@@ -217,7 +224,8 @@ const onOpened = () => {
   payment.payment_type_id = paymentStore.selectedPayment.getPaymentTypeId()
   payment.excluded = paymentStore.selectedPayment.isExcluded()
   payment.payment_method_id = paymentStore.selectedPayment.getPaymentMethodId()
-  if (paymentStore.selectedPayment.getTransferCode()) payment.transfer_code = paymentStore.selectedPayment.getTransferCode()
+  if (paymentStore.selectedPayment.getTransferCode())
+    payment.transfer_code = paymentStore.selectedPayment.getTransferCode()
   payment.year = studentStore.selectedStudent.getYear()
   payment.student_id = studentStore.selectedStudent.getId()
   payment.author = paymentStore.selectedPayment.getAuthor() ?? 'Automático'

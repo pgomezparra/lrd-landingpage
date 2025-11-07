@@ -1,27 +1,100 @@
 @use '@/assets/scss/settings/colors';
 @use '@/assets/scss/settings/fonts';
-
 .cards {
-  border: 0.063rem solid colors.$bg-container;
-  border-radius: 1rem;
   display: grid;
-  height: fit-content;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto auto auto;
-  row-gap: 0.5rem;
+  grid-template-rows: auto auto auto auto;
   place-items: center;
-  padding: 1rem;
+  row-gap: 0.75rem;
+  padding: 1.25rem;
+
+  background: linear-gradient(
+                  155deg,
+                  lighten(colors.$secondary-color, 3%) 0%,
+                  darken(colors.$secondary-color, 3%) 100%
+  );
+  border: 0.063rem solid rgba(colors.$bg-container, 0.4);
+  border-radius: 1rem;
+  height: 13rem;
+
+  box-shadow:
+          0 0.125rem 0.25rem rgba(0, 0, 0, 0.08),
+          inset 0 0.063rem 0 rgba(255, 255, 255, 0.3);
+
+
+  transition:
+          transform 0.25s ease,
+          box-shadow 0.3s ease,
+          border 0.3s ease,
+          background 0.4s ease;
+
 
   &:hover {
     cursor: pointer;
-    box-shadow: 0 0.5rem 0.25rem colors.$shadow-card;
-    border: 0.063rem solid colors.$bg-container;
-    transform: scale(1.03);
+    transform: translateY(-0.25rem) scale(0.95);
+    box-shadow:
+            0 0.625rem 1.563rem rgba(0, 0, 0, 0.15),
+            inset 0 0.063rem 0 rgba(255, 255, 255, 0.15);
+    background: linear-gradient(
+                    145deg,
+                    lighten(colors.$secondary-color, 8%) 0%,
+                    darken(colors.$secondary-color, 8%) 100%
+    );
+    border-color: rgba(colors.$bg-container, 0.6);
   }
+
+  animation: cardFadeIn 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
   &__name {
     color: colors.$text-title;
     font-family: fonts.$font-primary;
+    font-weight: 600;
     text-align: center;
+    letter-spacing: 0.03rem;
+    transition: color 0.3s ease;
+  }
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.625rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.darkMode {
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    place-items: center;
+    row-gap: 0.75rem;
+    padding: 1.25rem;
+
+    background: linear-gradient(
+                    155deg,
+                    lighten(colors.$card-border-dark, 3%) 0%,
+                    darken(colors.$card-border-dark, 3%) 100%
+    );
+    border: 0.063rem solid rgba(colors.$card-border-dark, 0.4);
+    border-radius: 1rem;
+    height: 13rem;
+    box-shadow:none;
+    &:hover {
+      background: colors.$bg-hover-dark;
+      cursor: pointer;
+      box-shadow:none;
+      border-color: rgba(colors.$bg-hover-dark, 0.6);
+    }
+
+    animation: cardFadeIn 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+
+    &__name {
+      color: colors.$secondary-color;
+    }
   }
 }

@@ -1,0 +1,35 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+.autocomplete-dropdown {
+  position: absolute;
+  z-index: 1000;
+  background: colors.$secondary-color;
+  border: 0.063rem solid colors.$admissions-card-note;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  top: 3rem;
+}
+
+.autocomplete-dropdown li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.autocomplete-dropdown li:hover {
+  background: colors.$secondary-color;
+}
+
+.darkMode {
+  .autocomplete-dropdown {
+    background: colors.$card-border-dark;
+    border: 0.063rem solid colors.$border-dark;
+  }
+
+  .autocomplete-dropdown li:hover {
+    background: colors.$card-border-dark;
+  }
+}

@@ -167,16 +167,3 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped>
-.subtitulo {
-  margin: 0;
-}
-
-.cards-container-cash-flow {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  height: 45dvh;
-  overflow-y: scroll;
-}
-</style>

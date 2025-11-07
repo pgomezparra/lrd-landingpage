@@ -1,8 +1,8 @@
 <template>
   <VueFinalModal
     modal-id="createStudentModal"
-    class="confirm-modal"
-    content-class="confirm-modal-content"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
+    content-class="confirm-modal__content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
     :click-to-close="false"
@@ -164,7 +164,7 @@
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
-import { reactive, ref, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import * as utils from '@/shared/utils.js'
 import { notifications } from '@/shared/notifications.js'
@@ -174,6 +174,7 @@ const vfm = useVfm()
 const studentStore = useStudentStore()
 const preferenceStore = usePreferenceStore()
 const paymentStore = usePaymentStore()
+const theme = computed(() => preferenceStore.theme)
 
 const emit = defineEmits(['refresh'])
 

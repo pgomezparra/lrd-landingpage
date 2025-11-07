@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="editMovementModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -57,7 +57,6 @@
           </div>
         </div>
 
-
         <div class="form-group">
           <p>Descripción</p>
           <textarea
@@ -68,7 +67,6 @@
             ref="description"
           ></textarea>
         </div>
-
 
         <div class="form-group">
           <p>
@@ -87,7 +85,7 @@
 
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
-import { nextTick, reactive, ref, watch } from 'vue'
+import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { parse } from '@formkit/tempo'
 import Datepicker from '@vuepic/vue-datepicker'
 import { notifications } from '@/shared/notifications.js'
@@ -97,7 +95,7 @@ import { usePreferenceStore } from '@/admin/general/context/store/preferenceStor
 const vfm = useVfm()
 const movementStore = useMovementStore()
 const preferenceStore = usePreferenceStore()
-
+const theme = computed(() => preferenceStore.theme)
 const description = ref(null)
 const inputValue = ref(null)
 
@@ -200,5 +198,3 @@ const closeModal = () => {
   vfm.close('editMovementModal')
 }
 </script>
-
-

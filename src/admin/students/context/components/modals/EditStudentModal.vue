@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="editStudentModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -24,41 +24,21 @@
           </div>
           <div class="form-group">
             <p>Documento</p>
-            <input
-              v-model="student.document"
-              type="text"
-              placeholder="Documento"
-              maxlength="20"
-            />
+            <input v-model="student.document" type="text" placeholder="Documento" maxlength="20" />
           </div>
         </div>
         <div class="form-group">
           <p>Nombres</p>
-          <input
-            v-model="student.name"
-            type="text"
-            placeholder="Nombre"
-            maxlength="30"
-          />
+          <input v-model="student.name" type="text" placeholder="Nombre" maxlength="30" />
         </div>
         <div class="form-group">
           <p>Apellidos</p>
-          <input
-            v-model="student.surname"
-            type="text"
-            placeholder="Apellido"
-            maxlength="30"
-          />
+          <input v-model="student.surname" type="text" placeholder="Apellido" maxlength="30" />
         </div>
         <div class="container-form-edit">
           <div class="form-group">
             <p>Edad</p>
-            <input
-              v-model="student.age"
-              type="text"
-              placeholder="Edad"
-              maxlength="2"
-            />
+            <input v-model="student.age" type="text" placeholder="Edad" maxlength="2" />
           </div>
           <div class="form-group">
             <p>Grado</p>
@@ -86,12 +66,7 @@
         </div>
         <div class="form-group">
           <p>Valor de pensión</p>
-          <input
-            type="text"
-            placeholder="Pensión"
-            v-model="student.pension"
-            maxlength="10"
-          />
+          <input type="text" placeholder="Pensión" v-model="student.pension" maxlength="10" />
         </div>
         <div class="form-group">
           <p>Estado</p>
@@ -102,12 +77,7 @@
         </div>
         <div class="form-group">
           <p>Correo</p>
-          <input
-            type="text"
-            placeholder="Correo"
-            v-model="student.email"
-            maxlength="40"
-          />
+          <input type="text" placeholder="Correo" v-model="student.email" maxlength="40" />
         </div>
         <div class="container-form-edit">
           <div class="form-group">
@@ -121,36 +91,20 @@
           </div>
           <div class="form-group">
             <p>Documento acudiente</p>
-            <input
-              v-model="student.parentDocument"
-              type="text"
-              placeholder="Documento acudiente"
-            />
+            <input v-model="student.parentDocument" type="text" placeholder="Documento acudiente" />
           </div>
         </div>
         <div class="form-group">
           <p>Nombre acudiente</p>
-          <input
-            v-model="student.parentName"
-            type="text"
-            placeholder="Nombre acudiente"
-          />
+          <input v-model="student.parentName" type="text" placeholder="Nombre acudiente" />
         </div>
         <div class="form-group">
           <p>Apellido acudiente</p>
-          <input
-            v-model="student.parentSurname"
-            type="text"
-            placeholder="Apellido acudiente"
-          />
+          <input v-model="student.parentSurname" type="text" placeholder="Apellido acudiente" />
         </div>
         <div class="form-group">
           <p>Dirección</p>
-          <input
-            v-model="student.address"
-            type="text"
-            placeholder="Dirección"
-          />
+          <input v-model="student.address" type="text" placeholder="Dirección" />
         </div>
       </div>
 
@@ -165,14 +119,14 @@
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { notifications } from '@/shared/notifications.js'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
 const preferenceStore = usePreferenceStore()
-
+const theme = computed(() => preferenceStore.theme)
 const emit = defineEmits(['changeActive', 'refresh'])
 
 const student = reactive({
@@ -208,15 +162,22 @@ const beforeOpen = () => {
   student.grade = studentStore.selectedStudent.getGradeId()
   student.registration = studentStore.selectedStudent.getRegistration()
   student.pension = studentStore.selectedStudent.getPension()
-  if (studentStore.selectedStudent.getEmail()) student.email = studentStore.selectedStudent.getEmail()
+  if (studentStore.selectedStudent.getEmail())
+    student.email = studentStore.selectedStudent.getEmail()
   student.active = studentStore.selectedStudent.isActive()
   student.year = studentStore.selectedStudent.getYear()
-  if (studentStore.selectedStudent.getParentDocumentTypeId()) student.parentDocumentTypeId = studentStore.selectedStudent.getParentDocumentTypeId()
-  if (studentStore.selectedStudent.getParentDocument()) student.parentDocument = studentStore.selectedStudent.getParentDocument()
-  if (studentStore.selectedStudent.getParentName()) student.parentName = studentStore.selectedStudent.getParentName()
-  if (studentStore.selectedStudent.getParentSurname()) student.parentSurname = studentStore.selectedStudent.getParentSurname()
-  if (studentStore.selectedStudent.getAddress()) student.address = studentStore.selectedStudent.getAddress()
-  if (studentStore.selectedStudent.getCloudId()) student.cloudId = studentStore.selectedStudent.getCloudId()
+  if (studentStore.selectedStudent.getParentDocumentTypeId())
+    student.parentDocumentTypeId = studentStore.selectedStudent.getParentDocumentTypeId()
+  if (studentStore.selectedStudent.getParentDocument())
+    student.parentDocument = studentStore.selectedStudent.getParentDocument()
+  if (studentStore.selectedStudent.getParentName())
+    student.parentName = studentStore.selectedStudent.getParentName()
+  if (studentStore.selectedStudent.getParentSurname())
+    student.parentSurname = studentStore.selectedStudent.getParentSurname()
+  if (studentStore.selectedStudent.getAddress())
+    student.address = studentStore.selectedStudent.getAddress()
+  if (studentStore.selectedStudent.getCloudId())
+    student.cloudId = studentStore.selectedStudent.getCloudId()
 }
 
 const updateStudent = async () => {
@@ -286,7 +247,10 @@ const validateData = () => {
   }
 
   if (student.parentDocumentTypeId === 0) {
-    notifications.notify('Debe seleccionar el tipo de documento del acudiente del estudiante', 'error')
+    notifications.notify(
+      'Debe seleccionar el tipo de documento del acudiente del estudiante',
+      'error'
+    )
     return false
   }
 
@@ -343,7 +307,4 @@ const clearInputs = () => {
 const closeModal = () => {
   vfm.close('editStudentModal')
 }
-
 </script>
-
-

@@ -1,0 +1,83 @@
+@use '@/assets/scss/settings/colors';
+
+  .el-pager li {
+    background: colors.$secondary-color;
+    border: none;
+    color: colors.$card-border-dark;
+    border-radius: 50% !important;
+    cursor: pointer;
+    padding: 0 4px;
+    margin-right: 0.5rem;
+    text-align: center;
+  }
+  .el-pagination .btn-prev {
+    background-color: colors.$secondary-color;
+    color: colors.$card-border-dark;
+    border-radius: 50% !important;
+    margin-right: 0.5rem;
+
+  }
+  .el-pagination .btn-prev:disabled {
+    background-color: colors.$secondary-color;
+    color: colors.$card-border-dark;
+    border-radius: 50% !important;
+    margin-right: 0.5rem;
+    cursor: not-allowed;
+  }
+  .el-pagination .btn-next:disabled {
+    background-color: colors.$secondary-color;
+    color: colors.$card-border-dark;
+    border-radius: 50% !important;
+    margin-right: 0.5rem;
+    cursor: not-allowed;
+  }
+  .el-pagination .btn-next {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+    border-radius: 50% !important;
+    margin-right: 0.5rem;
+    cursor: not-allowed;
+  }
+
+.darkMode {
+  .el-pager li {
+    background: colors.$card-border-dark;
+    border: none;
+    color: colors.$secondary-color;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0 4px;
+    margin-right: 0.5rem;
+    text-align: center;
+  }
+
+  .el-pagination .btn-prev {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+
+  }
+  .el-pagination .btn-prev:disabled {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    cursor: not-allowed;
+  }
+  .el-pagination .btn-next:disabled {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    cursor: not-allowed;
+  }
+  .el-pagination .btn-next {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    cursor: not-allowed;
+  }
+
+}

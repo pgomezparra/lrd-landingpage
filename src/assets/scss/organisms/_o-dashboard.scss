@@ -19,7 +19,7 @@
 }
 
 .positivo {
-  color: #4caf50;
+  color: colors.$green;
 }
 
 .negativo {
@@ -27,9 +27,9 @@
 }
 
 .card {
-  background-color: #fff;
+  background-color: colors.$secondary-color;
   padding: 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex: 1;
 }
@@ -47,9 +47,9 @@
 }
 
 .dashboard-graph {
-  background: #fff;
+  background: colors.$secondary-color;
   padding: 2rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   height: 45dvh;
 }
@@ -72,3 +72,49 @@
     font-size: 1rem;
   }
 }
+.darkMode {
+  .card {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+    box-shadow: none;
+
+    h3 {
+      color: lighten(colors.$secondary-color, 20%);
+    }
+
+    .card-number {
+      color: colors.$text-dark-blue;
+    }
+
+    .resumen-item-dashboard {
+      color: colors.$secondary-color;
+
+      span {
+        color: lighten(colors.$secondary-color, 15%);
+      }
+
+      strong {
+        color: colors.$secondary-color;
+      }
+
+      .positivo {
+        color: lighten(colors.$green, 10%);
+      }
+
+      .negativo {
+        color: lighten(colors.$text-red-dark, 10%);
+      }
+    }
+  }
+
+  .dashboard-graph {
+    background-color: colors.$card-border-dark;
+    color: colors.$secondary-color;
+    box-shadow: none;
+  }
+
+  canvas {
+    color: colors.$secondary-color !important;
+  }
+}
+

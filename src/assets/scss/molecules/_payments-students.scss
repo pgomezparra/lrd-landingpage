@@ -112,3 +112,63 @@
     width: 21rem;
   }
 }
+.darkMode{
+
+
+  .payments-summary {
+    background-color: colors.$card-border-dark;
+
+  }
+
+  .text-mobil {
+    display: none;
+  }
+
+  .payments-summary h2 {
+    color: colors.$secondary-color;
+  }
+
+  .payments-grid.compact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .payment-card {
+    background-color: colors.$border-dark;
+    border: 0.063rem solid colors.$card-border-dark;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.063rem;
+  }
+
+  .payment-card strong {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: colors.$secondary-color;
+  }
+
+  .payment-card span {
+    color: colors.$text-dark;
+    font-size: 0.8rem;
+  }
+
+  .main-payment {
+    background-color: colors.$bg-hover-dark;
+    border-color: colors.$bg-hover-dark;
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+  }
+
+  .main-payment h3 {
+    margin: 0;
+  }
+
+}

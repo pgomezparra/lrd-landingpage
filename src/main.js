@@ -5,14 +5,12 @@ import { createPinia } from 'pinia'
 import { createAuth0 } from '@auth0/auth0-vue'
 import { createVfm } from 'vue-final-modal'
 import VueDatePicker from '@vuepic/vue-datepicker'
-import VueSweetalert2 from 'vue-sweetalert2'
-
 import App from './App.vue'
 import router from './router/index.js'
-
 import 'vue-final-modal/style.css'
 import '@vuepic/vue-datepicker/dist/main.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
+import VueSweetalert2 from 'vue-sweetalert2'
 
 
 const app = createApp(App)
