@@ -24,7 +24,7 @@ export const usePreferenceStore = defineStore('preference', {
 
   actions: {
     initializePreferences() {
-      const savedTheme = localStorage.getItem('theme') || 'light'
+      const savedTheme = localStorage.getItem('app_theme') || 'light'
       this.applyTheme(savedTheme)
 
       this.selectedMenu = localStorage.getItem('selectedMenu') || 'home'
