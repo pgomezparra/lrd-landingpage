@@ -3,7 +3,7 @@
   <div class="l-admissions">
     <main>
       <div class="l-admissions__container">
-        <h1 class="l-admissions__container__title">Requisitos de inscripción y costos 2025</h1>
+        <h1 class="l-admissions__container__title">Requisitos de inscripción y costos 2026</h1>
 
         <section class="l-admissions__container__section">
           <div class="o-admissions-card">
@@ -11,7 +11,7 @@
             <div class="o-admissions-card__content">
               <p class="o-admissions-card__subtitle">Requisitos para todos los estudiantes:</p>
               <ul class="o-admissions-card__list">
-                <li>Formulario de inscripción <b>($10.000 para nuevos y $4.000 para antiguos)</b></li>
+                <li>Formulario de inscripción <b>($20.000 para nuevos y $5.000 para antiguos)</b></li>
                 <li>Registro civil de nacimiento</li>
                 <li>Fotocopia de Tarjeta de Identidad (si aplica)</li>
                 <li>Fotocopia de la cédula de los padres o acudientes</li>
@@ -38,7 +38,7 @@
 
         <section class="l-admissions__container__section">
           <div class="o-admissions-card">
-            <h2 class="o-admissions-card__title">Costos por nivel educativo</h2>
+            <h2 class="o-admissions-card__title">Costos por nivel educativo (2025)</h2>
             <div class="o-admissions-card__content">
               <div class="o-admissions-card__content__table-wrapper">
                 <table class="o-admissions-card__content__table-wrapper__table">
@@ -96,9 +96,8 @@
               <p>Para más detalles sobre el proceso de inscripción o para agendar una visita a nuestras instalaciones,
                 por favor contacte a nuestra oficina de admisiones:</p>
               <ul class="o-admissions-card__list">
-                <li>Teléfono: <a class="o-admissions-card__link" href="tel:+576076738796">(607) 6738796</a> - <a
-                  class="o-admissions-card__link"
-                  href="tel:+573158317079">3158317079</a></li>
+                <li>Teléfono: <a class="o-admissions-card__link"
+                                 href="tel:+573158317079">3158317079</a></li>
                 <li>Email: secretaria@liceoreydavid.edu.co</li>
                 <li>Horario de atención: Lunes a Viernes de 6:30 am - 12:00 pm</li>
               </ul>
