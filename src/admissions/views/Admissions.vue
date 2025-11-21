@@ -38,7 +38,7 @@
 
         <section class="l-admissions__container__section">
           <div class="o-admissions-card">
-            <h2 class="o-admissions-card__title">Costos por nivel educativo (2025)</h2>
+            <h2 class="o-admissions-card__title">Costos por nivel educativo</h2>
             <div class="o-admissions-card__content">
               <div class="o-admissions-card__content__table-wrapper">
                 <table class="o-admissions-card__content__table-wrapper__table">
@@ -52,23 +52,23 @@
                   <tbody>
                   <tr>
                     <td>Preescolar</td>
-                    <td>$260.000</td>
-                    <td>$115.000</td>
+                    <td>$270.000</td>
+                    <td>$125.000</td>
                   </tr>
                   <tr>
                     <td>Primaria</td>
-                    <td>$260.000</td>
-                    <td>$115.000</td>
+                    <td>$270.000</td>
+                    <td>$125.000</td>
                   </tr>
                   <tr>
                     <td>6º a 9º</td>
-                    <td>$290.000</td>
-                    <td>$130.000</td>
+                    <td>$300.000</td>
+                    <td>$140.000</td>
                   </tr>
                   <tr>
                     <td>10º a 11º</td>
-                    <td>$300.000</td>
-                    <td>$135.000</td>
+                    <td>$310.000</td>
+                    <td>$145.000</td>
                   </tr>
                   </tbody>
                 </table>
@@ -97,7 +97,8 @@
                 por favor contacte a nuestra oficina de admisiones:</p>
               <ul class="o-admissions-card__list">
                 <li>Teléfono: <a class="o-admissions-card__link"
-                                 href="tel:+573158317079">3158317079</a></li>
+                                 href="tel:+573158317079">3158317079</a> - <a class="o-admissions-card__link"
+                                 href="tel:+573158317079">3184010834</a></li>
                 <li>Email: secretaria@liceoreydavid.edu.co</li>
                 <li>Horario de atención: Lunes a Viernes de 6:30 am - 12:00 pm</li>
               </ul>
