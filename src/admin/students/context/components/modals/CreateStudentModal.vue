@@ -197,7 +197,8 @@ const student = reactive({
   parentName: '',
   parentSurname: '',
   address: '',
-  cloudId: ''
+  cloudId: '',
+  id: 0
 })
 
 watch(
@@ -274,8 +275,9 @@ const validateDocument = async () => {
       if (students[0].getParentSurname()) student.parentSurname = students[0].getParentSurname()
       if (students[0].getAddress()) student.address = students[0].getAddress()
       if (students[0].getCloudId()) student.cloudId = students[0].getCloudId()
+      if (students[0].getId()) student.id = students[0].getId()
 
-      if (students[0].isActive()) await validateDebts(students[0].getId(), year)
+      if (students[0].isActive()) await validateDebts(students[0].getId(), year, students[0].getGrade())
     } else {
       notifications.notify('No se pudo validar el estudiante', 'error')
       closeModal()
@@ -285,11 +287,11 @@ const validateDocument = async () => {
   }
 }
 
-const validateDebts = async (studentId, year) => {
+const validateDebts = async (studentId, year, grade) => {
   try {
     const response = await paymentStore.searchPayments(studentId, year)
     if (response.consolidatedPayments[response.consolidatedPayments.length - 1].getBalance() > 0) {
-      notifications.notify(`El estudiante tiene deudas pendientes en el año ${year}`, 'warning')
+      notifications.notify(`El estudiante tiene deudas pendientes en el año ${year} en el grado ${grade}`, 'warning')
       closeModal()
       return
     }
@@ -350,12 +352,12 @@ const validateData = () => {
     return false
   }
 
-  if (student.registration === '0' || student.registration === '') {
+  if (student.registration === '0' || student.registration === '' || student.registration === 0) {
     notifications.notify('Debe ingresar el valor de matrícula del estudiante', 'error')
     return false
   }
 
-  if (student.pension === '0' || student.pension === '') {
+  if (student.pension === '0' || student.pension === '' || student.pension === 0) {
     notifications.notify('Debe ingresar el valor de pensión del estudiante', 'error')
     return false
   }
