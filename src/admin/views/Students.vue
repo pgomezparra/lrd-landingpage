@@ -7,7 +7,7 @@
       <p class="l-standard-title__text">Gestiona los estudiantes registrados en el sistema</p>
     </div>
     <div class="l-standard-option">
-      <p class="text-desktop">Selecciona el grado a consultar:</p>
+      <p class="text-desktop">Grado a consultar:</p>
       <p class="text-mobil">Grado a consultar:</p>
       <select
         class="select-standard"
@@ -32,6 +32,7 @@
         <option value="inactive">Inactivos</option>
       </select>
       <button class="button-standard" @click="addStudent">Agregar estudiante</button>
+      <button class="button-standard" @click="exportStudents">Exportar</button>
     </div>
 
     <div class="l-standard-container-card">
@@ -63,6 +64,7 @@ import { useVfm } from 'vue-final-modal'
 import EditStudentModal from '@/admin/students/context/components/modals/EditStudentModal.vue'
 import CreateStudentModal from '@/admin/students/context/components/modals/CreateStudentModal.vue'
 import DetailsStudentModal from '@/admin/students/context/components/modals/DetailsStudentModal.vue'
+import { notifications } from '@/shared/notifications.js'
 
 const preferenceStore = usePreferenceStore()
 const studentStore = useStudentStore()
@@ -86,6 +88,26 @@ async function refreshData() {
   preferenceStore.setLoading(true)
   try {
     await studentStore.searchStudents(statusFilter.value === 'active')
+  } catch (error) {
+    console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
+  }
+}
+
+async function exportStudents() {
+  if (preferenceStore.selectedGrade === 0) {
+    notifications.notify('Debe seleccionar un grado', 'error')
+    return
+  }
+  if (studentStore.students.length === 0) {
+    notifications.notify('No hay estudiantes para exportar', 'error')
+    return
+  }
+
+  preferenceStore.setLoading(true)
+  try {
+    await studentStore.exportStudents(statusFilter.value === 'active')
   } catch (error) {
     console.error(`error: ${error}`)
   } finally {

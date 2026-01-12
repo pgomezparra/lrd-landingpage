@@ -29,6 +29,11 @@ export const privateRoutes = [
         component: () => import('@/admin/views/News.vue')
       },
       {
+        path: 'school-government',
+        name: 'school-government',
+        component: () => import('@/admin/content/elections/context/views/Elections.vue')
+      },
+      {
         path: 'announcements',
         name: 'announcements',
         component: () => import('@/admin/views/Announcements.vue')

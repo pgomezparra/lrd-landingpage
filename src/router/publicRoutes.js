@@ -20,6 +20,11 @@ export const publicRoutes = [
     component: () => import('@/institutional/views/News.vue')
   },
   {
+    path: '/elections',
+    name: 'elections',
+    component: () => import('@/home/components/elections/Elections.vue')
+  },
+  {
     path: '/pqr',
     name: 'pqr',
     component: () => import('@/pqr/context/views/Pqr.vue')

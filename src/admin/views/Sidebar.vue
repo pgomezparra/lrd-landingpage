@@ -3,7 +3,10 @@
     <button class="hamburger" @click="isSidebarOpen = !isSidebarOpen">
       <img src="@/assets/img/general/hamburguer.svg" alt="hamburguer" />
     </button>
-    <div class="sidebar" :class="{ 'sidebar--open': isSidebarOpen, darkMode: preferenceStore.theme === 'dark'}">
+    <div
+      class="sidebar"
+      :class="{ 'sidebar--open': isSidebarOpen, darkMode: preferenceStore.theme === 'dark' }"
+    >
       <div class="sidebar-user-info">
         <img :src="user?.picture" alt="User Avatar" class="sidebar-user-info__img" />
         <div class="sidebar-user-info__user-details">
@@ -18,11 +21,7 @@
           v-model="preferenceStore.selectedYear"
           @change="handleChangeYear"
         >
-          <option
-            v-for="year in preferenceStore.years"
-            :key="year"
-            :value="year"
-          >
+          <option v-for="year in preferenceStore.years" :key="year" :value="year">
             {{ year }}
           </option>
         </select>
@@ -39,7 +38,9 @@
       <div v-if="userStore.user && preferenceStore.selectedYear" class="sidebar-menu-items">
         <div
           class="sidebar-menu-items-container"
-          :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'home' }"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'home'
+          }"
           @click="redirectTo('/admin/home', 'home')"
         >
           <img class="sidebar-menu-items__img" src="@/assets/img/general/home.svg" alt="home" />
@@ -49,38 +50,69 @@
         <div
           v-if="isValidMenu(['admin', 'general_secretary'])"
           class="sidebar-menu-items-container"
-          :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'dashboard' }"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'dashboard'
+          }"
           @click="redirectTo('/admin/dashboard', 'dashboard')"
         >
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/dashboard.svg" alt="dashboard" />
+          <img
+            class="sidebar-menu-items__img"
+            src="@/assets/img/general/dashboard.svg"
+            alt="dashboard"
+          />
           <p class="menu-item">Dashboard</p>
         </div>
 
         <div
           v-if="isValidMenu(['admin', 'secretary'])"
           class="sidebar-menu-items-container"
-          :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'payments' }"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'payments'
+          }"
           @click="redirectTo('/admin/payments', 'payments')"
         >
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/payment.svg" alt="payments" />
+          <img
+            class="sidebar-menu-items__img"
+            src="@/assets/img/general/payment.svg"
+            alt="payments"
+          />
           <p class="menu-item">Pagos</p>
         </div>
         <div
-          v-if="isValidMenu(['admin', 'content_manager'])"
+          v-if="isValidMenu(['admin', 'content_manager', 'elections'])"
           class="sidebar-menu-items-container-new"
-          :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'content' }"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'content'
+          }"
           @click="toggleSubMenu('content')"
         >
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/content.svg" alt="content">
+          <img
+            class="sidebar-menu-items__img"
+            src="@/assets/img/general/content.svg"
+            alt="content"
+          />
           <p class="menu-item">Contenido</p>
           <span :class="{ rotated: preferenceStore.selectedMenu === 'content' }">▼</span>
         </div>
         <div v-if="preferenceStore.selectedMenu === 'content'">
           <p
+            v-if="isValidMenu(['admin', 'content_manager'])"
             @click="redirectTo('/admin/news', 'content')"
             class="submenu-item"
             :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'news' }"
-          >Noticias</p>
+          >
+            Noticias
+          </p>
+          <p
+            v-if="isValidMenu(['admin', 'elections'])"
+            @click="redirectTo('/admin/school-government', 'content')"
+            class="submenu-item"
+            :class="{
+              'submenu-item--active': preferenceStore.selectedSubMenu === 'school-government'
+            }"
+          >
+            Gobierno escolar
+          </p>
           <!--          <p-->
           <!--            @click="redirectTo('/admin/announcements', 'content')"-->
           <!--            class="submenu-item"-->
@@ -90,10 +122,16 @@
         <div
           v-if="isValidMenu(['admin', 'secretary'])"
           class="sidebar-menu-items-container"
-          :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'students' }"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'students'
+          }"
           @click="redirectTo('/admin/students', 'students')"
         >
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="students" />
+          <img
+            class="sidebar-menu-items__img"
+            src="@/assets/img/general/student.svg"
+            alt="students"
+          />
           <p class="menu-item">Estudiantes</p>
         </div>
         <!--      <div-->
@@ -107,20 +145,32 @@
         <div
           v-if="isValidMenu(['admin', 'secretary'])"
           class="sidebar-menu-items-container"
-          :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'movements' }"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'movements'
+          }"
           @click="redirectTo('/admin/movements', 'movements')"
         >
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/movements.svg" alt="movements" />
+          <img
+            class="sidebar-menu-items__img"
+            src="@/assets/img/general/movements.svg"
+            alt="movements"
+          />
           <p class="menu-item">Movimientos</p>
         </div>
 
         <div
-          v-if="isValidMenu(['admin', 'secretary'])"
+          v-if="isValidMenu(['admin', 'secretary', 'general_secretary'])"
           class="sidebar-menu-items-container-new"
-          :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'reports' }"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'reports'
+          }"
           @click="toggleSubMenu('reports')"
         >
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/reports.svg" alt="reports" />
+          <img
+            class="sidebar-menu-items__img"
+            src="@/assets/img/general/reports.svg"
+            alt="reports"
+          />
           <p class="menu-item">Reportes</p>
           <span :class="{ rotated: preferenceStore.selectedMenu === 'reports' }">▼</span>
         </div>
@@ -136,7 +186,7 @@
           </p>
 
           <p
-            v-if="isValidMenu(['admin', 'secretary'])"
+            v-if="isValidMenu(['admin', 'secretary', 'general_secretary'])"
             class="submenu-item"
             :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'cash-flow' }"
             @click="redirectTo('/admin/cash-flow', 'reports')"
@@ -156,7 +206,9 @@
         <div
           v-if="isValidMenu(['admin', 'general_secretary'])"
           class="sidebar-menu-items-container-new"
-          :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'settings' }"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'settings'
+          }"
           @click="toggleSubMenu('settings')"
         >
           <img class="sidebar-menu-items__img" src="@/assets/img/general/gear.svg" alt="settings" />
@@ -167,7 +219,9 @@
           <p
             v-if="isValidMenu(['admin', 'general_secretary'])"
             class="submenu-item"
-            :class="{ 'submenu-item--active': preferenceStore.selectedSubMenu === 'payment-values' }"
+            :class="{
+              'submenu-item--active': preferenceStore.selectedSubMenu === 'payment-values'
+            }"
             @click="redirectTo('/admin/payment-values', 'settings')"
           >
             Tarifas
@@ -199,7 +253,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script setup>

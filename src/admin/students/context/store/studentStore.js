@@ -39,9 +39,29 @@ export const useStudentStore = defineStore('students', {
         console.error(`error: ${error}`)
       }
     },
+    async exportStudents(active) {
+      try {
+        let year = preferenceStore.selectedYear ? preferenceStore.selectedYear : new Date().getFullYear()
+        const response = await studentUc.exportStudents(preferenceStore.selectedGrade, year, active)
+        if (response.status !== 200) {
+          notifications.notify('No se pudieron exportar los estudiantes', 'error')
+        }
+
+        return response.status === 200
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
     async searchByDocument(document) {
       try {
         return await studentUc.searchByDocument(document)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+    async searchByDocumentAndYear(document) {
+      try {
+        return await studentUc.searchByDocumentAndYear(document, new Date().getFullYear())
       } catch (error) {
         console.error(`error: ${error}`)
       }

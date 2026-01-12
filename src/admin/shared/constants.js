@@ -1,4 +1,5 @@
 export const ACTIVITIES_PER_PAGE = 4
+export const CANDIDATES_PER_PAGE = 10
 
 export const MONTHS = [
   'Enero',
@@ -14,3 +15,8 @@ export const MONTHS = [
   'Noviembre',
   'Diciembre'
 ]
+
+export const CANDIDATE_TYPES = {
+  comptroller: 'Contraloría',
+  ombudsman: 'Personería'
+}

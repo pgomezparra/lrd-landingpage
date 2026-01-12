@@ -9,7 +9,7 @@ export default class StudentUc {
 
   async searchStudents(gradeId, year, active) {
     try {
-      const response = await this.#studentRepository.searchStudents(gradeId, year, active)
+      const response = await this.#studentRepository.searchStudents(gradeId, year, active, false)
       const students = response.data.map(student => Student.fromJSONResponse(student))
 
       return { status: response.status, students: students }
@@ -23,9 +23,45 @@ export default class StudentUc {
     }
   }
 
+  async exportStudents(gradeId, year, active) {
+    try {
+      const response = await this.#studentRepository.searchStudents(gradeId, year, active, true)
+
+      const blob = new Blob([response.data], { type: 'application/pdf' })
+      const url = window.URL.createObjectURL(blob)
+
+      window.open(url)
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, students: [] }
+      } else {
+        return { status: 500, students: [] }
+      }
+    }
+  }
+
   async searchByDocument(document) {
     try {
       const response = await this.#studentRepository.searchByDocument(document)
+      const students = response.data.map(student => Student.fromJSONResponse(student))
+
+      return { status: response.status, students: students }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, students: [] }
+      } else {
+        return { status: 500, students: [] }
+      }
+    }
+  }
+
+  async searchByDocumentAndYear(document, year) {
+    try {
+      const response = await this.#studentRepository.searchByDocumentAndYear(document, year)
       const students = response.data.map(student => Student.fromJSONResponse(student))
 
       return { status: response.status, students: students }

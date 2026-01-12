@@ -1,4 +1,5 @@
 @use '@/assets/scss/settings/colors';
+
 .header-news {
   display: flex;
   justify-content: space-between;
@@ -17,6 +18,15 @@
 
 .activities-container {
   max-height: calc(100vh - 16rem);
+  overflow-y: auto;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.candidates-container {
+  max-height: calc(100vh - 10rem);
   overflow-y: auto;
   padding-right: 8px;
   display: flex;
@@ -78,6 +88,7 @@
   justify-content: center;
   margin-top: 16px;
 }
+
 .darkMode {
   .header-news {
     display: flex;
@@ -96,8 +107,9 @@
   }
 
   .news-card {
-    background:  colors.$card-border-dark ;
+    background: colors.$card-border-dark;
     color: colors.$secondary-color;
+
     &:hover {
       background: colors.$bg-hover-dark;
     }

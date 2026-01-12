@@ -17,13 +17,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import Placeholder from '@/assets/img/placeholder.svg'
 import CulturalWeek from '@/assets/img/home/culturalWeek.webp'
 import SupplyList from '@/assets/img/home/supplyLists.webp'
+import Elections from '@/assets/img/home/elections.webp'
 import { useRouter } from 'vue-router'
+import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 
 const router = useRouter()
+const preferenceStore = usePreferenceStore()
+
+watch(
+  () => preferenceStore.publicPreferences,
+  (newVal) => {
+    if (newVal.getActiveElections()) {
+      announcements.value.unshift({ title: 'Elecciones de gobierno escolar', image: Elections, link: '/elections' })
+    }
+  }
+)
 
 const currentSlide = ref(0)
 const announcements = ref([
@@ -46,5 +58,12 @@ const redirectTo = (link) => {
     router.push(link)
   }
 }
+
+onMounted(() => {
+  if (!preferenceStore.publicPreferences) return
+  if (preferenceStore.publicPreferences.getActiveElections()) {
+    announcements.value.unshift({ title: 'Elecciones de gobierno escolar', image: Elections, link: '/elections' })
+  }
+})
 </script>
 
