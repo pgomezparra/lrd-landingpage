@@ -128,4 +128,51 @@ export default class PreferenceUc {
       }
     }
   }
+
+  async getPreferences() {
+    try {
+      const response = await this.#preferenceRepository.getPreferences()
+      const publicPreferences = PublicPreferences.fromJSONResponse(response.data.filter(preference => preference.type === 'public')[0])
+
+      return { status: response.status, publicPreferences: publicPreferences }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, publicPreferences: new PublicPreferences() }
+      } else {
+        return { status: 500, publicPreferences: new PublicPreferences() }
+      }
+    }
+  }
+
+  async savePreferences(publicPreferences, privatePreferences) {
+    try {
+      const response = await this.#preferenceRepository.savePreferences(this.processPreferences(publicPreferences, privatePreferences))
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status, message: error.response.data.message }
+      } else {
+        return { status: 500, message: 'Error al guardar las preferencias' }
+      }
+    }
+  }
+
+  processPreferences(publicPreferences, privatePreferences) {
+    return {
+      preferences: [
+        {
+          type: 'public',
+          show_info_modal: publicPreferences.showInfoModal,
+          active_elections: publicPreferences.activeElections
+        },
+        {
+          type: 'private',
+          show_info: privatePreferences.showInfo
+        }
+      ]
+    }
+  }
 }

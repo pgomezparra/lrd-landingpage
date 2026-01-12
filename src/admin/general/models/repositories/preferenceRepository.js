@@ -47,4 +47,16 @@ export default class PreferenceRepository {
 
     return customAxios.get(url)
   }
+
+  async getPreferences() {
+    let url = `${myUrl(3000)}/api/v1/preferences`
+
+    return customAxios.get(url)
+  }
+
+  async savePreferences(preferences) {
+    let url = `${myUrl(3000)}/api/v1/preferences`
+
+    return customAxios.put(url, preferences)
+  }
 }

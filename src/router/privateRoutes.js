@@ -72,6 +72,11 @@ export const privateRoutes = [
         path: 'pqrs',
         name: 'pqrs',
         component: () => import('@/admin/views/Pqrs.vue')
+      },
+      {
+        path: 'preferences',
+        name: 'preferences',
+        component: () => import('@/admin/general/context/views/Preferences.vue')
       }
     ]
   }

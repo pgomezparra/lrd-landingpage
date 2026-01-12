@@ -19,7 +19,8 @@ export const usePreferenceStore = defineStore('preference', {
     selectedMenu: 'home',
     selectedSubMenu: '',
     loading: false,
-    publicPreferences: null
+    publicPreferences: null,
+    privatePreferences: null
   }),
 
   actions: {
@@ -153,6 +154,28 @@ export const usePreferenceStore = defineStore('preference', {
       try {
         const response = await preferenceUc.getPublicPreferences()
         this.publicPreferences = markRaw(response.publicPreferences)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+
+    async getPreferences() {
+      try {
+        const response = await preferenceUc.getPreferences()
+        this.publicPreferences = markRaw(response.publicPreferences)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
+    },
+
+    async savePreferences(publicPreferences, privatePreferences) {
+      try {
+        const response = await preferenceUc.savePreferences(publicPreferences, privatePreferences)
+        if (response.status === 200) {
+          notifications.notify('Preferencias actualizadas correctamente', 'success')
+        } else {
+          notifications.notify(response.message, 'error')
+        }
       } catch (error) {
         console.error(`error: ${error}`)
       }

@@ -226,6 +226,16 @@
           >
             Tarifas
           </p>
+          <p
+            v-if="isValidMenu(['admin'])"
+            class="submenu-item"
+            :class="{
+              'submenu-item--active': preferenceStore.selectedSubMenu === 'preferences'
+            }"
+            @click="redirectTo('/admin/preferences', 'settings')"
+          >
+            Preferencias
+          </p>
         </div>
       </div>
 

@@ -21,8 +21,10 @@
         <tbody>
         <tr v-for="(value, index) in values" :key="value.gradeId">
           <td>{{ value.grade }}</td>
-          <td><input class="o-payment-values-table__input" type="text" inputmode="numeric" v-model="values[index].registration" /></td>
-          <td><input class="o-payment-values-table__input" type="text" inputmode="numeric" v-model="values[index].pension" /></td>
+          <td><input class="o-payment-values-table__input" type="text" inputmode="numeric"
+                     v-model="values[index].registration" /></td>
+          <td><input class="o-payment-values-table__input" type="text" inputmode="numeric"
+                     v-model="values[index].pension" /></td>
         </tr>
         </tbody>
       </table>
@@ -64,6 +66,7 @@ const setInitialValues = async () => {
 
   paymentValues.forEach(value => {
     const grade = preferenceStore.grades.find(grade => grade.getId() === value.getGradeId())
+    if (!grade) return
     values.push({
       gradeId: value.getGradeId(),
       registration: value.getRegistration(),
