@@ -6,7 +6,7 @@
       <section class="l-supply-lists__columns">
         <figure class="column__item">
           <div class="column__item-imgwrap">
-            <a href="https://drive.google.com/file/d/1aLDWCGntkbt1jgk9AtDcfFfQCdVV8eaE/view?usp=sharing"
+            <a href="https://drive.google.com/file/d/1nXiO0JLKQKEIHzssTbxfj0kcdZ5ClNbV/view?usp=sharing"
                target="_blank" rel="noopener noreferrer">
               <img src="@/assets/img/home/supply-lists/prejardin.webp" alt="pre-jardin" title="" height="" width="" />
             </a>
@@ -15,7 +15,7 @@
         </figure>
         <figure class="column__item">
           <div class="column__item-imgwrap">
-            <a href="https://drive.google.com/file/d/1LCK_N2ZrOhlu9n2tIs4_Ohi2G_Q3pUFq/view?usp=sharing"
+            <a href="https://drive.google.com/file/d/14rOBS41GYj-JqnO9c6AC1Yghw6ZoY2J6/view?usp=sharing"
                target="_blank" rel="noopener noreferrer">
               <img src="@/assets/img/home/supply-lists/jardin.webp" alt="jardín" title="" height="" width="" />
             </a>
@@ -24,7 +24,7 @@
         </figure>
         <figure class="column__item">
           <div class="column__item-imgwrap">
-            <a href="https://drive.google.com/file/d/16iohuIGqhKFCyBzy_JurpMaDz_y1La-1/view?usp=sharing"
+            <a href="https://drive.google.com/file/d/1bt2iW7nZLZA-cXgElB8oKC1vg2b7N0ss/view?usp=sharing"
                target="_blank" rel="noopener noreferrer">
               <img src="@/assets/img/home/supply-lists/transicion.webp" alt="transicion" title="" height="" width="" />
             </a>
@@ -33,7 +33,7 @@
         </figure>
         <figure class="column__item">
           <div class="column__item-imgwrap">
-            <a href="https://drive.google.com/file/d/1Zlv8KcvC0W8433nyO0ocLHflotQwU-us/view?usp=sharing"
+            <a href="https://drive.google.com/file/d/1U5oPuH4_9zqKkgTnav0hv-vrgeYLSVYh/view?usp=sharing"
                target="_blank" rel="noopener noreferrer">
               <img src="@/assets/img/home/supply-lists/primaria.webp" alt="primaria" title="" height="" width="" />
             </a>
@@ -42,7 +42,7 @@
         </figure>
         <figure class="column__item">
           <div class="column__item-imgwrap">
-            <a href="https://drive.google.com/file/d/1iOM-TDF3wBug0Zu7LhFFqc5BuNyxXv1G/view?usp=sharing"
+            <a href="https://drive.google.com/file/d/1nCHMz20JZWUl1dqAPTxzxUmqNJtPn7iT/view?usp=sharing"
                target="_blank" rel="noopener noreferrer">
               <img src="@/assets/img/home/supply-lists/bachillerato.webp" alt="bachillerato" title="" height=""
                    width="" />
