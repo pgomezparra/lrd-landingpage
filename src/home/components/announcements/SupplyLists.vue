@@ -1,7 +1,7 @@
 <template>
   <NavBar />
   <div class="l-supply-lists">
-    <p class="l-supply-lists__title">Listas de útiles 2025</p>
+    <p class="l-supply-lists__title">Listas de útiles {{ year }}</p>
     <main>
       <section class="l-supply-lists__columns">
         <figure class="column__item">
@@ -61,6 +61,8 @@
 import Footer from '@/general/components/Footer.vue'
 import NavBar from '@/navbar/components/NavBar.vue'
 import Whatsapp from '@/general/components/Whatsapp.vue'
+
+const year = new Date().getFullYear()
 
 </script>
 

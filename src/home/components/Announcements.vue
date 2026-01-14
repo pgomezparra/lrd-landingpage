@@ -39,7 +39,7 @@ watch(
 
 const currentSlide = ref(0)
 const announcements = ref([
-  { title: 'Listas de útiles 2025', image: SupplyList, link: 'school-supply-lists' },
+  { title: `Listas de útiles ${new Date().getFullYear()}`, image: SupplyList, link: 'school-supply-lists' },
   { title: 'Semana Cultural - 30 sep al 06 oct', image: CulturalWeek, link: '' }
   // { title: 'Nuevos talleres extracurriculares', image: Placeholder }
 ])
