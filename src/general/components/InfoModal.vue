@@ -3,7 +3,7 @@
     <div class="m-modal-info__container">
       <div class="-m-modal-info__container__image-container">
         <img
-          src="@/assets/img/general/modalImage.png"
+          src="@/assets/img/general/modalImage.jpg"
           alt="Modal Image"
           class="m-modal-info__container__image-container__image"
         />
