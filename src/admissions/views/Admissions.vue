@@ -3,7 +3,7 @@
   <div class="l-admissions">
     <main>
       <div class="l-admissions__container">
-        <h1 class="l-admissions__container__title">Requisitos de inscripción y costos 2026</h1>
+        <h1 class="l-admissions__container__title">Requisitos de inscripción</h1>
 
         <section class="l-admissions__container__section">
           <div class="o-admissions-card">
