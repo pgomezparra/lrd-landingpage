@@ -87,7 +87,7 @@
           ></textarea>
         </div>
         <div class="form-group">
-          <p>Valor (Saldo: $ {{ balance < 0 ? 0 : balance }})</p>
+          <p>Valor (Saldo: $ {{ parseInt(balance) < 0 ? 0 : balance }})</p>
           <input
             :disabled="payment.excluded"
             v-model="payment.value"
@@ -152,16 +152,8 @@ const payment = reactive({
 })
 
 watch(
-  () => [payment.excluded, payment.payment_method_id],
-  ([newExcluded, newMethodId], [oldExcluded, oldMethodId]) => {
-    if (newExcluded) {
-      payment.payment_method_id = 1
-      payment.transfer_code = ''
-    }
-    if (newMethodId === 1) {
-      payment.transfer_code = ''
-    }
-
+  () => payment.payment_method_id,
+  (newMethodId) => {
     nextTick(() => {
       newMethodId === 2 ? transferCode.value?.focus() : description.value?.focus()
     })
@@ -216,6 +208,8 @@ const clearData = () => {
 
 const registerPayment = async () => {
   if (!validateData()) return
+
+  if (payment.payment_method_id !== 2) payment.transfer_code = ''
 
   preferencesStore.setLoading(true)
   try {

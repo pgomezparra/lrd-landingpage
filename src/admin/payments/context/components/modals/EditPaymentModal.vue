@@ -150,12 +150,8 @@ const payment = reactive({
 const emit = defineEmits(['refresh'])
 
 watch(
-  () => [payment.excluded, payment.payment_method_id],
-  ([newExcluded, newMethodId], [oldExcluded, oldMethodId]) => {
-    if (newExcluded) {
-      payment.payment_method_id = 1
-    }
-
+  () => payment.payment_method_id,
+  (newMethodId) => {
     nextTick(() => {
       newMethodId === 2 ? transferCode.value?.focus() : description.value?.focus()
     })
@@ -166,10 +162,6 @@ const updatePayment = async () => {
   if (!validateData()) return
 
   if (payment.payment_method_id !== 2) payment.transfer_code = ''
-  if (payment.excluded) {
-    payment.transfer_code = ''
-    payment.value = 0
-  }
 
   preferencesStore.setLoading(true)
   try {
