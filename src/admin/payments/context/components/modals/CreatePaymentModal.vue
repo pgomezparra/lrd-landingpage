@@ -203,6 +203,7 @@ const clearData = () => {
   payment.payment_method_id = 0
   payment.year = 0
   payment.student_id = 0
+  payment.transfer_code = ''
   toPay.value = 0
 }
 
