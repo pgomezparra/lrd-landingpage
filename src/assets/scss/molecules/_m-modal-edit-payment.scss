@@ -144,6 +144,7 @@ input:checked + .slider::before {
   .form-group {
     background-color: transparent;
   }
+
   .form-group input,
   .form-group select,
   .form-group textarea {
@@ -164,6 +165,7 @@ input:checked + .slider::before {
     color: colors.$secondary-color;
 
   }
+
   input:checked + .slider {
     background-color: colors.$text-dark-blue;
   }

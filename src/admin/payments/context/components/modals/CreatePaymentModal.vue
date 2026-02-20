@@ -14,27 +14,28 @@
     <div>
       <p class="modal-title">Registrar pago</p>
       <div class="modal-body">
-        <div>
-          <div class="container-form-edit">
-            <div class="form-group">
-              <p>Fecha</p>
-              <Datepicker
-                v-model="payment.date"
-                :autoApply="true"
-                :enable-time-picker="false"
-                format="yyyy-MM-dd"
-                locale="es"
-                :maxDate="new Date()"
-                :clearable="false"
-              />
-            </div>
-            <div class="form-group">
-              <p>Tipo de pago</p>
-              <select class="select-methods" v-model="payment.payment_type_id" disabled>
-                <option value="1">Matrícula</option>
-                <option value="2">Pensión</option>
-              </select>
-            </div>
+        <p>Estudiante: <b>{{ studentStore.selectedStudent.getName() }} {{ studentStore.selectedStudent.getSurname()
+          }}</b> ({{ studentStore.selectedStudent.getGrade() }})
+        </p>
+        <div class="container-form-edit">
+          <div class="form-group">
+            <p>Fecha</p>
+            <Datepicker
+              v-model="payment.date"
+              :autoApply="true"
+              :enable-time-picker="false"
+              format="yyyy-MM-dd"
+              locale="es"
+              :maxDate="new Date()"
+              :clearable="false"
+            />
+          </div>
+          <div class="form-group">
+            <p>Tipo de pago</p>
+            <select class="select-methods" v-model="payment.payment_type_id" disabled>
+              <option value="1">Matrícula</option>
+              <option value="2">Pensión</option>
+            </select>
           </div>
         </div>
         <div class="container-form-edit">

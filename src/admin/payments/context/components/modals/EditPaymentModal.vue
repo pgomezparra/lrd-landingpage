@@ -13,6 +13,9 @@
     <div>
       <p class="modal-title">Editar pago</p>
       <div class="modal-body">
+        <p>Estudiante: <b>{{ studentStore.selectedStudent.getName() }} {{ studentStore.selectedStudent.getSurname()
+          }}</b> ({{ studentStore.selectedStudent.getGrade() }})
+        </p>
         <div class="container-form-edit">
           <div class="form-group">
             <p>Fecha</p>

@@ -36,19 +36,30 @@
     </div>
 
     <div class="l-standard-container-card">
-      <div class="cards" v-for="(student, index) in studentStore.students" :key="index"
-           @click="studentDetails(student)">
-        <div>
+      <div
+        class="cards"
+        v-for="(student, index) in studentStore.students"
+        :key="index"
+        @click="studentDetails(student)"
+      >
+        <div class="cards__avatar">
           <img src="@/assets/img/general/person.svg" alt="person">
         </div>
-        <p>{{ student.getDocumentType() }} {{ student.getDocument() }}</p>
-        <div class="cards__name">
-          <p>{{ student.getName() }}</p>
-          <p>{{ student.getSurname() }}</p>
-          <p v-if="statusFilter === 'inactive'">{{ student.getGrade() }}</p>
+
+        <div class="cards__content">
+          <p class="cards__document">
+            {{ student.getDocumentType() }} {{ student.getDocument() }}
+          </p>
+
+          <p class="cards__name">
+            {{ student.getName() }} {{ student.getSurname() }}
+          </p>
+
+          <p v-if="statusFilter === 'inactive'" class="cards__grade">
+            {{ student.getGrade() }}
+          </p>
         </div>
       </div>
-
     </div>
   </div>
   <edit-student-modal @changeActive="statusFilter = 'active'" @refresh="refreshData" />
@@ -135,6 +146,10 @@ watch(
       studentStore.setStudents([])
     }
     if (newVal.grade && newVal.year && newVal.grade !== 0) {
+      await refreshData()
+    }
+
+    if (newVal.year && newVal.grade === 0 && statusFilter.value !== 'active') {
       await refreshData()
     }
   }
