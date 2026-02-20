@@ -114,6 +114,8 @@ const changeStatusFilter = async (event) => {
   if (event.target.value === 'inactive') {
     preferenceStore.setSelectedGrade(0)
     await refreshData()
+  } else {
+    search.value = ''
   }
 }
 
