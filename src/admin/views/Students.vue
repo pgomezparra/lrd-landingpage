@@ -6,6 +6,17 @@
       </div>
       <p class="l-standard-title__text">Gestiona los estudiantes registrados en el sistema</p>
     </div>
+    <div>
+      <div class="form-group">
+        <p>Buscar: </p>
+        <input
+          v-model="search"
+          ref="searchInput"
+          type="text"
+          placeholder="Nombre estudiante"
+        />
+      </div>
+    </div>
     <div class="l-standard-option">
       <p class="text-desktop">Grado a consultar:</p>
       <p class="text-mobil">Grado a consultar:</p>
@@ -38,7 +49,7 @@
     <div class="l-standard-container-card">
       <div
         class="cards"
-        v-for="(student, index) in studentStore.students"
+        v-for="(student, index) in filteredStudents"
         :key="index"
         @click="studentDetails(student)"
       >
@@ -68,7 +79,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { useVfm } from 'vue-final-modal'
@@ -82,6 +93,17 @@ const studentStore = useStudentStore()
 const vfm = useVfm()
 
 const statusFilter = ref('active')
+const search = ref('')
+const searchInput = ref(null)
+
+const filteredStudents = computed(() => {
+  if (search.value === '') {
+    return studentStore.students
+  }
+  return studentStore.students.filter((student) => {
+    return `${student.getName()} ${student.getSurname()}`.toLowerCase().includes(search.value.toLowerCase())
+  })
+})
 
 const handleGradeChange = async (event) => {
   preferenceStore.setSelectedGrade(parseInt(event.target.value))
@@ -98,7 +120,11 @@ const changeStatusFilter = async (event) => {
 async function refreshData() {
   preferenceStore.setLoading(true)
   try {
+    search.value = ''
     await studentStore.searchStudents(statusFilter.value === 'active')
+    await nextTick(() => {
+      searchInput.value?.focus()
+    })
   } catch (error) {
     console.error(`error: ${error}`)
   } finally {
