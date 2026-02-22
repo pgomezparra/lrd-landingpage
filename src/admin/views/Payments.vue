@@ -92,9 +92,15 @@
         <h2>Resumen de pagos</h2>
 
         <div class="payment-card main-payment">
-          <h3>Matrícula</h3>
-          <p>Pagado: $ {{ consolidatedPayments[0].getValueFormatted() }}</p>
-          <p>Saldo: $ {{ consolidatedPayments[0].getBalanceFormatted() }}</p>
+          <div class="payment-card__status">
+            <span v-if="consolidatedPayments[0].getBalance() <= 0" class="status-dot status-dot--green"></span>
+            <span v-else-if="consolidatedPayments[0].getBalance() > 0" class="status-dot status-dot--yellow"></span>
+          </div>
+          <div class="payment-card__content">
+            <h3>Matrícula</h3>
+            <p>Pagado: $ {{ consolidatedPayments[0].getValueFormatted() }}</p>
+            <p>Saldo: $ {{ consolidatedPayments[0].getBalanceFormatted() }}</p>
+          </div>
         </div>
 
         <div class="payments-grid compact">
@@ -103,9 +109,15 @@
             v-for="payment in consolidatedPayments.slice(1)"
             :key="payment.getMonthId()"
           >
-            <strong>{{ payment.getMonth() }}</strong>
-            <span>$ {{ payment.getValueFormatted() }}</span>
-            <span>Saldo: $ {{ payment.getBalanceFormatted() }}</span>
+            <div class="payment-card__status">
+              <span v-if="payment.getBalance() <= 0" class="status-dot status-dot--green"></span>
+              <span v-else-if="payment.getBalance() > 0" class="status-dot status-dot--yellow"></span>
+            </div>
+            <div class="payment-card__content">
+              <strong>{{ payment.getMonth() }}</strong>
+              <span>$ {{ payment.getValueFormatted() }}</span>
+              <span>Saldo: $ {{ payment.getBalanceFormatted() }}</span>
+            </div>
           </div>
         </div>
       </div>
