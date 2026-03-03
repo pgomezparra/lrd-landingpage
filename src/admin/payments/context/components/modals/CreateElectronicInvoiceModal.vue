@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="createElectronicInvoiceModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -81,7 +81,7 @@
 
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { notifications } from '@/shared/notifications.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
@@ -89,6 +89,8 @@ import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 const vfm = useVfm()
 const preferenceStore = usePreferenceStore()
 const paymentsStore = usePaymentStore()
+
+const theme = computed(() => preferenceStore.theme)
 
 const emit = defineEmits(['refresh', 'clear'])
 

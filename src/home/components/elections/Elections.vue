@@ -30,6 +30,7 @@
 
     <div v-else class="card">
       <h2>Tarjetón electoral</h2>
+      <h3>{{ student.getName() }} {{ student.getSurname() }} ({{ student.getGrade() }})</h3>
       <p class="subtitle">
         Seleccione un candidato por cada categoría
       </p>
@@ -114,7 +115,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, computed, onMounted, watch, nextTick, markRaw } from 'vue'
 import NavBar from '@/navbar/components/NavBar.vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { notifications } from '@/shared/notifications.js'
@@ -132,6 +133,7 @@ const documentInput = ref(null)
 const step = ref(1)
 const document = ref('')
 const studentId = ref(0)
+const student = ref(null)
 
 const vote = ref({
   comptroller: null,
@@ -212,6 +214,7 @@ const goToVoting = async () => {
     if (success) {
       step.value = 2
       studentId.value = response.students[0].getId()
+      student.value = markRaw(response.students[0])
     } else {
       notifications.notify('Error al buscar los candidatos', 'error')
     }
@@ -242,6 +245,7 @@ const submitVote = async () => {
       step.value = 1
       document.value = ''
       studentId.value = 0
+      student.value = null
       vote.value = {
         comptroller: null,
         ombudsman: null
