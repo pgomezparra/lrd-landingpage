@@ -42,7 +42,10 @@
         <option value="active">Activos</option>
         <option value="inactive">Inactivos</option>
       </select>
-      <button class="button-standard" @click="addStudent">Agregar estudiante</button>
+      <button class="button-standard" @click="addStudent">
+        <img class="button-payment-img" src="../../assets/img/general/plus.svg" alt="payment">
+        Agregar
+      </button>
       <button class="button-standard" @click="exportStudents">Exportar</button>
     </div>
 

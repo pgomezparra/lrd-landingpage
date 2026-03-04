@@ -352,12 +352,12 @@ const validateData = () => {
     return false
   }
 
-  if (student.registration === '0' || student.registration === '' || student.registration === 0) {
+  if (student.registration === '') {
     notifications.notify('Debe ingresar el valor de matrícula del estudiante', 'error')
     return false
   }
 
-  if (student.pension === '0' || student.pension === '' || student.pension === 0) {
+  if (student.pension === '') {
     notifications.notify('Debe ingresar el valor de pensión del estudiante', 'error')
     return false
   }

@@ -124,7 +124,7 @@
       <div class="l-standard-container-payments__title-payment">
         <p class="l-standard-container-payments__title">Historial de pagos</p>
         <button class="button-payment" @click="addPayment">
-          <img class="button-payment-img" src="@/assets/img/general/payments.svg" alt="payment">
+          <img class="button-payment-img" src="../../assets/img/general/plus.svg" alt="payment">
           Generar pago
         </button>
       </div>
