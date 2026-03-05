@@ -20,3 +20,19 @@ export const CANDIDATE_TYPES = {
   comptroller: 'Contraloría',
   ombudsman: 'Personería'
 }
+
+export const DOCUMENT_TYPES = {
+  cc: 'C.C.',
+  ppt: 'PPT'
+}
+
+export const DOCUMENT_TYPES_TEXT = {
+  cc: 'Cédula de ciudadanía',
+  ppt: 'Permiso de proteccción temporal'
+}
+
+export const EMPLOYEE_TYPES = {
+  admin: 'Administrativo',
+  teacher: 'Docente',
+  services: 'Servicios'
+}

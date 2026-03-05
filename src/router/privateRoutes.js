@@ -46,7 +46,7 @@ export const privateRoutes = [
       {
         path: 'employees',
         name: 'employees',
-        component: () => import('@/admin/views/Employees.vue')
+        component: () => import('@/admin/employees/context/views/Employees.vue')
       },
       {
         path: 'movements',

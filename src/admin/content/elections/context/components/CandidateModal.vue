@@ -151,6 +151,7 @@ const beforeOpen = () => {
   candidate.type = electionsStore.selectedCandidate.getType()
   candidate.numberList = electionsStore.selectedCandidate.getNumberList()
   candidate.logo = electionsStore.selectedCandidate.getLogo()
+  candidate.year = preferencesStore.selectedYear
 }
 
 const onOpened = () => {

@@ -134,14 +134,21 @@
           />
           <p class="menu-item">Estudiantes</p>
         </div>
-        <!--      <div-->
-        <!--        class="sidebar-menu-items-container"-->
-        <!--        :class="{ 'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'employees' }"-->
-        <!--        @click="redirectTo('/admin/employees')"-->
-        <!--      >-->
-        <!--        <img class="sidebar-menu-items__img" src="@/assets/img/general/student.svg" alt="employee" />-->
-        <!--        <p class="menu-item">Empleados</p>-->
-        <!--      </div>-->
+        <div
+          v-if="isValidMenu(['admin', 'general_secretary'])"
+          class="sidebar-menu-items-container"
+          :class="{
+            'sidebar-menu-items-container-selected': preferenceStore.selectedMenu === 'employees'
+          }"
+          @click="redirectTo('/admin/employees', 'employees')"
+        >
+          <img
+            class="sidebar-menu-items__img"
+            src="@/assets/img/general/employee.svg"
+            alt="employee"
+          />
+          <p class="menu-item">Empleados</p>
+        </div>
         <div
           v-if="isValidMenu(['admin', 'secretary'])"
           class="sidebar-menu-items-container"
