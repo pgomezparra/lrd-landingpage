@@ -112,6 +112,7 @@ export const useEmployeeStore = defineStore('employees', {
           })
         })
         const orders = [
+          { order_by: 'employee_type', order_type: 'desc' },
           { order_by: 'surname', order_type: 'asc' }
         ]
 
