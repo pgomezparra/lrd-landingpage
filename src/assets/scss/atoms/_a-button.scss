@@ -212,6 +212,36 @@
   }
 }
 
+.export-container {
+  position: relative;
+  display: inline-block;
+}
+
+.export-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 220px;
+  background: #1e1e2f;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  padding: 8px 0;
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.export-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+  transition: background 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
 
 @media screen and (max-width: 768px) {
   .a-button-whatsapp {
@@ -220,6 +250,14 @@
 
   .button-standard {
     font-size: 0.8rem;
+  }
+
+  .export-container {
+    width: 100%;
+  }
+
+  .export-container .button-standard {
+    width: 100%;
   }
 }
 

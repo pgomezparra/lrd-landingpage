@@ -46,7 +46,20 @@
         <img class="button-payment-img" src="../../assets/img/general/plus.svg" alt="payment">
         Agregar
       </button>
-      <button class="button-standard" @click="exportStudents">Exportar</button>
+      <div class="export-container" ref="exportRef">
+        <button class="button-standard" @click="toggleExportMenu">
+          Exportar ⌄
+        </button>
+
+        <div v-if="showExportMenu" class="export-menu">
+          <div class="export-item" @click="handleExport('pdf_students_list')">
+            Lista de estudiantes
+          </div>
+          <div class="export-item" @click="handleExport('pdf_parents_school')">
+            Planilla escuela de padres
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="l-standard-container-card">
@@ -98,6 +111,8 @@ const vfm = useVfm()
 const statusFilter = ref('active')
 const search = ref('')
 const searchInput = ref(null)
+const showExportMenu = ref(false)
+const exportRef = ref(null)
 
 const filteredStudents = computed(() => {
   if (search.value === '') {
@@ -107,6 +122,10 @@ const filteredStudents = computed(() => {
     return `${student.getName()} ${student.getSurname()}`.toLowerCase().includes(search.value.toLowerCase())
   })
 })
+
+const toggleExportMenu = () => {
+  showExportMenu.value = !showExportMenu.value
+}
 
 const handleGradeChange = async (event) => {
   preferenceStore.setSelectedGrade(parseInt(event.target.value))
@@ -137,7 +156,9 @@ async function refreshData() {
   }
 }
 
-async function exportStudents() {
+async function handleExport(type) {
+  showExportMenu.value = false
+
   if (preferenceStore.selectedGrade === 0) {
     notifications.notify('Debe seleccionar un grado', 'error')
     return
@@ -149,7 +170,7 @@ async function exportStudents() {
 
   preferenceStore.setLoading(true)
   try {
-    await studentStore.exportStudents(statusFilter.value === 'active')
+    await studentStore.exportStudents(statusFilter.value === 'active', type)
   } catch (error) {
     console.error(`error: ${error}`)
   } finally {
@@ -190,5 +211,10 @@ onMounted(async () => {
   preferenceStore.setSelectedGrade(0)
   studentStore.setSelectedStudent(null)
   studentStore.setStudents([])
+  document.addEventListener('click', (e) => {
+    if (exportRef.value && !exportRef.value.contains(e.target)) {
+      showExportMenu.value = false
+    }
+  })
 })
 </script>

@@ -23,9 +23,9 @@ export default class StudentUc {
     }
   }
 
-  async exportStudents(gradeId, year, active) {
+  async exportStudents(gradeId, year, active, exportType) {
     try {
-      const response = await this.#studentRepository.searchStudents(gradeId, year, active, true)
+      const response = await this.#studentRepository.searchStudents(gradeId, year, active, exportType)
 
       const blob = new Blob([response.data], { type: 'application/pdf' })
       const url = window.URL.createObjectURL(blob)

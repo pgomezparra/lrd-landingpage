@@ -2,10 +2,10 @@ import myUrl from '@/shared/myUrl.js'
 import { customAxios } from '@/shared/axios.js'
 
 export default class StudentRepository {
-  async searchStudents(gradeId, year, active, exportStudents) {
+  async searchStudents(gradeId, year, active, exportType) {
     let url = `${myUrl(3000)}/api/v1/students?gradeId=${gradeId}&year=${year}&active=${active}`
-    if (exportStudents) {
-      url = `${url}&format=pdf`
+    if (exportType) {
+      url = `${url}&format=${exportType}`
 
       return customAxios.get(url, {
         responseType: 'blob'
