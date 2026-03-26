@@ -27,6 +27,16 @@
         </div>
         <div class="form-group">
           <p>Tipo de empleado</p>
+          <div class="checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                :value="true"
+                v-model="selectAll"
+              />
+              Todos
+            </label>
+          </div>
           <div
             v-for="(item, index) in EMPLOYEE_TYPES"
             :key="index"
@@ -54,7 +64,7 @@
 
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { EMPLOYEE_TYPES } from '@/admin/shared/constants.js'
 import { useEmployeeStore } from '@/admin/employees/context/store/employeeStore.js'
@@ -64,6 +74,7 @@ const vfm = useVfm()
 const employeeStore = useEmployeeStore()
 const preferenceStore = usePreferenceStore()
 const theme = computed(() => preferenceStore.theme)
+const selectAll = ref(false)
 
 const props = defineProps({
   statusFilter: {
@@ -75,7 +86,16 @@ const props = defineProps({
 const month = ref(0)
 const types = ref([])
 
+watch(() => selectAll.value, (newValue) => {
+  if (newValue) {
+    types.value = Object.keys(EMPLOYEE_TYPES)
+  } else {
+    types.value = []
+  }
+})
+
 const beforeOpen = () => {
+  selectAll.value = false
   month.value = 0
   types.value = []
 }
