@@ -58,6 +58,9 @@
           <div class="export-item" @click="handleExport('pdf_parents_school')">
             Planilla escuela de padres
           </div>
+          <div class="export-item" @click="handleExport('pdf_notes')">
+            Planilla de notas
+          </div>
         </div>
       </div>
     </div>
