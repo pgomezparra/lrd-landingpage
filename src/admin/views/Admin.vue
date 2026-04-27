@@ -4,7 +4,7 @@
     <sidebar />
 
     <!-- Contenedor dinámico -->
-    <main class="content">
+    <main class="content" id="private-content">
       <router-view />
       <ModalsContainer />
     </main>
