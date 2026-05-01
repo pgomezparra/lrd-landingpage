@@ -13,17 +13,16 @@
       <p class="modal-title">Resultados elección</p>
 
       <div class="modal-body">
-        <div class="data-container">
+        <div class="o-results-modal__data-container">
           <p>Total de votos: {{ total }}</p>
-          <!--          <div class="charts">-->
-          <div class="chart-card">
+          <div class="o-results-modal__chart-card">
             <h4>Resultados Personería</h4>
 
-            <p v-for="(c, i) in ombudsman" :key="i" class="text-result">
+            <p v-for="(c, i) in ombudsman" :key="i" class="o-results-modal__text-result">
               {{ c.getName() }}: {{ c.getVotes() }}
             </p>
 
-            <div class="chart-wrapper">
+            <div class="o-results-modal__chart-wrapper">
               <Bar
                 :key="personeriaKey"
                 :data="personeriaChartData"
@@ -32,12 +31,12 @@
             </div>
           </div>
 
-          <div class="chart-card">
+          <div class="o-results-modal__chart-card">
             <h4>Resultados Contraloría</h4>
-            <p v-for="(c, i) in comptroller" :key="i" class="text-result">
+            <p v-for="(c, i) in comptroller" :key="i" class="o-results-modal__text-result">
               {{ c.getName() }}: {{ c.getVotes() }}
             </p>
-            <div class="chart-wrapper">
+            <div class="o-results-modal__chart-wrapper">
               <Bar
                 :key="contraloriaKey"
                 :data="contraloriaChartData"
@@ -45,7 +44,6 @@
               />
             </div>
           </div>
-          <!--          </div>-->
         </div>
       </div>
       <div class="modal-actions">
@@ -201,40 +199,4 @@ const closeModal = () => {
 }
 </script>
 
-<style scoped>
-.charts {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  margin-top: 16px;
-}
 
-.chart-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 16px;
-}
-
-.chart-wrapper {
-  position: relative;
-  height: 240px;
-  width: 100%;
-}
-
-.chart-card h4 {
-  margin-bottom: 12px;
-  color: #7a0c0c;
-  text-align: center;
-}
-
-.data-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.text-result {
-  font-size: 1rem;
-  color: #7a0c0c;
-}
-</style>

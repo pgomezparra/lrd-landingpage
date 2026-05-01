@@ -1,20 +1,20 @@
 <template>
-  <div class="soporte-container-certificate">
-    <div class="print-area-certificate">
-      <div class="certificate">
+  <div class="m-no-debt-certificate">
+    <div class="m-no-debt-certificate__print-area">
+      <div class="m-no-debt-certificate__certificate">
 
-        <div class="header-certificate">
-          <img src="@/assets/img/logo.png" alt="Logo" class="logo" />
-          <div class="institution-info">
+        <div class="m-no-debt-certificate__header">
+          <img src="@/assets/img/logo.png" alt="Logo" class="m-no-debt-certificate__logo" />
+          <div class="m-no-debt-certificate__institution-info">
             <h1>LICEO REY DAVID</h1>
             <p>PRESCOLAR - PRIMARIA - BACHILLERATO</p>
           </div>
         </div>
 
 
-        <div class="body-certificate">
-          <h2 class="title-certificate">Paz y Salvo</h2>
-          <p class="text-certificate">
+        <div class="m-no-debt-certificate__body">
+          <h2 class="m-no-debt-certificate__title">Paz y Salvo</h2>
+          <p class="m-no-debt-certificate__text">
             El Liceo Rey David hace constar que
             <strong>{{ student.getName().toUpperCase() }} {{ student.getSurname().toUpperCase() }}</strong>,
             matriculado en el grado <strong>{{ student.getGrade().toUpperCase() }}</strong> en el año
@@ -23,8 +23,7 @@
           </p>
         </div>
 
-        <!-- Firma -->
-        <div class="signature-certificate">
+        <div class="m-no-debt-certificate__signature">
           <div class="line"></div>
           <p>SECRETARIA</p>
         </div>
@@ -48,120 +47,3 @@ onMounted(() => {
   }, 500)
 })
 </script>
-
-<style>
-.soporte-container-certificate {
-  position: fixed;
-  inset: 0;
-  background: white;
-  z-index: 9999;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.print-area-certificate {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.certificate {
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  font-family: "Times New Roman", serif;
-  color: #000;
-}
-
-/* Encabezado */
-.header-certificate {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-bottom: 1.5rem;
-}
-
-.logo {
-  width: 70px;
-  height: auto;
-}
-
-.institution-info h1 {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.institution-info p {
-  font-size: 0.9rem;
-  margin: 0;
-  text-transform: uppercase;
-}
-
-/* Cuerpo */
-.body-certificate {
-  margin-top: 3rem;
-}
-
-.title-certificate {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 1.2rem;
-}
-
-.text-certificate {
-  text-align: justify;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* Firma */
-.signature-certificate {
-  text-align: center;
-  margin-top: 4rem;
-}
-
-.signature-certificate .line {
-  border-top: 1px solid #000;
-  width: 50%;
-  margin: 0 auto 0.3rem;
-}
-
-.signature-certificate p {
-  margin: 0;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-/* --- Configuración para impresión --- */
-@media print {
-  @page {
-    size: 5.5in 8.5in landscape;
-    margin: 1cm;
-  }
-
-  body * {
-    visibility: hidden !important;
-  }
-
-  .print-area-certificate, .print-area-certificate * {
-    visibility: visible !important;
-  }
-
-  .print-area-certificate {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-  }
-
-  .soporte-container-certificate {
-    background: white !important;
-    padding: 0;
-    margin: 0;
-  }
-}
-</style>

@@ -15,10 +15,12 @@
 @use 'layout/l-pqr';
 @use 'layout/l-supply-lists';
 @use 'layout/l-institutional';
-@use "layout/l-standard";
-@use "layout/l-sidebar";
-@use "layout/l-home-portal";
-@use "layout/l-debtors";
+@use 'layout/l-standard';
+@use 'layout/l-sidebar';
+@use 'layout/l-home-portal';
+@use 'layout/l-debtors';
+@use 'layout/l-preferences';
+@use 'layout/l-without-years';
 
 /****** Organisms ******/
 @use 'organisms/o-header-home';
@@ -28,13 +30,16 @@
 @use 'organisms/o-footer';
 @use 'organisms/o-admissions-card';
 @use 'organisms/o-gallery-colum';
-@use "organisms/o-pqr-form";
-@use "organisms/o-list-movement";
-@use "organisms/o-dashboard";
-@use "organisms/o-payment-values-table";
-@use "organisms/o-news";
-@use "organisms/o-cash-flow";
-@use "organisms/o-students";
+@use 'organisms/o-pqr-form';
+@use 'organisms/o-list-movement';
+@use 'organisms/o-dashboard';
+@use 'organisms/o-payment-values-table';
+@use 'organisms/o-news';
+@use 'organisms/o-cash-flow';
+@use 'organisms/o-students';
+@use 'organisms/o-elections';
+@use 'organisms/o-results-modal';
+@use 'organisms/o-pqrs';
 
 /****** Molecules ******/
 @use 'molecules/m-menu';
@@ -43,15 +48,20 @@
 @use 'molecules/m-level-card';
 @use 'molecules/m-modal-info';
 @use 'molecules/m-card';
-@use "molecules/payments-students";
-@use "molecules/m-modal-edit-payment";
-@use "molecules/modal-register";
+@use 'molecules/payments-students';
+@use 'molecules/m-modal-edit-payment';
+@use 'molecules/modal-register';
+@use 'molecules/m-candidate-modal';
+@use 'molecules/m-activity-modal';
+@use 'molecules/m-no-debt-certificate';
+@use 'molecules/m-new-detail-modal';
 
 /****** Atoms ******/
 @use 'atoms/a-button';
-@use "atoms/a-select";
-@use "atoms/a-modal-standard";
-@use "atoms/a-input";
-@use "atoms/a-autocomplete";
-@use "atoms/a-pagination";
-@use "atoms/a-swal";
+@use 'atoms/a-select';
+@use 'atoms/a-modal-standard';
+@use 'atoms/a-input';
+@use 'atoms/a-autocomplete';
+@use 'atoms/a-pagination';
+@use 'atoms/a-swal';
+@use 'atoms/a-loading-overlay';

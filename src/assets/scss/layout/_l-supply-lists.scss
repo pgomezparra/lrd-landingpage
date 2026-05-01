@@ -22,6 +22,27 @@
     padding: 0 5vw;
     margin-bottom: 1rem;
   }
+
+  &__column {
+    &__item {
+      margin: 1em;
+    }
+
+    &__imgwrap {
+      img {
+        border-radius: 1em;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 0.75;
+        object-fit: cover;
+        cursor: pointer;
+      }
+    }
+
+    &__caption {
+      text-align: center;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {

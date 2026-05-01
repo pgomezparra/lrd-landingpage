@@ -49,7 +49,7 @@
         </div>
         <div class="form-group">
           <p>Logo</p>
-          <div class="upload-wrapper">
+          <div class="m-candidate-modal__upload-wrapper">
             <input
               ref="fileInput"
               type="file"
@@ -58,13 +58,13 @@
               @change="handleFileChange"
               style="display: none"
             />
-            <button type="button" class="upload-btn" @click="fileInput?.click()">
+            <button type="button" class="m-candidate-modal__upload-btn" @click="fileInput?.click()">
               📷 Cargar logo
             </button>
           </div>
         </div>
-        <div class="preview" v-if="candidate.logo">
-          <div class="img-preview">
+        <div class="m-candidate-modal__preview" v-if="candidate.logo">
+          <div class="m-candidate-modal__img-preview">
             <img :src="candidate.logo" alt="preview" />
           </div>
         </div>
@@ -248,62 +248,4 @@ const closeModal = () => {
 }
 </script>
 
-<style scoped>
-.preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 16px;
-}
 
-.img-preview {
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-
-.img-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.remove-btn {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: red;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  line-height: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.upload-wrapper {
-  margin: 1rem 0;
-}
-
-.upload-btn {
-  background-color: #5a5aff;
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.upload-btn:hover {
-  background-color: #4949e7;
-}
-</style>

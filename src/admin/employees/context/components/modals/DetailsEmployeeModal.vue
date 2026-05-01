@@ -89,6 +89,4 @@ const closeModal = () => {
 }
 </script>
 
-<style scoped>
 
-</style>

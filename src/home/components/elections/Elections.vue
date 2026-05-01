@@ -1,10 +1,10 @@
 <template>
   <loading-overlay />
   <NavBar />
-  <div class="container">
-    <div v-if="step === 1" class="card">
+  <div class="o-elections__container">
+    <div v-if="step === 1" class="o-elections__card">
       <h2>Ingreso a votación</h2>
-      <p class="subtitle">
+      <p class="o-elections__subtitle">
         Ingrese su documento de identificación
       </p>
 
@@ -13,14 +13,14 @@
         type="text"
         inputmode="numeric"
         placeholder="Número de documento"
-        class="input"
+        class="o-elections-input"
         ref="documentInput"
         :disabled="!activeElections"
         @keyup.enter="goToVoting"
       />
 
       <button
-        class="primary-btn"
+        class="o-elections-btn"
         :disabled="!document"
         @click="goToVoting"
       >
@@ -28,22 +28,23 @@
       </button>
     </div>
 
-    <div v-else class="card">
+    <div v-else class="o-elections__card">
       <h2>Tarjetón electoral</h2>
-      <h3>{{ student.getName() }} {{ student.getSurname() }} ({{ student.getGrade() }})</h3>
-      <p class="subtitle">
+      <h3 class="o-elections__student-name">{{ student.getName() }} {{ student.getSurname() }} ({{ student.getGrade() }})</h3>
+
+      <p class="o-elections__subtitle">
         Seleccione un candidato por cada categoría
       </p>
 
-      <div class="grid">
+      <div class="o-elections__grid">
         <!-- CONTRALORÍA -->
-        <div class="category">
+        <div class="o-elections__category">
           <h3>Contraloría</h3>
 
           <label
             v-for="candidate in comptrollerCandidates"
             :key="candidate.getId()"
-            class="option"
+            class="o-elections__option"
           >
             <input
               type="radio"
@@ -52,17 +53,17 @@
               v-model="vote.comptroller"
             />
 
-            <template class="candidate">
+            <template class="o-elections__candidate">
               <img
                 :src="candidate.getLogo()"
                 :alt="candidate.getName()"
-                class="candidate-logo"
+                class="o-elections__logo"
               />
 
-              <span class="candidate-name">
+              <span class="o-elections__name">
                 {{ candidate.getName() }}
               </span>
-              <p v-if="!candidate.getName().includes('blanco')" class="candidate-number">
+              <p v-if="!candidate.getName().includes('blanco')" class="o-elections__number">
                 {{ candidate.getNumberList() }}
               </p>
             </template>
@@ -70,13 +71,13 @@
         </div>
 
         <!-- PERSONERÍA -->
-        <div class="category">
+        <div class="o-elections__category">
           <h3>Personería</h3>
 
           <label
             v-for="candidate in ombudsmanCandidates"
             :key="candidate.getId()"
-            class="option"
+            class="o-elections__option"
           >
             <input
               type="radio"
@@ -85,17 +86,17 @@
               v-model="vote.ombudsman"
             />
 
-            <template class="candidate">
+            <template class="o-elections__candidate">
               <img
                 :src="candidate.getLogo()"
                 :alt="candidate.getName()"
-                class="candidate-logo"
+                class="o-elections__logo"
               />
 
-              <span class="candidate-name">
+              <span class="o-elections__name">
                 {{ candidate.getName() }}
               </span>
-              <p v-if="!candidate.getName().includes('blanco')" class="candidate-number">
+              <p v-if="!candidate.getName().includes('blanco')" class="o-elections__number">
                 {{ candidate.getNumberList() }}
               </p>
             </template>
@@ -104,7 +105,7 @@
       </div>
 
       <button
-        class="primary-btn"
+        class="o-elections-btn"
         :disabled="!canVote"
         @click="submitVote"
       >
@@ -276,143 +277,3 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 16px;
-  font-family: system-ui, sans-serif;
-  height: 90dvh;
-  overflow-y: scroll;
-}
-
-.card {
-  background: #fff;
-  border: 1px solid #e1e1e1;
-  border-radius: 12px;
-  padding: 20px;
-}
-
-h2 {
-  color: #7a0c0c;
-  margin-bottom: 6px;
-  font-size: clamp(20px, 4vw, 26px);
-}
-
-.subtitle {
-  color: #555;
-  margin-bottom: 20px;
-  font-size: clamp(14px, 3vw, 16px);
-}
-
-.input {
-  width: 90%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 20px;
-}
-
-.grid {
-  display: grid;
-  gap: 20px;
-}
-
-.category h3 {
-  color: #7a0c0c;
-  margin-bottom: 12px;
-  font-size: 18px;
-}
-
-.option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
-}
-
-.candidate {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-}
-
-.option:hover {
-  background: #faf5f5;
-  border-color: #7a0c0c;
-}
-
-.option input {
-  width: 18px;
-  height: 18px;
-}
-
-.primary-btn {
-  width: 100%;
-  margin-top: 16px;
-  background: #7a0c0c;
-  color: #fff;
-  border: none;
-  padding: 16px;
-  border-radius: 10px;
-  font-size: 17px;
-  cursor: pointer;
-}
-
-.primary-btn:disabled {
-  background: #c9a5a5;
-  cursor: not-allowed;
-}
-
-.candidate-logo {
-  width: 6rem;
-  height: 6rem;
-  object-fit: contain;
-  border-radius: 6px;
-  background: #fff;
-  padding: 4px;
-  border: 1px solid #eee;
-}
-
-.candidate-name {
-  width: 8rem;
-  flex: 1;
-  font-size: 15px;
-  text-align: center;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.candidate-number {
-  font-size: 2rem;
-  text-align: center;
-}
-
-.option:has(input:checked) {
-  border-color: #7a0c0c;
-  background: #faf2f2;
-}
-
-@media (min-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-  }
-
-  .card {
-    padding: 32px;
-  }
-
-  .candidate-name {
-    font-size: 16px;
-  }
-}
-</style>

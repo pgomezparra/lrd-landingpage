@@ -8,18 +8,18 @@
       :page-size="perPage"
       :current-page="page"
       @update:current-page="handlePageChange"
-      class="pagination"
+      class="o-news-public__pagination"
     />
-    <div class="news-grid">
-      <div v-for="activity in news" :key="activity.getId()" class="news-card">
-        <img :src="activity.getPhotos()[0].getUrl()" alt="Imagen de la noticia" class="news-image" />
-        <div class="news-content">
-          <h2 class="news-title">{{ activity.getTitle() }}</h2>
-          <p class="news-meta">
+    <div class="o-news-public__grid">
+      <div v-for="activity in news" :key="activity.getId()" class="o-news-public__card">
+        <img :src="activity.getPhotos()[0].getUrl()" alt="Imagen de la noticia" class="o-news-public__image" />
+        <div class="o-news-public__content">
+          <h2 class="o-news-public__title">{{ activity.getTitle() }}</h2>
+          <p class="o-news-public__meta">
             <span>{{ formatDate(activity.getUpdatedAt()) }}</span> · <span>{{ activity.getAuthor() }}</span>
           </p>
-          <div class="read-more-container">
-            <button class="read-more" @click="seeNewDetail(activity)">
+          <div class="o-news-public__read-more-container">
+            <button class="o-news-public__read-more" @click="seeNewDetail(activity)">
               Ver detalle
             </button>
           </div>
@@ -90,88 +90,4 @@ const getNews = async () => {
 onMounted(async () => getNews())
 </script>
 
-<style scoped>
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-template-rows: auto auto;
-  gap: 1.5rem;
-  padding: 0 10%;
-  align-items: center;
-}
 
-.news-card {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.news-image {
-  width: 100%;
-  height: 10rem;
-  object-fit: cover;
-}
-
-.news-content {
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.news-title {
-  font-size: 1.2rem;
-  margin-bottom: 0.125rem;
-  color: #222;
-}
-
-.news-meta {
-  font-size: 0.85rem;
-  color: #888;
-  margin-bottom: 0.75rem;
-}
-
-.read-more-container {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-
-.read-more {
-  all: unset;
-  align-self: flex-start;
-  font-weight: bold;
-  color: #610e0d;
-  cursor: pointer;
-  padding-bottom: 0.5rem;
-  text-align: right;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-}
-
-::v-deep(.el-pagination .el-pager .number.is-active) {
-  color: #610e0d !important;
-}
-
-::v-deep(.el-pagination .el-pager .number:hover) {
-  color: #610e0d !important;
-}
-
-::v-deep(.el-pagination .btn-prev:hover),
-::v-deep(.el-pagination .btn-next:hover) {
-  color: #610e0d !important;
-}
-
-@media (max-width: 48rem) {
-  .news-grid {
-    padding: 0 5%;
-  }
-}
-</style>

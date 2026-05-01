@@ -1,0 +1,111 @@
+.m-no-debt-certificate {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 9999;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__print-area {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__certificate {
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    font-family: "Times New Roman", serif;
+    color: #000;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &__logo {
+    width: 70px;
+    height: auto;
+  }
+
+  &__institution-info {
+    h1 {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.9rem;
+      margin: 0;
+      text-transform: uppercase;
+    }
+  }
+
+  &__body {
+    margin-top: 3rem;
+  }
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+  }
+
+  &__text {
+    text-align: justify;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  &__signature {
+    text-align: center;
+    margin-top: 4rem;
+
+    .line {
+      border-top: 1px solid #000;
+      width: 50%;
+      margin: 0 auto 0.3rem;
+    }
+
+    p {
+      margin: 0;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media print {
+    @page {
+      size: 5.5in 8.5in landscape;
+      margin: 1cm;
+    }
+
+    body * {
+      visibility: hidden !important;
+    }
+
+    &__print-area,
+    &__print-area * {
+      visibility: visible !important;
+    }
+
+    &__print-area {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+
+    background: white !important;
+    padding: 0;
+    margin: 0;
+  }
+}

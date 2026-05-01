@@ -10,24 +10,24 @@
     @closed="onClosed"
     @before-open="onBeforeOpen"
   >
-    <div class="modal-content" v-if="noticia">
+    <div class="m-new-detail-modal__content" v-if="noticia">
       <Splide
         v-if="noticia.getPhotos().length"
         :options="splideOptions"
-        class="news-carousel"
+        class="m-new-detail-modal__carousel"
       >
         <SplideSlide
           v-for="(photo, index) in noticia.getPhotos()"
           :key="index"
         >
-          <img :src="photo.getUrl()" class="carousel-image" alt="Imagen de la noticia" />
+          <img :src="photo.getUrl()" class="m-new-detail-modal__carousel-image" alt="Imagen de la noticia" />
         </SplideSlide>
       </Splide>
-      <div class="modal-data">
-        <h2 class="title-new">{{ noticia.getTitle() }}</h2>
-        <p class="meta">{{ formatDate(noticia.getUpdatedAt()) }} | {{ noticia.getAuthor() }}</p>
-        <div class="description-container">
-          <p class="description-new">{{ noticia.getDescription() }}</p>
+      <div class="m-new-detail-modal__data">
+        <h2 class="m-new-detail-modal__title">{{ noticia.getTitle() }}</h2>
+        <p class="m-new-detail-modal__meta">{{ formatDate(noticia.getUpdatedAt()) }} | {{ noticia.getAuthor() }}</p>
+        <div class="m-new-detail-modal__description-container">
+          <p class="m-new-detail-modal__description">{{ noticia.getDescription() }}</p>
         </div>
       </div>
     </div>
@@ -75,47 +75,3 @@ const formatDate = (date) => {
 }
 </script>
 
-<style scoped>
-.modal-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.news-carousel {
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 1rem;
-}
-
-.carousel-image {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.modal-data {
-  padding: 0.5rem 1rem;
-}
-
-.title-new {
-  margin: 0;
-  color: #610e0d;
-}
-
-.meta {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 1rem;
-}
-
-.description-container {
-  max-height: 10rem;
-  overflow: auto;
-}
-
-.description-new {
-  white-space: pre-line;
-  line-height: 1.4;
-  font-size: 1rem;
-}
-</style>

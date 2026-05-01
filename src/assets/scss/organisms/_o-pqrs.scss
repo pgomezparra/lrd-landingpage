@@ -1,0 +1,56 @@
+.o-pqrs {
+  &__badge {
+    background-color: #5b1210;
+    color: white;
+    border-radius: 12px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  &__card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+
+  &__user {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+
+  &__contenido {
+    color: #444;
+    max-height: 3.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 0.5rem;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  &__estado {
+    font-weight: bold;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+
+    &.pendiente {
+      background-color: #f9d3d3;
+      color: #b30000;
+    }
+
+    &.cerrado {
+      background-color: #d3f9da;
+      color: #2a7c35;
+    }
+  }
+}
