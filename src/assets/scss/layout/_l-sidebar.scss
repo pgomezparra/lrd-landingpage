@@ -102,22 +102,18 @@
       cursor: pointer;
       display: grid;
       grid-template-columns: auto 1fr;
-      column-gap: 0.5rem;
-      padding: 0.5rem 0;
+      column-gap: 0.75rem;
+      padding: 0.625rem 0.75rem;
       align-items: center;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
 
       &-selected {
-        border-radius: 0.25rem;
-        border-left: 0.125rem solid colors.$primary-color;
-        padding-left: 0.25rem;
         background: colors.$hover-button-menu;
         color: colors.$primary-color;
       }
 
       &:hover {
-        border-radius: 0.25rem;
-        border-left: 0.125rem solid colors.$primary-color;
-        padding-left: 0.25rem;
         background: colors.$hover-button-menu;
         color: colors.$primary-color;
       }
@@ -128,15 +124,38 @@
       display: grid;
       grid-template-columns: auto 1fr auto;
       column-gap: 0.5rem;
-      padding: 0.5rem 0;
+      padding: 0.5rem 0.75rem;
       align-items: center;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
 
       &:hover {
-        border-radius: 0.25rem;
-        border-left: 0.125rem solid colors.$primary-color;
-        padding-left: 0.25rem;
         background: colors.$hover-button-menu;
         color: colors.$primary-color;
+      }
+
+      .chevron-icon {
+        width: 1rem;
+        height: 1rem;
+        color: colors.$primary-color;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-left: 0.25rem;
+
+        &--rotated {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .chevron-icon {
+      width: 1rem;
+      height: 1rem;
+      color: colors.$primary-color;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-left: 0.25rem;
+
+      &--rotated {
+        transform: rotate(180deg);
       }
     }
 
@@ -148,19 +167,30 @@
 
 
   .submenu-item {
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1rem;
+    margin: 0.125rem 0.5rem;
     cursor: pointer;
     user-select: none;
-    transition: background-color 0.2s;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    color: colors.$text-title;
+    display: block;
+    width: calc(100% - 1.5rem);
 
     &:hover {
       background-color: colors.$hover-button-menu;
       color: colors.$primary-color;
+      width: calc(100% - 2rem);
+      margin-left: 0.5rem;
     }
 
     &--active {
       background-color: colors.$hover-button-menu;
       color: colors.$primary-color;
+      font-weight: 500;
+      width: calc(100% - 2rem);
+      margin-left: 0.5rem;
     }
   }
 
@@ -183,34 +213,72 @@
   cursor: pointer;
   z-index: 1300;
 }
+
 .theme-toggle {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 0.75rem;
+  padding: 0.625rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: colors.$text-title;
 
   &:hover {
     transform: scale(1.1);
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(97, 14, 13, 0.1);
+    color: colors.$primary-color;
+  }
+
+  &:active {
+    transform: scale(0.95);
   }
 
   &__icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    filter: drop-shadow(0 0 0.1rem rgba(0, 0, 0, 0.3));
-    transition: transform 0.3s ease, opacity 0.3s ease;
-
-    .theme--dark & {
-      filter: brightness(1.2);
-    }
+    width: 1.375rem;
+    height: 1.375rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
   }
 }
 
+.button-logout {
+  background: transparent;
+  border: 1px solid colors.$border;
+  border-radius: 0.375rem;
+  padding: 0.625rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: colors.$text-title;
+  min-width: 6rem;
+
+  &:hover {
+    background: colors.$primary-color;
+    color: colors.$secondary-color;
+    border-color: colors.$primary-color;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+}
 
 
 @media (min-width: 48.063rem) {
@@ -273,14 +341,15 @@
   .sidebar {
     align-items: center;
     background: colors.$bg-sidebar-dark;
-    box-shadow:none;
-    color: colors.$secondary-color;
+    box-shadow: none;
+    color: colors.$text-dark;
 
     &-user-info {
       &__user-details {
-        color: colors.$secondary-color;
+        color: colors.$text-dark;
+
         &-email {
-          color: colors.$text-dark;
+          color: colors.$text-muted-dark;
         }
       }
     }
@@ -302,7 +371,7 @@
         transition: background-color 0.2s;
 
         &:hover {
-          background-color: #801312;
+          background-color: rgba(97, 14, 13, 0.85);
         }
 
         &:disabled {
@@ -317,8 +386,10 @@
         width: 100%;
         padding: 0.5rem;
         border-radius: 0.5rem;
-        border: 0.063rem solid colors.$bg-main-dark;
+        border: 0.063rem solid colors.$card-border-dark;
         font-size: 1rem;
+        background: colors.$input-bg-dark;
+        color: colors.$text-dark;
       }
     }
 
@@ -332,22 +403,18 @@
         cursor: pointer;
         display: grid;
         grid-template-columns: auto 1fr;
-        column-gap: 0.5rem;
-        padding: 0.5rem 0;
+        column-gap: 0.75rem;
+        padding: 0.625rem 0.75rem;
         align-items: center;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
 
         &-selected {
-          border-radius: 0.25rem;
-          border-left: 0.125rem solid colors.$text-dark;
-          padding-left: 0.25rem;
           background: colors.$hover-button-menu-dark;
-          color: colors.$secondary-color;
+          color: colors.$text-dark;
         }
 
         &:hover {
-          border-radius: 0.25rem;
-          border-left: 0.125rem solid colors.$text-dark;
-          padding-left: 0.25rem;
           background: colors.$hover-button-menu-dark;
           color: colors.$text-dark;
         }
@@ -358,15 +425,26 @@
         display: grid;
         grid-template-columns: auto 1fr auto;
         column-gap: 0.5rem;
-        padding: 0.5rem 0;
+        padding: 0.5rem 0.75rem;
         align-items: center;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
 
         &:hover {
-          border-radius: 0.25rem;
-          border-left: 0.125rem solid colors.$text-dark;
-          padding-left: 0.25rem;
           background: colors.$hover-button-menu-dark;
           color: colors.$text-dark;
+        }
+
+        .chevron-icon {
+          color: colors.$text-dark;
+        }
+      }
+
+      .chevron-icon {
+        color: colors.$text-muted-dark;
+
+        &--rotated {
+          transform: rotate(180deg);
         }
       }
 
@@ -378,19 +456,56 @@
     }
 
     .submenu-item {
+      padding: 0.5rem 1rem;
+      margin: 0.125rem 0.5rem;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+      color: colors.$text-dark;
+      display: block;
+      width: calc(100% - 1.5rem);
+
       &:hover {
         background: colors.$hover-button-menu-dark;
         color: colors.$text-dark;
+        width: calc(100% - 2rem);
+        margin-left: 0.5rem;
       }
+
       &--active {
         background: colors.$hover-button-menu-dark;
         color: colors.$text-dark;
+        font-weight: 500;
+        width: calc(100% - 2rem);
+        margin-left: 0.5rem;
       }
     }
   }
+
   .theme-toggle {
     &:hover {
-      background-color: colors.$bg-main-dark;
+      background-color: colors.$bg-container-dark;
+      color: colors.$text-dark-blue;
+    }
+
+    &__icon {
+      color: colors.$text-dark;
+    }
+  }
+
+  .button-logout {
+    border-color: colors.$card-border-dark;
+    color: colors.$text-dark;
+
+    &:hover {
+      background: colors.$primary-color;
+      color: colors.$secondary-color;
+    }
+
+    svg {
+      color: inherit;
     }
   }
 }

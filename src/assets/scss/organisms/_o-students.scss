@@ -113,15 +113,15 @@
 
   .student-modal__item {
     background-color: colors.$card-border-dark;
-    color: colors.$secondary-color;
-  }
-
-  .student-modal__item .label {
     color: colors.$text-dark;
   }
 
+  .student-modal__item .label {
+    color: colors.$text-muted-dark;
+  }
+
   .student-modal__item p {
-    color: colors.$secondary-color;
+    color: colors.$text-dark;
   }
 
   .student-modal__footer {

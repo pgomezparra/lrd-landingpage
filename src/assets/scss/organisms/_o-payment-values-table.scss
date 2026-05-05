@@ -56,17 +56,17 @@
 .darkMode {
   .o-payment-values-table {
     thead {
-      background-color: colors.$bg-main-dark;
+      background-color: colors.$bg-container-dark;
     }
 
     th {
-      color: colors.$secondary-color;
+      color: colors.$text-dark;
       border-bottom: 0.125rem solid colors.$border-dark;
     }
 
     td {
       border-bottom: 0.063rem solid colors.$border-dark;
-      color: colors.$secondary-color;
+      color: colors.$text-dark;
     }
 
     tr:hover {
@@ -75,6 +75,8 @@
 
     input {
       border: 1px solid colors.$border-dark;
+      background: colors.$input-bg-dark;
+      color: colors.$text-dark;
     }
 
     input:focus {

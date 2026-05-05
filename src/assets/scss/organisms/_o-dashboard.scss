@@ -75,11 +75,11 @@
 .darkMode {
   .card {
     background-color: colors.$card-border-dark;
-    color: colors.$secondary-color;
+    color: colors.$text-dark;
     box-shadow: none;
 
     h3 {
-      color: lighten(colors.$secondary-color, 20%);
+      color: colors.$text-dark;
     }
 
     .card-number {
@@ -87,34 +87,34 @@
     }
 
     .resumen-item-dashboard {
-      color: colors.$secondary-color;
+      color: colors.$text-muted-dark;
 
       span {
-        color: lighten(colors.$secondary-color, 15%);
+        color: colors.$text-muted-dark;
       }
 
       strong {
-        color: colors.$secondary-color;
+        color: colors.$text-dark;
       }
 
       .positivo {
-        color: lighten(colors.$green, 10%);
+        color: colors.$success-dark;
       }
 
       .negativo {
-        color: lighten(colors.$text-red-dark, 10%);
+        color: colors.$danger-dark;
       }
     }
   }
 
   .dashboard-graph {
     background-color: colors.$card-border-dark;
-    color: colors.$secondary-color;
+    color: colors.$text-dark;
     box-shadow: none;
   }
 
   canvas {
-    color: colors.$secondary-color !important;
+    color: colors.$text-dark !important;
   }
 }
 

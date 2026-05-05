@@ -47,23 +47,23 @@
 }
 .darkMode {
   label {
-    color: colors.$secondary-color;
+    color: colors.$text-dark;
   }
 
   .dp__input_wrap {
     input {
-      background-color: colors.$bg-dark;
+      background-color: colors.$input-bg-dark;
       border-color: colors.$border-dark;
-      color: colors.$secondary-color;
-      box-shadow: 0 0 0.125rem rgba(colors.$text-light, 0.2);
+      color: colors.$text-dark;
+      box-shadow: 0 0 0.125rem rgba(colors.$text-muted-dark, 0.2);
 
       &::placeholder {
-        color: rgba(colors.$text-light, 0.6);
+        color: rgba(colors.$text-muted-dark, 0.6);
       }
 
       &:focus {
-        border-color: lighten(colors.$text-light, 15%);
-        box-shadow: 0 0 0.313rem rgba(colors.$text-light, 0.4);
+        border-color: colors.$primary-color;
+        box-shadow: 0 0 0.313rem rgba(colors.$primary-color, 0.4);
       }
     }
   }

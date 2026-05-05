@@ -364,10 +364,11 @@
     background: colors.$bg-main-dark;
     border: 0.125rem solid colors.$card-border-dark;
     box-shadow: none;
+    color: colors.$text-dark;
 
     &-title {
       &__text {
-        color: colors.$text-dark;
+        color: colors.$text-muted-dark;
       }
     }
 
@@ -383,7 +384,7 @@
         transition: background 0.2s ease;
 
         &:hover {
-          opacity: 0.8;
+          opacity: 0.85;
         }
       }
     }
@@ -396,7 +397,7 @@
 
         &-thead {
           background: colors.$bg-hover-dark;
-          color: colors.$secondary-color;
+          color: colors.$text-dark;
         }
 
         &-tbody {

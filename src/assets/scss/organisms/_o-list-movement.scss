@@ -122,13 +122,13 @@ select {
   }
 
   .origin {
-    color: colors.$text-dark;
+    color: colors.$text-muted-dark;
   }
   .amount {
     font-weight: bold;
-    color: colors.$secondary-color;
+    color: colors.$success-dark;
   }
   .date {
-    color: colors.$secondary-color;
+    color: colors.$text-muted-dark;
   }
 }

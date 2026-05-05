@@ -58,18 +58,17 @@
   .confirm-modal {
     &__content {
       background: colors.$bg-dark;
-      color: colors.$secondary-color;
+      color: colors.$text-dark;
       padding: 1rem;
       border-radius: 1rem;
       max-width: 28rem;
       box-shadow: 0 0.75rem 1.25rem colors.$shadow-modal;
-
     }
   }
 
   .public-modal-content {
     background: colors.$bg-dark;
-    color: colors.$secondary-color;
+    color: colors.$text-dark;
     padding: 1rem;
     border-radius: 1rem;
     max-width: 28rem;
@@ -77,7 +76,7 @@
   }
   .dp__theme_dark {
     --dp-background-color: #{colors.$card-border-dark};
-    --dp-text-color: #{colors.$secondary-color};
+    --dp-text-color: #{colors.$text-dark};
     --dp-hover-color: #{colors.$text-dark-blue};
     --dp-primary-color: #{colors.$text-dark-blue};
     --dp-border-color: #{colors.$shadow-modal};

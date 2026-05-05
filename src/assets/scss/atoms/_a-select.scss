@@ -99,8 +99,8 @@
 .darkMode {
   .select-standard {
     appearance: none;
-    background: colors.$bg-container-dark;
-    color: colors.$secondary-color;
-    border: 0.063rem solid colors.$bg-main-dark;
+    background: colors.$input-bg-dark;
+    color: colors.$text-dark;
+    border: 0.063rem solid colors.$border-dark;
   }
 }

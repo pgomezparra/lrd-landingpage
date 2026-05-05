@@ -66,39 +66,44 @@ $shadow-card: rgba(0, 0, 0, 0.15);
 
 //dark
 
-$bg-main-dark:rgba(252, 252, 252, 0.1);
-$card-border-dark: rgba(0, 0, 0, 0.5);
-$bg-container-dark:rgba(20, 20, 35, 0.95);
+$bg-main-dark: rgba(30, 30, 45, 1);
+$card-border-dark: rgba(255, 255, 255, 0.08);
+$bg-container-dark: rgba(25, 25, 40, 0.98);
 $background-dark: radial-gradient(
                 160% 120% at 25% 15%,
-                rgba(5, 5, 10, 0.98) 0%,
-                rgba(10, 10, 25, 0.98) 40%,
-                rgba(20, 15, 40, 0.85) 70%,
-                rgba(30, 25, 50, 0.75) 100%
-),
-rgba(255, 255, 255, 0.05);
-
-$bg-sidebar-dark:linear-gradient(
-                180deg,
-                rgba(10, 10, 20, 0.98) 0%,
-                rgba(20, 15, 35, 0.95) 60%,
-                rgba(25, 20, 40, 0.9) 100%
+                rgba(20, 20, 35, 1) 0%,
+                rgba(25, 25, 45, 0.98) 40%,
+                rgba(30, 25, 50, 0.95) 70%,
+                rgba(35, 30, 60, 0.9) 100%
 );
-$text-dark:rgba(255, 255, 255, 0.9);
+
+$bg-sidebar-dark: linear-gradient(
+                180deg,
+                rgba(25, 25, 40, 1) 0%,
+                rgba(30, 25, 50, 0.98) 60%,
+                rgba(35, 30, 60, 0.95) 100%
+);
+$text-dark: rgba(230, 230, 235, 0.95);
+$text-muted-dark: rgba(160, 160, 170, 0.9);
 $background-magenta-dark: radial-gradient(
                 160% 120% at 25% 15%,
-                rgba(20, 5, 5, 1) 0%,
-                rgba(40, 10, 15, 0.95) 40%,
-                rgba(60, 15, 20, 0.85) 70%,
-                rgba(90, 20, 25, 0.6) 100%
+                rgba(45, 15, 15, 1) 0%,
+                rgba(55, 20, 25, 0.98) 40%,
+                rgba(70, 25, 30, 0.95) 70%,
+                rgba(85, 30, 35, 0.9) 100%
 );
-$hover-button-menu-dark: #d38b8b55;
-$text-red-dark:rgba(255, 82, 82, 1);
-$border-dark: rgba(252, 252, 252, 0.05);
-$bg-hover-dark:rgba(21, 101, 192, 0.1);
-$bg-hover-table-dark: rgba(0, 109, 218, 0.2);
-$text-dark-blue:#63B3ED;
-$bg-dark:#282D33;
+$hover-button-menu-dark: rgba(144, 100, 100, 0.25);
+$text-red-dark: rgba(255, 100, 100, 0.95);
+$border-dark: rgba(255, 255, 255, 0.1);
+$bg-hover-dark: rgba(70, 130, 200, 0.15);
+$bg-hover-table-dark: rgba(70, 130, 200, 0.2);
+$text-dark-blue: rgba(100, 180, 230, 0.95);
+$bg-dark: #1a1a24;
+$input-bg-dark: rgba(35, 35, 50, 1);
+$table-bg-dark: rgba(30, 30, 45, 0.5);
+$success-dark: rgba(40, 180, 100, 0.9);
+$warning-dark: rgba(220, 190, 40, 0.9);
+$danger-dark: rgba(220, 80, 80, 0.9);
 
 
 

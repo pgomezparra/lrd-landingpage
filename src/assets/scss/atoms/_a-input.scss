@@ -17,8 +17,8 @@
 
 .darkMode {
   .input-standard {
-    background: colors.$bg-container-dark;
-    border: 0.063rem solid colors.$bg-main-dark;
-    color: colors.$secondary-color;
+    background: colors.$input-bg-dark;
+    border: 0.063rem solid colors.$border-dark;
+    color: colors.$text-dark;
   }
 }

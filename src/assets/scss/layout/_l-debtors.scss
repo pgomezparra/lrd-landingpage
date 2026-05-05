@@ -319,7 +319,7 @@
 .darkMode {
   .consulta-container {
     background-color: colors.$card-border-dark;
-    color: colors.$secondary-color;
+    color: colors.$text-dark;
   }
 
   .resumen-item {
@@ -329,12 +329,12 @@
   .ingresos span,
   .efectivo span,
   .saldo-positivo span {
-    color: colors.$dark-green;
+    color: colors.$success-dark;
   }
 
   .salidas span,
   .saldo-negativo span {
-    color: colors.$text-red-dark;
+    color: colors.$danger-dark;
   }
 
   .transferencia span {
@@ -342,7 +342,7 @@
   }
   .movimiento-card {
     border:none;
-    color: colors.$secondary-color;
+    color: colors.$text-dark;
     background-color: colors.$card-border-dark;
     box-shadow: none;
     &:hover {
@@ -351,7 +351,7 @@
   }
 
   .fecha {
-    color: colors.$text-dark;
+    color: colors.$text-muted-dark;
   }
 
   .negativo {
