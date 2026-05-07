@@ -344,6 +344,16 @@
 }
 
 .darkMode {
+  @media (max-width: 48rem) {
+    .sidebar {
+      .sidebar-menu-items__img {
+        height: 1.956rem;
+        width: 1.956rem;
+        filter: brightness(0) saturate(100%) invert(100%) sepia(2%) saturate(7419%) hue-rotate(255deg) brightness(98%) contrast(112%);
+      }
+    }
+  }
+
   .sidebar {
     align-items: center;
     background: colors.$bg-sidebar-dark;
