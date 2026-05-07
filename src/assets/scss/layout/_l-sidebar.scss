@@ -335,6 +335,12 @@
     position: relative;
     bottom: auto;
   }
+
+  .sidebar-menu-items__img {
+    height: 1.956rem;
+    width: 1.956rem;
+    filter: brightness(0) saturate(100%) invert(27%) sepia(17%) saturate(2206%) hue-rotate(316deg) brightness(95%) contrast(104%);
+  }
 }
 
 .darkMode {
