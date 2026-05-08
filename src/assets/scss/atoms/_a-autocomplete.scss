@@ -1,35 +1,46 @@
 @use '@/assets/scss/settings/colors';
 @use '@/assets/scss/settings/fonts';
+
 .autocomplete-dropdown {
   position: absolute;
-  z-index: 1000;
+  z-index: 999;
   background: colors.$secondary-color;
   border: 0.063rem solid colors.$admissions-card-note;
-  width: 100%;
+  border-radius: 0.5rem;
+  width: 95%;
   max-height: 200px;
   overflow-y: auto;
-  list-style: none;
   padding: 0;
   margin: 0;
-  top: 3rem;
+  top: calc(100% + 0.325rem);
 }
 
-.autocomplete-dropdown li {
+.autocomplete-dropdown-item {
   padding: 8px;
   cursor: pointer;
 }
 
-.autocomplete-dropdown li:hover {
+.autocomplete-dropdown-item:hover {
   background: colors.$secondary-color;
+}
+
+.autocomplete-dropdown__item--highlighted {
+  background: colors.$hover-button-menu !important;
+  color: colors.$primary-color;
 }
 
 .darkMode {
   .autocomplete-dropdown {
-    background: colors.$card-border-dark;
+    background: colors.$input-bg-dark;
     border: 0.063rem solid colors.$border-dark;
   }
 
-  .autocomplete-dropdown li:hover {
-    background: colors.$card-border-dark;
+  .autocomplete-dropdown-item:hover {
+    background: colors.$input-bg-dark;
+  }
+
+  .autocomplete-dropdown__item--highlighted {
+    background: colors.$hover-button-menu-dark !important;
+    color: colors.$text-dark;
   }
 }

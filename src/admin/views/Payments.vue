@@ -7,83 +7,93 @@
       </p>
     </div>
     <div class="l-standard-option-payment">
-      <select class="select-standard" v-model="grade" @change="changeGrade">
-        <option disabled value="0">Grado</option>
-        <option
-          v-for="grade in preferenceStore.grades"
-          :key="grade.getId()"
-          :value="grade.getId()">
-          {{ grade.getGrade() }}
-        </option>
-      </select>
-      <select
-        class="select-standard"
+      <CustomSelect
+        v-model="grade"
+        :options="gradeOptions"
+        placeholder="Grado"
+        @change="changeGrade"
+      />
+      <CustomSelect
         v-model="active"
+        :options="activeOptions"
+        placeholder="Estado"
         @change="changeState"
-      >
-        <option value="active">Activos</option>
-        <option value="inactive">Inactivos</option>
-      </select>
+      />
       <div class="l-standard-option-payment__input-student">
         <input
-          class="input-standard"
-          style="width: 90%; height: 2.5rem;"
+          class="input-standard input-height-sm"
+          style="width: 90%;"
           v-model="studentName"
           placeholder="Buscar estudiante"
-          ref="studentNameInput"
+          ref="studentNameInputDesktop"
           @focus="showDropdown = true"
-          @blur="hideDropdown"
+          @click="showDropdown = true"
+          @keydown="handleKeydown"
         />
-        <ul
+        <div
           v-if="showDropdown && filteredStudents.length"
           class="autocomplete-dropdown"
+          ref="dropdownListDesktop"
+          @click.stop
         >
-          <li
-            v-for="student in filteredStudents"
+          <div
+            v-for="(student, index) in filteredStudents"
             :key="student.getId()"
-            @click="selectStudent(student)"
+            @click="selectFromDropdown(student)"
+            @mouseenter="onDropdownHover(index)"
+            :class="{ 'autocomplete-dropdown__item--highlighted': index === highlightedIndex }"
+            class="autocomplete-dropdown-item"
           >
             {{ student.getName() }} {{ student.getSurname() }}
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
       <button class="button-standard" @click="clearPayments">Limpiar</button>
     </div>
     <div class="l-standard-option-payment-mobil">
       <div class="l-standard-option-payment-mobil__container">
-        <select class="select-standard" v-model="grade" @change="changeGrade">
-          <option disabled value="0">Grado</option>
-          <option
-            v-for="grade in preferenceStore.grades"
-            :key="grade.getId()"
-            :value="grade.getId()">
-            {{ grade.getGrade() }}
-          </option>
-        </select>
+        <CustomSelect
+          v-model="grade"
+          :options="gradeOptions"
+          placeholder="Grado"
+          @change="changeGrade"
+        />
+        <CustomSelect
+          v-model="active"
+          :options="activeOptions"
+          placeholder="Estado"
+          @change="changeState"
+        />
         <button class="button-standard" @click="clearPayments">Limpiar</button>
       </div>
       <div class="l-standard-option-payment__input-student">
         <input
-          class="input-standard"
-          style="width: 90%; height: 2.5rem;"
+          class="input-standard input-height-sm"
+          style="width: 90%;"
           v-model="studentName"
           placeholder="Buscar estudiante"
-          ref="studentNameInput"
+          ref="studentNameInputMobile"
           @focus="showDropdown = true"
-          @blur="hideDropdown"
+          @click="showDropdown = true"
+          @keydown="handleKeydown"
         />
-        <ul
+        <div
           v-if="showDropdown && filteredStudents.length"
           class="autocomplete-dropdown"
+          ref="dropdownListMobile"
+          @click.stop
         >
-          <li
-            v-for="student in filteredStudents"
+          <div
+            v-for="(student, index) in filteredStudents"
             :key="student.getId()"
-            @click="selectStudent(student)"
+            @click="selectFromDropdown(student)"
+            @mouseenter="onDropdownHover(index)"
+            :class="{ 'autocomplete-dropdown__item--highlighted': index === highlightedIndex }"
+            class="autocomplete-dropdown-item"
           >
             {{ student.getName() }} {{ student.getSurname() }}
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -184,7 +194,7 @@
 
 <script setup>
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
-import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { useVfm } from 'vue-final-modal'
@@ -195,6 +205,7 @@ import AddEmailModal from '@/admin/payments/context/components/modals/AddEmailMo
 import { getFilteredConsolidated } from '@/admin/shared/utils.js'
 import { notifications } from '@/shared/notifications.js'
 import CreateElectronicInvoiceModal from '@/admin/payments/context/components/modals/CreateElectronicInvoiceModal.vue'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 
 const grade = ref(0)
 const active = ref('active')
@@ -204,9 +215,14 @@ const students = ref([])
 const payments = ref([])
 const consolidatedPayments = ref([])
 const filteredConsolidatedPayments = ref([])
-const studentNameInput = ref(null)
+const studentNameInputDesktop = ref(null)
+const studentNameInputMobile = ref(null)
+const dropdownListDesktop = ref(null)
+const dropdownListMobile = ref(null)
 const showSupport = ref(false)
 const showDropdown = ref(false)
+const highlightedIndex = ref(-1)
+const isKeyboardNavigating = ref(false)
 const invoiceData = reactive({
   identification: '',
   id: 0,
@@ -216,6 +232,14 @@ const invoiceData = reactive({
 
 const paymentsReversed = computed(() => [...payments.value].reverse())
 
+const gradeOptions = computed(() =>
+  preferenceStore.grades.map(g => ({ value: g.getId(), label: g.getGrade() }))
+)
+
+const activeOptions = [
+  { value: 'active', label: 'Activos' },
+  { value: 'inactive', label: 'Inactivos' }
+]
 
 const vfm = useVfm()
 
@@ -223,11 +247,15 @@ const preferenceStore = usePreferenceStore()
 const studentsStore = useStudentStore()
 const paymentsStore = usePaymentStore()
 
-watch(() => preferenceStore.selectedYear, async (newYear) => {
+watch(() => preferenceStore.selectedYear, async () => {
   if (paymentsStore.externalProducts.length === 0) await paymentsStore.getExternalProducts()
   if (preferenceStore.selectedGrade === 0) return
   getStudents()
   clearData()
+})
+
+watch(studentName, () => {
+  highlightedIndex.value = -1
 })
 
 const selectStudent = async (selectedStudent) => {
@@ -248,9 +276,22 @@ const selectStudent = async (selectedStudent) => {
 }
 
 const hideDropdown = () => {
-  setTimeout(() => {
-    showDropdown.value = false
-  }, 200)
+  showDropdown.value = false
+  highlightedIndex.value = -1
+}
+
+const handleKeydown = (event) => {
+  handleGlobalKeydown(event)
+}
+
+const onDropdownHover = (index) => {
+  highlightedIndex.value = index
+}
+
+const selectFromDropdown = (student) => {
+  selectStudent(student)
+  showDropdown.value = false
+  highlightedIndex.value = -1
 }
 
 const filteredStudents = computed(() =>
@@ -261,13 +302,13 @@ const filteredStudents = computed(() =>
     : []
 )
 
-const changeGrade = (event) => {
-  preferenceStore.setSelectedGrade(parseInt(event.target.value))
+const changeGrade = (value) => {
+  preferenceStore.setSelectedGrade(parseInt(value))
   clearData()
   getStudents()
 }
 
-const changeState = (event) => {
+const changeState = (value) => {
   if (preferenceStore.selectedGrade === 0) return
 
   clearData()
@@ -290,7 +331,7 @@ const clearPayments = () => {
   studentName.value = ''
   student.value = 0
   nextTick(() => {
-    studentNameInput.value?.focus()
+    studentNameInputDesktop.value?.focus()
   })
 }
 
@@ -313,7 +354,7 @@ async function getStudents() {
     students.value = response.students
 
     await nextTick(() => {
-      studentNameInput.value?.focus()
+      studentNameInputDesktop.value?.focus()
     })
   } catch (error) {
     console.error(error)
@@ -393,6 +434,74 @@ onMounted(async () => {
   if (!preferenceStore.selectedYear) return
   if (paymentsStore.externalProducts.length === 0) await paymentsStore.getExternalProducts()
 })
+
+onMounted(() => {
+  document.addEventListener('keydown', handleGlobalKeydown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleGlobalKeydown)
+})
+
+const handleGlobalKeydown = (event) => {
+  if (!showDropdown.value || !filteredStudents.value.length) return
+
+  const dropdown = dropdownListDesktop.value || dropdownListMobile.value
+
+  if (event.key === 'ArrowDown') {
+    event.preventDefault()
+    event.stopPropagation()
+    isKeyboardNavigating.value = true
+    studentNameInputDesktop.value?.blur()
+    studentNameInputMobile.value?.blur()
+    if (highlightedIndex.value < filteredStudents.value.length - 1) {
+      highlightedIndex.value++
+    }
+    nextTick(() => {
+      if (dropdown) {
+        const items = dropdown.querySelectorAll('.autocomplete-dropdown-item')
+        if (items[highlightedIndex.value]) {
+          items[highlightedIndex.value].scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+        }
+      }
+    })
+    setTimeout(() => {
+      isKeyboardNavigating.value = false
+    }, 100)
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault()
+    event.stopPropagation()
+    isKeyboardNavigating.value = true
+    if (highlightedIndex.value <= 0) {
+      highlightedIndex.value = -1
+      studentNameInputDesktop.value?.focus()
+      studentNameInputMobile.value?.focus()
+    } else {
+      highlightedIndex.value--
+      studentNameInputDesktop.value?.blur()
+      studentNameInputMobile.value?.blur()
+      nextTick(() => {
+        if (dropdown) {
+          const items = dropdown.querySelectorAll('.autocomplete-dropdown-item')
+          if (items[highlightedIndex.value]) {
+            items[highlightedIndex.value].scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+          }
+        }
+      })
+    }
+    setTimeout(() => {
+      isKeyboardNavigating.value = false
+    }, 100)
+  } else if (event.key === 'Enter' && highlightedIndex.value >= 0) {
+    event.preventDefault()
+    selectStudent(filteredStudents.value[highlightedIndex.value])
+    showDropdown.value = false
+    highlightedIndex.value = -1
+  } else if (event.key === 'Escape') {
+    showDropdown.value = false
+    highlightedIndex.value = -1
+  }
+}
 </script>
 
 
