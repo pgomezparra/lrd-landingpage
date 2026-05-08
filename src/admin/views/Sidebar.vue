@@ -43,7 +43,7 @@
           }"
           @click="redirectTo('/admin/home', 'home')"
         >
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/home.svg" alt="home" />
+          <img class="sidebar-menu-items__img" :src="getIcon('home')" alt="home" />
           <p class="menu-item">Inicio</p>
         </div>
 
@@ -57,7 +57,7 @@
         >
           <img
             class="sidebar-menu-items__img"
-            src="@/assets/img/general/dashboard.svg"
+            :src="getIcon('dashboard')"
             alt="dashboard"
           />
           <p class="menu-item">Dashboard</p>
@@ -73,7 +73,7 @@
         >
           <img
             class="sidebar-menu-items__img"
-            src="@/assets/img/general/payment.svg"
+            :src="getIcon('payment')"
             alt="payments"
           />
           <p class="menu-item">Pagos</p>
@@ -88,7 +88,7 @@
         >
           <img
             class="sidebar-menu-items__img"
-            src="@/assets/img/general/content.svg"
+            :src="getIcon('content')"
             alt="content"
           />
           <p class="menu-item">Contenido</p>
@@ -138,7 +138,7 @@
         >
           <img
             class="sidebar-menu-items__img"
-            src="@/assets/img/general/student.svg"
+            :src="getIcon('student')"
             alt="students"
           />
           <p class="menu-item">Estudiantes</p>
@@ -153,7 +153,7 @@
         >
           <img
             class="sidebar-menu-items__img"
-            src="@/assets/img/general/employee.svg"
+            :src="getIcon('employee')"
             alt="employee"
           />
           <p class="menu-item">Empleados</p>
@@ -168,7 +168,7 @@
         >
           <img
             class="sidebar-menu-items__img"
-            src="@/assets/img/general/movements.svg"
+            :src="getIcon('movements')"
             alt="movements"
           />
           <p class="menu-item">Movimientos</p>
@@ -184,7 +184,7 @@
         >
           <img
             class="sidebar-menu-items__img"
-            src="@/assets/img/general/reports.svg"
+            :src="getIcon('reports')"
             alt="reports"
           />
           <p class="menu-item">Reportes</p>
@@ -236,7 +236,7 @@
           }"
           @click="toggleSubMenu('settings')"
         >
-          <img class="sidebar-menu-items__img" src="@/assets/img/general/gear.svg" alt="settings" />
+          <img class="sidebar-menu-items__img" :src="getIcon('gear')" alt="settings" />
           <p class="menu-item">Ajustes</p>
           <svg 
             class="chevron-icon" 
@@ -306,11 +306,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useAuth0 } from '@auth0/auth0-vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/admin/general/context/store/userStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+
+import homeIcon from '@/assets/img/general/home.svg'
+import homeDarkIcon from '@/assets/img/general/home-dark.svg'
+import dashboardIcon from '@/assets/img/general/dashboard.svg'
+import dashboardDarkIcon from '@/assets/img/general/dashboard-dark.svg'
+import paymentIcon from '@/assets/img/general/payment.svg'
+import paymentDarkIcon from '@/assets/img/general/payment-dark.svg'
+import contentIcon from '@/assets/img/general/content.svg'
+import contentDarkIcon from '@/assets/img/general/content-dark.svg'
+import studentIcon from '@/assets/img/general/student.svg'
+import studentDarkIcon from '@/assets/img/general/student-dark.svg'
+import employeeIcon from '@/assets/img/general/employee.svg'
+import employeeDarkIcon from '@/assets/img/general/employee-dark.svg'
+import movementsIcon from '@/assets/img/general/movements.svg'
+import movementsDarkIcon from '@/assets/img/general/movements-dark.svg'
+import reportsIcon from '@/assets/img/general/reports.svg'
+import reportsDarkIcon from '@/assets/img/general/reports-dark.svg'
+import gearIcon from '@/assets/img/general/gear.svg'
+import gearDarkIcon from '@/assets/img/general/gear-dark.svg'
 
 const { logout, user, getAccessTokenSilently, isAuthenticated, loginWithRedirect } = useAuth0()
 const router = useRouter()
@@ -320,6 +339,23 @@ const loggedUser = ref(null)
 const isSidebarOpen = ref(false)
 preferenceStore.initializePreferences()
 const isValidMenu = (roles) => userStore.user.hasRole(roles)
+
+const isDarkMode = computed(() => preferenceStore.theme === 'dark')
+
+const getIcon = (icon) => {
+  const icons = {
+    home: { light: homeIcon, dark: homeDarkIcon },
+    dashboard: { light: dashboardIcon, dark: dashboardDarkIcon },
+    payment: { light: paymentIcon, dark: paymentDarkIcon },
+    content: { light: contentIcon, dark: contentDarkIcon },
+    student: { light: studentIcon, dark: studentDarkIcon },
+    employee: { light: employeeIcon, dark: employeeDarkIcon },
+    movements: { light: movementsIcon, dark: movementsDarkIcon },
+    reports: { light: reportsIcon, dark: reportsDarkIcon },
+    gear: { light: gearIcon, dark: gearDarkIcon },
+  }
+  return isDarkMode.value ? icons[icon].dark : icons[icon].light
+}
 
 const toggleSubMenu = (menuName) => {
   preferenceStore.setSelectedMenu(menuName)
