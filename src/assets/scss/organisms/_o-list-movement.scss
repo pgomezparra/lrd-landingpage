@@ -9,6 +9,60 @@
   margin-bottom: 0.5rem;
 }
 
+.summary-movements {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(39, 174, 96, 0.05) 100%);
+  border: 0.063rem solid rgba(39, 174, 96, 0.3);
+}
+
+.summary-movements .salidas {
+  background: linear-gradient(135deg, rgba(192, 57, 43, 0.1) 0%, rgba(192, 57, 43, 0.05) 100%);
+  border-color: rgba(192, 57, 43, 0.3);
+}
+
+.summary-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: colors.$secondary-color;
+}
+
+.summary-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.ingresos .summary-label {
+  color: #27ae60;
+}
+
+.salidas .summary-label {
+  color: #c0392b;
+}
+
+.summary-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.ingresos .summary-value {
+  color: #27ae60;
+}
+
+.salidas .summary-value {
+  color: #c0392b;
+}
+
 .header-movements h2 {
   font-size: 1.4rem;
   margin-top: 0;
@@ -18,10 +72,10 @@
 .container-total {
   background: colors.$primary-color;
   font-weight: normal;
-  border-radius: 1rem;
+  border-radius: 0.35rem;
   color: colors.$secondary-color;
-  padding: 0.5rem;
-  margin-left: 1rem;
+  padding: 0.25rem 0.6rem;
+  margin-left: 0.5rem;
 }
 
 .controls {
@@ -43,8 +97,9 @@ select {
   grid-template-columns: 1fr;
   grid-template-rows: auto;
   row-gap: 1rem;
-  height: 72dvh;
+  height: 63dvh;
   width: 100%;
+  overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -54,16 +109,35 @@ select {
 }
 
 .movement-card {
+  background: colors.$secondary-color;
   border: 0.063rem solid colors.$border;
-  padding: 0.8rem;
   border-radius: 1rem;
+  padding: 1rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  min-width: 0;
 
   &:hover {
-    background-color: colors.$hover-movements;
-    color: colors.$btn-blue;
-    border-color: colors.$border-movements;
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-color: colors.$primary-color;
   }
+}
+
+.movement-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.movement-amount {
+  flex-shrink: 0;
+  text-align: right;
+  max-width: 50%;
+  word-break: break-all;
 }
 
 .card-header {
@@ -75,30 +149,63 @@ select {
 
 .date {
   color: #555;
-}
-
-.amount {
-  font-weight: bold;
-  color: #222;
+  font-size: 0.85rem;
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
 .type {
   font-size: 0.85rem;
   font-weight: bold;
   margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+  }
 }
 
 .salida {
   color: #c0392b;
+  &::before {
+    background: #c0392b;
+  }
 }
 
 .entrada {
+  color: #27ae60;
+  &::before {
+    background: #27ae60;
+  }
+}
+
+.amount {
+  font-size: 1.5rem;
+  font-weight: 800;
+  display: block;
+  letter-spacing: -0.02em;
+}
+
+.salida .amount {
+  color: #c0392b;
+}
+
+.entrada .amount {
   color: #27ae60;
 }
 
 .description {
   font-size: 0.95rem;
   margin-bottom: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .origin {
@@ -107,28 +214,103 @@ select {
 }
 
 .darkMode {
+  .summary-movements {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.15) 0%, rgba(46, 204, 113, 0.05) 100%);
+    border-color: rgba(46, 204, 113, 0.3);
+  }
+
+  .summary-movements .salidas {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.15) 0%, rgba(231, 76, 60, 0.05) 100%);
+    border-color: rgba(231, 76, 60, 0.3);
+  }
+
+  .summary-item {
+    background: colors.$card-border-dark;
+  }
+
+  .summary-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  .ingresos .summary-label {
+    color: #2ecc71;
+  }
+
+  .salidas .summary-label {
+    color: #e74c3c;
+  }
+
+  .summary-value {
+    font-size: 1.25rem;
+    font-weight: 800;
+  }
+
+  .ingresos .summary-value {
+    color: #2ecc71;
+  }
+
+  .salidas .summary-value {
+    color: #e74c3c;
+  }
+
   .movement-card {
-    background: colors.$card-border-dark ;
+    background: colors.$card-border-dark;
     border: 0.063rem solid colors.$border-dark;
-    padding: 0.8rem;
+    padding: 1rem;
     border-radius: 1rem;
     cursor: pointer;
 
     &:hover {
       background-color: colors.$bg-hover-dark;
-      color: colors.$text-dark-blue;
-      border-color: colors.$bg-hover-dark;
+      border-color: colors.$text-dark-blue;
+      transform: translateY(-2px);
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
     }
   }
 
   .origin {
     color: colors.$text-muted-dark;
   }
+
   .amount {
-    font-weight: bold;
-    color: colors.$success-dark;
+    font-weight: 800;
+    color: #fff;
+    font-size: 1.5rem;
   }
+
+  .salida .amount {
+    color: #e74c3c;
+  }
+
+  .entrada .amount {
+    color: #2ecc71;
+  }
+
   .date {
     color: colors.$text-muted-dark;
+  }
+
+  .description {
+    color: colors.$text-dark;
+  }
+
+  .type {
+    color: colors.$text-muted-dark;
+  }
+
+  .salida {
+    color: #e74c3c;
+  }
+
+  .entrada {
+    color: #2ecc71;
+  }
+
+  .movement-amount {
+    text-align: right;
   }
 }

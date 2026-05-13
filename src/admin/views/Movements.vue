@@ -6,31 +6,41 @@
       </div>
       <p class="l-standard-title__text">Selecciona el mes a consultar</p>
     </div>
+    <div v-if="movements.length > 0" class="summary-movements">
+      <div class="summary-item ingresos">
+        <span class="summary-label">Ingresos</span>
+        <span class="summary-value">{{ formatValue(totalIngresos) }}</span>
+      </div>
+      <div class="summary-item salidas">
+        <span class="summary-label">Salidas</span>
+        <span class="summary-value">{{ formatValue(totalSalidas) }}</span>
+      </div>
+    </div>
     <div class="header-movements">
       <div class="controls">
-        <select class="select-standard" v-model="selectedMonth">
-          <option
-            v-for="month in preferencesStore.months"
-            :key="month.getId()"
-            :value="month.getId()"
-          >
-            {{ month.getMonth() }}
-          </option>
-        </select>
+        <CustomSelect
+          v-model="selectedMonth"
+          :options="monthOptions"
+          label-key="label"
+          value-key="value"
+          placeholder="Selecciona el mes"
+        />
         <button class="button-edit" @click="addMovement">Registrar movimiento</button>
       </div>
     </div>
     <div v-if="movements.length > 0" class="movements-list">
       <div v-for="(movement, index) in movements" :key="index" @click="editMovement(movement)" class="movement-card">
-        <div class="card-header">
+        <div class="movement-info">
           <span class="date">{{ movement.getDateStr() }}</span>
-          <span class="amount">${{ movement.getValueFormatted() }}</span>
+          <div :class="['type', !movement.isIngress() ? 'salida' : 'entrada']">
+            {{ movement.getMovementType() }}
+          </div>
+          <div class="description">{{ movement.getDescription() }}</div>
+          <div class="origin">{{ movement.getMovementMethod() }}</div>
         </div>
-        <div :class="['type', !movement.isIngress() ? 'salida' : 'entrada']">
-          {{ movement.getMovementType() }}
+        <div class="movement-amount">
+          <span :class="['amount', !movement.isIngress() ? 'salida' : 'entrada']">${{ movement.getValueFormatted() }}</span>
         </div>
-        <div class="description">{{ movement.getDescription() }}</div>
-        <div class="origin">{{ movement.getMovementMethod() }}</div>
       </div>
     </div>
   </div>
@@ -40,13 +50,14 @@
 
 <script setup>
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { date, format, monthEnd, monthStart } from '@formkit/tempo'
 import { useMovementStore } from '@/admin/movements/context/store/movementStore.js'
 import CreateMovementModal from '@/admin/movements/context/components/modals/CreateMovementModal.vue'
 import EditMovementModal from '@/admin/movements/context/components/modals/EditMovementModal.vue'
 import { useVfm } from 'vue-final-modal'
 import LoadingOverlay from '@/admin/views/LoadingOverlay.vue'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 
 const preferencesStore = usePreferenceStore()
 const movementsStore = useMovementStore()
@@ -54,6 +65,33 @@ const vfm = useVfm()
 
 const selectedMonth = ref(0)
 const movements = ref([])
+
+const monthOptions = computed(() => {
+  return preferencesStore.months.map(month => ({
+    label: month.getMonth(),
+    value: month.getId()
+  }))
+})
+
+const totalIngresos = computed(() => {
+  return movements.value
+    .filter(m => m.isIngress())
+    .reduce((sum, m) => sum + m.getValue(), 0)
+})
+
+const totalSalidas = computed(() => {
+  return movements.value
+    .filter(m => !m.isIngress())
+    .reduce((sum, m) => sum + m.getValue(), 0)
+})
+
+const formatValue = (value) => {
+  return new Intl.NumberFormat('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0
+  }).format(value)
+}
 
 watch(() => preferencesStore.months, (newYear) => {
   selectedMonth.value = new Date().getMonth() + 1

@@ -12,9 +12,10 @@
     </div>
     <div v-if="isOpen" class="custom-select__dropdown" ref="dropdownRef">
       <div
-        v-for="option in options"
+        v-for="(option, index) in options"
         :key="getValue(option)"
-        class="custom-select__option"
+        :class="['custom-select__option', { 'custom-select__option--selected': getValue(option) === modelValue }]"
+        :ref="el => setOptionRef(el, index)"
         @click.stop="selectOption(option)"
       >
         {{ getLabel(option) }}
@@ -24,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { useCustomSelect } from '@/admin/shared/utils/customSelect.js'
 
@@ -61,6 +62,22 @@ const preferenceStore = usePreferenceStore()
 const { registerDropdown, unregisterDropdown, closeAllDropdowns, handleClickOutside } = useCustomSelect()
 const isOpen = ref(false)
 const dropdownRef = ref(null)
+const optionRefs = ref({})
+
+const setOptionRef = (el, index) => {
+  if (el) {
+    optionRefs.value[index] = el
+  }
+}
+
+const scrollToSelected = () => {
+  nextTick(() => {
+    const selectedIndex = props.options.findIndex(opt => getValue(opt) === props.modelValue)
+    if (selectedIndex !== -1 && optionRefs.value[selectedIndex]) {
+      optionRefs.value[selectedIndex].scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+    }
+  })
+}
 
 const isDarkMode = computed(() => preferenceStore.theme === 'dark')
 
@@ -101,6 +118,7 @@ const toggleDropdown = (event) => {
     closeAllDropdowns()
     isOpen.value = true
     registerDropdown(closeThisDropdown)
+    scrollToSelected()
   }
 }
 
