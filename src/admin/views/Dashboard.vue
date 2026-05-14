@@ -6,31 +6,68 @@
     </div>
 
     <div class="dashboard-cards">
-      <div class="card card-total">
-        <h3>Estudiantes activos</h3>
-        <p class="card-number">{{ activeStudents }}</p>
+      <div class="dashboard-stat-card students-card">
+        <div class="stat-header">
+          <div class="stat-icon students-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <span class="stat-label">Estudiantes activos</span>
+        </div>
+        <span class="stat-value">{{ activeStudents }}</span>
       </div>
-      <div class="card card-total resumen-anual">
-        <h3>Resumen anual</h3>
-        <div class="resumen-item-dashboard">
-          <span>Ingresos:</span>
-          <strong class="positivo">$ {{ totalInflow.toLocaleString('es-CO') }}</strong>
+
+      <div class="dashboard-stat-card income-card">
+        <div class="stat-header">
+          <div class="stat-icon income-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </div>
+          <span class="stat-label">Ingresos</span>
         </div>
-        <div class="resumen-item-dashboard">
-          <span>Salidas:</span>
-          <strong class="negativo">$ {{ totalOutflow.toLocaleString('es-CO') }}</strong>
+        <span class="stat-value positive">$ {{ totalInflow.toLocaleString('es-CO') }}</span>
+      </div>
+
+      <div class="dashboard-stat-card expense-card">
+        <div class="stat-header">
+          <div class="stat-icon expense-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="16" />
+              <line x1="8" y1="12" x2="16" y2="12" />
+            </svg>
+          </div>
+          <span class="stat-label">Gastos</span>
         </div>
-        <div class="resumen-item-dashboard">
-          <span>Saldo:</span>
-          <strong :class="totalBalance >= 0 ? 'positivo' : 'negativo'">
-            $ {{ totalBalance.toLocaleString('es-CO') }}
-          </strong>
+        <span class="stat-value negative">$ {{ totalOutflow.toLocaleString('es-CO') }}</span>
+      </div>
+
+      <div class="dashboard-stat-card balance-card">
+        <div class="stat-header">
+          <div class="stat-icon balance-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23,6 13.5,15.5 8.5,10.5 1,18" />
+              <polyline points="17,6 23,6 23,12" />
+            </svg>
+          </div>
+          <span class="stat-label">Balance {{ preferenceStore.selectedYear }}</span>
         </div>
+        <span :class="['stat-value', 'balance', totalBalance >= 0 ? 'positive' : 'negative']">
+          $ {{ totalBalance.toLocaleString('es-CO') }}
+        </span>
       </div>
     </div>
 
-    <div class="dashboard-graph">
-      <Bar :key="chartKey" :data="chartData" :options="barOptions" />
+    <div class="dashboard-graph-container">
+      <div class="dashboard-graph">
+        <Bar :key="chartKey" :data="chartData" :options="barOptions" />
+      </div>
     </div>
   </div>
 </template>
