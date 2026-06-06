@@ -2,11 +2,11 @@
   <div class="l-standard">
     <div class="l-standard-title">
       <div>
-        <span>Listado de movimientos</span><span class="container-total">{{ movements.length }}</span>
+        <span>Listado de movimientos</span><span class="container-total">{{ filteredMovements.length }}</span>
       </div>
       <p class="l-standard-title__text">Selecciona el mes a consultar</p>
     </div>
-    <div v-if="movements.length > 0" class="summary-movements">
+    <div v-if="filteredMovements.length > 0" class="summary-movements">
       <div class="summary-item ingresos">
         <span class="summary-label">Ingresos</span>
         <span class="summary-value">{{ formatValue(totalIngresos) }}</span>
@@ -25,11 +25,12 @@
           value-key="value"
           placeholder="Selecciona el mes"
         />
+        <input ref="filterInputRef" v-model="filterText" class="filter-input" placeholder="Filtrar movimientos..." />
         <button class="button-edit" @click="addMovement">Registrar movimiento</button>
       </div>
     </div>
-    <div v-if="movements.length > 0" class="movements-list">
-      <div v-for="(movement, index) in movements" :key="index" @click="editMovement(movement)" class="movement-card">
+    <div v-if="filteredMovements.length > 0" class="movements-list">
+      <div v-for="(movement, index) in filteredMovements" :key="index" @click="editMovement(movement)" class="movement-card">
         <div class="movement-info">
           <span class="date">{{ movement.getDateStr() }}</span>
           <div :class="['type', !movement.isIngress() ? 'salida' : 'entrada']">
@@ -50,7 +51,7 @@
 
 <script setup>
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { date, format, monthEnd, monthStart } from '@formkit/tempo'
 import { useMovementStore } from '@/admin/movements/context/store/movementStore.js'
 import CreateMovementModal from '@/admin/movements/context/components/modals/CreateMovementModal.vue'
@@ -65,6 +66,20 @@ const vfm = useVfm()
 
 const selectedMonth = ref(0)
 const movements = ref([])
+const filterText = ref('')
+const filterInputRef = ref(null)
+
+const filteredMovements = computed(() => {
+  if (!filterText.value) return movements.value
+  const term = filterText.value.toLowerCase()
+  return movements.value.filter(m =>
+    m.getDescription().toLowerCase().includes(term) ||
+    m.getMovementType().toLowerCase().includes(term) ||
+    m.getMovementMethod().toLowerCase().includes(term) ||
+    m.getValueFormatted().toLowerCase().includes(term) ||
+    m.getDateStr().toLowerCase().includes(term)
+  )
+})
 
 const monthOptions = computed(() => {
   return preferencesStore.months.map(month => ({
@@ -74,13 +89,13 @@ const monthOptions = computed(() => {
 })
 
 const totalIngresos = computed(() => {
-  return movements.value
+  return filteredMovements.value
     .filter(m => m.isIngress())
     .reduce((sum, m) => sum + m.getValue(), 0)
 })
 
 const totalSalidas = computed(() => {
-  return movements.value
+  return filteredMovements.value
     .filter(m => !m.isIngress())
     .reduce((sum, m) => sum + m.getValue(), 0)
 })
@@ -97,8 +112,10 @@ watch(() => preferencesStore.months, (newYear) => {
   selectedMonth.value = new Date().getMonth() + 1
 })
 
-watch(() => selectedMonth.value, (newMonth) => {
-  searchMovements()
+watch(() => selectedMonth.value, async (newMonth) => {
+  await searchMovements()
+  filterText.value = ''
+  nextTick(() => filterInputRef.value?.focus())
 })
 
 watch(() => preferencesStore.selectedYear, (newMovement) => {

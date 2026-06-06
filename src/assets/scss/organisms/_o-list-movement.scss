@@ -85,13 +85,54 @@
   gap: 0.5rem;
 }
 
+.filter-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border: 0.063rem solid colors.$border;
+  border-radius: 0.5rem;
+  outline: none;
+  min-width: 0;
+  background: colors.$secondary-color;
+
+  &:focus {
+    border-color: colors.$primary-color;
+  }
+}
+
+.darkMode .filter-input {
+  background: colors.$card-border-dark;
+  border-color: colors.$border-dark;
+  color: colors.$text-dark;
+
+  &:focus {
+    border-color: colors.$text-dark-blue;
+  }
+
+  &::placeholder {
+    color: colors.$text-muted-dark;
+  }
+}
+
 select {
   padding: 0.3rem 0.5rem;
   font-size: 0.9rem;
   width: 60%;
 }
 
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  select {
+    width: 100%;
+  }
+}
+
 .movements-list {
+  padding: 0.5rem 0;
   align-content: start;
   display: grid;
   grid-template-columns: 1fr;
@@ -103,6 +144,7 @@ select {
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -173,6 +215,7 @@ select {
 
 .salida {
   color: #c0392b;
+
   &::before {
     background: #c0392b;
   }
@@ -180,6 +223,7 @@ select {
 
 .entrada {
   color: #27ae60;
+
   &::before {
     background: #27ae60;
   }
