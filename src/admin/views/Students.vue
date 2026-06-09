@@ -20,28 +20,22 @@
     <div class="l-standard-option">
       <p class="text-desktop">Grado a consultar:</p>
       <p class="text-mobil">Grado a consultar:</p>
-      <select
-        class="select-standard"
+      <CustomSelect
         v-model="preferenceStore.selectedGrade"
-        @change="handleGradeChange"
+        :options="gradeOptions"
+        label-key="label"
+        value-key="value"
+        placeholder="Grado"
         :disabled="statusFilter === 'inactive'"
-      >
-        <option disabled :value="0">Grado</option>
-        <option
-          v-for="grade in preferenceStore.grades"
-          :key="grade.getId()"
-          :value="grade.getId()">
-          {{ grade.getGrade() }}
-        </option>
-      </select>
-      <select
-        class="select-standard"
+        @change="handleGradeChange"
+      />
+      <CustomSelect
         v-model="statusFilter"
+        :options="statusFilterOptions"
+        label-key="label"
+        value-key="value"
         @change="changeStatusFilter"
-      >
-        <option value="active">Activos</option>
-        <option value="inactive">Inactivos</option>
-      </select>
+      />
       <button class="button-standard" @click="addStudent">
         <img class="button-payment-img" src="../../assets/img/general/plus.svg" alt="payment">
         Agregar
@@ -105,6 +99,7 @@ import { useVfm } from 'vue-final-modal'
 import EditStudentModal from '@/admin/students/context/components/modals/EditStudentModal.vue'
 import CreateStudentModal from '@/admin/students/context/components/modals/CreateStudentModal.vue'
 import DetailsStudentModal from '@/admin/students/context/components/modals/DetailsStudentModal.vue'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 import { notifications } from '@/shared/notifications.js'
 
 const preferenceStore = usePreferenceStore()
@@ -116,6 +111,18 @@ const search = ref('')
 const searchInput = ref(null)
 const showExportMenu = ref(false)
 const exportRef = ref(null)
+
+const gradeOptions = computed(() =>
+  preferenceStore.grades.map(g => ({
+    label: g.getGrade(),
+    value: g.getId()
+  }))
+)
+
+const statusFilterOptions = [
+  { label: 'Activos', value: 'active' },
+  { label: 'Inactivos', value: 'inactive' }
+]
 
 const filteredStudents = computed(() => {
   if (search.value === '') {
@@ -130,13 +137,13 @@ const toggleExportMenu = () => {
   showExportMenu.value = !showExportMenu.value
 }
 
-const handleGradeChange = async (event) => {
-  preferenceStore.setSelectedGrade(parseInt(event.target.value))
+const handleGradeChange = async (value) => {
+  preferenceStore.setSelectedGrade(parseInt(value))
 }
 
-const changeStatusFilter = async (event) => {
+const changeStatusFilter = async (value) => {
   studentStore.setStudents([])
-  if (event.target.value === 'inactive') {
+  if (value === 'inactive') {
     preferenceStore.setSelectedGrade(0)
     await refreshData()
   } else {

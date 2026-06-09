@@ -73,6 +73,21 @@ export default class EmployeeUc {
     }
   }
 
+  async renewEmployee(employee) {
+    try {
+      const response = await this.#employeeRepository.renewEmployee(employee)
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status }
+      } else {
+        return { status: 500 }
+      }
+    }
+  }
+
   processEmployee(employee) {
     return {
       document_type: employee.documentType,
@@ -83,6 +98,7 @@ export default class EmployeeUc {
       salary: parseInt(employee.salary),
       employee_type: employee.type,
       year: parseInt(employee.year),
+      admission_date: Math.floor(employee.admissionDate.getTime() / 1000),
       id: employee.id
     }
   }

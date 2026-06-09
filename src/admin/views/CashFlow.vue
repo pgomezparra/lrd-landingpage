@@ -14,6 +14,7 @@
         locale="es"
         :maxDate="new Date()"
         :clearable="false"
+        :dark="theme === 'dark'"
       />
     </div>
 
@@ -72,7 +73,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch, computed } from 'vue'
 import Datepicker from '@vuepic/vue-datepicker'
 import { useReportStore } from '@/admin/reports/context/store/reportStore.js'
 import { format } from '@formkit/tempo'
@@ -87,6 +88,7 @@ const preferenceStore = usePreferenceStore()
 const paymentsStore = usePaymentStore()
 
 const vfm = useVfm()
+const theme = computed(() => preferenceStore.theme)
 
 const date = ref(new Date())
 const movements = ref([])

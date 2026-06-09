@@ -92,12 +92,12 @@
             alt="content"
           />
           <p class="menu-item">Contenido</p>
-          <svg 
-            class="chevron-icon" 
-            :class="{ 'chevron-icon--rotated': preferenceStore.selectedMenu === 'content' }" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            class="chevron-icon"
+            :class="{ 'chevron-icon--rotated': preferenceStore.selectedMenu === 'content' }"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
             stroke-width="2"
           >
             <polyline points="6,9 12,15 18,9" />
@@ -188,12 +188,12 @@
             alt="reports"
           />
           <p class="menu-item">Reportes</p>
-          <svg 
-            class="chevron-icon" 
-            :class="{ 'chevron-icon--rotated': preferenceStore.selectedMenu === 'reports' }" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            class="chevron-icon"
+            :class="{ 'chevron-icon--rotated': preferenceStore.selectedMenu === 'reports' }"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
             stroke-width="2"
           >
             <polyline points="6,9 12,15 18,9" />
@@ -238,12 +238,12 @@
         >
           <img class="sidebar-menu-items__img" :src="getIcon('gear')" alt="settings" />
           <p class="menu-item">Ajustes</p>
-          <svg 
-            class="chevron-icon" 
-            :class="{ 'chevron-icon--rotated': preferenceStore.selectedMenu === 'settings' }" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            class="chevron-icon"
+            :class="{ 'chevron-icon--rotated': preferenceStore.selectedMenu === 'settings' }"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
             stroke-width="2"
           >
             <polyline points="6,9 12,15 18,9" />
@@ -283,17 +283,23 @@
           </svg>
         </button>
         <div>
-          <button class="theme-toggle" @click="preferenceStore.toggleTheme()" :title="preferenceStore.theme === 'dark' ? 'Modo claro' : 'Modo oscuro'">
-            <svg v-if="preferenceStore.theme === 'dark'" class="theme-toggle__icon" viewBox="0 0 24 24" fill="currentColor">
+          <button class="theme-toggle" @click="preferenceStore.toggleTheme()"
+                  :title="preferenceStore.theme === 'dark' ? 'Modo claro' : 'Modo oscuro'">
+            <svg v-if="preferenceStore.theme === 'dark'" class="theme-toggle__icon" viewBox="0 0 24 24"
+                 fill="currentColor">
               <circle cx="12" cy="12" r="5" />
-              <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" />
+              <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" />
             </svg>
             <svg v-else class="theme-toggle__icon" viewBox="0 0 24 24" fill="currentColor">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
@@ -352,7 +358,7 @@ const getIcon = (icon) => {
     employee: { light: employeeIcon, dark: employeeDarkIcon },
     movements: { light: movementsIcon, dark: movementsDarkIcon },
     reports: { light: reportsIcon, dark: reportsDarkIcon },
-    gear: { light: gearIcon, dark: gearDarkIcon },
+    gear: { light: gearIcon, dark: gearDarkIcon }
   }
   return isDarkMode.value ? icons[icon].dark : icons[icon].light
 }
@@ -375,7 +381,7 @@ const handleAddYear = async () => {
 const closeSession = () => {
   preferenceStore.setSelectedMenu('home')
   preferenceStore.setSelectedSubMenu('')
-  logout({ logoutParams: { returnTo: window.location.origin } })
+  logout({ logoutParams: { returnTo: `${window.location.origin}/admin/home` } })
 }
 
 const redirectTo = (path, menu) => {

@@ -10,6 +10,7 @@
 
   width: 100%;
   min-height: 5.5rem;
+  position: relative;
 
   background: linear-gradient(
                   155deg,
@@ -30,7 +31,6 @@
 
   &:hover {
     cursor: pointer;
-    transform: translateY(-0.15rem) scale(0.98);
     box-shadow: 0 0.625rem 1.563rem rgba(0, 0, 0, 0.15),
     inset 0 0.063rem 0 rgba(255, 255, 255, 0.15);
   }
@@ -83,6 +83,56 @@
     margin-top: 0.25rem;
   }
 
+  &__menu {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  &__menu-trigger {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+    color: inherit;
+    border-radius: 0.25rem;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__menu-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: colors.$secondary-color;
+    border: 0.063rem solid colors.$border;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.12);
+    z-index: 10;
+    min-width: 8rem;
+    overflow: hidden;
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border: none;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: inherit;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
   animation: cardFadeIn 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
@@ -120,7 +170,6 @@
       background: colors.$bg-hover-dark;
       cursor: pointer;
       border-color: rgba(colors.$bg-hover-dark, 0.6);
-      transform: translateY(-0.15rem) scale(0.98);
     }
 
     animation: cardFadeIn 0.5s cubic-bezier(0.19, 1, 0.22, 1);
@@ -135,6 +184,19 @@
 
     &__grade {
       color: colors.$text-muted-dark;
+    }
+  }
+
+  .cards__menu-trigger:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .cards__menu-dropdown {
+    background: colors.$bg-dark;
+    border-color: colors.$border-dark;
+
+    button:hover {
+      background: colors.$bg-hover-dark;
     }
   }
 

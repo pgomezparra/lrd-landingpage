@@ -139,6 +139,13 @@ export const useEmployeeStore = defineStore('employees', {
       } catch (error) {
         console.error(`error: ${error}`)
       }
+    },
+    async renewEmployee(employee) {
+      try {
+        return await employeeUc.renewEmployee(employee)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
     }
   }
 })

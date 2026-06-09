@@ -21,10 +21,10 @@ const preferenceStore = usePreferenceStore()
 const closeSession = () => {
   preferenceStore.setSelectedMenu('home')
   preferenceStore.setSelectedSubMenu('')
-  console.log('logout ', window.location.origin)
+  console.log('logout ', `${window.location.origin}/admin/home`)
   logout({
     logoutParams: {
-      returnTo: window.location.origin
+      returnTo: `${window.location.origin}/admin/home`
     }
   })
 }

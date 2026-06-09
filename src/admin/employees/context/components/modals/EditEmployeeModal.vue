@@ -15,16 +15,13 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select class="select-document" v-model="employee.documentType">
-              <option disabled value="">Seleccione un tipo de documento</option>
-              <option
-                v-for="(documentType, index) in DOCUMENT_TYPES_TEXT"
-                :key="index"
-                :value="index"
-              >
-                {{ documentType }}
-              </option>
-            </select>
+            <CustomSelect
+              v-model="employee.documentType"
+              :options="documentTypeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un tipo de documento"
+            />
           </div>
           <div class="form-group">
             <p>Documento</p>
@@ -48,25 +45,39 @@
             maxlength="40"
           />
         </div>
+        <div class="form-group">
+          <p>Fecha de ingreso</p>
+          <Datepicker
+            v-model="employee.admissionDate"
+            :autoApply="true"
+            :enable-time-picker="false"
+            :format="'yyyy-MM-dd'"
+            locale="es"
+            :maxDate="new Date()"
+            :clearable="false"
+            :dark="theme === 'dark'"
+          />
+        </div>
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de empleado</p>
-            <select class="select-methods" v-model="employee.type">
-              <option disabled value="">Seleccione un tipo de empleado</option>
-              <option
-                v-for="(type, index) in EMPLOYEE_TYPES"
-                :key="index"
-                :value="index">
-                {{ type }}
-              </option>
-            </select>
+            <CustomSelect
+              v-model="employee.type"
+              :options="employeeTypeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un tipo de empleado"
+            />
           </div>
           <div class="form-group">
             <p>Estado</p>
-            <select class="select-document" v-model="employee.active">
-              <option :value="true">Activo</option>
-              <option :value="false">Inactivo</option>
-            </select>
+            <CustomSelect
+              v-model="employee.active"
+              :options="statusOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un estado"
+            />
           </div>
         </div>
       </div>
@@ -86,12 +97,27 @@ import { usePreferenceStore } from '@/admin/general/context/store/preferenceStor
 import { notifications } from '@/shared/notifications.js'
 import { DOCUMENT_TYPES_TEXT, EMPLOYEE_TYPES } from '@/admin/shared/constants.js'
 import { useEmployeeStore } from '@/admin/employees/context/store/employeeStore.js'
+import Datepicker from '@vuepic/vue-datepicker'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 
 const vfm = useVfm()
 const employeeStore = useEmployeeStore()
 const preferenceStore = usePreferenceStore()
 const theme = computed(() => preferenceStore.theme)
 const emit = defineEmits(['changeActive', 'refresh'])
+
+const documentTypeOptions = computed(() =>
+  Object.entries(DOCUMENT_TYPES_TEXT).map(([value, label]) => ({ label, value }))
+)
+
+const employeeTypeOptions = computed(() =>
+  Object.entries(EMPLOYEE_TYPES).map(([value, label]) => ({ label, value }))
+)
+
+const statusOptions = [
+  { label: 'Activo', value: true },
+  { label: 'Inactivo', value: false }
+]
 
 const employee = reactive({
   id: '',
@@ -102,7 +128,8 @@ const employee = reactive({
   salary: 0,
   type: '',
   active: false,
-  year: preferenceStore.selectedYear
+  year: preferenceStore.selectedYear,
+  admissionDate: new Date()
 })
 
 const beforeOpen = () => {
@@ -117,6 +144,7 @@ const beforeOpen = () => {
   employee.type = employeeStore.selectedEmployee.getEmployeeType()
   employee.active = employeeStore.selectedEmployee.isActive()
   employee.year = employeeStore.selectedEmployee.getYear()
+  employee.admissionDate = employeeStore.selectedEmployee.getAdmissionDate() ? new Date(employeeStore.selectedEmployee.getAdmissionDate() * 1000) : new Date()
 }
 
 const updateEmployee = async () => {
@@ -144,7 +172,7 @@ const updateEmployee = async () => {
 }
 
 const validateData = () => {
-  if (employee.documentType === 0) {
+  if (employee.documentType === '') {
     notifications.notify('Debe seleccionar el tipo de documento del empleado', 'error')
     return false
   }
@@ -169,6 +197,11 @@ const validateData = () => {
     return false
   }
 
+  if (!employee.admissionDate) {
+    notifications.notify('Debe seleccionar la fecha de ingreso', 'error')
+    return false
+  }
+
   return true
 }
 
@@ -182,6 +215,7 @@ const clearInputs = () => {
   employee.type = ''
   employee.active = false
   employee.year = preferenceStore.selectedYear
+  employee.admissionDate = new Date()
 }
 
 const closeModal = () => {

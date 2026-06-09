@@ -2,6 +2,7 @@
   <div class="custom-select" :class="{ 'custom-select--dark': isDarkMode }">
     <div
       class="custom-select__trigger input-height-sm"
+      ref="triggerRef"
       @click.stop="toggleDropdown"
     >
       <span class="custom-select__value">{{ selectedLabel }}</span>
@@ -10,7 +11,8 @@
         <polyline points="6,9 12,15 18,9" />
       </svg>
     </div>
-    <div v-if="isOpen" class="custom-select__dropdown" ref="dropdownRef">
+    <div v-if="isOpen" class="custom-select__dropdown" ref="dropdownRef"
+         :style="dropdownUp ? { top: 'auto', bottom: 'calc(100% + 0.25rem)' } : {}">
       <div
         v-for="(option, index) in options"
         :key="getValue(option)"
@@ -61,6 +63,8 @@ const emit = defineEmits(['update:modelValue', 'change'])
 const preferenceStore = usePreferenceStore()
 const { registerDropdown, unregisterDropdown, closeAllDropdowns, handleClickOutside } = useCustomSelect()
 const isOpen = ref(false)
+const dropdownUp = ref(false)
+const triggerRef = ref(null)
 const dropdownRef = ref(null)
 const optionRefs = ref({})
 
@@ -114,10 +118,27 @@ const toggleDropdown = (event) => {
   if (isOpen.value) {
     isOpen.value = false
     unregisterDropdown(closeThisDropdown)
+    dropdownUp.value = false
   } else {
     closeAllDropdowns()
     isOpen.value = true
     registerDropdown(closeThisDropdown)
+    nextTick(() => {
+      if (!triggerRef.value) return
+      const rect = triggerRef.value.getBoundingClientRect()
+      let scrollParent = triggerRef.value.parentElement
+      while (scrollParent) {
+        const style = getComputedStyle(scrollParent)
+        if (style.overflowY === 'auto' || style.overflowY === 'scroll') break
+        scrollParent = scrollParent.parentElement
+      }
+      const containerRect = scrollParent
+        ? scrollParent.getBoundingClientRect()
+        : { top: 0, bottom: window.innerHeight }
+      const spaceBelow = containerRect.bottom - rect.bottom
+      const spaceAbove = rect.top - containerRect.top
+      dropdownUp.value = spaceBelow < 120 && spaceAbove >= 120
+    })
     scrollToSelected()
   }
 }

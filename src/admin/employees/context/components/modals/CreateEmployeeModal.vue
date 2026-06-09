@@ -8,7 +8,6 @@
     :click-to-close="false"
     :esc-to-close="false"
     @beforeOpen="beforeOpen"
-    @opened="onOpen"
   >
     <div>
       <p class="modal-title">Registrar empleado</p>
@@ -16,17 +15,13 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select class="select-methods" v-model="employee.documentType" ref="documentTypeInput"
-                    @change="focusDocumentInput">
-              <option disabled value="">Seleccione un tipo de documento</option>
-              <option
-                v-for="(documentType, index) in DOCUMENT_TYPES_TEXT"
-                :key="index"
-                :value="index"
-              >
-                {{ documentType }}
-              </option>
-            </select>
+            <CustomSelect
+              v-model="employee.documentType"
+              :options="documentTypeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un tipo de documento"
+            />
           </div>
           <div class="form-group">
             <p>Documento</p>
@@ -68,15 +63,26 @@
         </div>
         <div class="form-group">
           <p>Tipo de empleado</p>
-          <select class="select-methods" v-model="employee.type">
-            <option disabled value="">Seleccione un tipo de empleado</option>
-            <option
-              v-for="(type, index) in EMPLOYEE_TYPES"
-              :key="index"
-              :value="index">
-              {{ type }}
-            </option>
-          </select>
+          <CustomSelect
+            v-model="employee.type"
+            :options="employeeTypeOptions"
+            label-key="label"
+            value-key="value"
+            placeholder="Seleccione un tipo de empleado"
+          />
+        </div>
+        <div class="form-group">
+          <p>Fecha de ingreso</p>
+          <Datepicker
+            v-model="employee.admissionDate"
+            :autoApply="true"
+            :enable-time-picker="false"
+            :format="'yyyy-MM-dd'"
+            locale="es"
+            :maxDate="new Date()"
+            :clearable="false"
+            :dark="theme === 'dark'"
+          />
         </div>
       </div>
       <div class="modal-actions">
@@ -95,6 +101,8 @@ import * as utils from '@/shared/utils.js'
 import { notifications } from '@/shared/notifications.js'
 import { useEmployeeStore } from '@/admin/employees/context/store/employeeStore.js'
 import { DOCUMENT_TYPES_TEXT, EMPLOYEE_TYPES } from '@/admin/shared/constants.js'
+import Datepicker from '@vuepic/vue-datepicker'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 
 const vfm = useVfm()
 const employeeStore = useEmployeeStore()
@@ -103,8 +111,15 @@ const theme = computed(() => preferenceStore.theme)
 
 const emit = defineEmits(['changeActive', 'refresh'])
 
-const documentTypeInput = ref(null)
 const documentInput = ref(null)
+
+const documentTypeOptions = computed(() =>
+  Object.entries(DOCUMENT_TYPES_TEXT).map(([value, label]) => ({ label, value }))
+)
+
+const employeeTypeOptions = computed(() =>
+  Object.entries(EMPLOYEE_TYPES).map(([value, label]) => ({ label, value }))
+)
 
 const employee = reactive({
   name: '',
@@ -115,6 +130,7 @@ const employee = reactive({
   year: preferenceStore.selectedYear,
   salary: 3,
   type: '',
+  admissionDate: new Date(),
   id: ''
 })
 
@@ -136,14 +152,6 @@ watch(
 
 const beforeOpen = async () => {
   clearInputs()
-}
-
-const onOpen = () => {
-  documentTypeInput.value.focus()
-}
-
-const focusDocumentInput = () => {
-  documentInput.value.focus()
 }
 
 const validateDocument = async () => {
@@ -224,6 +232,11 @@ const validateData = () => {
     return false
   }
 
+  if (!employee.admissionDate) {
+    notifications.notify('Debe seleccionar la fecha de ingreso', 'error')
+    return false
+  }
+
   return true
 }
 
@@ -236,6 +249,7 @@ const clearInputs = () => {
   employee.active = true
   employee.salary = 0
   employee.type = ''
+  employee.admissionDate = new Date()
   employee.id = ''
 }
 

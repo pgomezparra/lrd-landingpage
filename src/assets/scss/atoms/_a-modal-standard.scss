@@ -76,8 +76,9 @@
     max-width: 28rem;
     box-shadow: 0 0.75rem 1.25rem colors.$shadow-modal;
   }
+
   .dp__theme_dark {
-    --dp-background-color: #{colors.$card-border-dark};
+    --dp-background-color: #{colors.$bg-container-dark};
     --dp-text-color: #{colors.$text-dark};
     --dp-hover-color: #{colors.$text-dark-blue};
     --dp-primary-color: #{colors.$text-dark-blue};

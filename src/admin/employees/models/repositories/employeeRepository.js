@@ -36,4 +36,10 @@ export default class EmployeeRepository {
 
     return customAxios.patch(url, employee)
   }
+
+  async renewEmployee(employee) {
+    let url = `${myUrl(3000)}/api/v1/employees/${employee.id}/renew`
+
+    return customAxios.post(url, { year: employee.year + 1 })
+  }
 }

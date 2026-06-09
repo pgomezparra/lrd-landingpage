@@ -81,11 +81,17 @@
     box-shadow: 0 0.25rem 0.5rem colors.$shadow-card;
     left: 0;
     max-height: 12.5rem;
+    min-width: 100%;
     overflow-y: auto;
     position: absolute;
     top: calc(100% + 0.25rem);
-    width: 100%;
+    white-space: nowrap;
     z-index: 1000;
+
+    &--up {
+      bottom: calc(100% + 0.25rem);
+      top: auto;
+    }
   }
 
   &__option {

@@ -26,7 +26,7 @@
               locale="es"
               :maxDate="new Date()"
               :clearable="false"
-              :class="theme === 'dark' ? 'dp__theme_dark' : ''"
+              :dark="theme === 'dark'"
             />
           </div>
           <div class="form-group">

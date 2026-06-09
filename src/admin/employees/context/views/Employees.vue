@@ -19,27 +19,21 @@
     </div>
     <div class="l-standard-option">
       <p>Tipo de empleado</p>
-      <select
-        class="select-standard"
+      <CustomSelect
         v-model="employeeTypeFilter"
+        :options="employeeTypeFilterOptions"
+        label-key="label"
+        value-key="value"
+        placeholder="Todos"
         @change="handleTypeChange"
-      >
-        <option value="">Todos</option>
-        <option
-          v-for="(type, index) in EMPLOYEE_TYPES"
-          :key="index"
-          :value="index">
-          {{ type }}
-        </option>
-      </select>
-      <select
-        class="select-standard"
+      />
+      <CustomSelect
         v-model="statusFilter"
+        :options="statusFilterOptions"
+        label-key="label"
+        value-key="value"
         @change="changeStatusFilter"
-      >
-        <option value="active">Activos</option>
-        <option value="inactive">Inactivos</option>
-      </select>
+      />
       <button class="button-standard" @click="addEmployee">
         <img class="button-payment-img" src="../../../../assets/img/general/plus.svg" alt="payment">
         Agregar
@@ -52,7 +46,6 @@
         class="cards"
         v-for="(employee, index) in filteredEmployees"
         :key="index"
-        @click="employeeDetails(employee)"
       >
         <div class="cards__avatar">
           <img src="@/assets/img/general/person.svg" alt="person">
@@ -69,25 +62,32 @@
             {{ employee.getEmployeeTypeStr() }}
           </p>
         </div>
+
+        <div class="cards__menu">
+          <button class="cards__menu-trigger" @click.stop="toggleMenu(index)">&#8942;</button>
+          <div v-if="openMenuIndex === index" class="cards__menu-dropdown">
+            <button @click.stop="editEmployee(employee)">Editar</button>
+            <button @click.stop="renewEmployee(employee)">Renovar</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <edit-employee-modal @changeActive="changeActive" @refresh="refreshData" />
   <create-employee-modal @changeActive="statusFilter = 'active'" @refresh="refreshData" />
-  <details-employee-modal />
   <export-employee-modal :statusFilter="statusFilter" />
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { useVfm } from 'vue-final-modal'
 import { useEmployeeStore } from '@/admin/employees/context/store/employeeStore.js'
 import CreateEmployeeModal from '@/admin/employees/context/components/modals/CreateEmployeeModal.vue'
-import DetailsEmployeeModal from '@/admin/employees/context/components/modals/DetailsEmployeeModal.vue'
 import { EMPLOYEE_TYPES } from '@/admin/shared/constants.js'
 import EditEmployeeModal from '@/admin/employees/context/components/modals/EditEmployeeModal.vue'
 import ExportEmployeeModal from '@/admin/employees/context/components/modals/ExportEmployeeModal.vue'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 import { notifications } from '@/shared/notifications.js'
 
 const preferenceStore = usePreferenceStore()
@@ -98,6 +98,17 @@ const statusFilter = ref('active')
 const employeeTypeFilter = ref('')
 const search = ref('')
 const searchInput = ref(null)
+const openMenuIndex = ref(null)
+
+const employeeTypeFilterOptions = computed(() => [
+  { label: 'Todos', value: '' },
+  ...Object.entries(EMPLOYEE_TYPES).map(([value, label]) => ({ label, value }))
+])
+
+const statusFilterOptions = [
+  { label: 'Activos', value: 'active' },
+  { label: 'Inactivos', value: 'inactive' }
+]
 
 const filteredEmployees = computed(() => {
   if (search.value === '') {
@@ -152,9 +163,34 @@ async function openExportEmployeeModal() {
   vfm.open('exportEmployeeModal')
 }
 
-const employeeDetails = (employee) => {
+const toggleMenu = (index) => {
+  openMenuIndex.value = openMenuIndex.value === index ? null : index
+}
+
+const editEmployee = (employee) => {
+  openMenuIndex.value = null
   employeeStore.setSelectedEmployee(employee)
-  vfm.open('detailsEmployeeModal')
+  vfm.open('editEmployeeModal')
+}
+
+const renewEmployee = async (employee) => {
+  openMenuIndex.value = null
+  preferenceStore.setLoading(true)
+  try {
+    const response = await employeeStore.renewEmployee(employee)
+    if (response.status === 200) {
+      preferenceStore.setSelectedYear(employee.getYear() + 1)
+      employeeStore.setSelectedEmployee(null)
+    }
+  } catch (error) {
+    console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
+  }
+}
+
+const closeMenu = () => {
+  openMenuIndex.value = null
 }
 
 const addEmployee = () => {
@@ -174,5 +210,10 @@ onMounted(async () => {
   employeeStore.setSelectedEmployee(null)
   employeeStore.setEmployees([])
   if (preferenceStore.selectedYear) await refreshData()
+  document.addEventListener('click', closeMenu)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeMenu)
 })
 </script>

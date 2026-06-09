@@ -1,4 +1,5 @@
 import { DOCUMENT_TYPES, EMPLOYEE_TYPES } from '@/admin/shared/constants.js'
+import { format } from '@formkit/tempo'
 
 export default class Employee {
   #id = ''
@@ -10,6 +11,7 @@ export default class Employee {
   #employeeType = ''
   #active = false
   #year = 0
+  #admissionDate = ''
   #author = ''
 
   static fromJSONResponse(json) {
@@ -23,6 +25,7 @@ export default class Employee {
       .setEmployeeType(json.employee_type)
       .setActive(json.active)
       .setYear(json.year)
+      .setAdmissionDate(json.admission_date)
       .setAuthor(json.author)
   }
 
@@ -124,6 +127,21 @@ export default class Employee {
 
   setYear(year) {
     this.#year = year
+
+    return this
+  }
+
+  getAdmissionDate() {
+    return this.#admissionDate
+  }
+
+  getAdmissionDateStr() {
+    if (!this.#admissionDate) return '-'
+    return format(new Date(this.#admissionDate * 1000), 'DD MMM YYYY', 'es-CO')
+  }
+
+  setAdmissionDate(admissionDate) {
+    this.#admissionDate = admissionDate
 
     return this
   }
