@@ -38,8 +38,16 @@ export default class EmployeeRepository {
   }
 
   async renewEmployee(employee) {
-    let url = `${myUrl(3000)}/api/v1/employees/${employee.id}/renew`
+    let url = `${myUrl(3000)}/api/v1/employees/${employee.getId()}/renew`
 
-    return customAxios.post(url, { year: employee.year + 1 })
+    return customAxios.post(url, { year: employee.getYear() + 1 })
+  }
+
+  async generateLiquidation(employeeId) {
+    let url = `${myUrl(3000)}/api/v1/employees/${employeeId}/liquidation`
+
+    return customAxios.get(url, {
+      responseType: 'blob'
+    })
   }
 }

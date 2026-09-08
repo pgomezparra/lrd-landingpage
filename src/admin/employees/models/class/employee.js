@@ -12,6 +12,7 @@ export default class Employee {
   #active = false
   #year = 0
   #admissionDate = ''
+  #departureDate = ''
   #author = ''
 
   static fromJSONResponse(json) {
@@ -26,6 +27,7 @@ export default class Employee {
       .setActive(json.active)
       .setYear(json.year)
       .setAdmissionDate(json.admission_date)
+      .setDepartureDate(json.departure_date)
       .setAuthor(json.author)
   }
 
@@ -142,6 +144,22 @@ export default class Employee {
 
   setAdmissionDate(admissionDate) {
     this.#admissionDate = admissionDate
+
+    return this
+  }
+
+  getDepartureDate() {
+    if (!this.#departureDate || this.#departureDate === 0) return null
+    return this.#departureDate
+  }
+
+  getDepartureDateStr() {
+    if (!this.#departureDate || this.#departureDate === 0) return '-'
+    return format(new Date(this.#departureDate * 1000), 'DD MMM YYYY', 'es-CO')
+  }
+
+  setDepartureDate(departureDate) {
+    this.#departureDate = departureDate
 
     return this
   }

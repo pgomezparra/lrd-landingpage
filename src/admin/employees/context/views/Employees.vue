@@ -68,6 +68,7 @@
           <div v-if="openMenuIndex === index" class="cards__menu-dropdown">
             <button @click.stop="editEmployee(employee)">Editar</button>
             <button @click.stop="renewEmployee(employee)">Renovar</button>
+            <button @click.stop="generateLiquidation(employee)">Generar liquidación</button>
           </div>
         </div>
       </div>
@@ -181,6 +182,34 @@ const renewEmployee = async (employee) => {
     if (response.status === 200) {
       preferenceStore.setSelectedYear(employee.getYear() + 1)
       employeeStore.setSelectedEmployee(null)
+    }
+  } catch (error) {
+    console.error(`error: ${error}`)
+  } finally {
+    preferenceStore.setLoading(false)
+  }
+}
+
+const generateLiquidation = async (employee) => {
+  openMenuIndex.value = null
+
+  if (employee.getSalary() === 0) {
+    notifications.notify('El empleado no tiene salario definido', 'error')
+    return
+  }
+
+  if (!employee.getDepartureDate()) {
+    notifications.notify('El empleado no tiene fecha de salida definida', 'error')
+    return
+  }
+
+  preferenceStore.setLoading(true)
+  try {
+    const response = await employeeStore.generateLiquidation(employee.getId())
+    if (response.status === 200) {
+      notifications.notify('Liquidación generada correctamente', 'success')
+    } else {
+      notifications.notify('No se pudo generar la liquidación', 'error')
     }
   } catch (error) {
     console.error(`error: ${error}`)

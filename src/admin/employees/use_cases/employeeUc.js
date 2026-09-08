@@ -88,6 +88,26 @@ export default class EmployeeUc {
     }
   }
 
+  async generateLiquidation(employeeId) {
+    try {
+      const response = await this.#employeeRepository.generateLiquidation(employeeId)
+
+      const blob = new Blob([response.data], { type: 'application/pdf' })
+      const url = window.URL.createObjectURL(blob)
+
+      window.open(url)
+
+      return { status: response.status }
+    } catch (error) {
+      console.error(`error: ${error}`)
+      if (error.response) {
+        return { status: error.response.status }
+      } else {
+        return { status: 500 }
+      }
+    }
+  }
+
   processEmployee(employee) {
     return {
       document_type: employee.documentType,
@@ -99,6 +119,7 @@ export default class EmployeeUc {
       employee_type: employee.type,
       year: parseInt(employee.year),
       admission_date: Math.floor(employee.admissionDate.getTime() / 1000),
+      departure_date: employee.departureDate ? Math.floor(employee.departureDate.getTime() / 1000) : 0,
       id: employee.id
     }
   }

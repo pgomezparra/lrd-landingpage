@@ -58,6 +58,19 @@
             :dark="theme === 'dark'"
           />
         </div>
+        <div class="form-group">
+          <p>Fecha de salida</p>
+          <Datepicker
+            v-model="employee.departureDate"
+            :autoApply="true"
+            :enable-time-picker="false"
+            :format="'yyyy-MM-dd'"
+            locale="es"
+            :clearable="false"
+            :dark="theme === 'dark'"
+            placeholder="Seleccionar fecha de salida"
+          />
+        </div>
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de empleado</p>
@@ -129,7 +142,8 @@ const employee = reactive({
   type: '',
   active: false,
   year: preferenceStore.selectedYear,
-  admissionDate: new Date()
+  admissionDate: new Date(),
+  departureDate: null
 })
 
 const beforeOpen = () => {
@@ -145,6 +159,7 @@ const beforeOpen = () => {
   employee.active = employeeStore.selectedEmployee.isActive()
   employee.year = employeeStore.selectedEmployee.getYear()
   employee.admissionDate = employeeStore.selectedEmployee.getAdmissionDate() ? new Date(employeeStore.selectedEmployee.getAdmissionDate() * 1000) : new Date()
+  employee.departureDate = employeeStore.selectedEmployee.getDepartureDate() ? new Date(employeeStore.selectedEmployee.getDepartureDate() * 1000) : null
 }
 
 const updateEmployee = async () => {
@@ -216,6 +231,7 @@ const clearInputs = () => {
   employee.active = false
   employee.year = preferenceStore.selectedYear
   employee.admissionDate = new Date()
+  employee.departureDate = null
 }
 
 const closeModal = () => {

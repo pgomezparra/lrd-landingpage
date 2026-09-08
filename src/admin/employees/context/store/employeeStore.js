@@ -146,6 +146,13 @@ export const useEmployeeStore = defineStore('employees', {
       } catch (error) {
         console.error(`error: ${error}`)
       }
+    },
+    async generateLiquidation(employeeId) {
+      try {
+        return await employeeUc.generateLiquidation(employeeId)
+      } catch (error) {
+        console.error(`error: ${error}`)
+      }
     }
   }
 })
