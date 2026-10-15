@@ -1,5 +1,5 @@
 <template>
-  <Navbar/>
+  <Navbar />
   <div class="l-admissions">
     <main>
       <div class="l-admissions__container">
@@ -37,58 +37,58 @@
           </div>
         </section>
 
-        <!--        <section class="l-admissions__container__section">-->
-        <!--          <div class="o-admissions-card">-->
-        <!--            <h2 class="o-admissions-card__title">Costos por nivel educativo</h2>-->
-        <!--            <div class="o-admissions-card__content">-->
-        <!--              <div class="o-admissions-card__content__table-wrapper">-->
-        <!--                <table class="o-admissions-card__content__table-wrapper__table">-->
-        <!--                  <thead>-->
-        <!--                  <tr>-->
-        <!--                    <th>Nivel</th>-->
-        <!--                    <th>Matrícula</th>-->
-        <!--                    <th>Pensión mensual</th>-->
-        <!--                  </tr>-->
-        <!--                  </thead>-->
-        <!--                  <tbody>-->
-        <!--                  <tr>-->
-        <!--                    <td>Preescolar</td>-->
-        <!--                    <td>$270.000</td>-->
-        <!--                    <td>$125.000</td>-->
-        <!--                  </tr>-->
-        <!--                  <tr>-->
-        <!--                    <td>Primaria</td>-->
-        <!--                    <td>$270.000</td>-->
-        <!--                    <td>$125.000</td>-->
-        <!--                  </tr>-->
-        <!--                  <tr>-->
-        <!--                    <td>6º a 9º</td>-->
-        <!--                    <td>$300.000</td>-->
-        <!--                    <td>$140.000</td>-->
-        <!--                  </tr>-->
-        <!--                  <tr>-->
-        <!--                    <td>10º a 11º</td>-->
-        <!--                    <td>$310.000</td>-->
-        <!--                    <td>$145.000</td>-->
-        <!--                  </tr>-->
-        <!--                  </tbody>-->
-        <!--                </table>-->
-        <!--              </div>-->
-        <!--              <p class="o-admissions-card__subtitle">Incluye:</p>-->
-        <!--              <ul class="o-admissions-card__list">-->
-        <!--                <li>Matrícula</li>-->
-        <!--                <li>Seguro estudiantil (contra accidentes)</li>-->
-        <!--                <li>Carné estudiantil</li>-->
-        <!--                <li>Fotos</li>-->
-        <!--                <li>Sistematización y papelería</li>-->
-        <!--                <li>Agenda escolar</li>-->
-        <!--              </ul>-->
-        <!--              <p class="o-admissions-card__note">Nota: Los costos pueden estar sujetos a cambios. Por favor, contacte a-->
-        <!--                la administración-->
-        <!--                para obtener información actualizada.</p>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </section>-->
+        <section class="l-admissions__container__section">
+          <div class="o-admissions-card">
+            <h2 class="o-admissions-card__title">Costos por nivel educativo</h2>
+            <div class="o-admissions-card__content">
+              <div class="o-admissions-card__content__table-wrapper">
+                <table class="o-admissions-card__content__table-wrapper__table">
+                  <thead>
+                  <tr>
+                    <th>Nivel</th>
+                    <th>Matrícula</th>
+                    <th>Pensión mensual</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>Preescolar</td>
+                    <td>$270.000</td>
+                    <td>$125.000</td>
+                  </tr>
+                  <tr>
+                    <td>Primaria</td>
+                    <td>$270.000</td>
+                    <td>$125.000</td>
+                  </tr>
+                  <tr>
+                    <td>6º a 9º</td>
+                    <td>$300.000</td>
+                    <td>$140.000</td>
+                  </tr>
+                  <tr>
+                    <td>10º a 11º</td>
+                    <td>$310.000</td>
+                    <td>$145.000</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="o-admissions-card__subtitle">Incluye:</p>
+              <ul class="o-admissions-card__list">
+                <li>Matrícula</li>
+                <li>Seguro estudiantil (contra accidentes)</li>
+                <li>Carné estudiantil</li>
+                <li>Fotos</li>
+                <li>Sistematización y papelería</li>
+                <li>Agenda escolar</li>
+              </ul>
+              <p class="o-admissions-card__note">Nota: Los costos pueden estar sujetos a cambios. Por favor, contacte a
+                la administración
+                para obtener información actualizada.</p>
+            </div>
+          </div>
+        </section>
 
         <section class="l-admissions__container__section">
           <div class="o-admissions-card">
@@ -109,9 +109,9 @@
         </section>
       </div>
     </main>
-    <Footer/>
+    <Footer />
   </div>
-  <whatsapp/>
+  <whatsapp />
 </template>
 
 <script setup>
