@@ -1,0 +1,136 @@
+@use '@/assets/scss/settings/colors';
+
+.o-highlights {
+  padding: 5rem 1.5rem;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(198, 161, 91, 0.12), transparent 38%),
+    colors.$cream;
+
+  &__inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  &__intro {
+    max-width: 42rem;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    margin-bottom: 0.9rem;
+    color: colors.$primary-soft;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0;
+    color: colors.$ink;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: clamp(1.75rem, 3.4vw, 2.6rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  &__text {
+    margin: 1rem 0 0;
+    color: colors.$muted;
+    font-family: 'InterRegular', sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  &__card {
+    position: relative;
+    padding: 2rem 1.75rem;
+    border: 1px solid rgba(97, 14, 13, 0.08);
+    border-radius: colors.$radius-md;
+    background: colors.$surface;
+    box-shadow: colors.$shadow-card;
+    overflow: hidden;
+    transition: transform colors.$transition-base, box-shadow colors.$transition-base;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto;
+      height: 3px;
+      background: linear-gradient(90deg, colors.$primary-color, colors.$accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform colors.$transition-base;
+    }
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: colors.$shadow-hover;
+
+      &::before {
+        transform: scaleX(1);
+      }
+
+      .o-highlights__icon {
+        background: colors.$primary-color;
+        color: colors.$accent-soft;
+      }
+    }
+
+    h3 {
+      margin: 1.15rem 0 0.55rem;
+      color: colors.$ink;
+      font-family: 'InterSemiBold', sans-serif;
+      font-size: 1.15rem;
+    }
+
+    p {
+      margin: 0;
+      color: colors.$muted;
+      font-family: 'InterRegular', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.9rem;
+    background: colors.$sand;
+    color: colors.$primary-color;
+    transition: background colors.$transition-base, color colors.$transition-base;
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .o-highlights {
+    &__grid {
+      grid-template-columns: 1fr;
+      max-width: 34rem;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .o-highlights {
+    padding: 3.5rem 1.25rem;
+  }
+}

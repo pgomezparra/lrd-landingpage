@@ -15,7 +15,6 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import confetti from 'canvas-confetti'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 
 const preferenceStore = usePreferenceStore()

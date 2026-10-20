@@ -1,11 +1,156 @@
-@use "@/assets/scss/settings/colors";
+@use '@/assets/scss/settings/colors';
 
 .o-header {
-  background: white;
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem;
-  align-items: center;
+  position: relative;
   z-index: 1000;
-  top: 0;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 1px 0 rgba(58, 22, 20, 0.08);
+
+  &__utility {
+    background: colors.$primary-dark;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+  }
+
+  &__utility-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0.45rem 1.5rem;
+  }
+
+  &__utility-contact {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &__utility-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    transition: color colors.$transition-base;
+
+    &:hover {
+      color: colors.$accent-soft;
+    }
+  }
+
+  &__dot {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: colors.$accent;
+    box-shadow: 0 0 0 3px rgba(198, 161, 91, 0.2);
+  }
+
+  &__utility-social {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.7rem;
+      height: 1.7rem;
+      border-radius: 50%;
+      transition: background colors.$transition-base, transform colors.$transition-base;
+
+      img {
+        width: 0.95rem;
+        height: 0.95rem;
+        filter: brightness(0) invert(1);
+        opacity: 0.8;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+
+        img {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0.8rem 1.5rem;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.35rem;
+    border-radius: 999px;
+    background: colors.$primary-color;
+    color: colors.$secondary-color;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(97, 14, 13, 0.18);
+    transition: background colors.$transition-base, transform colors.$transition-base,
+      box-shadow colors.$transition-base;
+
+    &:hover {
+      background: colors.$primary-dark;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(97, 14, 13, 0.24);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .o-header {
+    &__utility-contact {
+      gap: 1rem;
+    }
+
+    &__main {
+      gap: 1rem;
+    }
+
+    &__cta {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .o-header {
+    &__utility-inner {
+      padding: 0.4rem 1rem;
+    }
+
+    &__utility-link--mail {
+      display: none;
+    }
+
+    &__main {
+      padding: 0.65rem 1rem;
+    }
+  }
 }

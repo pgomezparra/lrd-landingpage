@@ -1,16 +1,21 @@
 @use '@/assets/scss/settings/colors';
 
 .l-institutional {
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 0;
   overflow: auto;
+  background: colors.$cream;
+
+  &__main {
+    flex: none;
+    padding: 3.5rem 1.5rem 4.5rem;
+  }
 
   &__container {
-    max-width: 1200px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 0 1.5rem;
-    height: 100dvh;
 
     &__title {
       font-size: 2rem;
@@ -21,36 +26,81 @@
 
     &__tabs {
       display: flex;
-      justify-content: start;
-      margin-bottom: 2rem;
-      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 1.75rem;
 
       &__tab {
-        all: unset;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        background-color: colors.$hover-button-menu;
-        color: colors.$secondary-color;
+        padding: 0.7rem 1.35rem;
+        border: 1px solid rgba(97, 14, 13, 0.16);
+        border-radius: 999px;
+        background: colors.$surface;
+        color: colors.$primary-color;
+        font-family: 'InterMedium', sans-serif;
+        font-size: 0.88rem;
         cursor: pointer;
-        transition: all 0.3s ease-in-out;
+        transition: background colors.$transition-base, color colors.$transition-base,
+          border-color colors.$transition-base, transform colors.$transition-base;
 
         &:hover {
-          background-color: colors.$primary-color;
-          color: colors.$secondary-color;
+          transform: translateY(-1px);
+          border-color: colors.$primary-color;
         }
 
         &--active {
-          background-color: colors.$primary-color;
+          background: colors.$primary-color;
+          border-color: colors.$primary-color;
           color: colors.$secondary-color;
+          font-family: 'InterSemiBold', sans-serif;
         }
       }
     }
 
     &__section {
+      overflow: hidden;
+      border: 1px solid rgba(97, 14, 13, 0.1);
+      border-radius: colors.$radius-md;
+      background: colors.$surface;
+      box-shadow: colors.$shadow-card;
+
       iframe {
-        height: 80vh;
+        display: block;
+        height: 75vh;
         border: none;
       }
+    }
+  }
+
+  &__frame-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid rgba(97, 14, 13, 0.08);
+    background: colors.$surface-alt;
+    color: colors.$ink;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.85rem;
+  }
+
+  &__frame-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: colors.$primary-color;
+    box-shadow: 0 0 0 3px rgba(97, 14, 13, 0.12);
+  }
+}
+
+@media (max-width: 768px) {
+  .l-institutional {
+    &__main {
+      padding: 2.5rem 1rem 3.5rem;
+    }
+
+    &__container__section iframe {
+      height: 65vh;
     }
   }
 }

@@ -2,162 +2,285 @@
 
 .m-menu {
   height: 100%;
-  margin-right: 1rem;
+  margin-left: auto;
 
   &__items {
     display: flex;
     align-items: center;
     height: 100%;
-    gap: 1rem;
+    gap: 1.75rem;
     list-style: none;
     margin: 0;
     padding: 0;
+  }
+}
 
-    &__item {
-      font-size: 1.25rem;
-      color: colors.$menu-label;
-      cursor: pointer;
+.m-menu-item {
+  position: relative;
+  padding: 0.55rem 0.1rem;
+  color: colors.$ink;
+  font-family: 'InterMedium', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: color colors.$transition-base;
 
-      &--active {
-        border-bottom: 2px solid colors.$border-menu-active;
-      }
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0.15rem;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: colors.$primary-color;
+    transition: width colors.$transition-base;
+  }
+
+  &:hover {
+    color: colors.$primary-color;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.active {
+    color: colors.$primary-color;
+    font-family: 'InterSemiBold', sans-serif;
+
+    &::after {
+      width: 100%;
     }
   }
 }
 
 .m-menu-toggle {
   display: none;
-}
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.28rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
+  border: 1px solid rgba(97, 14, 13, 0.16);
+  border-radius: 50%;
+  background: colors.$surface;
+  cursor: pointer;
+  transition: background colors.$transition-base, border-color colors.$transition-base;
 
-.m-menu-mobile {
-  position: absolute;
-  top: 5rem;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(255, 255, 255, 0.8);
+  span {
+    display: block;
+    width: 1.05rem;
+    height: 2px;
+    margin: 0 auto;
+    border-radius: 2px;
+    background: colors.$primary-color;
+    transition: background colors.$transition-base;
+  }
 
-  clip-path: inset(0 0 0 100%);
+  &:hover {
+    background: colors.$primary-color;
+    border-color: colors.$primary-color;
 
-  &__container {
-    position: absolute;
-    right: 0;
-    height: 100vh;
-    background-color: colors.$secondary-color;
-    width: 15rem;
-    box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-
-    &__items {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    span {
+      background: colors.$secondary-color;
     }
   }
 }
 
-.m-menu-mobile.is-closing {
-  animation: wipe-out-right 0.5s cubic-bezier(.25, 1, .30, 1) forwards;
+.m-menu-mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  visibility: hidden;
+  pointer-events: none;
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(30, 12, 11, 0.55);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity colors.$transition-base;
+  }
+
+  &__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(22rem, 88vw);
+    height: 100%;
+    padding: 1.35rem 1.35rem 1.75rem;
+    background: colors.$surface;
+    box-shadow: -18px 0 45px rgba(30, 12, 11, 0.18);
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    box-sizing: border-box;
+  }
+
+  &__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(97, 14, 13, 0.1);
+  }
+
+  &__close {
+    flex: none;
+    width: 2.35rem;
+    height: 2.35rem;
+    border: none;
+    border-radius: 50%;
+    background: colors.$sand;
+    color: colors.$primary-color;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background colors.$transition-base, color colors.$transition-base;
+
+    &:hover {
+      background: colors.$primary-color;
+      color: colors.$secondary-color;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1.25rem 0;
+    overflow-y: auto;
+
+    .m-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.9rem 0.6rem;
+      border-radius: colors.$radius-sm;
+      font-size: 1.05rem;
+      color: colors.$ink;
+      transition: background colors.$transition-base, color colors.$transition-base;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        background: colors.$sand;
+        color: colors.$primary-color;
+      }
+
+      &.active {
+        background: rgba(97, 14, 13, 0.07);
+        color: colors.$primary-color;
+      }
+
+      &__index {
+        font-family: 'InterRegular', sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: colors.$accent;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(97, 14, 13, 0.1);
+  }
+
+  &__social {
+    display: flex;
+    gap: 0.4rem;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.15rem;
+      height: 2.15rem;
+      border-radius: 50%;
+      background: colors.$sand;
+
+      img {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+
+  &__login {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid rgba(97, 14, 13, 0.2);
+    border-radius: 999px;
+    background: transparent;
+    color: colors.$primary-color;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: background colors.$transition-base, color colors.$transition-base;
+
+    img {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:hover {
+      background: colors.$primary-color;
+      color: colors.$secondary-color;
+
+      img {
+        filter: brightness(0) invert(1);
+      }
+    }
+  }
 }
 
 .m-menu-mobile.is-opening {
-  animation: wipe-in-right 0.5s cubic-bezier(.25, 1, .30, 1) forwards;
-}
+  visibility: visible;
+  pointer-events: auto;
 
-@keyframes wipe-in-right {
-  from {
-    clip-path: inset(0 0 0 100%); /* Se oculta desde la izquierda */
+  .m-menu-mobile__overlay {
+    opacity: 1;
   }
-  to {
-    clip-path: inset(0 0 0 0); /* Se muestra completamente */
-  }
-}
 
-@keyframes wipe-out-right {
-  from {
-    clip-path: inset(0 0 0 0); /* Empieza visible */
-  }
-  to {
-    clip-path: inset(0 0 0 100%); /* Se oculta hacia la izquierda */
+  .m-menu-mobile__panel {
+    transform: translateX(0);
   }
 }
 
-.m-menu-item {
-  color: colors.$menu-label;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
-  cursor: pointer;
+.m-menu-mobile.is-closing {
+  visibility: visible;
+  pointer-events: none;
 
-  &:hover {
-    background-color: colors.$primary-color;
-    color: colors.$secondary-color;
+  .m-menu-mobile__overlay {
+    opacity: 0;
   }
 
-  &.active {
-    background-color: colors.$primary-color;
-    color: colors.$secondary-color;
+  .m-menu-mobile__panel {
+    transform: translateX(100%);
   }
 }
 
-.m-menu-icon a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-
-  img {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
+@media (max-width: 1024px) {
   .m-menu {
     display: none;
   }
 
   .m-menu-toggle {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #610e0d;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    width: 1.2rem;
-    height: 1.2rem;
-    margin-right: 0.25rem;
-
-    &:hover {
-      background-color: #610e0d;
-      color: white;
-    }
-  }
-
-  .m-menu-mobile {
-    &__items {
-      gap: 0.5rem;
-    }
-  }
-
-  .m-menu-item {
-    height: 2rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .m-menu-icon {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    justify-content: flex-end;
-    cursor: pointer;
-
-    img {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
   }
 }

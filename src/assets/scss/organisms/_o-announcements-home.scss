@@ -1,29 +1,109 @@
 @use '@/assets/scss/settings/colors';
 
 .o-announcements-home {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  background-color: colors.$secondary-color;
-  height: 35rem;
+  padding: 4.5rem 1.5rem;
+  background: colors.$surface;
+
+  &__inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  &__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    margin-bottom: 0.6rem;
+    color: colors.$primary-soft;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
 
   &__title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: colors.$primary-color;
     margin: 0;
-    padding: 1rem;
-    text-align: center;
+    color: colors.$ink;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: clamp(1.75rem, 3.4vw, 2.6rem);
+    letter-spacing: -0.02em;
+  }
+
+  &__controls {
+    display: flex;
+    gap: 0.6rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.9rem;
+      height: 2.9rem;
+      border: 1px solid rgba(97, 14, 13, 0.16);
+      border-radius: 50%;
+      background: colors.$surface;
+      color: colors.$primary-color;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background colors.$transition-base, color colors.$transition-base,
+        transform colors.$transition-base;
+
+      &:hover {
+        background: colors.$primary-color;
+        color: colors.$secondary-color;
+        transform: translateY(-2px);
+      }
+    }
   }
 
   &__slider {
     position: relative;
     overflow: hidden;
+    border-radius: colors.$radius-lg;
+    box-shadow: colors.$shadow-card;
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 1.5rem;
+
+    button {
+      width: 0.55rem;
+      height: 0.55rem;
+      padding: 0;
+      border: none;
+      border-radius: 999px;
+      background: rgba(97, 14, 13, 0.22);
+      cursor: pointer;
+      transition: width colors.$transition-base, background colors.$transition-base;
+
+      &.active {
+        width: 1.6rem;
+        background: colors.$primary-color;
+      }
+    }
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media (max-width: 768px) {
   .o-announcements-home {
-    padding: 1rem;
+    padding: 3.5rem 1.25rem;
+
+    &__head {
+      align-items: center;
+    }
+
+    &__controls button {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
   }
 }

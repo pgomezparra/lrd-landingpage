@@ -1,147 +1,196 @@
+@use '@/assets/scss/settings/colors';
+
+.l-elections {
+  min-height: calc(100dvh - 8.5rem);
+  padding: 2.5rem 1.25rem 4rem;
+  background:
+    radial-gradient(circle at 90% 8%, rgba(198, 161, 91, 0.12), transparent 34%),
+    colors.$cream;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
 .o-elections {
   &__container {
-    max-width: 900px;
-    margin: auto;
-    padding: 16px;
-    font-family: system-ui, sans-serif;
-    height: 90dvh;
-    overflow-y: scroll;
+    max-width: 860px;
+    margin: 0 auto;
+    font-family: 'InterRegular', sans-serif;
   }
 
   &__card {
-    background: #fff;
-    border: 1px solid #e1e1e1;
-    border-radius: 12px;
-    padding: 20px;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid rgba(97, 14, 13, 0.09);
+    border-radius: colors.$radius-md;
+    background: colors.$surface;
+    box-shadow: colors.$shadow-card;
 
     h2 {
-      color: #7a0c0c;
-      font-size: clamp(20px, 4vw, 26px);
-      margin-bottom: 6px;
+      margin: 0 0 0.4rem;
+      color: colors.$primary-color;
+      font-family: 'InterSemiBold', sans-serif;
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      letter-spacing: -0.01em;
     }
   }
 
   &__subtitle {
-    color: #555;
-    margin-bottom: 20px;
-    font-size: clamp(14px, 3vw, 16px);
+    margin: 0 0 1.5rem;
+    color: colors.$muted;
+    font-size: clamp(0.88rem, 2vw, 0.95rem);
+    line-height: 1.6;
   }
 
   &__grid {
     display: grid;
-    gap: 20px;
+    gap: 1.75rem;
   }
 
   &__category {
     h3 {
-      color: #7a0c0c;
-      margin-bottom: 12px;
-      font-size: 18px;
+      margin: 0 0 0.85rem;
+      color: colors.$primary-soft;
+      font-family: 'InterSemiBold', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
   }
 
   &__option {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    gap: 1rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid rgba(97, 14, 13, 0.12);
+    border-radius: colors.$radius-sm;
+    background: colors.$surface;
+    margin-bottom: 0.65rem;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background colors.$transition-base, border-color colors.$transition-base,
+      box-shadow colors.$transition-base;
 
     &:hover {
-      background: #faf5f5;
-      border-color: #7a0c0c;
+      background: colors.$cream;
+      border-color: rgba(97, 14, 13, 0.32);
     }
 
     input {
-      width: 18px;
-      height: 18px;
+      flex: none;
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: colors.$primary-color;
+      cursor: pointer;
     }
 
     &:has(input:checked) {
-      border-color: #7a0c0c;
-      background: #faf2f2;
+      border-color: colors.$primary-color;
+      background: rgba(97, 14, 13, 0.05);
+      box-shadow: 0 0 0 3px rgba(97, 14, 13, 0.08);
     }
   }
 
   &__candidate {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 1rem;
     width: 100%;
   }
 
   &__logo {
-    width: 6rem;
-    height: 6rem;
+    flex: none;
+    width: 4rem;
+    height: 4rem;
     object-fit: contain;
-    border-radius: 6px;
-    background: #fff;
-    padding: 4px;
-    border: 1px solid #eee;
+    border-radius: 0.6rem;
+    background: colors.$surface;
+    padding: 0.25rem;
+    border: 1px solid rgba(97, 14, 13, 0.1);
   }
 
   &__name {
-    width: 8rem;
     flex: 1;
-    font-size: 15px;
-    text-align: center;
+    color: colors.$ink;
+    font-family: 'InterMedium', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
     overflow-wrap: break-word;
     word-break: break-word;
   }
 
   &__number {
-    font-size: 2rem;
-    text-align: center;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    height: 2.75rem;
+    padding: 0 0.5rem;
+    border-radius: 0.6rem;
+    background: colors.$sand;
+    color: colors.$primary-color;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 1.35rem;
+  }
+
+  &__student-name {
+    margin: 0 0 0.4rem;
+    color: colors.$ink;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.2rem);
   }
 
   @media (min-width: 768px) {
     &__grid {
       grid-template-columns: 1fr 1fr;
-      gap: 50px;
-    }
-
-    &__card {
-      padding: 32px;
-    }
-
-    &__name {
-      font-size: 16px;
+      gap: 2rem;
     }
   }
 }
 
 .o-elections-input {
-  width: 90%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 20px;
+  width: 100%;
+  padding: 0.95rem 1.1rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid rgba(97, 14, 13, 0.18);
+  border-radius: colors.$radius-sm;
+  background: colors.$surface-alt;
+  color: colors.$ink;
+  font-family: 'InterRegular', sans-serif;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color colors.$transition-base, box-shadow colors.$transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: colors.$primary-soft;
+    background: colors.$surface;
+    box-shadow: 0 0 0 3px rgba(97, 14, 13, 0.1);
+  }
 }
 
 .o-elections-btn {
   width: 100%;
-  margin-top: 16px;
-  background: #7a0c0c;
-  color: #fff;
+  margin-top: 1.5rem;
+  padding: 1rem;
   border: none;
-  padding: 16px;
-  border-radius: 10px;
-  font-size: 17px;
+  border-radius: 999px;
+  background: colors.$primary-color;
+  color: colors.$secondary-color;
+  font-family: 'InterSemiBold', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.015em;
   cursor: pointer;
+  box-shadow: 0 10px 24px rgba(97, 14, 13, 0.18);
+  transition: background colors.$transition-base, transform colors.$transition-base;
+
+  &:hover:not(:disabled) {
+    background: colors.$primary-dark;
+    transform: translateY(-1px);
+  }
 
   &:disabled {
-    background: #c9a5a5;
+    background: rgba(97, 14, 13, 0.35);
     cursor: not-allowed;
+    box-shadow: none;
   }
-}
-
-.o-elections__student-name {
-  margin-bottom: 6px;
-  font-size: clamp(18px, 3vw, 22px);
 }

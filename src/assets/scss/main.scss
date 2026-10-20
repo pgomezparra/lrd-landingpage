@@ -24,7 +24,9 @@
 
 /****** Organisms ******/
 @use 'organisms/o-header-home';
+@use 'organisms/o-page-header';
 @use 'organisms/o-info-home';
+@use 'organisms/o-highlights';
 @use 'organisms/o-announcements-home';
 @use 'organisms/o-levels-home';
 @use 'organisms/o-footer';

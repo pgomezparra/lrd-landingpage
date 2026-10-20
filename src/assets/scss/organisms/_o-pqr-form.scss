@@ -1,59 +1,122 @@
 @use '@/assets/scss/settings/colors';
 
 .o-pqr-form {
-  display: grid;
-  grid-template-rows: auto;
-  row-gap: 1rem;
-  height: 70vh;
-  padding: 2rem;
-  border: 0.063rem solid colors.$border-pqr-form;
-  border-radius:1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding: 2.5rem;
+  border: 1px solid rgba(97, 14, 13, 0.09);
+  border-radius: colors.$radius-md;
+  background: colors.$surface;
+  box-shadow: colors.$shadow-card;
 
-  span {
-    font-size: 1.2rem;
-    color: colors.$pqr-span;
-    text-align: start;
+  &__title {
+    margin: 0;
+    color: colors.$ink;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: clamp(1.4rem, 2.4vw, 1.75rem);
   }
 
-  input {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 0.063rem solid colors.$border-pqr-form;
+  &__hint {
+    margin: -0.5rem 0 0.35rem;
+    color: colors.$muted;
+    font-family: 'InterRegular', sans-serif;
+    font-size: 0.82rem;
   }
 
-  textarea {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid colors.$border-pqr-form;
-    resize: none;
-    overflow: auto;
-    margin-bottom: 2rem;
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+
+    label {
+      color: colors.$ink;
+      font-family: 'InterMedium', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.01em;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(97, 14, 13, 0.16);
+      border-radius: colors.$radius-sm;
+      background: colors.$surface-alt;
+      color: colors.$ink;
+      font-family: 'InterRegular', sans-serif;
+      font-size: 0.94rem;
+      box-sizing: border-box;
+      transition: border-color colors.$transition-base, box-shadow colors.$transition-base,
+        background colors.$transition-base;
+
+      &::placeholder {
+        color: rgba(122, 111, 107, 0.7);
+      }
+
+      &:focus {
+        outline: none;
+        border-color: colors.$primary-soft;
+        background: colors.$surface;
+        box-shadow: 0 0 0 3px rgba(97, 14, 13, 0.1);
+      }
+    }
+
+    textarea {
+      min-height: 9rem;
+      resize: vertical;
+    }
   }
 
   button {
-    background-color: colors.$primary-color;
-    color: white;
-    padding: 0.5rem 1rem;
+    margin-top: 0.35rem;
+    padding: 0.95rem 1.5rem;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 999px;
+    background: colors.$primary-color;
+    color: colors.$secondary-color;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.92rem;
+    letter-spacing: 0.015em;
     cursor: pointer;
-    transition: background-color 0.3s;
-    height: 2.5rem;
+    box-shadow: 0 10px 24px rgba(97, 14, 13, 0.18);
+    transition: background colors.$transition-base, transform colors.$transition-base,
+      box-shadow colors.$transition-base;
 
-    &:hover {
-      background-color: colors.$hover-button-menu;
+    &:hover:not(:disabled) {
+      background: colors.$primary-dark;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(97, 14, 13, 0.24);
+    }
+
+    &:disabled {
+      background: rgba(97, 14, 13, 0.4);
+      cursor: not-allowed;
+      box-shadow: none;
     }
   }
 
   &__message {
-    color: colors.$hover-button-menu;
-    margin-top: 0;
-  }
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.6rem;
+    font-family: 'InterMedium', sans-serif;
+    font-size: 0.85rem;
 
-  .error {
-    color: colors.$red;
+    &.error {
+      background: rgba(255, 51, 51, 0.08);
+      color: #b42318;
+    }
+
+    &.success {
+      background: rgba(30, 141, 72, 0.1);
+      color: #1e8d48;
+    }
   }
-  .success {
-    color: colors.$light-green;
+}
+
+@media (max-width: 768px) {
+  .o-pqr-form {
+    padding: 1.75rem 1.4rem;
   }
 }

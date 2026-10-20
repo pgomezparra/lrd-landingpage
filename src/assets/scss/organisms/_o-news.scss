@@ -125,75 +125,178 @@
 
 }
 
+.l-news {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: auto;
+  background: colors.$cream;
+
+  &__main {
+    flex: none;
+    padding: 3.5rem 1.5rem 4.5rem;
+  }
+
+  &__container {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  &__empty {
+    margin: 2rem 0 0;
+    color: colors.$muted;
+    font-family: 'InterRegular', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+  }
+}
+
 .o-news-public {
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    grid-template-rows: auto auto;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
-    padding: 0 10%;
-    align-items: center;
+    align-items: stretch;
   }
 
   &__card {
     display: flex;
     flex-direction: column;
-    background-color: white;
-    border-radius: 8px;
+    background-color: colors.$surface;
+    border: 1px solid rgba(97, 14, 13, 0.08);
+    border-radius: colors.$radius-md;
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: colors.$shadow-card;
+    transition: transform colors.$transition-base, box-shadow colors.$transition-base;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: colors.$shadow-hover;
+
+      .o-news-public__image {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__media {
+    position: relative;
+    height: 13rem;
+    overflow: hidden;
+    background: colors.$sand;
   }
 
   &__image {
     width: 100%;
-    height: 10rem;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  &__date {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    color: colors.$primary-color;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+    backdrop-filter: blur(4px);
   }
 
   &__content {
-    padding: 0 1rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    padding: 1.4rem 1.5rem 1.5rem;
   }
 
   &__title {
-    font-size: 1.2rem;
-    margin-bottom: 0.125rem;
-    color: #222;
+    margin: 0;
+    color: colors.$ink;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 1.18rem;
+    line-height: 1.35;
   }
 
   &__meta {
-    font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 0.75rem;
+    margin: 0.45rem 0 1.25rem;
+    color: colors.$muted;
+    font-family: 'InterRegular', sans-serif;
+    font-size: 0.82rem;
   }
 
   &__read-more-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     width: 100%;
+    margin-top: auto;
   }
 
   &__read-more {
-    all: unset;
-    align-self: flex-start;
-    font-weight: bold;
-    color: #610e0d;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.05rem;
+    border: 1px solid rgba(97, 14, 13, 0.18);
+    border-radius: 999px;
+    background: transparent;
+    color: colors.$primary-color;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.82rem;
     cursor: pointer;
-    padding-bottom: 0.5rem;
-    text-align: right;
+    transition: background colors.$transition-base, color colors.$transition-base;
+
+    span {
+      transition: transform colors.$transition-base;
+    }
+
+    &:hover {
+      background: colors.$primary-color;
+      color: colors.$secondary-color;
+
+      span {
+        transform: translateX(3px);
+      }
+    }
   }
 
   &__pagination {
     display: flex;
     justify-content: center;
-    margin-bottom: 0.5rem;
+    margin-top: 2.5rem;
+
+    --el-pagination-button-bg-color: #{colors.$surface};
+    --el-pagination-hover-color: #{colors.$primary-color};
+    --el-pagination-button-color: #{colors.$ink};
+
+    button,
+    .el-pager li {
+      border-radius: 0.6rem;
+      font-family: 'InterMedium', sans-serif;
+    }
+
+    .el-pager li.is-active {
+      background: colors.$primary-color;
+      color: colors.$secondary-color;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .l-news {
+    &__main {
+      padding: 2.5rem 1rem 3.5rem;
+    }
   }
 
-  @media (max-width: 48rem) {
+  .o-news-public {
     &__grid {
-      padding: 0 5%;
+      grid-template-columns: 1fr;
     }
   }
 }

@@ -1,0 +1,78 @@
+@use '@/assets/scss/settings/colors';
+
+.o-page-header {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(198, 161, 91, 0.24), transparent 42%),
+    linear-gradient(135deg, colors.$primary-color 0%, colors.$primary-dark 100%);
+  color: colors.$secondary-color;
+  padding: 4.5rem 1.5rem 4rem;
+
+  &__pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.25;
+    background-image:
+      linear-gradient(115deg, transparent 0 48%, rgba(255, 255, 255, 0.07) 48% 49%, transparent 49%),
+      radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px);
+    background-size: 100% 100%, 26px 26px;
+    pointer-events: none;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1120px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+    color: colors.$accent-soft;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+
+    &::before,
+    &::after {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: rgba(236, 223, 196, 0.6);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+
+  &__subtitle {
+    max-width: 44rem;
+    margin: 1rem auto 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-family: 'InterRegular', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.12rem);
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 768px) {
+  .o-page-header {
+    padding: 3rem 1.25rem 2.75rem;
+
+    &__subtitle {
+      font-size: 0.98rem;
+    }
+  }
+}

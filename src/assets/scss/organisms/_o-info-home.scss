@@ -1,64 +1,191 @@
 @use '@/assets/scss/settings/colors';
 
 .o-info-home {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  background-color: colors.$primary-color;
-  color: colors.$secondary-color;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 20rem;
+  min-height: clamp(34rem, 78vh, 46rem);
+  overflow: hidden;
+  background: colors.$primary-dark;
+  color: colors.$secondary-color;
 
-  .o-info-home__image-wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
+  &__media,
+  &__image,
+  &__scrim {
+    position: absolute;
+    inset: 0;
   }
 
-  .o-info-home__image {
+  &__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
+    transform: scale(1.03);
   }
 
-  .o-info-home__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+  &__scrim {
+    background:
+      linear-gradient(90deg, rgba(44, 8, 7, 0.92) 0%, rgba(61, 8, 7, 0.72) 42%, rgba(61, 8, 7, 0.22) 78%),
+      linear-gradient(0deg, rgba(35, 7, 6, 0.55) 0%, transparent 45%);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
     width: 100%;
-    height: 100%;
-    background: rgba(97, 14, 13, 0.6);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fff; /* Color del texto */
-    padding: 20px; /* Ajusta el padding según sea necesario */
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
     box-sizing: border-box;
-    text-align: center;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1.35rem;
+    color: colors.$accent-soft;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+
+    &::before {
+      content: '';
+      width: 2.25rem;
+      height: 1px;
+      background: colors.$accent;
+    }
   }
 
   &__title {
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 0.5rem 0;
+    max-width: 46rem;
     margin: 0;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: clamp(2.2rem, 4.6vw, 4rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+
+    span {
+      color: colors.$accent-soft;
+    }
   }
 
   &__subtitle {
-    font-size: 1.5rem;
-    padding: 0.5rem 0;
-    margin: 0;
+    max-width: 36rem;
+    margin: 1.4rem 0 0;
+    color: rgba(255, 255, 255, 0.84);
+    font-family: 'InterRegular', sans-serif;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.7;
   }
 
   &__buttons {
     display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2.1rem;
+  }
+
+  &__button {
+    min-width: 11.5rem;
+    padding: 0.95rem 1.75rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-family: 'InterSemiBold', sans-serif;
+    font-size: 0.92rem;
+    letter-spacing: 0.015em;
+    cursor: pointer;
+    transition: transform colors.$transition-base, background colors.$transition-base,
+      color colors.$transition-base, box-shadow colors.$transition-base;
+
+    &--primary {
+      background: colors.$secondary-color;
+      color: colors.$primary-color;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+
+      &:hover {
+        transform: translateY(-2px);
+        background: colors.$accent-soft;
+      }
+    }
+
+    &--ghost {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.45);
+      color: colors.$secondary-color;
+      backdrop-filter: blur(6px);
+
+      &:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.16);
+      }
+    }
+  }
+
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin: 3rem 0 0;
+    padding: 1.35rem 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: colors.$radius-md;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+    width: fit-content;
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    dt {
+      color: colors.$accent-soft;
+      font-family: 'InterSemiBold', sans-serif;
+      font-size: 1.65rem;
+      line-height: 1;
+    }
+
+    dd {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.75);
+      font-family: 'InterRegular', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .o-info-home {
+    min-height: 34rem;
+
+    &__scrim {
+      background:
+        linear-gradient(180deg, rgba(44, 8, 7, 0.82) 0%, rgba(61, 8, 7, 0.62) 55%, rgba(44, 8, 7, 0.82) 100%),
+        linear-gradient(90deg, rgba(44, 8, 7, 0.6), transparent);
+    }
+
+    &__content {
+      padding: 3.5rem 1.25rem;
+    }
+
+    &__stats {
+      gap: 1.5rem;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 1.1rem 1.25rem;
+    }
+
+    &__stat dt {
+      font-size: 1.35rem;
+    }
+
+    &__button {
+      flex: 1 1 100%;
+      min-width: 0;
+    }
   }
 }

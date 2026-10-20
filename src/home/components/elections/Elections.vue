@@ -1,7 +1,8 @@
 <template>
   <loading-overlay />
   <NavBar />
-  <div class="o-elections__container">
+  <div class="l-elections">
+    <div class="o-elections__container">
     <div v-if="step === 1" class="o-elections__card">
       <h2>Ingreso a votación</h2>
       <p class="o-elections__subtitle">
@@ -111,6 +112,7 @@
       >
         Votar
       </button>
+    </div>
     </div>
   </div>
 </template>

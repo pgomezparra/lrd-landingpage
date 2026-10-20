@@ -1,25 +1,31 @@
 @use '@/assets/scss/settings/colors';
 
 .l-admissions {
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 0;
   overflow: auto;
+  background: colors.$cream;
+
+  &__main {
+    flex: none;
+    padding: 3.5rem 1.5rem 4.5rem;
+  }
 
   &__container {
-    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+  }
+}
 
-    &__title {
-      font-size: 2rem;
-      color: colors.$primary-color;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    &__section {
-      margin-bottom: 2rem;
+@media (max-width: 768px) {
+  .l-admissions {
+    &__main {
+      padding: 2.5rem 1rem 3.5rem;
     }
   }
 }

@@ -1,40 +1,60 @@
 <template>
   <Navbar />
-  <div class="l-gallery">
-    <h1 class="l-gallery__title">Últimas Noticias</h1>
-    <el-pagination
-      layout="prev, pager, next"
-      :total="total"
-      :page-size="perPage"
-      :current-page="page"
-      @update:current-page="handlePageChange"
-      class="o-news-public__pagination"
+  <div class="l-news">
+    <PageHeader
+      eyebrow="Actualidad"
+      title="Últimas noticias"
+      subtitle="Conoce las actividades, logros y momentos que construyen nuestra comunidad educativa."
     />
-    <div class="o-news-public__grid">
-      <div v-for="activity in news" :key="activity.getId()" class="o-news-public__card">
-        <img :src="activity.getPhotos()[0].getUrl()" alt="Imagen de la noticia" class="o-news-public__image" />
-        <div class="o-news-public__content">
-          <h2 class="o-news-public__title">{{ activity.getTitle() }}</h2>
-          <p class="o-news-public__meta">
-            <span>{{ formatDate(activity.getUpdatedAt()) }}</span> · <span>{{ activity.getAuthor() }}</span>
-          </p>
-          <div class="o-news-public__read-more-container">
-            <button class="o-news-public__read-more" @click="seeNewDetail(activity)">
-              Ver detalle
-            </button>
-          </div>
+    <main class="l-news__main">
+      <div class="l-news__container">
+        <div v-if="news.length" class="o-news-public__grid">
+          <article v-for="activity in news" :key="activity.getId()" class="o-news-public__card">
+            <div class="o-news-public__media">
+              <img
+                :src="activity.getPhotos()?.[0]?.getUrl()"
+                :alt="activity.getTitle()"
+                class="o-news-public__image"
+              />
+              <span class="o-news-public__date">{{ formatDate(activity.getUpdatedAt()) }}</span>
+            </div>
+            <div class="o-news-public__content">
+              <h2 class="o-news-public__title">{{ activity.getTitle() }}</h2>
+              <p class="o-news-public__meta">
+                <span>{{ activity.getAuthor() }}</span>
+              </p>
+              <div class="o-news-public__read-more-container">
+                <button class="o-news-public__read-more" @click="seeNewDetail(activity)">
+                  Ver detalle
+                  <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </div>
+          </article>
         </div>
+        <p v-else class="l-news__empty">Aún no hay noticias publicadas. Vuelve pronto.</p>
+
+        <el-pagination
+          layout="prev, pager, next"
+          :total="total"
+          :page-size="perPage"
+          :current-page="page"
+          hide-on-single-page
+          @update:current-page="handlePageChange"
+          class="o-news-public__pagination"
+        />
       </div>
-    </div>
+    </main>
+    <Footer />
   </div>
-  <Footer />
   <whatsapp />
   <new-detail-modal />
 </template>
-<script setup>
 
+<script setup>
 import Navbar from '@/navbar/components/NavBar.vue'
 import Footer from '@/general/components/Footer.vue'
+import PageHeader from '@/general/components/PageHeader.vue'
 import Whatsapp from '@/general/components/Whatsapp.vue'
 import { ref, onMounted, markRaw } from 'vue'
 import { ElPagination } from 'element-plus'
@@ -58,10 +78,6 @@ const handlePageChange = (newValue) => {
   getNews()
 }
 
-const truncate = (text, maxLength) => {
-  return text.length > maxLength ? text.slice(0, maxLength) + '…' : text
-}
-
 const formatDate = (isoDate) => {
   return new Date(isoDate).toLocaleDateString('es-CO', {
     day: 'numeric',
@@ -79,7 +95,7 @@ const getNews = async () => {
   try {
     const response = await activityStore.getPublicActivities(page.value)
     if (response.status === 200) {
-      news.value = response.activities.map(activity => markRaw(activity))
+      news.value = response.activities.map((activity) => markRaw(activity))
       total.value = response.total
     }
   } catch (error) {
@@ -89,5 +105,3 @@ const getNews = async () => {
 
 onMounted(async () => getNews())
 </script>
-
-

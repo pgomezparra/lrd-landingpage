@@ -1,28 +1,43 @@
 <template>
   <section class="o-levels-home">
     <div class="o-levels-home__container">
-      <h2 class="o-levels-home__container__title">Nuestros Niveles Educativos</h2>
+      <div class="o-levels-home__head">
+        <span class="o-levels-home__eyebrow">Oferta educativa</span>
+        <h2 class="o-levels-home__container__title">Nuestros niveles educativos</h2>
+        <p class="o-levels-home__subtitle">
+          Un recorrido continuo que acompaña a los estudiantes en cada etapa de su formación.
+        </p>
+      </div>
+
       <div class="o-levels-home__container__cards">
-        <div class="m-level-card" v-for="level in levels" :key="level.title">
+        <article v-for="(level, index) in levels" :key="level.title" class="m-level-card">
+          <div class="m-level-card__media">
+            <img :src="level.image" :alt="level.title" class="m-level-card__content__image" />
+            <span class="m-level-card__number">0{{ index + 1 }}</span>
+          </div>
           <div class="m-level-card__content">
-            <img
-              :src="level.image"
-              :alt="level.title"
-              class="m-level-card__content__image"
-            />
             <h3 class="m-level-card__content__title">{{ level.title }}</h3>
             <p class="m-level-card__content__description">{{ level.description }}</p>
+            <button type="button" class="m-level-card__action" @click="goToAdmissions">
+              Conocer más
+              <span aria-hidden="true">→</span>
+            </button>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+import { useNavbarStore } from '@/navbar/store/navbarStore.js'
 import KinderLevel from '@/assets/img/home/kinderLevel.webp'
 import PrimaryLevel from '@/assets/img/home/primaryLevel.webp'
 import SecondaryLevel from '@/assets/img/home/secondaryLevel.webp'
+
+const router = useRouter()
+const navbarStore = useNavbarStore()
 
 const levels = [
   {
@@ -41,4 +56,9 @@ const levels = [
     image: SecondaryLevel
   }
 ]
+
+const goToAdmissions = () => {
+  navbarStore.setActualMenu('admissions')
+  router.push('/admissions')
+}
 </script>

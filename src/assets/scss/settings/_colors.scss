@@ -1,6 +1,26 @@
 $_white: #ffffff;
 $_magenta: #610e0d;
 $_light-magenta: #905655;
+
+// Public site design tokens
+$primary-dark: #3d0807;
+$primary-soft: #7c2423;
+$accent: #c6a15b;
+$accent-soft: #ecdfc4;
+$cream: #fbf8f3;
+$sand: #f3ece3;
+$ink: #2b2422;
+$muted: #7a6f6b;
+$surface: #ffffff;
+$surface-alt: #fdfbf8;
+$shadow-soft: 0 18px 45px rgba(58, 22, 20, 0.1);
+$shadow-card: 0 10px 28px rgba(58, 22, 20, 0.09);
+$shadow-hover: 0 22px 48px rgba(58, 22, 20, 0.16);
+$radius-sm: 0.75rem;
+$radius-md: 1.25rem;
+$radius-lg: 1.75rem;
+$transition-base: 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+$font-display: 'InterSemiBold', sans-serif;
 $_gray: #f3f3f3;
 $_light-gray: #ddd;
 $_dark-gray: #555;

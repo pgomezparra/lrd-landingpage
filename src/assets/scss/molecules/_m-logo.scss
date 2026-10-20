@@ -3,16 +3,69 @@
 .m-logo {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.8rem;
+  cursor: pointer;
 
   &__img {
-    width: 4rem;
+    width: 3.4rem;
+    height: 3.4rem;
+    object-fit: contain;
   }
 
   &__text {
-    font-weight: bold;
-    color: colors.$primary-color;
-    margin-left: 1rem;
-    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+
+    strong {
+      color: colors.$primary-color;
+      font-family: 'InterSemiBold', sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    small {
+      margin-top: 0.25rem;
+      color: colors.$muted;
+      font-family: 'InterRegular', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+  }
+
+  &--compact {
+    .m-logo__img {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+
+    .m-logo__text strong {
+      font-size: 1.1rem;
+    }
+
+    .m-logo__text small {
+      font-size: 0.6rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .m-logo {
+    gap: 0.6rem;
+
+    &__img {
+      width: 2.9rem;
+      height: 2.9rem;
+    }
+
+    &__text strong {
+      font-size: 1.15rem;
+    }
+
+    &__text small {
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+    }
   }
 }
