@@ -1,5 +1,5 @@
 <template>
-  <div class="l-standard">
+  <div class="l-standard l-standard--fill">
     <div class="l-standard-title">
       <p>Consulta Diaria</p>
     </div>
@@ -19,14 +19,29 @@
     </div>
 
     <div class="resumen-container">
-      <div class="resumen-item ingresos">Ingresos: <span>$ {{ consolidated.inflows }}</span></div>
-      <div class="resumen-item salidas">Salidas: <span>$ {{ consolidated.outflows }}</span></div>
       <div
-        class="resumen-item"
+        class="resumen-item resumen-item--balance"
         :class="parseInt(consolidated.balance) > 0 ? 'saldo-positivo' : 'saldo-negativo'"
-      >Saldo: <span>$ {{ consolidated.balance }}</span></div>
-      <div class="resumen-item efectivo">Efectivo: <span>$ {{ consolidated.cash }}</span></div>
-      <div class="resumen-item transferencia">Transferencia: <span>$ {{ consolidated.transfer }}</span></div>
+      >
+        <small class="resumen-label">Saldo</small>
+        <span>$ {{ consolidated.balance }}</span>
+      </div>
+      <div class="resumen-item ingresos">
+        <small class="resumen-label">Ingresos</small>
+        <span>$ {{ consolidated.inflows }}</span>
+      </div>
+      <div class="resumen-item salidas">
+        <small class="resumen-label">Salidas</small>
+        <span>$ {{ consolidated.outflows }}</span>
+      </div>
+      <div class="resumen-item efectivo">
+        <small class="resumen-label">Efectivo</small>
+        <span>$ {{ consolidated.cash }}</span>
+      </div>
+      <div class="resumen-item transferencia">
+        <small class="resumen-label">Transferencia</small>
+        <span>$ {{ consolidated.transfer }}</span>
+      </div>
     </div>
 
     <h3 class="subtitulo">Movimientos del Día ({{ movements.length }})</h3>

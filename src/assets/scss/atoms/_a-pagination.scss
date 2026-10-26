@@ -1,4 +1,5 @@
 @use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
 
   .el-pager li {
     background: colors.$secondary-color;
@@ -80,4 +81,103 @@
     cursor: not-allowed;
   }
 
+}
+
+.pagination {
+  --el-color-primary: #{colors.$admin-primary};
+  --el-pagination-bg-color: transparent;
+  --el-pagination-button-bg-color: transparent;
+  --el-pagination-hover-color: #{colors.$admin-primary};
+  --el-pagination-button-color: #{colors.$admin-text};
+  --el-pagination-text-color: #{colors.$admin-text};
+}
+
+.pagination.darkMode {
+  --el-color-primary: #{colors.$admin-dark-primary};
+  --el-pagination-hover-color: #{colors.$admin-dark-primary};
+  --el-pagination-button-color: #{colors.$admin-dark-text};
+  --el-pagination-text-color: #{colors.$admin-dark-text};
+}
+
+.el-pager li {
+  background: transparent;
+  border-radius: 0.5rem !important;
+  color: colors.$admin-muted;
+  font-family: fonts.$font-primary;
+  font-size: 0.82rem;
+  margin-right: 0.2rem;
+  padding: 0 0.5rem;
+}
+
+.pagination .el-pager li.is-active {
+  background: colors.$admin-primary;
+  color: colors.$admin-surface;
+}
+
+.el-pagination .btn-prev,
+.el-pagination .btn-next {
+  background: transparent;
+  border-radius: 0.5rem !important;
+  color: colors.$admin-text;
+  margin-right: 0.2rem;
+}
+
+.darkMode {
+  .el-pager li {
+    color: colors.$admin-dark-muted;
+
+    &.is-active {
+      background: colors.$admin-dark-primary;
+      color: #1a1114;
+    }
+  }
+
+  .el-pagination .btn-prev,
+  .el-pagination .btn-next {
+    color: colors.$admin-dark-text;
+  }
+}
+
+.pagination .btn-prev,
+.pagination .btn-next {
+  background: colors.$admin-surface-2;
+  border: 1px solid colors.$admin-border;
+  border-radius: 0.5rem !important;
+  color: colors.$admin-text;
+  cursor: pointer;
+
+  &:hover {
+    background: colors.$admin-surface-3;
+    border-color: colors.$admin-border-strong;
+    color: colors.$admin-primary;
+  }
+
+  &:disabled {
+    background: colors.$admin-surface-2;
+    border-color: colors.$admin-border;
+    border-radius: 0.5rem !important;
+    color: colors.$admin-muted;
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}
+
+.pagination.darkMode .btn-prev,
+.pagination.darkMode .btn-next {
+  background: colors.$admin-dark-surface-2;
+  border-color: colors.$admin-dark-border;
+  color: colors.$admin-dark-text;
+
+  &:hover {
+    background: colors.$admin-dark-surface-3;
+    border-color: colors.$admin-dark-border-strong;
+    color: colors.$admin-dark-primary;
+  }
+
+  &:disabled {
+    background: colors.$admin-dark-surface-2;
+    border-color: colors.$admin-dark-border;
+    border-radius: 0.5rem !important;
+    color: colors.$admin-dark-muted;
+  }
 }

@@ -2,26 +2,26 @@
   <VueFinalModal
     modal-id="createStudentModal"
     :class="['confirm-modal', { darkMode: theme === 'dark' }]"
-    content-class="confirm-modal__content"
+    content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
     :click-to-close="false"
     :esc-to-close="false"
     @beforeOpen="beforeOpen"
-    @opened="onOpen"
   >
     <div>
-      <p class="modal-title">Registrar usuario</p>
+      <p class="modal-title">Registrar estudiante</p>
       <div class="modal-body">
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select class="select-methods" v-model="student.documentType" ref="documentTypeInput">
-              <option disabled value="">Seleccione un tipo de documento</option>
-              <option value="1">Registro Civil</option>
-              <option value="2">Tarjeta de Identidad</option>
-              <option value="3">Cédula de Ciudadanía</option>
-            </select>
+            <CustomSelect
+              v-model="student.documentType"
+              :options="documentTypeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un tipo de documento"
+            />
           </div>
           <div class="form-group">
             <p>Documento</p>
@@ -57,42 +57,30 @@
             <input
               v-model="student.age"
               type="text"
+              inputmode="numeric"
               placeholder="Edad"
               maxlength="2"
             />
           </div>
           <div class="form-group">
             <p>Grado</p>
-            <select class="select-methods" v-model="student.grade">
-              <option disabled value="0">Seleccione un grado</option>
-              <option
-                v-for="grade in preferenceStore.grades"
-                :key="grade.getId()"
-                :value="grade.getId()"
-              >
-                {{ grade.getGrade() }}
-              </option>
-            </select>
+            <CustomSelect
+              v-model="student.grade"
+              :options="gradeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un grado"
+            />
           </div>
         </div>
         <div class="form-group">
           <p>Valor de matrícula</p>
-          <input
-            type="text"
-            placeholder="Matrícula"
-            v-model="student.registration"
-            maxlength="10"
-          />
+          <CurrencyInput v-model="student.registration" placeholder="Matrícula" />
         </div>
 
         <div class="form-group">
           <p>Valor de pensión</p>
-          <input
-            type="text"
-            placeholder="Pensión"
-            v-model="student.pension"
-            maxlength="10"
-          />
+          <CurrencyInput v-model="student.pension" placeholder="Pensión" />
         </div>
         <div>
           <div class="form-group">
@@ -108,15 +96,13 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select
+            <CustomSelect
               v-model="student.parentDocumentTypeId"
-              class="select-methods"
-            >
-              <option disabled value="">Seleccione un tipo de documento</option>
-              <option value="1">Registro Civil</option>
-              <option value="2">Tarjeta de Identidad</option>
-              <option value="3">Cédula de Ciudadanía</option>
-            </select>
+              :options="documentTypeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un tipo de documento"
+            />
           </div>
           <div class="form-group">
             <p>Documento acudiente</p>
@@ -154,8 +140,8 @@
       </div>
 
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="registerStudent">Guardar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="registerStudent">Guardar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -164,11 +150,13 @@
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
-import { computed, reactive, ref, watch } from 'vue'
+import { computed, reactive, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import * as utils from '@/shared/utils.js'
 import { notifications } from '@/shared/notifications.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
+import CurrencyInput from '@/admin/shared/components/CurrencyInput.vue'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
@@ -178,7 +166,18 @@ const theme = computed(() => preferenceStore.theme)
 
 const emit = defineEmits(['refresh'])
 
-const documentTypeInput = ref(null)
+const documentTypeOptions = [
+  { label: 'Registro Civil', value: 1 },
+  { label: 'Tarjeta de Identidad', value: 2 },
+  { label: 'Cédula de Ciudadanía', value: 3 }
+]
+
+const gradeOptions = computed(() =>
+  preferenceStore.grades.map((grade) => ({
+    label: grade.getGrade(),
+    value: grade.getId()
+  }))
+)
 
 const student = reactive({
   name: '',
@@ -226,10 +225,6 @@ const beforeOpen = async () => {
       await getPaymentValues()
     }
   }
-}
-
-const onOpen = () => {
-  documentTypeInput.value.focus()
 }
 
 const getPaymentValues = async () => {

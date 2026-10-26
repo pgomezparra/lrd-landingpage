@@ -78,3 +78,25 @@
     transform: translateY(-0.625rem) scale(0.97);
   }
 }
+
+.swal-light {
+  background: colors.$admin-surface;
+  border-radius: colors.$admin-radius-lg;
+  color: colors.$admin-text;
+}
+
+.swal-dark {
+  background: colors.$admin-dark-surface !important;
+  border-radius: colors.$admin-radius-lg;
+  color: colors.$admin-dark-text !important;
+}
+
+.swal2-confirm.button {
+  background: colors.$admin-primary !important;
+  border-radius: colors.$admin-radius-sm;
+  color: colors.$admin-surface !important;
+
+  &:hover {
+    background: colors.$admin-primary-strong !important;
+  }
+}

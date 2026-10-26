@@ -1,5 +1,5 @@
 <template>
-  <div class="l-standard">
+  <div class="l-standard l-standard--fill">
     <div class="l-standard-title">
       <p>Pagos por Estudiante</p>
       <p class="l-standard-title__text">
@@ -22,7 +22,6 @@
       <div class="l-standard-option-payment__input-student">
         <input
           class="input-standard input-height-sm"
-          style="width: 90%;"
           v-model="studentName"
           placeholder="Buscar estudiante"
           ref="studentNameInputDesktop"
@@ -69,7 +68,6 @@
       <div class="l-standard-option-payment__input-student">
         <input
           class="input-standard input-height-sm"
-          style="width: 90%;"
           v-model="studentName"
           placeholder="Buscar estudiante"
           ref="studentNameInputMobile"
@@ -133,7 +131,7 @@
       </div>
       <div class="l-standard-container-payments__title-payment">
         <p class="l-standard-container-payments__title">Historial de pagos</p>
-        <button class="button-payment" @click="addPayment">
+        <button class="button-standard button-payment" @click="addPayment">
           <img class="button-payment-img" src="../../assets/img/general/plus.svg" alt="payment">
           Generar pago
         </button>
@@ -275,11 +273,6 @@ const selectStudent = async (selectedStudent) => {
   }
 }
 
-const hideDropdown = () => {
-  showDropdown.value = false
-  highlightedIndex.value = -1
-}
-
 const handleKeydown = (event) => {
   handleGlobalKeydown(event)
 }
@@ -308,7 +301,7 @@ const changeGrade = (value) => {
   getStudents()
 }
 
-const changeState = (value) => {
+const changeState = () => {
   if (preferenceStore.selectedGrade === 0) return
 
   clearData()

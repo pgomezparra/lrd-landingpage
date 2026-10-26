@@ -14,49 +14,38 @@
       <div class="modal-body">
         <div class="form-group">
           <p>Mes</p>
-          <select class="select-document" v-model="month">
-            <option disabled :value="0">Seleccione el mes</option>
-            <option
-              v-for="item in preferenceStore.months"
-              :key="item.getId()"
-              :value="item.getMonth()"
-            >
-              {{ item.getMonth() }}
-            </option>
-          </select>
+          <CustomSelect
+            v-model="month"
+            :options="monthOptions"
+            label-key="label"
+            value-key="value"
+            placeholder="Seleccione el mes"
+          />
         </div>
         <div class="form-group">
           <p>Tipo de empleado</p>
-          <div class="checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                :value="true"
-                v-model="selectAll"
-              />
-              Todos
+          <div class="checkbox-list">
+            <label class="checkbox-option checkbox-option--all">
+              <input class="checkbox-option__input" type="checkbox" :value="true" v-model="selectAll" />
+              <span class="checkbox-option__box" aria-hidden="true"></span>
+              <span class="checkbox-option__text">Todos</span>
             </label>
-          </div>
-          <div
-            v-for="(item, index) in EMPLOYEE_TYPES"
-            :key="index"
-            class="checkbox-group"
-          >
-            <label>
-              <input
-                type="checkbox"
-                :value="index"
-                v-model="types"
-              />
-              {{ item }}
+            <label
+              v-for="(item, index) in EMPLOYEE_TYPES"
+              :key="index"
+              class="checkbox-option"
+            >
+              <input class="checkbox-option__input" type="checkbox" :value="index" v-model="types" />
+              <span class="checkbox-option__box" aria-hidden="true"></span>
+              <span class="checkbox-option__text">{{ item }}</span>
             </label>
           </div>
         </div>
       </div>
 
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="exportEmployees">Exportar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="exportEmployees">Exportar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -69,6 +58,7 @@ import { usePreferenceStore } from '@/admin/general/context/store/preferenceStor
 import { EMPLOYEE_TYPES } from '@/admin/shared/constants.js'
 import { useEmployeeStore } from '@/admin/employees/context/store/employeeStore.js'
 import { notifications } from '@/shared/notifications.js'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 
 const vfm = useVfm()
 const employeeStore = useEmployeeStore()
@@ -85,6 +75,13 @@ const props = defineProps({
 
 const month = ref(0)
 const types = ref([])
+
+const monthOptions = computed(() =>
+  preferenceStore.months.map((item) => ({
+    label: item.getMonth(),
+    value: item.getMonth()
+  }))
+)
 
 watch(() => selectAll.value, (newValue) => {
   if (newValue) {

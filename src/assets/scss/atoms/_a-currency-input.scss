@@ -1,0 +1,33 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+
+.currency-input {
+  position: relative;
+  width: 100%;
+}
+
+.currency-input__field {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.currency-input__symbol {
+  color: colors.$admin-muted;
+  font-family: fonts.$font-primary;
+  font-size: 0.9rem;
+  left: 0.8rem;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.form-group .currency-input__field {
+  padding-left: 1.9rem;
+}
+
+.darkMode {
+  .currency-input__symbol {
+    color: colors.$admin-dark-muted;
+  }
+}

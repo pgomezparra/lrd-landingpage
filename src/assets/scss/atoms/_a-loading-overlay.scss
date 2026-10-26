@@ -1,3 +1,5 @@
+@use '@/assets/scss/settings/colors';
+
 .a-loading-overlay {
   position: fixed;
   top: 0;
@@ -23,5 +25,17 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+.a-loading-overlay {
+  backdrop-filter: blur(3px);
+  background: rgba(18, 17, 20, 0.45);
+
+  &__spinner {
+    border-color: rgba(255, 255, 255, 0.25);
+    border-top-color: colors.$admin-accent;
+    height: 3rem;
+    width: 3rem;
   }
 }

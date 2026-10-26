@@ -1,3 +1,4 @@
+@use '@/assets/scss/settings/fonts';
 @use '@/assets/scss/settings/colors';
 
 
@@ -356,5 +357,251 @@ select {
 
   .movement-amount {
     text-align: right;
+  }
+}
+
+.summary-movements {
+  background: colors.$admin-surface-2;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-md;
+  gap: 0.9rem;
+  padding: 0.85rem;
+
+  &.salidas {
+    background: colors.$admin-surface-2;
+    border-color: colors.$admin-border;
+  }
+}
+
+.summary-item {
+  background: colors.$admin-surface;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-sm;
+  padding: 0.8rem;
+
+  &.salidas {
+    background: colors.$admin-surface;
+    border-color: colors.$admin-border;
+  }
+}
+
+.summary-label {
+  color: colors.$admin-muted;
+  font-size: 0.72rem;
+}
+
+.summary-value {
+  font-family: fonts.$font-title;
+  font-size: 1.2rem;
+}
+
+.ingresos .summary-label,
+.ingresos .summary-value {
+  color: colors.$admin-success;
+}
+
+.salidas .summary-label,
+.salidas .summary-value {
+  color: colors.$admin-danger;
+}
+
+.header-movements {
+  gap: 0.6rem;
+}
+
+.header-movements h2 {
+  color: colors.$admin-text;
+  font-family: fonts.$font-title;
+  font-size: 1.2rem;
+}
+
+.controls {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+
+  .custom-select {
+    flex: 0 0 11rem;
+  }
+
+  .filter-input {
+    flex: 1 1 14rem;
+  }
+}
+
+.movements-list {
+  gap: 0.7rem;
+  height: clamp(20rem, 50dvh, 40rem);
+  padding: 0.15rem 0.1rem;
+}
+
+.movement-card {
+  background: colors.$admin-surface;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-md;
+  padding: 0.95rem 1.1rem;
+
+  &:hover {
+    border-color: colors.$admin-primary;
+    box-shadow: colors.$admin-shadow-sm;
+    transform: translateY(-1px);
+  }
+}
+
+.card-header {
+  font-size: 0.85rem;
+}
+
+.date {
+  color: colors.$admin-muted;
+  font-size: 0.78rem;
+}
+
+.type {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.salida {
+  color: colors.$admin-danger;
+
+  &::before {
+    background: colors.$admin-danger;
+  }
+}
+
+.entrada {
+  color: colors.$admin-success;
+
+  &::before {
+    background: colors.$admin-success;
+  }
+}
+
+.movimiento-card .salidas {
+  color: colors.$admin-danger;
+  font-weight: 700;
+}
+
+.darkMode {
+  .summary-movements {
+    background: colors.$admin-dark-surface-2;
+    border-color: colors.$admin-dark-border;
+  }
+
+  .summary-movements .salidas {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+  }
+
+  .summary-item {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+  }
+
+  .summary-item.salidas {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+  }
+
+  .summary-label {
+    color: colors.$admin-dark-muted;
+  }
+
+  .ingresos .summary-label,
+  .ingresos .summary-value {
+    color: colors.$admin-dark-success;
+  }
+
+  .salidas .summary-label,
+  .salidas .summary-value {
+    color: colors.$admin-dark-danger;
+  }
+
+  .header-movements h2 {
+    color: colors.$admin-dark-text;
+  }
+
+  .movement-card {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+
+    &:hover {
+      background: colors.$admin-dark-surface-2;
+      border-color: colors.$admin-dark-primary;
+    }
+  }
+
+  .date,
+  .origin {
+    color: colors.$admin-dark-muted;
+  }
+
+  .description {
+    color: colors.$admin-dark-text;
+  }
+
+  .salida {
+    color: colors.$admin-dark-danger;
+
+    &::before {
+      background: colors.$admin-dark-danger;
+    }
+  }
+
+  .entrada {
+    color: colors.$admin-dark-success;
+
+    &::before {
+      background: colors.$admin-dark-success;
+    }
+  }
+
+  .salida .amount {
+    color: colors.$admin-dark-danger;
+  }
+
+  .entrada .amount {
+    color: colors.$admin-dark-success;
+  }
+}
+
+@media (max-width: 31.125rem) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+
+    .custom-select {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+  }
+
+  .summary-movements {
+    flex-direction: column;
+  }
+
+  .movements-list {
+    height: auto;
+    max-height: 62dvh;
+  }
+}
+
+@media (max-width: 48rem) {
+  .controls {
+    align-items: stretch;
+    flex-direction: column;
+
+    .custom-select {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+
+    .filter-input {
+      flex: 0 0 auto;
+      height: 2.5rem;
+      min-height: 2.5rem;
+      width: 100%;
+    }
   }
 }

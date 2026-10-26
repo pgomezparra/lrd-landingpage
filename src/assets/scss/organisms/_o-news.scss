@@ -1,3 +1,4 @@
+@use '@/assets/scss/settings/fonts';
 @use '@/assets/scss/settings/colors';
 
 .header-news {
@@ -23,6 +24,21 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.l-standard--fill {
+  > .l-standard-title,
+  > .header-news,
+  > .pagination {
+    flex: 0 0 auto;
+  }
+
+  > .activities-container,
+  > .candidates-container {
+    flex: 1 1 auto;
+    max-height: none;
+    min-height: 0;
+  }
 }
 
 .candidates-container {
@@ -298,5 +314,105 @@
     &__grid {
       grid-template-columns: 1fr;
     }
+  }
+}
+
+.header-news {
+  gap: 0.6rem;
+}
+
+.add-button {
+  background: colors.$admin-primary;
+  border: none;
+  border-radius: colors.$admin-radius-sm;
+  color: colors.$admin-surface;
+  cursor: pointer;
+  font-family: fonts.$font-primary;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: colors.$admin-primary-strong;
+    transform: translateY(-1px);
+  }
+}
+
+.activities-container,
+.candidates-container {
+  gap: 0.75rem;
+}
+
+.news-card {
+  background: colors.$admin-surface-2;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-md;
+  height: auto;
+  min-height: 8rem;
+  padding: 0.9rem;
+
+  &:hover {
+    background: colors.$admin-surface-3;
+  }
+
+  h3 {
+    color: colors.$admin-text;
+    font-family: fonts.$font-title;
+    font-size: 1rem;
+    margin: 0 0 0.25rem;
+  }
+
+  p {
+    color: colors.$admin-muted;
+    font-size: 0.85rem;
+  }
+
+  img {
+    border-radius: colors.$admin-radius-sm;
+  }
+}
+
+.meta {
+  color: colors.$admin-muted;
+  font-size: 0.76rem;
+}
+
+.darkMode {
+  .add-button {
+    background: colors.$admin-dark-primary;
+    color: #1a1114;
+
+    &:hover {
+      background: colors.$admin-dark-primary-strong;
+    }
+  }
+
+  .news-card {
+    background: colors.$admin-dark-surface-2;
+    border-color: colors.$admin-dark-border;
+
+    &:hover {
+      background: colors.$admin-dark-surface-3;
+    }
+
+    h3 {
+      color: colors.$admin-dark-text;
+    }
+
+    p {
+      color: colors.$admin-dark-muted;
+    }
+  }
+
+  .meta {
+    color: colors.$admin-dark-muted;
+  }
+}
+
+@media (max-width: 31.125rem) {
+  .header-news {
+    align-items: stretch;
+    flex-direction: column;
   }
 }

@@ -341,7 +341,6 @@
     color: colors.$text-dark-blue;
   }
   .movimiento-card {
-    border:none;
     color: colors.$text-dark;
     background-color: colors.$card-border-dark;
     box-shadow: none;
@@ -387,6 +386,76 @@
     &:hover {
       background-color: colors.$text-dark-blue;;
       color: colors.$secondary-color;
+    }
+  }
+}
+
+.debtors-view {
+  .filters {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+
+  .filter .custom-select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .filter .custom-select__trigger {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .resumen-container {
+    gap: 0.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 0;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.debtors-view.l-standard--fill {
+  > .filters,
+  > .resumen-container {
+    flex: 0 0 auto;
+  }
+
+  > .cards-container {
+    flex: 1;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 48rem) {
+  .debtors-view .resumen-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 48rem) {
+  .debtors-view {
+    .filters {
+      gap: 0.5rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      place-items: stretch;
+    }
+
+    .filter {
+      display: block;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .filter > span {
+      display: none;
+    }
+
+    .filter:first-child,
+    .filters:not(.filters--with-month) .filter:last-child {
+      grid-column: 1 / -1;
     }
   }
 }

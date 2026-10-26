@@ -1,8 +1,12 @@
 <template>
-  <div class="custom-select" :class="{ 'custom-select--dark': isDarkMode }">
+  <div
+    class="custom-select"
+    :class="{ 'custom-select--dark': isDarkMode, 'custom-select--disabled': disabled }"
+  >
     <div
       class="custom-select__trigger input-height-sm"
       ref="triggerRef"
+      :aria-disabled="disabled"
       @click.stop="toggleDropdown"
     >
       <span class="custom-select__value">{{ selectedLabel }}</span>
@@ -33,7 +37,7 @@ import { useCustomSelect } from '@/admin/shared/utils/customSelect.js'
 
 const props = defineProps({
   modelValue: {
-    type: [Number, String, Object],
+    type: [Number, String, Object, Boolean],
     default: null
   },
   options: {

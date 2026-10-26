@@ -1,5 +1,5 @@
 <template>
-  <div class="l-standard">
+  <div class="l-standard l-standard--fill">
     <div class="l-standard-title">
       <div>
         <span>Listado de estudiantes</span><span class="container-total">{{ studentStore.students.length }}</span>
@@ -17,7 +17,7 @@
         />
       </div>
     </div>
-    <div class="l-standard-option">
+    <div class="l-standard-option l-standard-option--students">
       <p class="text-desktop">Grado a consultar:</p>
       <p class="text-mobil">Grado a consultar:</p>
       <CustomSelect
@@ -36,13 +36,31 @@
         value-key="value"
         @change="changeStatusFilter"
       />
-      <button class="button-standard" @click="addStudent">
-        <img class="button-payment-img" src="../../assets/img/general/plus.svg" alt="payment">
-        Agregar
+      <button class="button-standard" aria-label="Agregar estudiante" @click="addStudent">
+        <img class="button-payment-img" src="../../assets/img/general/plus.svg" alt="">
+        <span class="button-standard__text">Agregar</span>
       </button>
       <div class="export-container" ref="exportRef">
-        <button class="button-standard" @click="toggleExportMenu">
-          Exportar ⌄
+        <button
+          class="button-standard"
+          aria-haspopup="true"
+          :aria-expanded="showExportMenu"
+          @click="toggleExportMenu"
+        >
+          <span>Exportar</span>
+          <svg
+            class="export-button__arrow"
+            :class="{ 'export-button__arrow--open': showExportMenu }"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
         </button>
 
         <div v-if="showExportMenu" class="export-menu">

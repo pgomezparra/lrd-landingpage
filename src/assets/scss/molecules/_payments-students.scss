@@ -1,4 +1,5 @@
 @use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
 
 .button-standard {
   padding: 1rem;
@@ -21,10 +22,12 @@
 }
 
 .payments-summary {
+  box-sizing: border-box;
   padding: 0 1rem;
   background-color: colors.$secondary-color;
   border-radius: 2rem;
   font-size: 0.85rem;
+  width: 100%;
 }
 
 .text-mobil {
@@ -38,7 +41,8 @@
 
 .payments-grid.compact {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 0.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -112,6 +116,12 @@
 }
 
 
+@media(max-width: 64rem) {
+  .payments-grid.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media(max-width: 31.125rem) {
   .payments-summary {
     align-items: center;
@@ -122,12 +132,12 @@
     row-gap: 0.5rem;
     border-radius: 1rem;
     font-size: 0.80rem;
-    width: 25rem;
+    width: 100%;
   }
 
   .payments-grid.compact {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.5rem;
   }
   .text-desktop {
@@ -141,7 +151,7 @@
 
 @media(max-width: 28.125rem) {
   .payments-summary {
-    width: 21rem;
+    width: 100%;
   }
 }
 
@@ -163,7 +173,6 @@
 
   .payments-grid.compact {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
     gap: 0.5rem;
     margin-top: 0.5rem;
   }
@@ -198,4 +207,90 @@
     margin: 0;
   }
 
+}
+
+.payments-summary {
+  background: colors.$admin-surface;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-md;
+  padding: 1rem;
+
+  h2 {
+    color: colors.$admin-text;
+    font-family: fonts.$font-title;
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+  }
+}
+
+.payment-card {
+  background: colors.$admin-surface-2;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-sm;
+  padding: 0.6rem 0.75rem;
+
+  strong {
+    color: colors.$admin-text;
+  }
+
+  span {
+    color: colors.$admin-muted;
+  }
+
+  &.main-payment {
+    background: colors.$admin-surface-3;
+    border-color: colors.$admin-border;
+  }
+}
+
+.amount {
+  font-family: fonts.$font-title;
+  font-size: 1.35rem;
+}
+
+.salida .amount {
+  color: colors.$admin-danger;
+}
+
+.entrada .amount {
+  color: colors.$admin-success;
+}
+
+.description {
+  color: colors.$admin-text;
+  font-size: 0.9rem;
+}
+
+.origin {
+  color: colors.$admin-muted;
+  font-size: 0.76rem;
+}
+
+.darkMode {
+  .payments-summary {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+
+    h2 {
+      color: colors.$admin-dark-text;
+    }
+  }
+
+  .payment-card {
+    background: colors.$admin-dark-surface-2;
+    border-color: colors.$admin-dark-border;
+
+    strong {
+      color: colors.$admin-dark-text;
+    }
+
+    span {
+      color: colors.$admin-dark-muted;
+    }
+
+    &.main-payment {
+      background: colors.$admin-dark-surface-3;
+      border-color: colors.$admin-dark-border;
+    }
+  }
 }

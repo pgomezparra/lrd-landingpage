@@ -1,5 +1,5 @@
 <template>
-  <div class="l-standard">
+  <div class="l-standard l-standard--fill">
     <div class="l-standard-title">
       <p>Preferencias</p>
       <p class="l-standard-title__text">
@@ -7,7 +7,7 @@
       </p>
     </div>
     <div class="l-standard-payment-values-buttons">
-      <button class="l-standard-payment-values-buttons__button" @click="updateValues">Guardar</button>
+      <button class="button-standard l-standard-payment-values-buttons__button" @click="updateValues">Guardar</button>
     </div>
     <div class="l-preferences__grid">
       <!-- Ajustes públicos -->
@@ -16,16 +16,28 @@
 
         <div class="l-preferences__switch">
           <span>Mostrar modal</span>
-          <label class="l-preferences__toggle">
-            <input type="checkbox" v-model="publicSettings.showInfoModal" />
-            <span class="l-preferences__toggle-slider"></span>
+          <label class="switch">
+            <input
+              type="checkbox"
+              role="switch"
+              aria-label="Mostrar modal"
+              :aria-checked="publicSettings.showInfoModal"
+              v-model="publicSettings.showInfoModal"
+            />
+            <span class="slider"></span>
           </label>
         </div>
         <div class="l-preferences__switch">
           <span>Elecciones activas</span>
-          <label class="l-preferences__toggle">
-            <input type="checkbox" v-model="publicSettings.activeElections" />
-            <span class="l-preferences__toggle-slider"></span>
+          <label class="switch">
+            <input
+              type="checkbox"
+              role="switch"
+              aria-label="Elecciones activas"
+              :aria-checked="publicSettings.activeElections"
+              v-model="publicSettings.activeElections"
+            />
+            <span class="slider"></span>
           </label>
         </div>
       </div>
@@ -36,9 +48,15 @@
 
         <div class="l-preferences__switch">
           <span>Mostrar información</span>
-          <label class="l-preferences__toggle">
-            <input type="checkbox" v-model="privateSettings.showInfo" />
-            <span class="l-preferences__toggle-slider"></span>
+          <label class="switch">
+            <input
+              type="checkbox"
+              role="switch"
+              aria-label="Mostrar información"
+              :aria-checked="privateSettings.showInfo"
+              v-model="privateSettings.showInfo"
+            />
+            <span class="slider"></span>
           </label>
         </div>
       </div>

@@ -79,13 +79,16 @@
     border: 0.063rem solid colors.$admissions-card-border;
     border-radius: 0.5rem;
     box-shadow: 0 0.25rem 0.5rem colors.$shadow-card;
+    box-sizing: border-box;
     left: 0;
     max-height: 12.5rem;
+    max-width: 100%;
     min-width: 100%;
     overflow-y: auto;
     position: absolute;
     top: calc(100% + 0.25rem);
-    white-space: nowrap;
+    white-space: normal;
+    width: 100%;
     z-index: 1000;
 
     &--up {
@@ -147,4 +150,261 @@
       min-width: 5rem;
     }
   }
+}
+
+%admin-field {
+  background: colors.$admin-surface-2;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-sm;
+  box-sizing: border-box;
+  color: colors.$admin-text;
+  font-family: fonts.$font-primary;
+  font-size: 0.9rem;
+  padding: 0.62rem 0.8rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+  &::placeholder {
+    color: colors.$admin-muted;
+    opacity: 0.8;
+  }
+
+  &:hover {
+    border-color: colors.$admin-border-strong;
+  }
+
+  &:focus,
+  &:focus-visible {
+    background: colors.$admin-surface;
+    border-color: colors.$admin-primary;
+    box-shadow: colors.$admin-ring;
+    outline: none;
+  }
+
+  &:disabled {
+    background: colors.$admin-surface-3;
+    color: colors.$admin-muted;
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+}
+
+%admin-field-dark {
+  background: colors.$admin-dark-surface-2;
+  border-color: colors.$admin-dark-border;
+  color: colors.$admin-dark-text;
+
+  &::placeholder {
+    color: colors.$admin-dark-muted;
+  }
+
+  &:hover {
+    border-color: colors.$admin-dark-border-strong;
+  }
+
+  &:focus,
+  &:focus-visible {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-primary;
+    box-shadow: colors.$admin-dark-ring;
+  }
+
+  &:disabled {
+    background: colors.$admin-dark-surface-3;
+    color: colors.$admin-dark-muted;
+  }
+}
+
+.input-standard,
+.filter-input,
+.form-group input,
+.form-group select,
+.form-group textarea,
+.textAreaPayment,
+.o-payment-values-table input {
+  @extend %admin-field;
+}
+
+select.select-standard,
+select.select-document,
+select.select-methods,
+.select-methods {
+  @extend %admin-field;
+  appearance: auto;
+  cursor: pointer;
+  width: 100%;
+}
+
+.filter-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  > p {
+    color: colors.$admin-muted;
+    font-family: fonts.$font-primary;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .dp__input_wrap .dp__input {
+    height: 2.5rem;
+    line-height: 1.2;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  .dp__input_wrap .dp__input_icon {
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+  }
+
+  .custom-select {
+    width: 100%;
+  }
+}
+
+.custom-select {
+  &__trigger {
+    @extend %admin-field;
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    min-width: 7.5rem;
+    padding: 0 0.8rem;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
+  &__value {
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  &__arrow {
+    color: colors.$admin-muted;
+    flex-shrink: 0;
+    height: 0.95rem;
+    width: 0.95rem;
+  }
+
+  &__dropdown {
+    background: colors.$admin-surface;
+    border: 1px solid colors.$admin-border;
+    border-radius: colors.$admin-radius-sm;
+    box-shadow: colors.$admin-shadow-md;
+    overflow-y: auto;
+    padding: 0.3rem;
+  }
+
+  &__option {
+    border-radius: 0.5rem;
+    color: colors.$admin-text;
+    font-family: fonts.$font-primary;
+    font-size: 0.88rem;
+    overflow-wrap: anywhere;
+    padding: 0.55rem 0.65rem;
+
+    &:hover {
+      background: colors.$admin-surface-3;
+    }
+
+    &--selected {
+      background: rgba(97, 14, 13, 0.09);
+      color: colors.$admin-primary;
+      font-weight: 600;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.65;
+    pointer-events: none;
+
+    .custom-select__trigger {
+      background: colors.$admin-surface-3;
+      cursor: not-allowed;
+    }
+
+    .custom-select__arrow {
+      color: colors.$admin-muted;
+    }
+  }
+}
+
+.darkMode {
+  .input-standard,
+  .filter-input,
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  .textAreaPayment,
+  .o-payment-values-table input,
+  select.select-standard,
+  select.select-document,
+  select.select-methods,
+  .select-methods {
+    @extend %admin-field-dark;
+  }
+
+  .form-group > p {
+    color: colors.$admin-dark-muted;
+  }
+}
+
+.darkMode {
+  .custom-select {
+    &__trigger {
+      @extend %admin-field-dark;
+    }
+
+    &__value {
+      color: colors.$admin-dark-text;
+    }
+
+    &__arrow {
+      color: colors.$admin-dark-muted;
+    }
+
+    &__dropdown {
+      background: colors.$admin-dark-surface;
+      border-color: colors.$admin-dark-border;
+      box-shadow: colors.$admin-dark-shadow-md;
+    }
+
+    &__option {
+      color: colors.$admin-dark-text;
+
+      &:hover {
+        background: colors.$admin-dark-surface-3;
+      }
+
+      &--selected {
+        background: rgba(194, 91, 88, 0.16);
+        color: colors.$admin-dark-primary-strong;
+      }
+    }
+
+    &--disabled {
+      .custom-select__trigger {
+        background: colors.$admin-dark-surface-3;
+      }
+
+      .custom-select__arrow {
+        color: colors.$admin-dark-muted;
+      }
+    }
+  }
+}
+
+.textAreaPayment {
+  min-height: 4.5rem;
+  resize: vertical;
 }

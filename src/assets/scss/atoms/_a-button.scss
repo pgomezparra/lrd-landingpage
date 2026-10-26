@@ -218,6 +218,17 @@
 .export-container {
   position: relative;
   display: inline-block;
+
+  .export-button__arrow {
+    flex-shrink: 0;
+    height: 0.9rem;
+    transition: transform 0.2s ease;
+    width: 0.9rem;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
 }
 
 .export-menu {
@@ -276,5 +287,125 @@
     &-img {
       filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(280deg) brightness(102%) contrast(103%);
     }
+  }
+}
+
+.button-standard {
+  background: colors.$admin-primary;
+  border: none;
+  border-radius: colors.$admin-radius-sm;
+  box-shadow: 0 6px 16px rgba(97, 14, 13, 0.16);
+  color: colors.$admin-surface;
+  font-family: fonts.$font-primary;
+  font-size: 0.85rem;
+  font-weight: 600;
+  gap: 0.45rem;
+  height: 2.6rem;
+  padding: 0 1rem;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  &::after {
+    display: none;
+  }
+
+  &:hover {
+    background: colors.$admin-primary-strong;
+    box-shadow: 0 10px 22px rgba(97, 14, 13, 0.22);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: colors.$admin-ring;
+  }
+
+  &:disabled {
+    background: colors.$admin-surface-3;
+    box-shadow: none;
+    color: colors.$admin-muted;
+  }
+}
+
+.button-edit {
+  background: colors.$admin-primary;
+  border: none;
+  border-radius: colors.$admin-radius-sm;
+  color: colors.$admin-surface;
+  cursor: pointer;
+  font-family: fonts.$font-primary;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: colors.$admin-primary-strong;
+    opacity: 1;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.button-payment-circle {
+  background: colors.$admin-surface;
+  border: 1px solid colors.$admin-border;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: colors.$admin-surface-2;
+    border-color: colors.$admin-border-strong;
+    box-shadow: none;
+  }
+}
+
+.container-total {
+  background: rgba(97, 14, 13, 0.09);
+  border-radius: 999px;
+  color: colors.$admin-primary;
+  font-family: fonts.$font-primary;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  padding: 0.18rem 0.55rem;
+}
+
+.darkMode {
+  .button-standard {
+    background: colors.$admin-dark-primary;
+    color: #1a1114;
+
+    &:hover {
+      background: colors.$admin-dark-primary-strong;
+    }
+
+    &:disabled {
+      background: colors.$admin-dark-surface-3;
+      color: colors.$admin-dark-muted;
+    }
+  }
+
+  .button-edit {
+    background: colors.$admin-dark-primary;
+    color: #1a1114;
+
+    &:hover {
+      background: colors.$admin-dark-primary-strong;
+    }
+  }
+
+  .button-payment-circle {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+  }
+
+  .container-total {
+    background: rgba(194, 91, 88, 0.16);
+    color: colors.$admin-dark-primary-strong;
   }
 }

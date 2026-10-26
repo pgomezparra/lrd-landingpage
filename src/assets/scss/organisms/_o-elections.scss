@@ -1,24 +1,34 @@
 @use '@/assets/scss/settings/colors';
 
 .l-elections {
-  min-height: calc(100dvh - 8.5rem);
-  padding: 2.5rem 1.25rem 4rem;
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  padding: 2.5rem 1.25rem;
   background:
     radial-gradient(circle at 90% 8%, rgba(198, 161, 91, 0.12), transparent 34%),
     colors.$cream;
   box-sizing: border-box;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .o-elections {
   &__container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
     max-width: 860px;
     margin: 0 auto;
     font-family: 'InterRegular', sans-serif;
   }
 
   &__card {
+    display: flex;
+    flex-direction: column;
     padding: clamp(1.5rem, 3vw, 2.5rem);
+    overflow: hidden;
     border: 1px solid rgba(97, 14, 13, 0.09);
     border-radius: colors.$radius-md;
     background: colors.$surface;
@@ -33,6 +43,11 @@
     }
   }
 
+  &__card--ballot {
+    flex: 1;
+    min-height: 0;
+  }
+
   &__subtitle {
     margin: 0 0 1.5rem;
     color: colors.$muted;
@@ -42,7 +57,13 @@
 
   &__grid {
     display: grid;
+    flex: 1;
     gap: 1.75rem;
+    min-height: 0;
+    padding-right: 0.25rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
   }
 
   &__category {

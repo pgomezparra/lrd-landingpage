@@ -1,3 +1,6 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+
 .l-preferences {
   &__grid {
     display: grid;
@@ -28,44 +31,58 @@
     padding: 10px 0;
   }
 
-  &__toggle {
-    position: relative;
-    width: 42px;
-    height: 22px;
-    cursor: pointer;
+}
 
-    input {
-      opacity: 0;
-      width: 0;
-      height: 0;
+.l-preferences {
+  &__grid {
+    gap: 1rem;
+    margin-top: 0.25rem;
+  }
+
+  &__card {
+    background: colors.$admin-surface-2;
+    border: 1px solid colors.$admin-border;
+    border-radius: colors.$admin-radius-md;
+    padding: 1.15rem 1.25rem;
+
+    &__title {
+      color: colors.$admin-text;
+      font-family: fonts.$font-title;
+      font-size: 1rem;
+      margin-bottom: 0.85rem;
     }
+  }
 
-    &-slider {
-      position: absolute;
-      inset: 0;
-      background-color: #444;
-      border-radius: 999px;
-      transition: 0.3s;
+  &__switch {
+    border-top: 1px solid colors.$admin-border;
+    color: colors.$admin-text;
+    font-family: fonts.$font-primary;
+    font-size: 0.88rem;
+    padding: 0.85rem 0;
 
-      &::before {
-        content: '';
-        position: absolute;
-        height: 16px;
-        width: 16px;
-        left: 3px;
-        bottom: 3px;
-        background-color: white;
-        border-radius: 50%;
-        transition: 0.3s;
+    &:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+
+}
+
+.darkMode {
+  .l-preferences {
+    &__card {
+      background: colors.$admin-dark-surface-2;
+      border-color: colors.$admin-dark-border;
+
+      &__title {
+        color: colors.$admin-dark-text;
       }
     }
 
-    input:checked + &-slider {
-      background-color: #7a0c0c;
-
-      &::before {
-        transform: translateX(20px);
-      }
+    &__switch {
+      border-top-color: colors.$admin-dark-border;
+      color: colors.$admin-dark-text;
     }
+
   }
 }

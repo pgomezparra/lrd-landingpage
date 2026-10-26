@@ -1,3 +1,4 @@
+@use '@/assets/scss/settings/fonts';
 @use '@/assets/scss/settings/colors';
 
 .modal-title {
@@ -178,4 +179,100 @@ input:checked + .slider::before {
     background-color: colors.$text-dark-blue;
   }
 
+}
+
+.modal-title {
+  color: colors.$admin-text;
+  font-family: fonts.$font-title;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  text-align: left;
+}
+
+.modal-body {
+  gap: 0.9rem;
+  height: auto;
+  max-height: 60dvh;
+  overflow-y: auto;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: colors.$admin-border transparent;
+}
+
+.modal-actions {
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+
+  .button-edit {
+    &:first-child {
+      background: colors.$admin-surface-2;
+      border: 1px solid colors.$admin-border;
+      color: colors.$admin-text;
+
+      &:hover {
+        background: colors.$admin-surface-3;
+      }
+    }
+
+    &:last-child {
+      background: colors.$admin-primary;
+      border: none;
+      color: colors.$admin-surface;
+
+      &:hover {
+        background: colors.$admin-primary-strong;
+      }
+    }
+  }
+}
+
+.container-form-edit {
+  column-gap: 0.75rem;
+  row-gap: 0.9rem;
+}
+
+.form-group.switch-group {
+  align-items: center;
+  flex-direction: row;
+  gap: 0.75rem;
+  justify-content: space-between;
+
+  > p {
+    margin: 0;
+  }
+}
+
+.darkMode {
+  .modal-title {
+    color: colors.$admin-dark-text;
+  }
+
+  .modal-body {
+    scrollbar-color: colors.$admin-dark-border transparent;
+  }
+
+  .modal-actions {
+    .button-edit {
+      &:first-child {
+        background: colors.$admin-dark-surface-2;
+        border-color: colors.$admin-dark-border;
+        color: colors.$admin-dark-text;
+
+        &:hover {
+          background: colors.$admin-dark-surface-3;
+        }
+      }
+
+      &:last-child {
+        background: colors.$admin-dark-primary;
+        color: #1a1114;
+
+        &:hover {
+          background: colors.$admin-dark-primary-strong;
+        }
+      }
+    }
+  }
 }

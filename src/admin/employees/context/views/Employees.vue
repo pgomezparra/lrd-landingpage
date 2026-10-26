@@ -1,5 +1,5 @@
 <template>
-  <div class="l-standard">
+  <div class="l-standard l-standard--fill">
     <div class="l-standard-title">
       <div>
         <span>Listado de empleados</span><span class="container-total">{{ employeeStore.employees.length }}</span>
@@ -17,10 +17,11 @@
         />
       </div>
     </div>
-    <div class="l-standard-option">
+    <div class="l-standard-option l-standard-option--employees">
       <p>Tipo de empleado</p>
       <CustomSelect
         v-model="employeeTypeFilter"
+        class="l-standard-option__employee-type"
         :options="employeeTypeFilterOptions"
         label-key="label"
         value-key="value"
@@ -120,13 +121,13 @@ const filteredEmployees = computed(() => {
   })
 })
 
-const changeStatusFilter = async (event) => {
+const changeStatusFilter = async () => {
   employeeStore.setEmployees([])
   search.value = ''
   await refreshData()
 }
 
-const handleTypeChange = async (event) => {
+const handleTypeChange = async () => {
   employeeStore.setEmployees([])
   search.value = ''
   await refreshData()
@@ -230,7 +231,7 @@ watch(
   () => ({
     year: preferenceStore.selectedYear
   }),
-  async (newVal) => {
+  async () => {
     await refreshData()
   }
 )

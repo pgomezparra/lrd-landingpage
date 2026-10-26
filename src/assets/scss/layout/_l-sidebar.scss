@@ -2,144 +2,259 @@
 @use '@/assets/scss/settings/fonts';
 
 .sidebar {
-  align-items: center;
-  background: colors.$secondary-color;
-  box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-  -moz-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-  -webkit-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-  display: grid;
-  height: 97dvh;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto 1fr auto;
-  row-gap: 1rem;
-  padding: 1rem;
-  overflow-y: auto;
+  align-items: stretch;
+  background: colors.$admin-surface;
+  border-right: 1px solid colors.$admin-border;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  height: 100dvh;
+  overflow: visible;
+  padding: 1.25rem 1rem 1rem;
   position: relative;
-  transition: none;
+  transition: transform 0.3s ease;
+  width: 17.5rem;
   z-index: 1200;
-  width: 17rem;
+  flex-shrink: 0;
+
+  &-brand {
+    align-items: center;
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.15rem 0.25rem 0.35rem;
+
+    &__logo {
+      flex-shrink: 0;
+      height: 2.5rem;
+      width: 2.5rem;
+      object-fit: contain;
+    }
+
+    &__text {
+      min-width: 0;
+    }
+
+    &__name {
+      color: colors.$admin-text;
+      font-family: fonts.$font-title;
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    &__label {
+      color: colors.$admin-muted;
+      font-family: fonts.$font-primary;
+      font-size: 0.68rem;
+      letter-spacing: 0.09em;
+      margin: 0.2rem 0 0;
+      text-transform: uppercase;
+    }
+
+    &__close {
+      background: transparent;
+      border: none;
+      border-radius: 0.5rem;
+      color: colors.$admin-muted;
+      cursor: pointer;
+      display: none;
+      font-size: 1.4rem;
+      height: 2rem;
+      line-height: 1;
+      margin-left: auto;
+      width: 2rem;
+
+      &:hover {
+        background: colors.$admin-surface-3;
+        color: colors.$admin-text;
+      }
+    }
+  }
 
   &-user-info {
+    align-items: center;
+    background: colors.$admin-surface-2;
+    border: 1px solid colors.$admin-border;
+    border-radius: colors.$admin-radius-md;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    row-gap: 0.5rem;
-    place-items: center;
+    gap: 0.7rem;
+    grid-template-columns: auto 1fr;
+    padding: 0.7rem 0.8rem;
 
     &__img {
       border-radius: 50%;
-      height: 3rem;
-      width: 3rem;
+      height: 2.5rem;
+      width: 2.5rem;
+      object-fit: cover;
+      box-shadow: 0 0 0 2px colors.$admin-surface, 0 0 0 3px colors.$admin-border;
     }
 
     &__user-details {
-      color: colors.$text-title;
-      font-family: fonts.$font-title;
-      text-align: center;
+      color: colors.$admin-text;
+      font-family: fonts.$font-primary;
+      min-width: 0;
+
+      p {
+        font-size: 0.88rem;
+        font-weight: 600;
+        line-height: 1.25;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
       &-email {
-        color: colors.$text-light;
-        font-family: fonts.$font-primary;
-        font-size: 0.90rem;
+        color: colors.$admin-muted !important;
+        font-size: 0.76rem !important;
+        font-weight: 400 !important;
+        margin-top: 0.15rem !important;
       }
     }
   }
 
   &-year {
-    display: grid;
-    place-items: center;
-    grid-template-columns: 1fr auto;
+    align-items: center;
+    background: colors.$admin-surface-2;
+    border: 1px solid colors.$admin-border;
+    border-radius: colors.$admin-radius-md;
     column-gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 0.65rem 0.7rem;
+
+    &__label {
+      color: colors.$admin-muted;
+      font-family: fonts.$font-primary;
+      font-size: 0.68rem;
+      font-weight: 600;
+      grid-column: 1 / -1;
+      letter-spacing: 0.08em;
+      margin: 0 0 0.4rem;
+      text-transform: uppercase;
+    }
 
     &__button {
-      background-color: colors.$primary-color;
-      color: colors.$secondary-color;
+      align-items: center;
+      background: colors.$admin-primary;
       border: none;
-      border-radius: 8px;
-      padding: 0.4rem 0.8rem;
-      font-size: 1.2rem;
+      border-radius: colors.$admin-radius-sm;
+      color: colors.$admin-surface;
       cursor: pointer;
-      transition: background-color 0.2s;
+      display: flex;
+      font-size: 1.1rem;
+      height: 2.3rem;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.2s ease, transform 0.2s ease;
+      width: 2.3rem;
 
       &:hover {
-        background-color: #801312;
+        background: colors.$admin-primary-strong;
+        transform: translateY(-1px);
       }
 
       &:disabled {
-        background-color: colors.$primary-color;
-        color: colors.$secondary-color;
-        opacity: 0.5;
         cursor: not-allowed;
+        opacity: 0.45;
+        transform: none;
       }
     }
 
-    .select-standard {
+    .custom-select {
+      min-width: 0;
       width: 100%;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      border: 0.063rem solid colors.$border;
-      font-size: 1rem;
+    }
+
+    .custom-select__trigger {
+      background: colors.$admin-surface;
+      border: 1px solid colors.$admin-border;
+      border-radius: colors.$admin-radius-sm;
+      color: colors.$admin-text;
+      font-size: 0.85rem;
+      font-weight: 600;
+      height: 2.3rem;
+      padding: 0 0.6rem;
+      width: 100%;
+
+      &:hover {
+        border-color: colors.$admin-border-strong;
+        box-shadow: none;
+      }
+
+      &:focus-visible {
+        box-shadow: colors.$admin-ring;
+        outline: none;
+      }
+    }
+
+    .custom-select__value {
+      font-size: 0.85rem;
+      font-weight: 600;
     }
   }
 
-
   &-menu-items {
     align-content: start;
-    background-image: url("@/assets/img/general/logo.svg");
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    background-size: contain;
-    justify-content: start;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    height: 100%;
-    overflow: auto;
-    row-gap: 0.125rem;
-    padding: 0 1rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0.15rem 0.1rem 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: colors.$admin-border transparent;
 
-    &-container {
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: colors.$admin-border;
+      border-radius: 999px;
+    }
+
+    &-container,
+    &-container-new {
+      align-items: center;
+      border-radius: colors.$admin-radius-sm;
+      color: colors.$admin-text;
       cursor: pointer;
       display: grid;
-      grid-template-columns: auto 1fr;
-      column-gap: 0.75rem;
-      padding: 0.625rem 0.75rem;
-      align-items: center;
-      border-radius: 0.5rem;
-      transition: all 0.2s ease;
-
-      &-selected {
-        background: colors.$hover-button-menu;
-        color: colors.$primary-color;
-      }
+      gap: 0.7rem;
+      padding: 0.62rem 0.7rem;
+      position: relative;
+      transition: background 0.2s ease, color 0.2s ease;
+      user-select: none;
 
       &:hover {
-        background: colors.$hover-button-menu;
-        color: colors.$primary-color;
+        background: colors.$admin-surface-3;
+        color: colors.$admin-primary;
+      }
+
+      &-selected {
+        background: rgba(97, 14, 13, 0.09);
+        box-shadow: inset 3px 0 0 colors.$admin-primary;
+        color: colors.$admin-primary;
       }
     }
 
-    &-container-new {
-      cursor: pointer;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      column-gap: 0.5rem;
-      padding: 0.5rem 0.75rem;
-      align-items: center;
-      border-radius: 0.5rem;
-      transition: all 0.2s ease;
+    &-container {
+      grid-template-columns: auto 1fr;
+    }
 
-      &:hover {
-        background: colors.$hover-button-menu;
-        color: colors.$primary-color;
-      }
+    &-container-new {
+      grid-template-columns: auto 1fr auto;
 
       .chevron-icon {
-        width: 1rem;
-        height: 1rem;
-        color: colors.$primary-color;
+        color: colors.$admin-muted;
+        height: 0.95rem;
+        margin-left: 0.1rem;
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        margin-left: 0.25rem;
+        width: 0.95rem;
 
         &--rotated {
           transform: rotate(180deg);
@@ -147,122 +262,175 @@
       }
     }
 
-    .chevron-icon {
-      width: 1rem;
-      height: 1rem;
-      color: colors.$primary-color;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      margin-left: 0.25rem;
-
-      &--rotated {
-        transform: rotate(180deg);
-      }
+    &__img {
+      height: 1.2rem;
+      width: 1.2rem;
+      object-fit: contain;
     }
 
-    &__img {
-      height: 1.956rem;
-      width: 1.956rem;
+    .menu-item {
+      font-family: fonts.$font-primary;
+      font-size: 0.88rem;
+      font-weight: 500;
+      line-height: 1.2;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
+  &-menu-label {
+    color: colors.$admin-muted;
+    font-family: fonts.$font-primary;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin: 0.7rem 0.55rem 0.25rem;
+    text-transform: uppercase;
+
+    &:first-child {
+      margin-top: 0.1rem;
+    }
+  }
 
   .submenu-item {
-    padding: 0.5rem 1rem;
-    margin: 0.125rem 0.5rem;
+    border-radius: colors.$admin-radius-sm;
+    color: colors.$admin-muted;
     cursor: pointer;
-    user-select: none;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease;
-    font-size: 0.85rem;
-    color: colors.$text-title;
     display: block;
-    width: calc(100% - 1.5rem);
+    font-family: fonts.$font-primary;
+    font-size: 0.82rem;
+    margin: 0.1rem 0.2rem 0.1rem 1.1rem;
+    padding: 0.5rem 0.7rem 0.5rem 1.6rem;
+    position: relative;
+    transition: background 0.2s ease, color 0.2s ease;
+    user-select: none;
+
+    &::before {
+      background: colors.$admin-border-strong;
+      border-radius: 50%;
+      content: '';
+      height: 0.3rem;
+      left: 0.85rem;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0.3rem;
+    }
 
     &:hover {
-      background-color: colors.$hover-button-menu;
-      color: colors.$primary-color;
-      width: calc(100% - 2rem);
-      margin-left: 0.5rem;
+      background: colors.$admin-surface-3;
+      color: colors.$admin-primary;
     }
 
     &--active {
-      background-color: colors.$hover-button-menu;
-      color: colors.$primary-color;
-      font-weight: 500;
-      width: calc(100% - 2rem);
-      margin-left: 0.5rem;
+      background: rgba(97, 14, 13, 0.08);
+      color: colors.$admin-primary;
+      font-weight: 600;
+
+      &::before {
+        background: colors.$admin-primary;
+      }
     }
   }
 
   &-logout {
+    align-items: center;
+    border-top: 1px solid colors.$admin-border;
+    column-gap: 0.5rem;
     display: grid;
     grid-template-columns: 1fr auto;
-    column-gap: 1rem;
-    place-items: center;
+    padding-top: 0.8rem;
   }
 }
 
 .hamburger {
-  display: none;
-  position: fixed;
-  top: 1rem;
-  left: 0.5rem;
-  font-size: 2rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1300;
-}
-
-.theme-toggle {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0.625rem;
-  border-radius: 50%;
-  display: flex;
   align-items: center;
+  background: colors.$admin-surface;
+  border: 1px solid colors.$admin-border;
+  border-radius: 0.75rem;
+  box-shadow: colors.$admin-shadow-sm;
+  cursor: pointer;
+  display: none;
+  height: 2.6rem;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: colors.$text-title;
+  left: 0.85rem;
+  position: fixed;
+  top: 0.85rem;
+  width: 2.6rem;
+  z-index: 1300;
 
-  &:hover {
-    transform: scale(1.1);
-    background-color: rgba(97, 14, 13, 0.1);
-    color: colors.$primary-color;
+  img {
+    height: 1.15rem;
+    width: 1.15rem;
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.96);
+  }
+}
+
+.sidebar-overlay {
+  background: rgba(18, 17, 20, 0.45);
+  backdrop-filter: blur(2px);
+  inset: 0;
+  position: fixed;
+  z-index: 1199;
+}
+
+.theme-toggle {
+  align-items: center;
+  background: colors.$admin-surface-2;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-sm;
+  color: colors.$admin-text;
+  cursor: pointer;
+  display: flex;
+  height: 2.55rem;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  width: 2.55rem;
+
+  &:hover {
+    background: colors.$admin-surface-3;
+    color: colors.$admin-primary;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.96);
   }
 
   &__icon {
-    width: 1.375rem;
-    height: 1.375rem;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    height: 1.15rem;
+    width: 1.15rem;
   }
 }
 
 .button-logout {
-  background: transparent;
-  border: 1px solid colors.$border;
-  border-radius: 0.375rem;
-  padding: 0.625rem 1.5rem;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.625rem;
+  background: transparent;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-sm;
+  color: colors.$admin-text;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: colors.$text-title;
-  min-width: 6rem;
+  display: flex;
+  font-family: fonts.$font-primary;
+  font-size: 0.82rem;
+  font-weight: 600;
+  gap: 0.45rem;
+  height: 2.55rem;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 0.75rem;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 
   &:hover {
-    background: colors.$primary-color;
-    color: colors.$secondary-color;
-    border-color: colors.$primary-color;
+    background: colors.$admin-primary;
+    border-color: colors.$admin-primary;
+    color: colors.$admin-surface;
   }
 
   &:active {
@@ -270,241 +438,226 @@
   }
 
   svg {
-    width: 1.125rem;
-    height: 1.125rem;
     flex-shrink: 0;
+    height: 1rem;
+    width: 1rem;
   }
 
   span {
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 }
-
 
 @media (min-width: 48.063rem) {
   .hamburger {
     display: none;
   }
 
+  .sidebar-overlay {
+    display: none;
+  }
+
   .sidebar {
     position: relative;
-    left: 0;
-    transition: none;
-    width: 17rem;
+    transform: none;
   }
 }
 
-
 @media (max-width: 48rem) {
   .hamburger {
-    display: block;
+    display: flex;
   }
 
   .sidebar {
+    box-shadow: colors.$admin-shadow-lg;
+    height: 100dvh;
+    left: 0;
     position: fixed;
     top: 0;
-    left: -18.125rem;
-    width: 15.625rem;
-    height: 97dvh;
-    box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-    -moz-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-    -webkit-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-    transition: left 0.3s ease;
-    background-color: colors.$secondary-color;
-    overflow-y: auto;
-    z-index: 1200;
+    transform: translateX(-100%);
+    width: 17.5rem;
 
     &.sidebar--open {
-      left: 0;
+      transform: translateX(0);
     }
   }
 
-  .sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-    -moz-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-    -webkit-box-shadow: 0 0.125rem 0.125rem 0 colors.$shadow-card;
-    z-index: 1199;
-  }
-
-  .sidebar-logout {
-    position: relative;
-    bottom: auto;
-  }
-
-  .sidebar-menu-items__img {
-    height: 1.956rem;
-    width: 1.956rem;
+  .sidebar-brand__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 .darkMode {
   .sidebar {
-    align-items: center;
-    background: colors.$bg-sidebar-dark;
-    box-shadow: none;
-    color: colors.$text-dark;
+    background: colors.$admin-dark-surface;
+    border-right-color: colors.$admin-dark-border;
+    color: colors.$admin-dark-text;
+
+    &-brand {
+      &__name {
+        color: colors.$admin-dark-text;
+      }
+
+      &__label {
+        color: colors.$admin-dark-muted;
+      }
+
+      &__close {
+        color: colors.$admin-dark-muted;
+
+        &:hover {
+          background: colors.$admin-dark-surface-3;
+          color: colors.$admin-dark-text;
+        }
+      }
+    }
 
     &-user-info {
+      background: colors.$admin-dark-surface-2;
+      border-color: colors.$admin-dark-border;
+
+      &__img {
+        box-shadow: 0 0 0 2px colors.$admin-dark-surface, 0 0 0 3px colors.$admin-dark-border;
+      }
+
       &__user-details {
-        color: colors.$text-dark;
+        color: colors.$admin-dark-text;
 
         &-email {
-          color: colors.$text-muted-dark;
+          color: colors.$admin-dark-muted !important;
         }
       }
     }
 
     &-year {
-      display: grid;
-      place-items: center;
-      grid-template-columns: 1fr auto;
-      column-gap: 0.5rem;
+      background: colors.$admin-dark-surface-2;
+      border-color: colors.$admin-dark-border;
+
+      &__label {
+        color: colors.$admin-dark-muted;
+      }
 
       &__button {
-        background-color: colors.$primary-color;
-        color: colors.$secondary-color;
-        border: none;
-        border-radius: 8px;
-        padding: 0.4rem 0.8rem;
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: background-color 0.2s;
+        background: colors.$admin-dark-primary;
+        color: #1a1114;
 
         &:hover {
-          background-color: rgba(97, 14, 13, 0.85);
-        }
-
-        &:disabled {
-          background-color: colors.$primary-color;
-          color: colors.$secondary-color;
-          opacity: 0.5;
-          cursor: not-allowed;
+          background: colors.$admin-dark-primary-strong;
         }
       }
 
-      .select-standard {
-        width: 100%;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        border: 0.063rem solid colors.$card-border-dark;
-        font-size: 1rem;
-        background: colors.$input-bg-dark;
-        color: colors.$text-dark;
+      .custom-select__trigger {
+        background: colors.$admin-dark-surface;
+        border-color: colors.$admin-dark-border;
+        color: colors.$admin-dark-text;
+
+        &:hover {
+          border-color: colors.$admin-dark-border-strong;
+        }
+
+        &:focus-visible {
+          box-shadow: colors.$admin-dark-ring;
+        }
+      }
+
+      .custom-select__arrow {
+        color: colors.$admin-dark-muted;
       }
     }
 
-
     &-menu-items {
-      align-content: start;
-      background: none;
+      scrollbar-color: colors.$admin-dark-border transparent;
 
+      &::-webkit-scrollbar-thumb {
+        background: colors.$admin-dark-border;
+      }
 
-      &-container {
-        cursor: pointer;
-        display: grid;
-        grid-template-columns: auto 1fr;
-        column-gap: 0.75rem;
-        padding: 0.625rem 0.75rem;
-        align-items: center;
-        border-radius: 0.5rem;
-        transition: all 0.2s ease;
-
-        &-selected {
-          background: colors.$hover-button-menu-dark;
-          color: colors.$text-dark;
-        }
+      &-container,
+      &-container-new {
+        color: colors.$admin-dark-text;
 
         &:hover {
-          background: colors.$hover-button-menu-dark;
-          color: colors.$text-dark;
+          background: colors.$admin-dark-surface-3;
+          color: colors.$admin-dark-primary-strong;
+        }
+
+        &-selected {
+          background: rgba(194, 91, 88, 0.16);
+          box-shadow: inset 3px 0 0 colors.$admin-dark-primary;
+          color: colors.$admin-dark-primary-strong;
         }
       }
 
       &-container-new {
-        cursor: pointer;
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        column-gap: 0.5rem;
-        padding: 0.5rem 0.75rem;
-        align-items: center;
-        border-radius: 0.5rem;
-        transition: all 0.2s ease;
-
-        &:hover {
-          background: colors.$hover-button-menu-dark;
-          color: colors.$text-dark;
-        }
-
         .chevron-icon {
-          color: colors.$text-dark;
-        }
-      }
-
-      .chevron-icon {
-        color: colors.$text-muted-dark;
-
-        &--rotated {
-          transform: rotate(180deg);
+          color: colors.$admin-dark-muted;
         }
       }
     }
 
+    &-menu-label {
+      color: colors.$admin-dark-muted;
+    }
+
     .submenu-item {
-      padding: 0.5rem 1rem;
-      margin: 0.125rem 0.5rem;
-      cursor: pointer;
-      user-select: none;
-      border-radius: 0.5rem;
-      transition: all 0.2s ease;
-      font-size: 0.85rem;
-      color: colors.$text-dark;
-      display: block;
-      width: calc(100% - 1.5rem);
+      color: colors.$admin-dark-muted;
+
+      &::before {
+        background: colors.$admin-dark-border-strong;
+      }
 
       &:hover {
-        background: colors.$hover-button-menu-dark;
-        color: colors.$text-dark;
-        width: calc(100% - 2rem);
-        margin-left: 0.5rem;
+        background: colors.$admin-dark-surface-3;
+        color: colors.$admin-dark-primary-strong;
       }
 
       &--active {
-        background: colors.$hover-button-menu-dark;
-        color: colors.$text-dark;
-        font-weight: 500;
-        width: calc(100% - 2rem);
-        margin-left: 0.5rem;
+        background: rgba(194, 91, 88, 0.16);
+        color: colors.$admin-dark-primary-strong;
+
+        &::before {
+          background: colors.$admin-dark-primary;
+        }
       }
+    }
+
+    &-logout {
+      border-top-color: colors.$admin-dark-border;
+    }
+  }
+
+  .hamburger {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+
+    img {
+      filter: invert(1);
     }
   }
 
   .theme-toggle {
-    &:hover {
-      background-color: colors.$bg-container-dark;
-      color: colors.$text-dark-blue;
-    }
+    background: colors.$admin-dark-surface-2;
+    border-color: colors.$admin-dark-border;
+    color: colors.$admin-dark-text;
 
-    &__icon {
-      color: colors.$text-dark;
+    &:hover {
+      background: colors.$admin-dark-surface-3;
+      color: colors.$admin-dark-accent;
     }
   }
 
   .button-logout {
-    border-color: colors.$card-border-dark;
-    color: colors.$text-dark;
+    border-color: colors.$admin-dark-border;
+    color: colors.$admin-dark-text;
 
     &:hover {
-      background: colors.$primary-color;
-      color: colors.$secondary-color;
-    }
-
-    svg {
-      color: inherit;
+      background: colors.$admin-dark-primary;
+      border-color: colors.$admin-dark-primary;
+      color: #1a1114;
     }
   }
 }

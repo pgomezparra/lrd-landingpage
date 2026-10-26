@@ -1,0 +1,113 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.checkbox-option {
+  align-items: center;
+  color: colors.$admin-text;
+  cursor: pointer;
+  display: flex;
+  font-family: fonts.$font-primary;
+  font-size: 0.86rem;
+  font-weight: 500;
+  gap: 0.6rem;
+  padding: 0.15rem 0;
+  position: relative;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: colors.$admin-primary;
+  }
+
+  &--all {
+    font-weight: 600;
+  }
+
+  &__input {
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 1px;
+  }
+
+  &__box {
+    align-items: center;
+    background: colors.$admin-surface;
+    border: 1.5px solid colors.$admin-border-strong;
+    border-radius: 0.3rem;
+    display: inline-flex;
+    flex: 0 0 auto;
+    height: 1.05rem;
+    justify-content: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 1.05rem;
+  }
+
+  &__box::after {
+    border-bottom: 2px solid colors.$admin-surface;
+    border-right: 2px solid colors.$admin-surface;
+    content: '';
+    height: 0.55rem;
+    margin-top: -0.1rem;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.15s ease;
+    width: 0.28rem;
+  }
+
+  &__input:checked + &__box {
+    background: colors.$admin-primary;
+    border-color: colors.$admin-primary;
+  }
+
+  &__input:checked + &__box::after {
+    transform: rotate(45deg) scale(1);
+  }
+
+  &__input:focus-visible + &__box {
+    box-shadow: colors.$admin-ring;
+  }
+
+  &__input:checked ~ &__text {
+    color: colors.$admin-primary;
+    font-weight: 600;
+  }
+
+  &__text {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
+.darkMode {
+  .checkbox-option {
+    color: colors.$admin-dark-text;
+
+    &:hover {
+      color: colors.$admin-dark-accent;
+    }
+
+    &__box {
+      background: colors.$admin-dark-surface;
+      border-color: colors.$admin-dark-border-strong;
+    }
+
+    &__box::after {
+      border-color: colors.$admin-dark-surface;
+    }
+
+    &__input:checked + .checkbox-option__box {
+      background: colors.$admin-dark-primary;
+      border-color: colors.$admin-dark-primary;
+    }
+
+    &__input:checked ~ .checkbox-option__text {
+      color: colors.$admin-dark-text;
+    }
+  }
+}

@@ -32,20 +32,15 @@
             type="text"
             placeholder="Número"
             ref="numberList"
-            @keyup.enter="focusOnType"
           />
         </div>
         <div class="form-group">
           <p>Tipo</p>
-          <select v-model="candidate.type" ref="type">
-            <option
-              v-for="(label, key) in CANDIDATE_TYPES"
-              :key="key"
-              :value="key"
-            >
-              {{ label }}
-            </option>
-          </select>
+          <CustomSelect
+            v-model="candidate.type"
+            :options="candidateTypeOptions"
+            placeholder="Tipo"
+          />
         </div>
         <div class="form-group">
           <p>Logo</p>
@@ -59,7 +54,13 @@
               style="display: none"
             />
             <button type="button" class="m-candidate-modal__upload-btn" @click="fileInput?.click()">
-              📷 Cargar logo
+              <img
+                class="m-candidate-modal__upload-icon"
+                :src="uploadIcon"
+                alt=""
+                aria-hidden="true"
+              />
+              <span>Cargar logo</span>
             </button>
           </div>
         </div>
@@ -70,8 +71,8 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="actionToExecute">
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="actionToExecute">
           {{ electionsStore.selectedCandidate ? 'Actualizar' : 'Registrar' }}
         </button>
       </div>
@@ -86,17 +87,21 @@ import { usePreferenceStore } from '@/admin/general/context/store/preferenceStor
 import { notifications } from '@/shared/notifications.js'
 import { useElectionsStore } from '@/admin/content/elections/context/store/electionsStore.js'
 import { CANDIDATE_TYPES } from '@/admin/shared/constants.js'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
+import uploadIcon from '@/assets/img/general/upload.svg'
 
 const vfm = useVfm()
 const electionsStore = useElectionsStore()
 const preferencesStore = usePreferenceStore()
 const theme = computed(() => preferencesStore.theme)
+const candidateTypeOptions = computed(() =>
+  Object.entries(CANDIDATE_TYPES).map(([value, label]) => ({ value, label }))
+)
 
 const emit = defineEmits(['refresh'])
 
 const name = ref(null)
 const numberList = ref(null)
-const type = ref(null)
 const fileInput = ref(null)
 
 const candidate = reactive({
@@ -137,10 +142,6 @@ const handleFileChange = (event) => {
 
 const focusOnNumberList = () => {
   numberList.value?.focus()
-}
-
-const focusOnType = () => {
-  type.value?.focus()
 }
 
 const beforeOpen = () => {

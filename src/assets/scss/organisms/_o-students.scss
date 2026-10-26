@@ -124,22 +124,6 @@
     color: colors.$text-dark;
   }
 
-  .student-modal__footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .student-modal__btn {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
   .close {
     background-color: colors.$card-border-dark;
 
@@ -154,6 +138,178 @@
     &__close {
       top: 0.25rem;
       right: 0.25rem;
+    }
+  }
+}
+
+.student-modal {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: fonts.$font-primary;
+  max-width: none;
+  padding: 0;
+
+  &__close {
+    right: 0;
+    top: 0;
+  }
+
+  .close {
+    background: colors.$admin-surface-3;
+    border-radius: 0.5rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    padding: 0.35rem;
+  }
+
+  &__header {
+    margin-bottom: 1.1rem;
+    text-align: left;
+
+    h2 {
+      color: colors.$admin-text;
+      font-family: fonts.$font-title;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+  }
+
+  &__content {
+    gap: 0.65rem;
+    max-height: 55dvh;
+    margin-bottom: 1.25rem;
+  }
+
+  &__item {
+    background: colors.$admin-surface-2;
+    border: 1px solid colors.$admin-border;
+    border-radius: colors.$admin-radius-sm;
+    padding: 0.7rem 0.85rem;
+
+    .label {
+      color: colors.$admin-muted;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: colors.$admin-text;
+      font-size: 0.9rem;
+    }
+  }
+
+  &__footer {
+    gap: 0.6rem;
+    justify-content: flex-end;
+  }
+
+  &__btn {
+    background: colors.$admin-surface-2;
+    border: 1px solid colors.$admin-border;
+    border-radius: colors.$admin-radius-sm;
+    color: colors.$admin-text;
+    font-family: fonts.$font-primary;
+    font-size: 0.84rem;
+    padding: 0.6rem 1rem;
+    transition: background 0.2s ease, border-color 0.2s ease;
+
+    &.edit {
+      background: colors.$admin-primary;
+      border-color: colors.$admin-primary;
+      color: colors.$admin-surface;
+    }
+
+    &.promote {
+      background: colors.$admin-surface-2;
+      border-color: colors.$admin-border;
+      color: colors.$admin-text;
+
+      &:hover {
+        background: colors.$admin-primary;
+        border-color: colors.$admin-primary;
+        color: colors.$admin-surface;
+      }
+    }
+
+    &.peace {
+      background: colors.$admin-success-soft;
+      border-color: transparent;
+      color: colors.$admin-success;
+
+      &:hover {
+        background: rgba(21, 128, 61, 0.18);
+        border-color: transparent;
+        color: colors.$admin-success;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.darkMode {
+  .student-modal {
+    background: transparent;
+
+    &__header h2 {
+      color: colors.$admin-dark-text;
+    }
+
+    .close {
+      background: colors.$admin-dark-surface-3;
+    }
+
+    &__item {
+      background: colors.$admin-dark-surface-2;
+      border-color: colors.$admin-dark-border;
+
+      .label {
+        color: colors.$admin-dark-muted;
+      }
+
+      p {
+        color: colors.$admin-dark-text;
+      }
+    }
+
+    &__btn {
+      background: colors.$admin-dark-surface-2;
+      border-color: colors.$admin-dark-border;
+      color: colors.$admin-dark-text;
+
+      &.edit {
+        background: colors.$admin-dark-primary;
+        border-color: colors.$admin-dark-primary;
+        color: #1a1114;
+      }
+
+      &.promote {
+        background: colors.$admin-dark-surface-2;
+        border-color: colors.$admin-dark-border;
+        color: colors.$admin-dark-text;
+
+        &:hover {
+          background: colors.$admin-dark-surface-3;
+          border-color: colors.$admin-dark-border-strong;
+          color: colors.$admin-dark-text;
+        }
+      }
+
+      &.peace {
+        background: rgba(74, 222, 128, 0.14);
+        color: colors.$admin-dark-success;
+
+        &:hover {
+          background: rgba(74, 222, 128, 0.22);
+          color: colors.$admin-dark-success;
+        }
+      }
     }
   }
 }

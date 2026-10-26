@@ -1,3 +1,6 @@
+@use '@/assets/scss/settings/colors';
+@use '@/assets/scss/settings/fonts';
+
 .l-without-years,
 .l-user-not-found {
   &__container {
@@ -62,6 +65,76 @@
 
     &:active {
       transform: scale(0.98);
+    }
+  }
+}
+
+.l-without-years__container,
+.l-user-not-found__container {
+  background: radial-gradient(circle at 15% 10%, rgba(198, 161, 91, 0.16), transparent 24rem),
+  colors.$admin-bg;
+}
+
+.l-without-years__card,
+.l-user-not-found__card {
+  background: colors.$admin-surface;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-lg;
+  box-shadow: colors.$admin-shadow-md;
+
+  h2 {
+    color: colors.$admin-text;
+    font-family: fonts.$font-title;
+  }
+
+  p {
+    color: colors.$admin-muted;
+    font-family: fonts.$font-primary;
+  }
+}
+
+.l-without-years__button,
+.l-user-not-found__button {
+  background: colors.$admin-primary;
+  border-radius: colors.$admin-radius-sm;
+  color: colors.$admin-surface;
+  font-family: fonts.$font-primary;
+  font-weight: 600;
+
+  &:hover {
+    background: colors.$admin-primary-strong;
+    box-shadow: 0 10px 22px rgba(97, 14, 13, 0.2);
+  }
+}
+
+.darkMode {
+  .l-without-years__container,
+  .l-user-not-found__container {
+    background: radial-gradient(circle at 15% 10%, rgba(217, 184, 119, 0.1), transparent 24rem),
+    colors.$admin-dark-bg;
+  }
+
+  .l-without-years__card,
+  .l-user-not-found__card {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+
+    h2 {
+      color: colors.$admin-dark-text;
+    }
+
+    p {
+      color: colors.$admin-dark-muted;
+    }
+  }
+
+  .l-without-years__button,
+  .l-user-not-found__button {
+    background: colors.$admin-dark-primary;
+    color: #1a1114;
+
+    &:hover {
+      background: colors.$admin-dark-primary-strong;
     }
   }
 }

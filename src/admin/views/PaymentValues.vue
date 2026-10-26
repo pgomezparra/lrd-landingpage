@@ -1,5 +1,5 @@
 <template>
-  <div class="l-standard">
+  <div class="l-standard l-standard--fill">
     <div class="l-standard-title">
       <p>Tarifas escolares</p>
       <p class="l-standard-title__text">
@@ -7,7 +7,7 @@
       </p>
     </div>
     <div class="l-standard-payment-values-buttons">
-      <button class="l-standard-payment-values-buttons__button" @click="updateValues">Guardar valores</button>
+      <button class="button-standard l-standard-payment-values-buttons__button" @click="updateValues">Guardar valores</button>
     </div>
     <div class="l-standard-container-payments">
       <table class="o-payment-values-table">
@@ -21,10 +21,8 @@
         <tbody>
         <tr v-for="(value, index) in values" :key="value.gradeId">
           <td>{{ value.grade }}</td>
-          <td><input class="o-payment-values-table__input" type="text" inputmode="numeric"
-                     v-model="values[index].registration" /></td>
-          <td><input class="o-payment-values-table__input" type="text" inputmode="numeric"
-                     v-model="values[index].pension" /></td>
+          <td><CurrencyInput v-model="values[index].registration" /></td>
+          <td><CurrencyInput v-model="values[index].pension" /></td>
         </tr>
         </tbody>
       </table>
@@ -34,6 +32,7 @@
 
 <script setup>
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+import CurrencyInput from '@/admin/shared/components/CurrencyInput.vue'
 import { onMounted, reactive, watch } from 'vue'
 
 const preferenceStore = usePreferenceStore()

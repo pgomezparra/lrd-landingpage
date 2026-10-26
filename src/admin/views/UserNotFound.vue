@@ -6,7 +6,7 @@
       </div>
       <h2>Usuario no registrado</h2>
       <p>Verifica tus credenciales o comunícate con soporte.</p>
-      <button class="l-user-not-found__button" @click="closeSession">Ok</button>
+      <button class="button-standard l-user-not-found__button" @click="closeSession">Ok</button>
     </div>
   </div>
 </template>

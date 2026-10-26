@@ -7,7 +7,7 @@
       <div>
         <p class="home-portal__title">Bienvenid@s</p>
         <p class="home-portal__subtitle">al portal del Liceo Rey David</p>
-        <p class="home-portal__text">Selecciona un portal para comenzar</p>
+        <p class="home-portal__text">Selecciona un módulo del menú para comenzar</p>
       </div>
     </div>
 

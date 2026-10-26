@@ -88,3 +88,48 @@
     --dp-hover-text-color: #{colors.$secondary-color};
   }
 }
+
+.confirm-modal {
+  backdrop-filter: blur(6px);
+  background: rgba(18, 17, 20, 0.52);
+  padding: 1rem;
+}
+
+.confirm-modal-content,
+.confirm-modal__content {
+  background: colors.$admin-surface;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-md;
+  box-shadow: colors.$admin-shadow-lg;
+  box-sizing: border-box;
+  color: colors.$admin-text;
+  margin-left: 17.5rem;
+  max-width: 28rem;
+  padding: 1rem;
+  width: calc(100vw - 2rem);
+}
+
+.container-modal {
+  max-width: 42rem;
+  width: 100%;
+}
+
+.darkMode {
+  .confirm-modal {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .confirm-modal-content,
+  .confirm-modal__content {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+    color: colors.$admin-dark-text;
+  }
+}
+
+@media (max-width: 48rem) {
+  .confirm-modal-content,
+  .confirm-modal__content {
+    margin-left: 0;
+  }
+}

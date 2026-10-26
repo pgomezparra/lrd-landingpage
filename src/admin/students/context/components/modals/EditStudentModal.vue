@@ -15,12 +15,13 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select class="select-methods" v-model="student.documentType">
-              <option disabled value="">Seleccione un tipo de documento</option>
-              <option value="1">Registro Civil</option>
-              <option value="2">Tarjeta de Identidad</option>
-              <option value="3">Cédula de Ciudadanía</option>
-            </select>
+            <CustomSelect
+              v-model="student.documentType"
+              :options="documentTypeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un tipo de documento"
+            />
           </div>
           <div class="form-group">
             <p>Documento</p>
@@ -38,42 +39,43 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Edad</p>
-            <input v-model="student.age" type="text" placeholder="Edad" maxlength="2" />
+            <input
+              v-model="student.age"
+              type="text"
+              inputmode="numeric"
+              placeholder="Edad"
+              maxlength="2"
+            />
           </div>
           <div class="form-group">
             <p>Grado</p>
-            <select class="select-document" v-model="student.grade">
-              <option disabled value="0">Seleccione un grado</option>
-              <option
-                v-for="grade in preferenceStore.grades"
-                :key="grade.getId()"
-                :value="grade.getId()"
-              >
-                {{ grade.getGrade() }}
-              </option>
-            </select>
+            <CustomSelect
+              v-model="student.grade"
+              :options="gradeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un grado"
+            />
           </div>
         </div>
 
         <div class="form-group">
           <p>Valor de matrícula</p>
-          <input
-            type="text"
-            placeholder="Matrícula"
-            v-model="student.registration"
-            maxlength="10"
-          />
+          <CurrencyInput v-model="student.registration" placeholder="Matrícula" />
         </div>
         <div class="form-group">
           <p>Valor de pensión</p>
-          <input type="text" placeholder="Pensión" v-model="student.pension" maxlength="10" />
+          <CurrencyInput v-model="student.pension" placeholder="Pensión" />
         </div>
         <div class="form-group">
           <p>Estado</p>
-          <select class="select-document" v-model="student.active">
-            <option :value="true">Activo</option>
-            <option :value="false">Inactivo</option>
-          </select>
+          <CustomSelect
+            v-model="student.active"
+            :options="statusOptions"
+            label-key="label"
+            value-key="value"
+            placeholder="Seleccione un estado"
+          />
         </div>
         <div class="form-group">
           <p>Correo</p>
@@ -82,12 +84,13 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Tipo de documento</p>
-            <select class="select-methods" v-model="student.parentDocumentTypeId">
-              <option disabled value="0">Tipo de documento</option>
-              <option value="1">Registro Civil</option>
-              <option value="2">Tarjeta de Identidad</option>
-              <option value="3">Cédula de Ciudadanía</option>
-            </select>
+            <CustomSelect
+              v-model="student.parentDocumentTypeId"
+              :options="documentTypeOptions"
+              label-key="label"
+              value-key="value"
+              placeholder="Seleccione un tipo de documento"
+            />
           </div>
           <div class="form-group">
             <p>Documento acudiente</p>
@@ -109,8 +112,8 @@
       </div>
 
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="updateStudent">Actualizar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="updateStudent">Actualizar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -122,12 +125,32 @@ import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
 import { computed, reactive } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { notifications } from '@/shared/notifications.js'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
+import CurrencyInput from '@/admin/shared/components/CurrencyInput.vue'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
 const preferenceStore = usePreferenceStore()
 const theme = computed(() => preferenceStore.theme)
 const emit = defineEmits(['changeActive', 'refresh'])
+
+const documentTypeOptions = [
+  { label: 'Registro Civil', value: 1 },
+  { label: 'Tarjeta de Identidad', value: 2 },
+  { label: 'Cédula de Ciudadanía', value: 3 }
+]
+
+const gradeOptions = computed(() =>
+  preferenceStore.grades.map((grade) => ({
+    label: grade.getGrade(),
+    value: grade.getId()
+  }))
+)
+
+const statusOptions = [
+  { label: 'Activo', value: true },
+  { label: 'Inactivo', value: false }
+]
 
 const student = reactive({
   id: 0,

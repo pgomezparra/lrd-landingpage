@@ -85,9 +85,9 @@
       </div>
 
       <div class="student-modal__footer">
-        <button class="student-modal__btn edit" @click="editStudent">Editar</button>
-        <button class="student-modal__btn promote" @click="promoteStudent">Promover</button>
-        <button class="student-modal__btn peace" @click="validateDebt">Paz y Salvo</button>
+        <button class="button-standard student-modal__btn edit" @click="editStudent">Editar</button>
+        <button class="button-standard student-modal__btn promote" @click="promoteStudent">Promover</button>
+        <button class="button-standard student-modal__btn peace" @click="validateDebt">Paz y Salvo</button>
       </div>
     </div>
   </VueFinalModal>

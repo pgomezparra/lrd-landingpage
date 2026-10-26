@@ -1,12 +1,40 @@
 <template>
   <div :class="[`theme--${preferenceStore.theme}`]">
-    <button class="hamburger" @click="isSidebarOpen = !isSidebarOpen">
-      <img src="@/assets/img/general/hamburguer.svg" alt="hamburguer" />
+    <button
+      class="hamburger"
+      aria-label="Abrir menú"
+      @click="isSidebarOpen = !isSidebarOpen"
+    >
+      <img src="@/assets/img/general/hamburguer.svg" alt="" />
     </button>
+    <div
+      v-if="isSidebarOpen"
+      class="sidebar-overlay"
+      @click="isSidebarOpen = false"
+    ></div>
     <div
       class="sidebar"
       :class="{ 'sidebar--open': isSidebarOpen, darkMode: preferenceStore.theme === 'dark' }"
     >
+      <div class="sidebar-brand">
+        <img
+          class="sidebar-brand__logo"
+          src="@/assets/img/logo.png"
+          alt="Liceo Rey David"
+        />
+        <div class="sidebar-brand__text">
+          <p class="sidebar-brand__name">Liceo Rey David</p>
+          <p class="sidebar-brand__label">Portal administrativo</p>
+        </div>
+        <button
+          class="sidebar-brand__close"
+          aria-label="Cerrar menú"
+          @click="isSidebarOpen = false"
+        >
+          &times;
+        </button>
+      </div>
+
       <div class="sidebar-user-info">
         <img :src="user?.picture" alt="User Avatar" class="sidebar-user-info__img" />
         <div class="sidebar-user-info__user-details">
@@ -16,15 +44,13 @@
       </div>
 
       <div class="sidebar-year">
-        <select
-          class="select-standard"
+        <p class="sidebar-year__label">Año escolar</p>
+        <CustomSelect
           v-model="preferenceStore.selectedYear"
-          @change="handleChangeYear"
-        >
-          <option v-for="year in preferenceStore.years" :key="year" :value="year">
-            {{ year }}
-          </option>
-        </select>
+          :options="preferenceStore.years"
+          placeholder="Año"
+          class="sidebar-year__select"
+        />
         <button
           v-if="userStore.user && preferenceStore.selectedYear"
           :disabled="!isValidMenu(['admin'])"
@@ -36,6 +62,7 @@
       </div>
 
       <div v-if="userStore.user && preferenceStore.selectedYear" class="sidebar-menu-items">
+        <p class="sidebar-menu-label">Principal</p>
         <div
           class="sidebar-menu-items-container"
           :class="{
@@ -78,6 +105,12 @@
           />
           <p class="menu-item">Pagos</p>
         </div>
+        <p
+          v-if="isValidMenu(['admin', 'secretary', 'content_manager', 'elections', 'general_secretary'])"
+          class="sidebar-menu-label"
+        >
+          Gestión
+        </p>
         <div
           v-if="isValidMenu(['admin', 'content_manager', 'elections'])"
           class="sidebar-menu-items-container-new"
@@ -174,6 +207,12 @@
           <p class="menu-item">Movimientos</p>
         </div>
 
+        <p
+          v-if="isValidMenu(['admin', 'secretary', 'general_secretary'])"
+          class="sidebar-menu-label"
+        >
+          Análisis
+        </p>
         <div
           v-if="isValidMenu(['admin', 'secretary', 'general_secretary'])"
           class="sidebar-menu-items-container-new"
@@ -228,6 +267,12 @@
         <!--        <img class="sidebar-menu-items__img" src="@/assets/img/general/pqrs.svg" alt="pqrs" />-->
         <!--        <p class="menu-item">PQRS</p>-->
         <!--      </div>-->
+        <p
+          v-if="isValidMenu(['admin', 'general_secretary'])"
+          class="sidebar-menu-label"
+        >
+          Configuración
+        </p>
         <div
           v-if="isValidMenu(['admin', 'general_secretary'])"
           class="sidebar-menu-items-container-new"
@@ -317,6 +362,8 @@ import { useAuth0 } from '@auth0/auth0-vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/admin/general/context/store/userStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
+import { useAccessToken } from '@/admin/shared/utils/useAccessToken.js'
 
 import homeIcon from '@/assets/img/general/home.svg'
 import homeDarkIcon from '@/assets/img/general/home-dark.svg'
@@ -337,7 +384,8 @@ import reportsDarkIcon from '@/assets/img/general/reports-dark.svg'
 import gearIcon from '@/assets/img/general/gear.svg'
 import gearDarkIcon from '@/assets/img/general/gear-dark.svg'
 
-const { logout, user, getAccessTokenSilently, isAuthenticated, loginWithRedirect } = useAuth0()
+const { logout, user, isAuthenticated, loginWithRedirect } = useAuth0()
+const { getAccessToken } = useAccessToken()
 const router = useRouter()
 const userStore = useUserStore()
 const preferenceStore = usePreferenceStore()
@@ -397,10 +445,6 @@ const redirectTo = (path, menu) => {
   }
 }
 
-const handleChangeYear = (event) => {
-  preferenceStore.setSelectedYear(parseInt(event.target.value))
-}
-
 const validateUser = async () => {
   const status = await userStore.validateUser()
   if (status !== 200) {
@@ -426,7 +470,8 @@ onMounted(async () => {
     await loginWithRedirect()
     return
   }
-  const token = await getAccessTokenSilently()
+  const token = await getAccessToken()
+  if (!token) return
   userStore.setToken(token)
 
   preferenceStore.setLoading(true)

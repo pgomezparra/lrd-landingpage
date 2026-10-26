@@ -2,7 +2,7 @@
   <VueFinalModal
     modal-id="createEmployeeModal"
     :class="['confirm-modal', { darkMode: theme === 'dark' }]"
-    content-class="confirm-modal__content"
+    content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
     :click-to-close="false"
@@ -54,12 +54,7 @@
         </div>
         <div class="form-group">
           <p>Salario</p>
-          <input
-            type="text"
-            placeholder="Salario"
-            v-model="employee.salary"
-            maxlength="40"
-          />
+          <CurrencyInput v-model="employee.salary" placeholder="Salario" />
         </div>
         <div class="form-group">
           <p>Tipo de empleado</p>
@@ -86,8 +81,8 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="registerEmployee">Guardar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="registerEmployee">Guardar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -103,6 +98,7 @@ import { useEmployeeStore } from '@/admin/employees/context/store/employeeStore.
 import { DOCUMENT_TYPES_TEXT, EMPLOYEE_TYPES } from '@/admin/shared/constants.js'
 import Datepicker from '@vuepic/vue-datepicker'
 import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
+import CurrencyInput from '@/admin/shared/components/CurrencyInput.vue'
 
 const vfm = useVfm()
 const employeeStore = useEmployeeStore()
@@ -142,13 +138,6 @@ watch(
   }
 )
 
-watch(
-  () => employee.salary,
-  async (newValue) => {
-    if (!newValue) return 0
-    employee.salary = utils.onlyNumbers(newValue)
-  }
-)
 
 const beforeOpen = async () => {
   clearInputs()

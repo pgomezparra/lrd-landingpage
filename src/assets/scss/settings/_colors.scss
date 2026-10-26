@@ -21,6 +21,58 @@ $radius-md: 1.25rem;
 $radius-lg: 1.75rem;
 $transition-base: 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
 $font-display: 'InterSemiBold', sans-serif;
+
+// Admin dashboard design tokens
+$admin-primary: #610e0d;
+$admin-primary-strong: #4a0a09;
+$admin-accent: #c6a15b;
+$admin-bg: #f3f0ea;
+$admin-bg-accent: #e9e3d8;
+$admin-surface: #ffffff;
+$admin-surface-2: #faf8f4;
+$admin-surface-3: #f1ece3;
+$admin-text: #241e1b;
+$admin-muted: #7c6f68;
+$admin-border: rgba(36, 30, 27, 0.1);
+$admin-border-strong: rgba(36, 30, 27, 0.18);
+$admin-success: #15803d;
+$admin-success-soft: rgba(21, 128, 61, 0.12);
+$admin-danger: #b42318;
+$admin-danger-soft: rgba(180, 35, 24, 0.12);
+$admin-info: #1d4ed8;
+$admin-info-soft: rgba(29, 78, 216, 0.12);
+$admin-warning: #b45309;
+$admin-warning-soft: rgba(180, 83, 9, 0.14);
+$admin-shadow-sm: 0 1px 2px rgba(36, 30, 27, 0.05), 0 8px 24px rgba(36, 30, 27, 0.05);
+$admin-shadow-md: 0 14px 34px rgba(36, 30, 27, 0.09);
+$admin-shadow-lg: 0 26px 60px rgba(36, 30, 27, 0.16);
+$admin-radius-sm: 0.65rem;
+$admin-radius-md: 1rem;
+$admin-radius-lg: 1.5rem;
+$admin-ring: 0 0 0 3px rgba(97, 14, 13, 0.14);
+
+// Admin dark tokens
+$admin-dark-bg: #121114;
+$admin-dark-bg-accent: #17151a;
+$admin-dark-surface: #1c1a20;
+$admin-dark-surface-2: #232128;
+$admin-dark-surface-3: #2a272f;
+$admin-dark-text: #f4f0eb;
+$admin-dark-muted: #a99f9a;
+$admin-dark-border: rgba(255, 255, 255, 0.09);
+$admin-dark-border-strong: rgba(255, 255, 255, 0.16);
+$admin-dark-primary: #c25b58;
+$admin-dark-primary-strong: #d97774;
+$admin-dark-accent: #d9b877;
+$admin-dark-success: #4ade80;
+$admin-dark-danger: #f87171;
+$admin-dark-info: #7aa2ff;
+$admin-dark-warning: #fbbf24;
+$admin-dark-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.25);
+$admin-dark-shadow-md: 0 16px 38px rgba(0, 0, 0, 0.38);
+$admin-dark-shadow-lg: 0 30px 70px rgba(0, 0, 0, 0.5);
+$admin-dark-ring: 0 0 0 3px rgba(194, 91, 88, 0.25);
+
 $_gray: #f3f3f3;
 $_light-gray: #ddd;
 $_dark-gray: #555;

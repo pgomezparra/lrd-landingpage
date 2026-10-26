@@ -6,7 +6,7 @@
       </div>
       <h2>Año no registrado</h2>
       <p>Verifica con el administrador del sistema que no hay ningún año registrado.</p>
-      <button class="l-without-years__button" @click="closeSession">Ok</button>
+      <button class="button-standard l-without-years__button" @click="closeSession">Ok</button>
     </div>
   </div>
 </template>

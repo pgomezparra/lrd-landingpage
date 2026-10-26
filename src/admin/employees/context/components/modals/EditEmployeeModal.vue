@@ -38,12 +38,7 @@
         </div>
         <div class="form-group">
           <p>Salario</p>
-          <input
-            type="text"
-            placeholder="Salario"
-            v-model="employee.salary"
-            maxlength="40"
-          />
+          <CurrencyInput v-model="employee.salary" placeholder="Salario" />
         </div>
         <div class="form-group">
           <p>Fecha de ingreso</p>
@@ -96,8 +91,8 @@
       </div>
 
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="updateEmployee">Actualizar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="updateEmployee">Actualizar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -112,6 +107,7 @@ import { DOCUMENT_TYPES_TEXT, EMPLOYEE_TYPES } from '@/admin/shared/constants.js
 import { useEmployeeStore } from '@/admin/employees/context/store/employeeStore.js'
 import Datepicker from '@vuepic/vue-datepicker'
 import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
+import CurrencyInput from '@/admin/shared/components/CurrencyInput.vue'
 
 const vfm = useVfm()
 const employeeStore = useEmployeeStore()

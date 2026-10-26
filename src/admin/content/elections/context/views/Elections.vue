@@ -1,13 +1,13 @@
 <template>
-  <div :class="['l-standard', { darkMode: theme === 'dark' }]">
+  <div :class="['l-standard', 'l-standard--fill', { darkMode: theme === 'dark' }]">
     <div class="l-standard-title">
       <div>
         <span>Gobierno escolar</span>
       </div>
     </div>
     <div class="header-news">
-      <button class="add-button" @click="addCandidate">Agregar candidato</button>
-      <button class="add-button" @click="showResults">Ver resultados</button>
+      <button class="button-standard add-button" @click="addCandidate">Agregar candidato</button>
+      <button class="button-standard add-button" @click="showResults">Ver resultados</button>
     </div>
     <div class="candidates-container">
       <div

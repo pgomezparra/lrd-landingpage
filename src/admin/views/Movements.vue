@@ -1,5 +1,5 @@
 <template>
-  <div class="l-standard">
+  <div class="l-standard l-standard--fill">
     <div class="l-standard-title">
       <div>
         <span>Listado de movimientos</span><span class="container-total">{{ filteredMovements.length }}</span>
@@ -26,7 +26,7 @@
           placeholder="Selecciona el mes"
         />
         <input ref="filterInputRef" v-model="filterText" class="filter-input" placeholder="Filtrar movimientos..." />
-        <button class="button-edit" @click="addMovement">Registrar movimiento</button>
+        <button class="button-standard" @click="addMovement">Registrar movimiento</button>
       </div>
     </div>
     <div v-if="filteredMovements.length > 0" class="movements-list">
@@ -57,7 +57,6 @@ import { useMovementStore } from '@/admin/movements/context/store/movementStore.
 import CreateMovementModal from '@/admin/movements/context/components/modals/CreateMovementModal.vue'
 import EditMovementModal from '@/admin/movements/context/components/modals/EditMovementModal.vue'
 import { useVfm } from 'vue-final-modal'
-import LoadingOverlay from '@/admin/views/LoadingOverlay.vue'
 import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 
 const preferencesStore = usePreferenceStore()
@@ -108,17 +107,17 @@ const formatValue = (value) => {
   }).format(value)
 }
 
-watch(() => preferencesStore.months, (newYear) => {
+watch(() => preferencesStore.months, () => {
   selectedMonth.value = new Date().getMonth() + 1
 })
 
-watch(() => selectedMonth.value, async (newMonth) => {
+watch(() => selectedMonth.value, async () => {
   await searchMovements()
   filterText.value = ''
   nextTick(() => filterInputRef.value?.focus())
 })
 
-watch(() => preferencesStore.selectedYear, (newMovement) => {
+watch(() => preferencesStore.selectedYear, () => {
   if (!selectedMonth.value) return
   searchMovements()
 })

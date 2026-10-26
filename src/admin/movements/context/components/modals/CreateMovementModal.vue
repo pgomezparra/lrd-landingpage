@@ -31,27 +31,28 @@
           </div>
           <div class="form-group">
             <p>Tipo de movimiento</p>
-            <select class="select-document" v-model="movement.movement_type_id">
-              <option :value="1">Ingreso</option>
-              <option :value="2">Salida</option>
-            </select>
+            <CustomSelect
+              v-model="movement.movement_type_id"
+              :options="movementTypeOptions"
+              label-key="label"
+              value-key="value"
+            />
           </div>
         </div>
         <div class="container-form-edit">
           <div class="form-group">
             <p>Método de pago</p>
-            <select class="select-methods" v-model="movement.movement_method_id">
-              <option :value="1">Efectivo</option>
-              <option :value="2">Transferencia</option>
-              <option :value="3">Cuenta Bancaria</option>
-            </select>
+            <CustomSelect
+              v-model="movement.movement_method_id"
+              :options="movementMethodOptions"
+              label-key="label"
+              value-key="value"
+            />
           </div>
           <div class="form-group">
             <p>Valor</p>
-            <input
+            <CurrencyInput
               v-model="movement.value"
-              type="text"
-              maxlength="10"
               placeholder="Valor"
               ref="inputValue"
               @keyup.enter="focusOnDescription"
@@ -70,8 +71,8 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="registerMovement">Registrar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="registerMovement">Registrar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -84,12 +85,25 @@ import { usePreferenceStore } from '@/admin/general/context/store/preferenceStor
 import Datepicker from '@vuepic/vue-datepicker'
 import { notifications } from '@/shared/notifications.js'
 import { useMovementStore } from '@/admin/movements/context/store/movementStore.js'
+import CurrencyInput from '@/admin/shared/components/CurrencyInput.vue'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 
 const vfm = useVfm()
 const movementStore = useMovementStore()
 const preferencesStore = usePreferenceStore()
 const theme = computed(() => preferencesStore.theme)
 const emit = defineEmits(['refresh'])
+
+const movementTypeOptions = [
+  { label: 'Ingreso', value: 1 },
+  { label: 'Salida', value: 2 }
+]
+
+const movementMethodOptions = [
+  { label: 'Efectivo', value: 1 },
+  { label: 'Transferencia', value: 2 },
+  { label: 'Cuenta Bancaria', value: 3 }
+]
 
 const description = ref(null)
 const inputValue = ref(null)
@@ -105,7 +119,7 @@ const movement = reactive({
 
 watch(
   () => [movement.movement_method_id, movement.movement_type_id],
-  ([newMethodId, newTypeId], [oldMethodId, oldTypeId]) => {
+  () => {
     nextTick(() => {
       inputValue.value?.focus()
     })

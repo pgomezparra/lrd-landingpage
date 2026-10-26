@@ -47,7 +47,13 @@
               style="display: none"
             />
             <button type="button" class="m-activity-modal__upload-btn" @click="fileInput?.click()">
-              📷 Subir imágenes (máx. 5)
+              <img
+                class="m-activity-modal__upload-icon"
+                :src="uploadIcon"
+                alt=""
+                aria-hidden="true"
+              />
+              <span>Subir imágenes (máx. 5)</span>
             </button>
           </div>
         </div>
@@ -67,8 +73,8 @@
         </div>
       </div>
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="updateActivity">Editar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="updateActivity">Editar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -80,6 +86,7 @@ import { computed, nextTick, reactive, ref } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { notifications } from '@/shared/notifications.js'
 import { useActivityStore } from '@/admin/content/activities/context/store/activityStore.js'
+import uploadIcon from '@/assets/img/general/upload.svg'
 
 const vfm = useVfm()
 const activityStore = useActivityStore()

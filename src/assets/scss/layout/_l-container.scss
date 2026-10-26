@@ -8,17 +8,23 @@
 }
 
 .app-layout {
-  background: colors.$background-app ;
+  background-color: colors.$admin-bg;
+  background-image:
+    radial-gradient(circle at 12% 0%, rgba(198, 161, 91, 0.14), transparent 32rem),
+    radial-gradient(circle at 100% 100%, rgba(97, 14, 13, 0.08), transparent 38rem);
   display: flex;
   height: 100dvh;
   width: 100%;
   overflow: hidden;
-  transition: background 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .darkMode {
-  .app-layout  {
-    background: colors.$background-dark;
-    color: colors.$secondary-color;
+  .app-layout {
+    background-color: colors.$admin-dark-bg;
+    background-image:
+      radial-gradient(circle at 12% 0%, rgba(194, 91, 88, 0.12), transparent 32rem),
+      radial-gradient(circle at 100% 100%, rgba(217, 184, 119, 0.06), transparent 38rem);
+    color: colors.$admin-dark-text;
   }
 }

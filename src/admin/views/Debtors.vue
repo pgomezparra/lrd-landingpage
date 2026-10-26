@@ -1,48 +1,46 @@
 <template>
-  <div class="l-standard">
+  <div class="l-standard l-standard--fill debtors-view">
     <div class="l-standard-title">
       <div>
         <span>Lista de deudores</span><span class="container-total">{{ debtors.length }}</span>
       </div>
     </div>
 
-    <div class="filters">
+    <div :class="['filters', { 'filters--with-month': debtType === 2 }]">
       <div class="filter">
         <span>Tipo de deuda</span>
-        <select class="select-standard" v-model="debtType">
-          <option disabled :value="0">Seleccionar</option>
-          <option :value="1">Matrícula</option>
-          <option :value="2">Pensión</option>
-        </select>
+        <CustomSelect
+          v-model="debtType"
+          :options="debtTypeOptions"
+          placeholder="Tipo de deuda"
+        />
       </div>
-      <div class="filter" v-if="debtType === 2">
+      <div v-if="debtType === 2" class="filter">
         <span>Mes</span>
-        <select class="select-standard" v-model="debtMonth">
-          <option :value="0">Mes</option>
-          <option
-            v-for="month in preferenceStore.months"
-            :key="month.getId()"
-            :value="month.getId()"
-          >{{ month.getMonth() }}
-          </option>
-        </select>
+        <CustomSelect
+          v-model="debtMonth"
+          :options="monthOptions"
+          placeholder="Mes"
+        />
       </div>
       <div class="filter">
         <span>Grado</span>
-        <select class="select-standard" v-model="debtGrade">
-          <option :value="0">Todos</option>
-          <option
-            v-for="grade in preferenceStore.grades"
-            :key="grade.getId()"
-            :value="grade.getId()"
-          >{{ grade.getGrade() }}
-          </option>
-        </select>
+        <CustomSelect
+          v-model="debtGrade"
+          :options="gradeOptions"
+          placeholder="Grado"
+        />
       </div>
     </div>
     <div class="resumen-container">
-      <div class="resumen-item salidas">Deuda filtro: <span>$ {{ consolidated.selectedTotal }}</span></div>
-      <div class="resumen-item salidas">Deuda acumulada: <span>$ {{ consolidated.allTotal }}</span></div>
+      <div class="resumen-item salidas">
+        <small class="resumen-label">Deuda filtro</small>
+        <span>$ {{ consolidated.selectedTotal }}</span>
+      </div>
+      <div class="resumen-item salidas">
+        <small class="resumen-label">Deuda acumulada</small>
+        <span>$ {{ consolidated.allTotal }}</span>
+      </div>
     </div>
 
     <div class="cards-container">
@@ -73,10 +71,10 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useReportStore } from '@/admin/reports/context/store/reportStore.js'
-import { format } from '@formkit/tempo'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 
 const reportStore = useReportStore()
 const preferenceStore = usePreferenceStore()
@@ -89,6 +87,27 @@ const consolidated = reactive({
   selectedTotal: 0,
   allTotal: 0
 })
+
+const debtTypeOptions = [
+  { label: 'Matrícula', value: 1 },
+  { label: 'Pensión', value: 2 }
+]
+
+const monthOptions = computed(() => [
+  { label: 'Todos los meses', value: 0 },
+  ...preferenceStore.months.map(month => ({
+    label: month.getMonth(),
+    value: month.getId()
+  }))
+])
+
+const gradeOptions = computed(() => [
+  { label: 'Todos', value: 0 },
+  ...preferenceStore.grades.map(grade => ({
+    label: grade.getGrade(),
+    value: grade.getId()
+  }))
+])
 
 watch(debtGrade, () => {
   loadReport()

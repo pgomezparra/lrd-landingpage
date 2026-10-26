@@ -33,29 +33,33 @@
           </div>
           <div class="form-group">
             <p>Tipo de pago</p>
-            <select class="select-methods" v-model="payment.payment_type_id" disabled>
-              <option value="1">Matrícula</option>
-              <option value="2">Pensión</option>
-            </select>
+            <CustomSelect
+              v-model="payment.payment_type_id"
+              :options="paymentTypeOptions"
+              :disabled="true"
+            />
           </div>
         </div>
         <div class="container-form-edit">
           <div v-if="payment.payment_type_id === 2" class="form-group">
             <p>Mes</p>
-            <select class="select-methods" v-model="payment.month_id" disabled>
-              <option
-                v-for="month in preferencesStore.months"
-                :key="month.getId()"
-                :value="month.getId()"
-              >
-                {{ month.getMonth() }}
-              </option>
-            </select>
+            <CustomSelect
+              v-model="payment.month_id"
+              :options="monthOptions"
+              placeholder="Mes"
+              :disabled="true"
+            />
           </div>
           <div v-if="payment.payment_type_id === 2" class="form-group switch-group">
             <p>No paga</p>
             <label class="switch">
-              <input type="checkbox" v-model="payment.excluded" />
+              <input
+                type="checkbox"
+                role="switch"
+                aria-label="No paga"
+                :aria-checked="payment.excluded"
+                v-model="payment.excluded"
+              />
               <span class="slider"></span>
             </label>
           </div>
@@ -63,10 +67,12 @@
         <div class="container-form-edit">
           <div class="form-group">
             <p>Método de pago</p>
-            <select class="select-methods" :disabled="payment.excluded" v-model="payment.payment_method_id">
-              <option :value="1">Efectivo</option>
-              <option :value="2">Transferencia</option>
-            </select>
+            <CustomSelect
+              v-model="payment.payment_method_id"
+              :options="paymentMethodOptions"
+              placeholder="Método de pago"
+              :disabled="payment.excluded"
+            />
           </div>
           <div v-if="payment.payment_method_id === 2" class="form-group">
             <p>Código de transferencia</p>
@@ -90,18 +96,16 @@
         </div>
         <div class="form-group">
           <p>Valor (Saldo: $ {{ parseInt(balance) < 0 ? 0 : balance }})</p>
-          <input
-            :disabled="payment.excluded"
+          <CurrencyInput
             v-model="payment.value"
-            type="text"
-            maxlength="10"
+            :disabled="payment.excluded"
             placeholder="Valor"
           />
         </div>
       </div>
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="registerPayment">Registrar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="registerPayment">Registrar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -114,6 +118,8 @@ import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import Datepicker from '@vuepic/vue-datepicker'
+import CurrencyInput from '@/admin/shared/components/CurrencyInput.vue'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
 import { notifications } from '@/shared/notifications.js'
 
 const vfm = useVfm()
@@ -139,6 +145,23 @@ const balance = computed(() => {
 const description = ref(null)
 const transferCode = ref(null)
 const toPay = ref(0)
+
+const paymentTypeOptions = [
+  { value: 1, label: 'Matrícula' },
+  { value: 2, label: 'Pensión' }
+]
+
+const paymentMethodOptions = [
+  { value: 1, label: 'Efectivo' },
+  { value: 2, label: 'Transferencia' }
+]
+
+const monthOptions = computed(() =>
+  preferencesStore.months.map((month) => ({
+    value: month.getId(),
+    label: month.getMonth()
+  }))
+)
 
 const payment = reactive({
   date: new Date(),

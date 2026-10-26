@@ -29,7 +29,7 @@
       </button>
     </div>
 
-    <div v-else class="o-elections__card">
+    <div v-else class="o-elections__card o-elections__card--ballot">
       <h2>Tarjetón electoral</h2>
       <h3 class="o-elections__student-name">{{ student.getName() }} {{ student.getSurname() }} ({{ student.getGrade() }})</h3>
 

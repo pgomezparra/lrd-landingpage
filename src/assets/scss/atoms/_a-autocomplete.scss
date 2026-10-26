@@ -44,3 +44,51 @@
     color: colors.$text-dark;
   }
 }
+
+.autocomplete-dropdown {
+  background: colors.$admin-surface;
+  border: 1px solid colors.$admin-border;
+  border-radius: colors.$admin-radius-sm;
+  box-shadow: colors.$admin-shadow-md;
+  overflow-y: auto;
+  padding: 0.3rem;
+  width: 100%;
+}
+
+.autocomplete-dropdown-item {
+  border-radius: 0.5rem;
+  color: colors.$admin-text;
+  font-family: fonts.$font-primary;
+  font-size: 0.88rem;
+  padding: 0.55rem 0.65rem;
+
+  &:hover {
+    background: colors.$admin-surface-3;
+  }
+}
+
+.autocomplete-dropdown__item--highlighted {
+  background: rgba(97, 14, 13, 0.09) !important;
+  color: colors.$admin-primary !important;
+}
+
+.darkMode {
+  .autocomplete-dropdown {
+    background: colors.$admin-dark-surface;
+    border-color: colors.$admin-dark-border;
+    box-shadow: colors.$admin-dark-shadow-md;
+  }
+
+  .autocomplete-dropdown-item {
+    color: colors.$admin-dark-text;
+
+    &:hover {
+      background: colors.$admin-dark-surface-3;
+    }
+  }
+
+  .autocomplete-dropdown__item--highlighted {
+    background: rgba(194, 91, 88, 0.16) !important;
+    color: colors.$admin-dark-primary-strong !important;
+  }
+}

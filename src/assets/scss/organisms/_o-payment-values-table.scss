@@ -94,3 +94,62 @@
 
 
 }
+
+.o-payment-values-table {
+  thead {
+    background: colors.$admin-surface-2;
+  }
+
+  th {
+    border-bottom: 1px solid colors.$admin-border;
+    color: colors.$admin-muted;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.8rem 0.9rem;
+    text-transform: uppercase;
+  }
+
+  td {
+    border-bottom: 1px solid colors.$admin-border;
+    color: colors.$admin-text;
+    font-size: 0.88rem;
+    padding: 0.7rem 0.9rem;
+  }
+
+  tr:hover {
+    background: colors.$admin-surface-2;
+  }
+
+  input {
+    text-align: right;
+  }
+
+  .currency-input__field {
+    padding-left: 1.9rem;
+    text-align: right;
+    width: 100%;
+  }
+}
+
+.darkMode {
+  .o-payment-values-table {
+    thead {
+      background: colors.$admin-dark-surface-2;
+    }
+
+    th {
+      border-bottom-color: colors.$admin-dark-border;
+      color: colors.$admin-dark-muted;
+    }
+
+    td {
+      border-bottom-color: colors.$admin-dark-border;
+      color: colors.$admin-dark-text;
+    }
+
+    tr:hover {
+      background: colors.$admin-dark-surface-2;
+    }
+  }
+}

@@ -28,13 +28,12 @@
           </div>
           <div class="form-group">
             <p>Servicio</p>
-            <select :disabled="type === 'non-electronic'" class="select-methods" v-model="product">
-              <option disabled value="">Seleccione un servicio</option>
-              <option v-for="product in paymentsStore.externalProducts" :key="product.getCode()"
-                      :value="product.getCode()">
-                {{ product.getName() }}
-              </option>
-            </select>
+            <CustomSelect
+              v-model="product"
+              :options="productOptions"
+              placeholder="Seleccione un servicio"
+              :disabled="type === 'non-electronic'"
+            />
           </div>
           <div class="form-group">
             <p>Cantidad (opcional)</p>
@@ -49,12 +48,9 @@
           </div>
           <div class="form-group">
             <p>Valor unitario (opcional)</p>
-            <input
-              type="text"
-              inputmode="numeric"
-              @input="price = price.replace(/[^0-9]/g, '')"
-              placeholder="Valor a facturar"
+            <CurrencyInput
               v-model="price"
+              placeholder="Valor a facturar"
               :disabled="type === 'non-electronic'"
             />
           </div>
@@ -72,8 +68,8 @@
       </div>
 
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="selectAction">Facturar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="selectAction">Facturar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -85,18 +81,26 @@ import { computed, ref, watch } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { notifications } from '@/shared/notifications.js'
 import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
+import CustomSelect from '@/admin/shared/components/CustomSelect.vue'
+import CurrencyInput from '@/admin/shared/components/CurrencyInput.vue'
 
 const vfm = useVfm()
 const preferenceStore = usePreferenceStore()
 const paymentsStore = usePaymentStore()
 
 const theme = computed(() => preferenceStore.theme)
+const productOptions = computed(() =>
+  paymentsStore.externalProducts.map((product) => ({
+    value: product.getCode(),
+    label: product.getName()
+  }))
+)
 
 const emit = defineEmits(['refresh', 'clear'])
 
 const product = ref('')
 const quantity = ref('')
-const price = ref('')
+const price = ref(0)
 const observations = ref('')
 const type = ref('electronic')
 
@@ -119,12 +123,12 @@ const validateData = () => {
 
   if (quantity.value !== '' && parseInt(quantity.value) === 0) {
     notifications.notify('La cantidad no puede ser 0', 'error')
-    return
+    return false
   }
 
-  if (price.value !== '' && parseInt(price.value) === 0) {
-    notifications.notify('El valor no puede ser 0', 'error')
-    return
+  if (quantity.value !== '' && Number(price.value) === 0) {
+    notifications.notify('El valor unitario no puede ser 0', 'error')
+    return false
   }
 
   return true
@@ -150,8 +154,12 @@ const sendToBill = async () => {
     quantity: 1
   }
 
-  if (quantity.value !== '' || price.value !== '' || observations.value !== '') {
-    if (quantity.value !== '' && price.value !== '' && observations.value !== '') {
+  const hasQuantity = quantity.value !== ''
+  const hasPrice = Number(price.value) > 0
+  const hasObservations = observations.value !== ''
+
+  if (hasQuantity || hasPrice || hasObservations) {
+    if (hasQuantity && hasPrice && hasObservations) {
       invoiceToCreate.quantity = parseInt(quantity.value)
       invoiceToCreate.price = parseInt(price.value)
       invoiceToCreate.observations = observations.value
@@ -195,7 +203,7 @@ const sendToNoElectronicBill = async () => {
 const clearData = () => {
   product.value = ''
   quantity.value = ''
-  price.value = ''
+  price.value = 0
   observations.value = ''
 }
 

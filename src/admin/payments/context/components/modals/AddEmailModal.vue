@@ -1,7 +1,7 @@
 <template>
   <VueFinalModal
     modal-id="addEmailModal"
-    class="confirm-modal"
+    :class="['confirm-modal', { darkMode: theme === 'dark' }]"
     content-class="confirm-modal-content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
@@ -14,23 +14,21 @@
     <div>
       <p class="modal-title">Agregar correo</p>
       <div class="modal-body">
-        <div class="container-form-edit">
-          <div class="form-group">
-            <p>Correo</p>
-            <input
-              type="text"
-              placeholder="Correo"
-              v-model="student.email"
-              maxlength="40"
-              ref="email"
-            />
-          </div>
+        <div class="form-group">
+          <p>Correo</p>
+          <input
+            type="text"
+            placeholder="Correo"
+            v-model="student.email"
+            maxlength="40"
+            ref="email"
+          />
         </div>
       </div>
 
       <div class="modal-actions">
-        <button class="button-edit" @click="closeModal">Cancelar</button>
-        <button class="button-edit" @click="updateEmail">Guardar y enviar</button>
+        <button class="button-standard button-edit" @click="closeModal">Cancelar</button>
+        <button class="button-standard button-edit" @click="updateEmail">Guardar y enviar</button>
       </div>
     </div>
   </VueFinalModal>
@@ -39,14 +37,14 @@
 <script setup>
 import { useVfm, VueFinalModal } from 'vue-final-modal'
 import { useStudentStore } from '@/admin/students/context/store/studentStore.js'
-import { nextTick, reactive, ref } from 'vue'
-import { usePaymentStore } from '@/admin/payments/context/store/paymentStore.js'
+import { computed, nextTick, reactive, ref } from 'vue'
 import { usePreferenceStore } from '@/admin/general/context/store/preferenceStore.js'
 import { notifications } from '@/shared/notifications.js'
 
 const vfm = useVfm()
 const studentStore = useStudentStore()
 const preferenceStore = usePreferenceStore()
+const theme = computed(() => preferenceStore.theme)
 
 const emit = defineEmits(['sendEmail'])
 
@@ -79,6 +77,8 @@ const updateEmail = async () => {
     if (response.status === 200) {
       studentStore.selectedStudent.setEmail(student.email)
       emit('sendEmail')
+    } else {
+      notifications.notify('No se pudo actualizar el correo del estudiante', 'error')
     }
   } catch (error) {
     notifications.notify(error.response.data.message, 'error')

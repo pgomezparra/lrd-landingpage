@@ -1,3 +1,5 @@
+@use '@/assets/scss/settings/colors';
+
 .o-pqrs {
   &__badge {
     background-color: #5b1210;
@@ -51,6 +53,90 @@
     &.cerrado {
       background-color: #d3f9da;
       color: #2a7c35;
+    }
+  }
+}
+
+.o-pqrs {
+  &__badge {
+    background: rgba(97, 14, 13, 0.09);
+    border-radius: 999px;
+    color: colors.$admin-primary;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.18rem 0.55rem;
+  }
+
+  &__card {
+    background: colors.$admin-surface-2;
+    border: 1px solid colors.$admin-border;
+    border-radius: colors.$admin-radius-md;
+    margin-top: 0.8rem;
+    padding: 1rem;
+  }
+
+  &__user {
+    color: colors.$admin-text;
+  }
+
+  &__contenido {
+    color: colors.$admin-muted;
+  }
+
+  &__footer {
+    color: colors.$admin-muted;
+    font-size: 0.78rem;
+  }
+
+  &__estado {
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+
+    &.pendiente {
+      background: colors.$admin-warning-soft;
+      color: colors.$admin-warning;
+    }
+
+    &.cerrado {
+      background: colors.$admin-success-soft;
+      color: colors.$admin-success;
+    }
+  }
+}
+
+.darkMode {
+  .o-pqrs {
+    &__badge {
+      background: rgba(194, 91, 88, 0.16);
+      color: colors.$admin-dark-primary-strong;
+    }
+
+    &__card {
+      background: colors.$admin-dark-surface-2;
+      border-color: colors.$admin-dark-border;
+    }
+
+    &__user {
+      color: colors.$admin-dark-text;
+    }
+
+    &__contenido,
+    &__footer {
+      color: colors.$admin-dark-muted;
+    }
+
+    &__estado {
+      &.pendiente {
+        background: rgba(251, 191, 36, 0.14);
+        color: colors.$admin-dark-warning;
+      }
+
+      &.cerrado {
+        background: rgba(74, 222, 128, 0.14);
+        color: colors.$admin-dark-success;
+      }
     }
   }
 }

@@ -1,12 +1,12 @@
 <template>
-  <div :class="['l-standard', { darkMode: theme === 'dark' }]">
+  <div :class="['l-standard', 'l-standard--fill', { darkMode: theme === 'dark' }]">
     <div class="l-standard-title">
       <div>
         <span>Gestión de noticias</span>
       </div>
     </div>
     <div class="header-news">
-      <button class="add-button" @click="addActivity">Agregar nueva</button>
+      <button class="button-standard add-button" @click="addActivity">Agregar nueva</button>
     </div>
     <div class="activities-container">
       <div
