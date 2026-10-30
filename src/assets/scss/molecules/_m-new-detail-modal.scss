@@ -19,6 +19,17 @@
 
   &__carousel {
     border-bottom: 1px solid rgba(97, 14, 13, 0.1);
+
+    &.is-initialized:not(.is-active) .splide__track {
+      .splide__list {
+        display: flex;
+        flex-wrap: nowrap;
+      }
+
+      .splide__slide {
+        flex: 0 0 100%;
+      }
+    }
   }
 
   &__carousel-image {
