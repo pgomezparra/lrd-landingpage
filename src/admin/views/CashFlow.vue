@@ -118,7 +118,9 @@ const invoiceData = reactive({
   identification: '',
   id: 0,
   price: 0,
-  observations: ''
+  observations: '',
+  student: '',
+  grade: ''
 })
 
 watch(date, () => {
@@ -167,6 +169,8 @@ const openBillModal = (movement) => {
   invoiceData.id = movement.getId()
   invoiceData.price = movement.getValue()
   invoiceData.observations = movement.getDescription()
+  invoiceData.student = movement.getStudent()
+  invoiceData.grade = movement.getGrade()
   vfm.open('createElectronicInvoiceModal')
 }
 
@@ -175,6 +179,8 @@ const clearInvoice = () => {
   invoiceData.id = 0
   invoiceData.price = 0
   invoiceData.observations = ''
+  invoiceData.student = ''
+  invoiceData.grade = ''
 }
 
 onMounted(async () => {

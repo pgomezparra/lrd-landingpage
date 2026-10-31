@@ -142,6 +142,12 @@ const selectAction = async () => {
   }
 }
 
+const appendStudentReference = (observation) => {
+  const studentReference = [props.data.student, props.data.grade].filter(Boolean).join(' - ')
+  if (!studentReference) return observation
+  return observation ? `${observation} (${studentReference})` : studentReference
+}
+
 const sendToBill = async () => {
   if (!validateData()) return
 
@@ -150,7 +156,7 @@ const sendToBill = async () => {
     identification: props.data.identification,
     product_code: product.value,
     price: parseInt(props.data.price),
-    observations: props.data.observations,
+    observations: appendStudentReference(props.data.observations),
     quantity: 1
   }
 
@@ -162,7 +168,7 @@ const sendToBill = async () => {
     if (hasQuantity && hasPrice && hasObservations) {
       invoiceToCreate.quantity = parseInt(quantity.value)
       invoiceToCreate.price = parseInt(price.value)
-      invoiceToCreate.observations = observations.value
+      invoiceToCreate.observations = appendStudentReference(observations.value)
     } else {
       notifications.notify('Debe rellenar todos los campos', 'error')
       return

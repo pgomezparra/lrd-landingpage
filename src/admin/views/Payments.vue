@@ -225,7 +225,9 @@ const invoiceData = reactive({
   identification: '',
   id: 0,
   price: 0,
-  observations: ''
+  observations: '',
+  student: '',
+  grade: ''
 })
 
 const paymentsReversed = computed(() => [...payments.value].reverse())
@@ -376,6 +378,8 @@ const createElectronicInvoice = (payment) => {
   invoiceData.id = payment.getId()
   invoiceData.price = payment.getValue()
   invoiceData.observations = payment.getDescription()
+  invoiceData.student = `${studentsStore.selectedStudent.getName()} ${studentsStore.selectedStudent.getSurname()}`.trim()
+  invoiceData.grade = studentsStore.selectedStudent.getGrade()
   vfm.open('createElectronicInvoiceModal')
 }
 
@@ -384,6 +388,8 @@ const clearInvoice = () => {
   invoiceData.id = 0
   invoiceData.price = 0
   invoiceData.observations = ''
+  invoiceData.student = ''
+  invoiceData.grade = ''
 }
 
 const addPayment = () => {
