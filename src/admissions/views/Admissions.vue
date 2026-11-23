@@ -69,8 +69,8 @@
                 <tbody>
                 <tr>
                   <td>Preescolar</td>
-                  <td>$270.000</td>
-                  <td>$125.000</td>
+                  <td>$280.000</td>
+                  <td>$135.000</td>
                 </tr>
                 <tr>
                   <td>Primaria</td>
